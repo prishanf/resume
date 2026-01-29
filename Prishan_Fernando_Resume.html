@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prishan Fernando — Resume</title>
+    <style>
+      :root {
+        --ink: #111827;
+        --muted: #4b5563;
+        --light: #6b7280;
+        --rule: #e5e7eb;
+        --accent: #1f4bd8;
+        --paper: #ffffff;
+      }
+
+      @page {
+        size: Letter;
+        margin: 0.55in 0.6in;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font: 10.5pt/1.28 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .resume {
+        width: 100%;
+      }
+
+      .top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .name {
+        font-size: 20pt;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        font-weight: 750;
+        margin: 0 0 4px 0;
+      }
+
+      .headline {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11pt;
+        font-weight: 550;
+      }
+
+      .contact {
+        text-align: right;
+        font-size: 10.2pt;
+        color: var(--muted);
+        margin-top: 2px;
+        min-width: 240px;
+      }
+
+      .contact div {
+        margin: 1px 0;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 14px;
+        padding-top: 10px;
+      }
+
+      .section {
+        margin: 0 0 12px 0;
+      }
+
+      .h {
+        font-size: 10.5pt;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--light);
+        margin: 0 0 6px 0;
+        font-weight: 750;
+      }
+
+      .p {
+        margin: 0 0 8px 0;
+        color: var(--ink);
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .small {
+        font-size: 10.2pt;
+      }
+
+      .bullets {
+        margin: 6px 0 0 0;
+        padding-left: 16px;
+      }
+
+      .bullets li {
+        margin: 2px 0;
+      }
+
+      .role {
+        margin: 0 0 10px 0;
+      }
+
+      .role-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .role-title {
+        font-weight: 750;
+        margin: 0;
+        font-size: 11.3pt;
+      }
+
+      .role-meta {
+        margin: 0;
+        color: var(--muted);
+        font-size: 10.2pt;
+        white-space: nowrap;
+      }
+
+      .role-sub {
+        margin: 1px 0 0 0;
+        color: var(--muted);
+        font-size: 10.2pt;
+      }
+
+      .tagrow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 6px;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 9.5pt;
+        color: var(--muted);
+        border: 1px solid var(--rule);
+        border-radius: 999px;
+        padding: 2px 8px;
+        background: #fafafa;
+      }
+
+      .split {
+        border-top: 1px solid var(--rule);
+        margin: 10px 0 0 0;
+        padding-top: 10px;
+      }
+
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+        display: block;
+        margin-top: 0;
+      }
+
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .kpi {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 6px;
+      }
+
+      .kpi-box {
+        border: 1px solid var(--rule);
+        border-radius: 10px;
+        padding: 8px 10px;
+        background: #fbfbff;
+      }
+
+      .kpi-label {
+        margin: 0;
+        font-size: 9.7pt;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--light);
+        font-weight: 750;
+      }
+
+      .kpi-value {
+        margin: 2px 0 0 0;
+        font-size: 12.8pt;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: var(--ink);
+      }
+
+      .kpi-note {
+        margin: 1px 0 0 0;
+        font-size: 9.8pt;
+        color: var(--muted);
+      }
+
+      .quote {
+        border: 1px solid var(--rule);
+        border-radius: 12px;
+        padding: 10px 12px;
+        background: #fcfcfc;
+        margin: 0 0 10px 0;
+      }
+
+      .quote-text {
+        margin: 0;
+        color: var(--ink);
+      }
+
+      .quote-by {
+        margin: 6px 0 0 0;
+        color: var(--muted);
+        font-size: 10pt;
+        font-weight: 650;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="resume" role="document" aria-label="Resume">
+      <header class="top">
+        <div>
+          <h1 class="name">Prishan Fernando</h1>
+          <p class="headline">
+            Director, Global Salesforce • Enterprise / Program Architect • AI-enabled
+            Cloud Transformation
+          </p>
+        </div>
+        <div class="contact">
+          <div>Vancouver, British Columbia, Canada</div>
+          <div>
+            LinkedIn:
+            <a href="https://www.linkedin.com/in/pfernando2/">pfernando2</a>
+          </div>
+          <div>
+            GitHub: <a href="https://github.com/prishanf">github.com/prishanf</a>
+          </div>
+          <div>
+            Trailblazer:
+            <a href="https://trailblazer.me/id/pfernando2">trailblazer.me/id/pfernando2</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <div>
+          <section class="section">
+            <h2 class="h">Summary</h2>
+            <p class="p">
+              Technology leader and hands-on architect with <strong>20+ years</strong>
+              in software development and <strong>12+ years</strong> specializing in
+              Salesforce architecture, delivery, and practice leadership. Known for
+              translating complex business challenges into pragmatic, scalable
+              solutions—across multi-cloud ecosystems, enterprise integrations, and
+              AI-enabled delivery. Recent outcomes include <strong>~70%</strong> effort
+              reduction in migration work through AI-assisted frameworks and an H1 2025
+              utilization average of <strong>93%</strong> (115% peak) vs a 50% target.
+              People-first leader focused on building high-trust teams and developing
+              future architects.
+            </p>
+          </section>
+
+          <section class="section">
+            <h2 class="h">Experience</h2>
+
+            <article class="role">
+              <div class="role-top">
+                <p class="role-title">Slalom — Director, Global Salesforce</p>
+                <p class="role-meta">Jul 2021 – Present</p>
+              </div>
+              <p class="role-sub">Vancouver, BC • Practice leadership • Enterprise architecture</p>
+              <ul class="bullets">
+                <li>
+                  Enterprise Architect for a strategic account, owning cross-cloud
+                  governance, roadmap alignment, and technical risk management; expanded
+                  scope into <strong>AI enablement</strong> and agentic workflows.
+                </li>
+                <li>
+                  Built AI-assisted migration scripting frameworks improving consistency and
+                  cutting manual effort by <strong>~70%</strong>; delivered a reusable
+                  <strong>Salesforce Files & Attachments</strong> migration toolkit
+                  (estimated <strong>200–300 hours</strong> saved per mid-size migration).
+                </li>
+                <li>
+                  Lead Architect for <strong>FCL Sales Cloud + Distributed Marketing</strong>:
+                  designed and delivered a flexible Map Point Management visualization app
+                  across desktop/mobile; productized as an accelerator for retail/agriculture clients.
+                </li>
+                <li>
+                  Lead Architect for <strong>407 Express</strong>: defined multi-year modernization roadmap
+                  and delivered Phase 1 (platform stabilization + data architecture) on time and within budget.
+                </li>
+                <li>
+                  Launched and led an internal <strong>AI Task Team / AI Architecture Community of Practice</strong>
+                  (40+ active members); recruited a cross-functional AI specialty team to scale adoption and win rates.
+                </li>
+                <li>
+                  Conducted <strong>100+ interviews</strong> and built high-performing teams; mentored developers
+                  into architecture and leadership pathways.
+                </li>
+              </ul>
+            </article>
+          </section>
+        </div>
+
+        <aside>
+          <section class="section">
+            <h2 class="h">Core strengths</h2>
+            <div class="tagrow">
+              <span class="tag">Enterprise / Program Architecture</span>
+              <span class="tag">Salesforce (Sales, Service, Experience)</span>
+              <span class="tag">CPQ & Commerce</span>
+              <span class="tag">Integration & Data Migration</span>
+              <span class="tag">SAP & Multi-vendor Ecosystems</span>
+              <span class="tag">Discovery & Roadmaps</span>
+              <span class="tag">AI-assisted Delivery</span>
+              <span class="tag">Servant Leadership</span>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2 class="h">Programs</h2>
+            <ul class="bullets">
+              <li>
+                <strong>Global manufacturing (M&amp;A)</strong>: merged 3 companies into a single Salesforce org and
+                SAP instance; led data modeling, SAP integration extensions, and migration strategy.
+              </li>
+              <li>
+                <strong>E-commerce transformation</strong>: net-new channel integrating Salesforce Commerce + CPQ;
+                deployed to <strong>1,000+ staff</strong> and <strong>18,000+ partners</strong>.
+              </li>
+              <li>
+                <strong>Retail/consumer partner platform</strong>: partner portal + SAP integration + mobile app rolled
+                out to <strong>400,000 partners</strong> worldwide.
+              </li>
+              <li>
+                <strong>Healthcare discovery</strong>: capability mapping, roadmaps, and POCs for provider management
+                (Experience Cloud / Service Cloud / Sales Cloud).
+              </li>
+            </ul>
+          </section>
+
+          <section class="section">
+            <h2 class="h">Education</h2>
+            <p class="p small">
+              <strong>Minnesota State University, Mankato</strong><br />
+              BSc, Computer Science (2003–2006)
+            </p>
+            <p class="p small">
+              <strong>Institute of Technological Studies</strong><br />
+              Diploma, Computer Science (2000–2002)
+            </p>
+          </section>
+        </aside>
+      </section>
+
+      <section class="page-break">
+        <div class="grid">
+          <div>
+            <section class="section">
+              <h2 class="h">Earlier experience</h2>
+
+              <article class="role">
+                <div class="role-top">
+                  <p class="role-title">Slalom — Salesforce Practice Area Lead (Vancouver)</p>
+                  <p class="role-meta">Sep 2019 – Aug 2021</p>
+                </div>
+                <ul class="bullets">
+                  <li>
+                    Led regional capability growth and delivery excellence across Salesforce programs; trusted advisor for technical
+                    architecture, discovery, and solution design.
+                  </li>
+                </ul>
+              </article>
+
+              <article class="role">
+                <div class="role-top">
+                  <p class="role-title">Groundswell Cloud Solutions — Director of Development Services</p>
+                  <p class="role-meta">Jan 2019 – Aug 2021</p>
+                </div>
+                <p class="role-sub">Previously: Development Manager • Team Lead Manager • Technical Solutions Architect</p>
+                <ul class="bullets">
+                  <li>
+                    Built and led delivery teams, overseeing solution design and delivery for Salesforce-based programs.
+                  </li>
+                </ul>
+              </article>
+
+              <article class="role">
+                <div class="role-top">
+                  <p class="role-title">TELUS — Sr. Developer Analyst</p>
+                  <p class="role-meta">Jan 2013 – Jul 2016</p>
+                </div>
+                <p class="role-sub">Burnaby, BC • Salesforce / Force.com</p>
+                <ul class="bullets">
+                  <li>
+                    Delivered Salesforce applications for SMB, including mapping/directions for Accounts & Opportunities,
+                    org hierarchy management, and approval workflows based on organizational thresholds.
+                  </li>
+                  <li>
+                    Built reusable generic components (e.g., configurable multi-select related list utilities) and supported
+                    integrations with Apttus and DocuSign; implemented deployment automation using Ant scripts.
+                  </li>
+                </ul>
+              </article>
+
+              <article class="role">
+                <div class="role-top">
+                  <p class="role-title">HSBC Software House — Consultant</p>
+                  <p class="role-meta">Jul 2010 – Dec 2012</p>
+                </div>
+                <ul class="bullets">
+                  <li>
+                    Lead application designer/developer for trade and supply chain systems across staff and customer channels;
+                    conducted peer design/code reviews, demos, and production issue troubleshooting.
+                  </li>
+                  <li>
+                    Specialized in multi-version enterprise applications under J2EE stacks and single sign-on integrations with
+                    third-party systems.
+                  </li>
+                </ul>
+              </article>
+
+              <article class="role">
+                <div class="role-top">
+                  <p class="role-title">HSBC Canada — Senior Analyst</p>
+                  <p class="role-meta">Apr 2009 – Jul 2010</p>
+                </div>
+                <ul class="bullets">
+                  <li>
+                    Led design and delivery of global trade and supply platforms; provided leadership to engineering teams across
+                    Canada, UK, Hong Kong, US, China, and India.
+                  </li>
+                </ul>
+              </article>
+
+              <article class="role">
+                <div class="role-top">
+                  <p class="role-title">HSBC — Analyst</p>
+                  <p class="role-meta">Jul 2006 – Apr 2009</p>
+                </div>
+                <ul class="bullets">
+                  <li>
+                    Built and maintained multi-country, multi-version enterprise web applications supporting international corporate
+                    and in-country customers.
+                  </li>
+                </ul>
+              </article>
+            </section>
+
+            <section class="section split">
+              <h2 class="h">Notable highlights</h2>
+              <ul class="bullets">
+                <li>
+                  Led Quote-to-Cash discovery and architecture blueprint to secure new sales worth
+                  <strong>over $4M</strong> (2023).
+                </li>
+                <li>
+                  Regularly recognized for translating complex architecture into clear, actionable guidance for non-technical stakeholders.
+                </li>
+              </ul>
+            </section>
+          </div>
+
+          <aside>
+            <section class="section">
+              <h2 class="h">Certifications</h2>
+              <div class="cols">
+                <ul class="bullets">
+                  <li>Salesforce Certified AI Associate</li>
+                  <li>Salesforce Certified Experience Cloud Consultant</li>
+                  <li>Salesforce Certified Business Analyst</li>
+                  <li>Salesforce Certified Administrator</li>
+                  <li>Salesforce Certified Platform Developer</li>
+                  <li>Development Lifecycle &amp; Deployment Designer</li>
+                </ul>
+                <ul class="bullets">
+                  <li>GitHub Copilot (Microsoft)</li>
+                  <li>Certified ScrumMaster (CSM)</li>
+                  <li>Workato Automation Pro I &amp; II</li>
+                  <li>Trailhead: Agentforce Service Superbadge</li>
+                  <li>Trailhead: Prompt Builder Templates Superbadge</li>
+                  <li>Apex Specialist Superbadge</li>
+                </ul>
+              </div>
+              <p class="p small muted" style="margin-top: 8px">
+                Full certification history available on request.
+              </p>
+            </section>
+
+            <section class="section">
+              <h2 class="h">Recognition</h2>
+              <ul class="bullets">
+                <li>Agentblazer Innovator (2025)</li>
+                <li>Salesforce Double Star Ranger</li>
+                <li>Multiple People First Award nominations</li>
+                <li>Mogul Award winner • Trail Boss Award winner</li>
+              </ul>
+            </section>
+
+            <section class="section">
+              <h2 class="h">Tech snapshot</h2>
+              <p class="p small">
+                Salesforce (Sales, Service, Experience, PRM, CPQ, Commerce, Agentforce) •
+                Integration (SAP, custom APIs, MuleSoft, Workato) •
+                Web (React, Next.js, Vue/Nuxt) •
+                Data (migration strategy, quality, automation) •
+                AI (LLMs, prompt-driven automation, agentic workflows)
+              </p>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page-break">
+        <div class="grid">
+          <div>
+            <section class="section">
+              <h2 class="h">Recommendations</h2>
+
+              <div class="quote">
+                <p class="quote-text">
+                  “I had the pleasure to work with Prishan and his team to implement Salesforce B2B, CPQ and Communities at
+                  Motorola. Prishan is an accomplished Salesforce System Architect… collaborative… and has always gone above
+                  and beyond in delivering scalable solutions.”
+                </p>
+                <p class="quote-by">— Yi Zho, Senior Director</p>
+              </div>
+
+              <div class="quote">
+                <p class="quote-text">
+                  “Prishan is not only a Technical Guru but an exceptional leader and mentor… he spends significant time coaching
+                  and upskilling his team members… always keen to talk about the latest trends and… build amazing solutions.”
+                </p>
+                <p class="quote-by">— Vsav Pathak, Senior Manager</p>
+              </div>
+
+              <div class="quote">
+                <p class="quote-text">
+                  “From our first interview… Prishan… saw unrealized potential and fostered growth… I owe so much of my
+                  professional career growth to Prishan's mentoring and leadership.”
+                </p>
+                <p class="quote-by">— Williams Mathew, CTO</p>
+              </div>
+
+              <div class="quote">
+                <p class="quote-text">
+                  “Prishan is one of those very unique individuals you meet once in a lifetime… genuine positivity, personal values,
+                  and care for others… provided opportunities and mentorship to allow others… to thrive and grow.”
+                </p>
+                <p class="quote-by">— Pei Huang, CTO</p>
+              </div>
+            </section>
+          </div>
+
+          <aside>
+            <section class="section">
+              <h2 class="h">Team feedback (Slalom)</h2>
+              <div class="quote">
+                <p class="quote-text">
+                  “Prishan is one of those leaders who promotes the growth of everyone around him. He is supportive,
+                  encouraging, and often strives to create opportunities for growth.”
+                </p>
+                <p class="quote-by">— Peer feedback (2024 review)</p>
+              </div>
+              <div class="quote">
+                <p class="quote-text">
+                  “He is very person-oriented and treats us as capable equals… pushes us to learn new things, at and out of work.”
+                </p>
+                <p class="quote-by">— Team feedback (2024 review)</p>
+              </div>
+              <div class="quote">
+                <p class="quote-text">
+                  “A wonderful leader and a true mentor… depth of technical knowledge is huge, and he manages to break complex
+                  solutions into easily understandable concepts.”
+                </p>
+                <p class="quote-by">— Team feedback (2024 review)</p>
+              </div>
+            </section>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
