@@ -21,6 +21,7 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   app: {
+    baseURL: '/resume/',
     head: {
       htmlAttrs: {
         lang: 'en'
