@@ -1,9 +1,12 @@
 ---
 recommendations:
+  - quote: "Your generous and rapid sharing of AI expertise has made a profound impact on me and has meaningfully accelerated my confidence in applying AI across day-to-day work. You consistently show up for your team in ways that far exceed expectations. The trust and connection you cultivate — and the way you empower people to succeed — is truly exceptional. Your constant lens of “What would I need if I were the client?” has significantly shaped and elevated the solution at iA. I’m genuinely grateful for everything you bring and everything you do!"
+    author: "Sneha Mandewar"
+
   - quote: "I had the pleasure to work with Prishan and his team to implement Salesforce B2B, CPQ and Communities at Motorola. Prishan is an accomplished Salesforce System Architect. He is instrumental in the design and development of our eCommerce platform which enabled an automated and near touchless Quote to Cash flow. Prishan is collaborative in his approach and has always gone above and beyond in delivering scalable solutions. I would highly recommend his work."
     author: "Yi Zho"
     title: "Senior Director"
-    
+
   - quote: "My People Leader, Prishan, is a true 'people first' leader. He makes me feel empowered and cares about my growth. I can openly discuss any concerns I have. He has been a tremendous booster of my growth and career. Prishan provides us with a vision of what the future will look like and encourages us to explore."
     author: "Brad Jackson"
     title: "CEO Slalom"  
