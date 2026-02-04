@@ -30,8 +30,26 @@ description: Employment history and professional experience spanning 20+ years
 ### Groundswell Cloud Solutions — Vancouver, Canada
 
 #### Director of Development Services — Jan 2019–Aug 2021
+
+- **Strategic Leadership**: Led and provided vision for a department of **35+ team members**, growing a highly skilled development team from the ground up.
+- **Talent Development**: Ran Salesforce training cohorts to provide hands-on experience; championed a culture of growth where interns evolved into respected leaders.
+- **Project Oversight**: Managed delivery across all development projects, overseeing utilization targets, employee engagement, and technical quality.
+- **Scale & Complexity**: Successfully delivered large-volume implementations with **200K+ users**, handling complex data strategies and high-traffic environments.
+- **Hiring & Mentorship**: Conducted technical interviews to identify unrealized potential; recognized for fostering a supportive environment ("Live and Learn") that lifted individuals to greater heights.
+
 #### Development Manager — Mar 2018–Dec 2018
+
+- **Team Leadership**: Oversaw and led a team of **8+ developers**, acting as a bridge between technical execution and project management.
+- **Technical Architecture**: Served as key Technical and Solution Architect, providing oversight for large-scale retail projects and complex digital transformations.
+- **Custom Solutions**: Supported highly complex, branded custom solutions on the Salesforce platform, ensuring scalability and performance.
+- **Client Engagement**: Managed engagements with a focus on solving problems and delivering strong, reliable solutions.
+
 #### Team Lead Manager — Oct 2017–Mar 2018
+
+- **Technical + People Lead**: Operated as Technical Architect, Lead Developer, and Team Manager for **4+ team members**.
+- **Engineering Excellence**: Implemented **Separation of Concerns** design patterns and established frameworks to standardize custom Salesforce solutions.
+- **Innovation**: Integrated latest technology innovations into delivery, ensuring teams stayed ahead of the curve.
+
 #### Technical Solutions Architect — Jul 2016–Feb 2017
 
 - Designed, built, and delivered cloud solutions on Salesforce / Force.com.

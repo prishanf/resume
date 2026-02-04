@@ -1,6 +1,6 @@
 ---
 recommendations:
-  - quote: "Prishan is an accomplished Salesforce System Architect… collaborative… and has always gone above and beyond in delivering scalable solutions."
+  - quote: "I had the pleasure to work with Prishan and his team to implement Salesforce B2B, CPQ and Communities at Motorola. Prishan is an accomplished Salesforce System Architect. He is instrumental in the design and development of our eCommerce platform which enabled an automated and near touchless Quote to Cash flow. Prishan is collaborative in his approach and has always gone above and beyond in delivering scalable solutions. I would highly recommend his work."
     author: "Yi Zho"
     title: "Senior Director"
 
@@ -8,9 +8,7 @@ recommendations:
     author: "Vsav Pathak"
     title: "Senior Manager"
 
-  - quote: "Prishan is one of those leaders who promotes the growth of everyone around him. He is supportive, encouraging, and often strives to create opportunities for growth."
-    author: "Pei Houng"
-    title: "2024 review"
+
   
   - quote: "A wonderful leader and a true mentor… depth of technical knowledge is huge, and he manages to break complex solutions into easily understandable concepts."
     author: "Team feedback"
