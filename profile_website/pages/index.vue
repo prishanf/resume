@@ -122,15 +122,23 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <SummaryCard
-            v-for="card in summaryCards"
+          <div
+            v-for="(card, index) in summaryCards"
             :key="card.title"
-            :title="card.title"
-            :description="card.description"
-            :icon="card.icon"
-            :metrics="card.metrics"
-            :link="card.link"
-          />
+            :class="[
+              index === summaryCards.length - 1 && summaryCards.length % 3 === 1
+                ? 'md:col-span-2 lg:col-span-3'
+                : ''
+            ]"
+          >
+            <SummaryCard
+              :title="card.title"
+              :description="card.description"
+              :icon="card.icon"
+              :metrics="card.metrics"
+              :link="card.link"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -142,7 +150,10 @@
           <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Endorsements</h2>
           <h3 class="text-4xl md:text-5xl font-bold text-primary">What People <br/>Actually Say.</h3>
         </div>
-        <Recommendations :recommendations="recommendations" />
+        <Recommendations
+          :recommendations="featuredRecommendations"
+          :show-view-more="recommendations.length > featuredRecommendations.length"
+        />
       </div>
     </section>
   </div>
@@ -156,7 +167,9 @@ import {
   UserGroupIcon,
   ChartBarIcon,
   SparklesIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  CodeBracketIcon,
+  RocketLaunchIcon
 } from '@heroicons/vue/24/outline'
 
 // Explicitly import components to ensure they're available
@@ -174,7 +187,9 @@ const iconMap = {
   SparklesIcon,
   TrophyIcon,
   ChartBarIcon,
-  AcademicCapIcon
+  AcademicCapIcon,
+  CodeBracketIcon,
+  RocketLaunchIcon
 }
 
 // Fetch the summary cards from markdown frontmatter/content
@@ -246,6 +261,12 @@ const { data: recommendationsContent } = await useAsyncData('recommendations', (
 const recommendations = computed(() => {
   // Extract recommendations from markdown frontmatter
   return recommendationsContent.value?.recommendations || []
+})
+
+const featuredRecommendations = computed(() => {
+  const all = recommendations.value
+  const featured = all.filter(r => r.featured === true)
+  return featured.length > 0 ? featured : all.slice(0, 2)
 })
 
 useHead({
