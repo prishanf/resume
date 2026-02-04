@@ -322,7 +322,7 @@ const recommendations = computed(() => {
 const featuredRecommendations = computed(() => {
   const all = recommendations.value
   const featured = all.filter(r => r.featured === true)
-  return featured.length > 0 ? featured : all.slice(0, 2)
+  return featured.length > 0 ? featured : all.slice(0, 4)
 })
 
 useHead({
