@@ -143,6 +143,9 @@
       </div>
     </section>
     
+    <!-- Career Timeline Section -->
+    <CareerTimeline :timeline-data="timelineData" />
+    
     <!-- Recommendations Section -->
     <section v-if="recommendations && recommendations.length > 0" class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -175,6 +178,7 @@ import {
 // Explicitly import components to ensure they're available
 import SummaryCard from '~/components/Sections/SummaryCard.vue'
 import Recommendations from '~/components/Sections/Recommendations.vue'
+import CareerTimeline from '~/components/Sections/CareerTimeline.vue'
 
 const { data: summary } = await useAsyncData('summary', () => queryContent('/summary').findOne())
 
@@ -204,6 +208,58 @@ const summaryCards = computed(() => {
     icon: iconMap[card.icon] || BriefcaseIcon // fallback icon
   }))
 })
+
+// Fetch and parse experience data for timeline
+const { data: experienceRaw } = await useAsyncData('experience-timeline', () => 
+  queryContent('/experience').findOne()
+)
+
+// Parse experience data into timeline format
+const { parseExperienceToTimeline } = useCareerTimeline()
+const timelineData = computed(() => {
+  if (!experienceRaw.value) return []
+  
+  // Parse the experience content - handle both string and object formats
+  const content = typeof experienceRaw.value === 'string' 
+    ? experienceRaw.value 
+    : experienceRaw.value.body?.children 
+      ? extractTextFromBody(experienceRaw.value.body)
+      : ''
+  
+  return parseExperienceToTimeline(content || experienceRaw.value)
+})
+
+// Helper function to extract text from Nuxt Content body structure
+function extractTextFromBody(body) {
+  if (!body || !body.children) return ''
+  
+  let text = ''
+  body.children.forEach(child => {
+    if (child.type === 'text') {
+      text += child.value + '\n'
+    } else if (child.type === 'element') {
+      if (child.tag === 'h3' || child.tag === 'h4') {
+        text += extractTextFromElement(child) + '\n'
+      } else if (child.tag === 'ul' || child.tag === 'p') {
+        text += extractTextFromElement(child) + '\n'
+      }
+    }
+  })
+  
+  return text
+}
+
+function extractTextFromElement(element) {
+  if (element.type === 'text') {
+    return element.value || ''
+  }
+  
+  if (element.children) {
+    return element.children.map(child => extractTextFromElement(child)).join('')
+  }
+  
+  return ''
+}
 
 // The data for the cards is now stored in profile_website/content/summary-cards.md:
 // ---
