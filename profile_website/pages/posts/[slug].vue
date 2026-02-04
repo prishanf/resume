@@ -200,4 +200,16 @@ const formatDate = (dateString) => {
   @apply rounded-2xl shadow-xl;
   border: none;
 }
+
+:deep(.prose pre) {
+  @apply bg-white border border-gray-200 rounded-lg p-4 my-6 overflow-x-auto;
+}
+
+:deep(.prose code) {
+  @apply bg-white border border-gray-200 rounded px-2 py-1 text-sm;
+}
+
+:deep(.prose pre code) {
+  @apply bg-transparent border-none p-0;
+}
 </style>

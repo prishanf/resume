@@ -16,6 +16,12 @@ export default {
         accent: '#E8C16D',
         inverse: '#F0F0F0',
       },
+      // colors: {
+      //   primary: '#F3E9F5',
+      //   secondary: '#936B9E',
+      //   accent: '#9E8056',
+      //   inverse: '#D4AF37',
+      // },
       fontFamily: {
         sans: ['Inter', 'Futura PT', 'system-ui', 'sans-serif'],
       },
