@@ -51,9 +51,6 @@
           <div v-if="error" class="text-xs text-red-500 mt-4">
             Error: {{ error.message }}
           </div>
-          <div v-else class="text-xs text-gray-400 mt-4">
-            Debug: posts = {{ posts ? JSON.stringify(posts.length) : 'null' }}
-          </div>
         </div>
       </div>
     </section>
@@ -87,12 +84,6 @@ const { data: posts, pending, error } = await useAsyncData('posts', async () => 
         .find()
     }
     
-    console.log('Posts query result:', result)
-    console.log('Posts count:', result?.length)
-    if (result && result.length > 0) {
-      console.log('First post:', result[0])
-    }
-    
     return result || []
   } catch (err) {
     console.error('Error fetching posts:', err)
@@ -104,14 +95,6 @@ const { data: posts, pending, error } = await useAsyncData('posts', async () => 
 if (error.value) {
   console.error('Error in useAsyncData:', error.value)
 }
-
-// Debug: Log posts data
-watchEffect(() => {
-  if (posts.value) {
-    console.log('Posts reactive data:', posts.value)
-    console.log('Posts reactive count:', posts.value?.length)
-  }
-})
 
 useHead({
   title: 'Blog Posts - Prishan Fernando',

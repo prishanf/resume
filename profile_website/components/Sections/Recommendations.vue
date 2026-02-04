@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="columns-1 md:columns-2 gap-6 lg:gap-8">
-      <Card
+      <UICard
         v-for="(rec, index) in recommendations"
         :key="index"
         variant="bordered"
@@ -17,7 +17,7 @@
             </div>
           </footer>
         </blockquote>
-      </Card>
+      </UICard>
     </div>
     <div v-if="showViewMore" class="mt-12 text-center">
       <NuxtLink

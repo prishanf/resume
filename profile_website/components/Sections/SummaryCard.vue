@@ -1,5 +1,5 @@
 <template>
-  <Card :hover="true" class="summary-card h-full group transition-all duration-500 overflow-hidden relative flex flex-col border border-primary/20 rounded-xl bg-gradient-to-br from-white via-primary/[0.04] to-primary/10 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+  <UICard :hover="true" class="summary-card h-full group transition-all duration-500 overflow-hidden relative flex flex-col border border-primary/20 rounded-xl bg-gradient-to-br from-white via-primary/[0.04] to-primary/10 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300">
     <!-- Top Accent Bar -->
     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-accent transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500 rounded-t-xl"></div>
     
@@ -37,7 +37,7 @@
         <ArrowRightIcon class="w-3.5 h-3.5 ml-2 transform group-hover:translate-x-2 transition-transform duration-300" />
       </NuxtLink>
     </div>
-  </Card>
+  </UICard>
 </template>
 
 <script setup>
@@ -53,7 +53,7 @@ const props = defineProps({
     required: true
   },
   icon: {
-    type: Object,
+    type: [Object, Function],
     required: true
   },
   iconBgClass: {
