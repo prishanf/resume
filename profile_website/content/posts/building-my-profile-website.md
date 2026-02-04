@@ -83,12 +83,19 @@ Each iteration built upon the previous one, with AI handling the boilerplate whi
 - Outline and solid variants
 - Tree-shakeable (only imports what you use)
 
+**Google Fonts** (`@nuxtjs/google-fonts ^3.0.2`)
+- Optimized font loading via Nuxt module
+- Inter font family with weights 400, 500, 600, 700
+- Prefetch, preconnect, and preload enabled for performance
+
 ### Development Tools
 
 - **TypeScript**: Type-safe development
 - **ESLint**: Code quality
 - **PostCSS**: CSS processing
 - **Vite**: Lightning-fast build tool (bundled with Nuxt)
+- **Sharp**: High-performance image compression for build optimization
+- **Glob**: File pattern matching for automated image processing
 
 ---
 
@@ -111,9 +118,12 @@ content/
 ├── education.md          # Educational background
 ├── certifications.md     # Certifications list
 ├── summary-cards.md      # Landing page cards data
+├── summary.md            # Hero section summary
+├── recommendations.md    # Peer endorsements and testimonials
 ├── posts/                # Blog posts
 │   ├── welcome.md
 │   ├── ai-cloud-transformation.md
+│   ├── building-my-profile-website.md
 │   └── ...
 └── evidence/             # Yearly evidence files
     ├── 2025.md
@@ -247,6 +257,9 @@ Reusable components ensure consistency:
 
 - **Hero Section**: Gradient backgrounds, animated elements, CTA buttons
 - **Summary Cards**: Metrics display with icons
+- **Career Timeline**: Visual vertical timeline showing career progression with milestones
+- **Milestone Cards**: Individual career milestone displays with promotions and achievements
+- **Recommendations**: Peer endorsements with "View All" functionality
 - **Timeline Component**: Visual employment history
 - **Certifications Grid**: Visual grid layout
 - **Post Cards**: Blog post previews with images
@@ -395,6 +408,25 @@ Prominent download buttons throughout the site:
 - Header navigation
 - Direct link to `/resume.pdf`
 
+### 6. **Career Timeline**
+
+A visually stunning career progression display:
+- Vertical timeline layout with color-coded milestones
+- `CareerTimeline.vue` component for the main timeline structure
+- `MilestoneCard.vue` for individual achievements and promotions
+- `useCareerTimeline.js` composable that parses experience data into a structured format
+- Highlights key career milestones, role transitions, and achievements
+- Responsive design that adapts beautifully to mobile
+
+### 7. **Endorsements & Recommendations**
+
+Social proof through peer testimonials:
+- `Recommendations.vue` component showing featured endorsements on the home page
+- Dedicated `/endorsements` page displaying all testimonials
+- Content managed via `recommendations.md` with structured frontmatter
+- "View All Endorsements" link for easy navigation
+- Displays colleague name, title, relationship, and full recommendation text
+
 ---
 
 ## Performance & SEO
@@ -409,9 +441,58 @@ Prominent download buttons throughout the site:
 ### Optimizations
 
 - **Code Splitting**: Nuxt automatically splits code by route
-- **Image Optimization**: Images served from `public/` directory
+- **Image Optimization**: Automated compression pipeline (see below)
 - **CSS Purging**: Tailwind removes unused styles
 - **Minification**: Production builds are minified and optimized
+- **Google Fonts**: Integrated via `@nuxtjs/google-fonts` module with prefetch, preconnect, and preload for optimal loading
+
+---
+
+## Image Compression Pipeline
+
+### The Problem
+
+Large images can significantly slow down page load times. With multiple hero images, blog post images, and profile photos, the site's image payload was becoming a performance concern.
+
+### The Solution: Automated Compression
+
+I built a custom image compression script using **Sharp** that runs automatically before every build:
+
+```javascript
+// scripts/compress_images.mjs
+import sharp from 'sharp';
+import { glob } from 'glob';
+
+const MAX_WIDTH = 1920; // 1080p+
+const SIZE_THRESHOLD = 500 * 1024; // 500KB
+
+// Process images larger than 500KB
+// Resize to max 1920px width
+// Apply format-specific compression (JPEG: mozjpeg, PNG: palette optimization)
+```
+
+### How It Works
+
+1. **Automatic Trigger**: The compression script runs before `build` and `generate`:
+   ```json
+   "scripts": {
+     "build": "npm run compress && nuxt build",
+     "generate": "npm run compress && nuxt generate",
+     "compress": "node scripts/compress_images.mjs"
+   }
+   ```
+
+2. **Smart Processing**: Only images over 500KB are processed, avoiding unnecessary re-compression
+
+3. **Format-Aware Optimization**:
+   - **JPEG/JPG**: Uses mozjpeg encoder at 80% quality
+   - **PNG**: Applies palette optimization with compression level 9
+
+4. **Size Protection**: Only saves if compression actually reduced file size
+
+### Results
+
+The pipeline typically achieves **50-70% reduction** in image file sizes while maintaining visual quality, significantly improving page load times.
 
 ---
 
