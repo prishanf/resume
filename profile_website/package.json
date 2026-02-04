@@ -3,20 +3,23 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "npm run compress && nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "npm run compress && nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "compress": "node scripts/compress_images.mjs"
   },
   "dependencies": {
-    "nuxt": "^3.12.0",
-    "@nuxt/content": "^2.12.0",
     "@heroicons/vue": "^2.1.0",
-    "@nuxtjs/google-fonts": "^3.0.2"
+    "@nuxt/content": "^2.12.0",
+    "@nuxtjs/google-fonts": "^3.0.2",
+    "nuxt": "^3.12.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.12.0",
+    "glob": "^13.0.1",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.0"
   }
 }
