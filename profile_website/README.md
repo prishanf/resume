@@ -102,13 +102,31 @@ The site uses a custom color palette:
 
 Colors can be customized in `tailwind.config.js`.
 
-## Deployment
+## Analytics (traffic & page usage)
 
-The site can be deployed to any static hosting service:
+The site uses **Google Analytics 4 (GA4)** for traffic and per-page usage via [nuxt-gtag](https://nuxt.com/modules/gtag). When configured, you get:
 
-- **Vercel**: Connect your GitHub repo
-- **Netlify**: Drag and drop the `.output/public` folder
-- **GitHub Pages**: Use GitHub Actions to build and deploy
+- **Traffic**: visitors, sessions, geographic data, devices
+- **Page usage**: which pages are viewed (Reports → Engagement → Pages and screens)
+
+### Setup
+
+1. **Create a GA4 property** (if you don’t have one):
+   - Go to [Google Analytics](https://analytics.google.com/) → Admin → Create property
+   - Add a **Web** data stream for your site URL and copy the **Measurement ID** (e.g. `G-XXXXXXXXXX`).
+
+2. **Enable page-change tracking** (for client-side navigation):
+   - In GA4: Admin → Data Streams → your web stream → **Enhanced measurement**
+   - Turn on **“Page changes based on browser history events”**.
+
+3. **Set the Measurement ID**:
+   - **Local / build**: create a `.env` in `profile_website/` with:
+     ```bash
+     NUXT_PUBLIC_GTAG_ID=G-XXXXXXXXXX
+     ```
+   - **GitHub Pages**: In your repo go to **Settings → Secrets and variables → Actions**, add a **Variable** named `NUXT_PUBLIC_GTAG_ID` with your measurement ID. The deploy workflow already passes this into the build.
+
+Analytics only runs when `NUXT_PUBLIC_GTAG_ID` is set and in production (not in `npm run dev`).
 
 ## License
 

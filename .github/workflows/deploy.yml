@@ -33,6 +33,9 @@ jobs:
       - name: Generate Static Site
         run: npm run generate
         working-directory: profile_website
+        env:
+          # Optional: add NUXT_PUBLIC_GTAG_ID in repo Actions variables for GA4
+          NUXT_PUBLIC_GTAG_ID: ${{ vars.NUXT_PUBLIC_GTAG_ID }}
 
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3

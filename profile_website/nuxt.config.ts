@@ -2,12 +2,20 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  
+
   modules: [
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/google-fonts'
+    '@nuxtjs/google-fonts',
+    'nuxt-gtag'
   ],
+
+  // Google Analytics 4: set NUXT_PUBLIC_GTAG_ID (e.g. G-XXXXXXXXXX) to enable.
+  // In GA4: Admin → Data Streams → your web stream → enable "Page changes based on browser history events".
+  gtag: {
+    id: process.env.NUXT_PUBLIC_GTAG_ID || '',
+    enabled: !!process.env.NUXT_PUBLIC_GTAG_ID && process.env.NODE_ENV === 'production'
+  },
 
   googleFonts: {
     families: {
