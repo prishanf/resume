@@ -11,21 +11,27 @@ description: Employment history and professional experience spanning 20+ years
 
 #### Director, Global Salesforce (Permanent, Full-time) — Jul 2021–Present
 
-- **Practice + team building**: grew and led high-performing teams; conducted **100+ interviews**; created growth pathways from developer → architect.
-- **Enterprise architecture**: led cross-cloud governance, roadmap alignment, and technical risk management for strategic accounts.
-- **AI + delivery acceleration (2025)**:
-  - Built AI-assisted data migration scripting frameworks that reduced manual effort by **~70%**.
-  - Delivered reusable toolkits (e.g., Salesforce Files & Attachments migration toolkit; estimated **200–300 hours** saved per mid-size migration).
-  - Launched and led an internal AI Task Team / AI Architecture community of practice (**40+ members**).
-- **Selected program highlights** (from profile decks):
-  - Global manufacturing M&A: merged 3 companies into a single Salesforce org + SAP instance; led data modeling, integrations, migrations.
-  - E-commerce transformation integrating Salesforce Commerce + CPQ; deployed to **1,000+ staff** and **18,000+ partners**.
-  - Partner platform rolled out to **400,000 partners** worldwide.
+**Strategic Leadership & Practice Growth**
+- **Scaled the Practice**: Grew the Salesforce technical team from the ground up to **11+ members** in the first year, conducting **33+ technical interviews** to maintain a high talent bar.
+- **"People First" Mentorship**: Recognized as a leader who sees "unrealized potential," fostering a culture where interns evolve into architects. Initiated internal projects (e.g., Real Estate Management app) to keep bench resources engaged and upskilled.
+- **Sales Enablement**: Partnered with sales teams to secure major wins, including leading the discovery for a **$4M+ Quote-to-Cash engagement** at MSI.
+
+**Enterprise Architecture & Complex Delivery**
+- **Avigilon (Motorola Solutions) Fusion X**: Served as **Program Architect** for a multi-brand CRM consolidation. Led cross-cloud governance, integration strategy, and data migration for a massive org merger.
+  - *Stakeholder Feedback*: "Without Prishan... there would be no Avigilon."
+- **Rockwell Automation & Fraser Health**: Led technical architecture streams for high-stakes discoveries. Designed data models and delivered "confidence-inspiring" demos that translated complex tech into business value for non-technical stakeholders.
+- **Investors Group (IG) Secure File Exchange**: Delivered a high-impact secure file upload solution, bridging gap between complex security requirements and user experience.
+
+**Innovation & AI Acceleration**
+- **AI-Driven Delivery (2025)**: Spearheaded an internal AI Task Team to modernize delivery:
+  - Built **AI-assisted data migration frameworks** reducing manual scripting effort by **~70%**.
+  - Developed reusable toolkits for Salesforce Files migration, saving estimated **200–300 hours** per project.
+- **Emerging Tech**: Continuously expanded practice capabilities into **B2B Lightning**, **Salesforce Industries** (Non-profit, Financial Services), and **Workato** automation.
 
 #### Salesforce Practice Area Lead (Vancouver) — Sep 2019–Aug 2021
 
-- Led regional capability growth and delivery excellence across Salesforce programs.
-- Established team standards and quality via mentoring, architecture guidance, and technical reviews.
+- **Regional Growth**: Led capability growth for the Vancouver Salesforce practice, establishing delivery standards and technical excellence.
+- **Quality Assurance**: Implemented rigorous code review processes and architecture guidance, ensuring scalable solutions for enterprise clients.
 
 ### Groundswell Cloud Solutions — Vancouver, Canada
 

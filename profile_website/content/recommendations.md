@@ -3,6 +3,10 @@ recommendations:
   - quote: "I had the pleasure to work with Prishan and his team to implement Salesforce B2B, CPQ and Communities at Motorola. Prishan is an accomplished Salesforce System Architect. He is instrumental in the design and development of our eCommerce platform which enabled an automated and near touchless Quote to Cash flow. Prishan is collaborative in his approach and has always gone above and beyond in delivering scalable solutions. I would highly recommend his work."
     author: "Yi Zho"
     title: "Senior Director"
+    
+  - quote: "My People Leader, Prishan, is a true 'people first' leader. He makes me feel empowered and cares about my growth. I can openly discuss any concerns I have. He has been a tremendous booster of my growth and career. Prishan provides us with a vision of what the future will look like and encourages us to explore."
+    author: "Brad Jackson"
+    title: "CEO Slalom"  
 
   - quote: "Prishan is not only a Technical Guru but an exceptional leader and mentor. He guides,   encourages and provides the right platform for his team members to learn and grow. Additionally, he spends significant amount of time coaching and upskilling his team members. Prishan is a technology enthusiast and is always keen to talk about the latest trends and even goes a step further to build amazing solutions, for real life use cases, using latest tools/technologies.Working with Prishan is not just super fun but also learning & growing professionally and personally every single day! Thank you Prishan for all that you do."
     author: "Vsav Pathak"
@@ -14,9 +18,7 @@ recommendations:
     author: "Team feedback"
     title: "2024 review"
  
-  - quote: "My People Leader, Prishan, is a true 'people first' leader. He makes me feel empowered and cares about my growth. I can openly discuss any concerns I have. He has been a tremendous booster of my growth and career. Prishan provides us with a vision of what the future will look like and encourages us to explore."
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+
 
   - quote: "My People Leader, Prishan, has a team of around 10-13 people, including my team. Since 2023, we have aligned that we want to do something about our team culture and connect us together. I appreciate Prishan's efforts to hold recurring leadership meetings and create opportunities and events for our team members to gather and connect. It has made our team better, run smoother, and get to know each other. Thank you for encouraging our team members to adapt, grow, and reinvent themselves. You are paving the way for a brighter future"
     author: "Brad Jackson"
