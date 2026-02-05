@@ -10,11 +10,11 @@ export default defineNuxtConfig({
     'nuxt-gtag'
   ],
 
-  // Google Analytics 4: set NUXT_PUBLIC_GTAG_ID (e.g. G-XXXXXXXXXX) to enable.
+  // Google Analytics 4 for prishanfernando.com. Override with NUXT_PUBLIC_GTAG_ID if needed.
   // In GA4: Admin → Data Streams → your web stream → enable "Page changes based on browser history events".
   gtag: {
-    id: process.env.NUXT_PUBLIC_GTAG_ID || '',
-    enabled: !!process.env.NUXT_PUBLIC_GTAG_ID && process.env.NODE_ENV === 'production'
+    id: process.env.NUXT_PUBLIC_GTAG_ID || 'G-YL972QXHJ1',
+    enabled: process.env.NODE_ENV === 'production'
   },
 
   googleFonts: {
