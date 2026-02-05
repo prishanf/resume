@@ -104,7 +104,7 @@ Colors can be customized in `tailwind.config.js`.
 
 ## Analytics (traffic & page usage)
 
-The site uses **Google Analytics 4 (GA4)** for traffic and per-page usage via [nuxt-gtag](https://nuxt.com/modules/gtag). When configured, you get:
+The site uses **Google Analytics 4 (GA4)** for traffic and per-page usage. The gtag script is included in the static HTML (see `nuxt.config.ts` → `app.head.script`). You get:
 
 - **Traffic**: visitors, sessions, geographic data, devices
 - **Page usage**: which pages are viewed (Reports → Engagement → Pages and screens)

@@ -6,16 +6,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/content',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/google-fonts',
-    'nuxt-gtag'
+    '@nuxtjs/google-fonts'
   ],
-
-  // Google Analytics 4 for prishanfernando.com. Override with NUXT_PUBLIC_GTAG_ID if needed.
-  // In GA4: Admin → Data Streams → your web stream → enable "Page changes based on browser history events".
-  gtag: {
-    id: process.env.NUXT_PUBLIC_GTAG_ID || 'G-YL972QXHJ1',
-    enabled: process.env.NODE_ENV === 'production'
-  },
 
   googleFonts: {
     families: {
@@ -55,6 +47,15 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'canonical', href: 'https://prishanfernando.com' }
+      ],
+      script: [
+        {
+          async: true,
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-YL972QXHJ1'
+        },
+        {
+          innerHTML: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YL972QXHJ1');"
+        }
       ]
     }
   }
