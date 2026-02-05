@@ -66,7 +66,7 @@
 
           <!-- Right Sidebar (Metadata) -->
           <div class="lg:col-span-3">
-            <div class="sticky top-32 space-y-12">
+            <div class="sticky top-32 space-y-12 border-l border-primary-200 pl-8">
               <div>
                 <h4 class="text-[10px] font-bold text-accent uppercase tracking-[0.3em] mb-4">Summary</h4>
                 <p class="text-sm text-gray-500 leading-relaxed">{{ post.description }}</p>
