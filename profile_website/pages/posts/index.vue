@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-white via-inverse to-secondary/10 py-24 lg:py-32 overflow-hidden">
+    <section class="relative bg-gradient-to-br from-white via-inverse to-secondary/10 py-12 overflow-hidden">
       <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
       
@@ -24,7 +24,7 @@
     </section>
 
     <!-- Main Content -->
-    <section class="py-24 bg-white relative">
+    <section class="py-12 bg-white relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div v-if="pending" class="flex flex-col items-center justify-center py-24">
           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>

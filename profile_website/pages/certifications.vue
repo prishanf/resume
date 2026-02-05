@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-white via-inverse to-secondary/10 py-24 lg:py-12 overflow-hidden">
+    <section class="relative bg-gradient-to-br from-white via-inverse to-secondary/10 py-12 overflow-hidden">
       <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
       <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-accent/5 rounded-full blur-3xl"></div>
