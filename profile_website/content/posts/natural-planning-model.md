@@ -1,6 +1,6 @@
 ---
 title: "The Natural Planning Model"
-description: "Allen's Natural Planning Model, highlighting its five phases: Purpose and Principles, Outcome Visioning, Brainstorming, Organizing, and Next Actions. Also provides practical examples for both personal and work scenarios to illustrate the model's application."
+description: "David Allen's Natural Planning Model, highlighting its five phases: Purpose and Principles, Outcome Visioning, Brainstorming, Organizing, and Next Actions. Also provides practical examples for both personal and work scenarios to illustrate the model's application."
 image: "/images/posts/natural-planing-model.jpeg"
 date: "2027-02-05"
 excerpt: "Ever wonder why planning a vacation feels effortless but organizing a work project feels impossible? David Allen's Natural Planning Model reveals we've been doing it backwards. Learn the 5 steps your brain already knows—and why we ignore them at work."

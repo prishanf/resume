@@ -143,6 +143,8 @@ useSeoMeta({
   ogImage: () => absoluteImageUrl.value,
   ogUrl: () => absolutePageUrl.value,
   ogType: 'article',
+  articleAuthor: 'Prishan Fernando',
+  articlePublishedTime: () => post.value?.date || '',
   twitterCard: 'summary_large_image',
   twitterTitle: () => post.value?.title || '',
   twitterDescription: () => post.value?.description || post.value?.excerpt || '',
