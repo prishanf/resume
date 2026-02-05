@@ -119,14 +119,31 @@ if (error.value) {
   console.error('Error fetching post:', error.value)
 }
 
+const config = useRuntimeConfig()
+const absoluteImageUrl = computed(() => {
+  const img = post.value?.image
+  if (!img) return ''
+  if (img.startsWith('http://') || img.startsWith('https://')) return img
+  const base = config.public.siteUrl.replace(/\/$/, '')
+  return img.startsWith('/') ? `${base}${img}` : `${base}/${img}`
+})
+const absolutePageUrl = computed(() => {
+  const path = post.value?._path || route.path
+  const base = config.public.siteUrl.replace(/\/$/, '')
+  return path.startsWith('http') ? path : `${base}${path.startsWith('/') ? path : `/${path}`}`
+})
+
 useHead({
   title: post.value?.title || 'Post - Prishan Fernando',
   meta: [
     { name: 'description', content: post.value?.description || post.value?.excerpt || '' },
     { property: 'og:title', content: post.value?.title || '' },
     { property: 'og:description', content: post.value?.description || post.value?.excerpt || '' },
-    { property: 'og:image', content: post.value?.image || '' },
-    { name: 'twitter:card', content: 'summary_large_image' }
+    { property: 'og:image', content: absoluteImageUrl.value },
+    { property: 'og:url', content: absolutePageUrl.value },
+    { property: 'og:type', content: 'article' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:image', content: absoluteImageUrl.value }
   ]
 })
 
