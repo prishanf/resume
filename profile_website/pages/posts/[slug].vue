@@ -233,4 +233,28 @@ const formatDate = (dateString) => {
 :deep(.prose pre code) {
   @apply bg-transparent border-none p-0;
 }
+
+:deep(.prose table) {
+  @apply max-w-4xl text-left border-collapse my-12 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white;
+}
+
+:deep(.prose thead) {
+  @apply bg-gray-50 border-b-2 border-gray-100;
+}
+
+:deep(.prose th) {
+  @apply py-4 px-4 font-bold text-xs uppercase tracking-[0.0025em] text-primary whitespace-nowrap;
+}
+
+:deep(.prose tbody tr) {
+  @apply border-b border-gray-50 transition-colors hover:bg-gray-50/30;
+}
+
+:deep(.prose tbody tr:last-child) {
+  @apply border-none;
+}
+
+:deep(.prose td) {
+  @apply py-4 px-3 text-sm text-gray-600;
+}
 </style>
