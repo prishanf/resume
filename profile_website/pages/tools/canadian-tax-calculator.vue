@@ -15,6 +15,9 @@
         <p class="text-lg text-gray-600 max-w-2xl">
           Federal &amp; provincial estimate by tax year. Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. CPP/EI and investment gross-ups.
         </p>
+        <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center mt-4 text-sm font-semibold text-accent hover:text-primary transition-colors">
+          Read: Canadian income, RRSP, and tax strategies →
+        </NuxtLink>
       </div>
     </section>
 
@@ -129,8 +132,9 @@
               <div class="bg-gradient-to-br from-primary/15 via-white to-secondary/30 rounded-2xl p-8 border border-primary/20 shadow-sm relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-48 h-48 bg-primary/10 rounded-full -mr-24 -mt-24 blur-3xl"></div>
                 <div class="relative">
-                  <p class="text-xs font-bold text-accent uppercase tracking-widest mb-2">After-tax take home</p>
-                  <h2 class="text-4xl font-black text-primary mb-6 tabular-nums tracking-tighter">{{ formatCurrency(activeResult.afterTaxIncome) }}</h2>
+                  <p class="text-xs font-bold text-accent uppercase tracking-widest mb-2">After-tax take home ({{ taxYear }} {{ activeScenario.province }})</p>
+                  <h2 class="text-4xl font-black text-primary mb-2 tabular-nums tracking-tighter">{{ formatCurrency(activeResult.afterTaxIncome) }}</h2>
+                  <div class="text-sm font-medium text-gray-600 mb-2">Total Income: <span class="font-bold text-accent text-lg">{{ formatCurrency(activeResult.totalIncome) }}</span></div>
                   <div class="grid grid-cols-2 gap-4 border-t border-gray-200/80 pt-6">
                     <div>
                       <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Effective rate</p>
