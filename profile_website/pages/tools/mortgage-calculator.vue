@@ -164,7 +164,8 @@
     <!-- Summary cards (active scenario) -->
     <section class="py-12 bg-gradient-to-br from-inverse/50 via-white to-secondary/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-6">Summary — {{ scenarioLabel(activeScenarioIndex) }}</h2>
+        <h2 class="text-2xl font-bold text-primary mb-2">At a glance — {{ scenarioLabel(activeScenarioIndex) }}</h2>
+        <p class="text-gray-600 mb-6">Key numbers for your current scenario.</p>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
             <div class="flex items-center justify-between mb-4">
@@ -173,7 +174,7 @@
               </div>
               <span class="text-xs font-bold text-accent uppercase tracking-widest">Payment</span>
             </div>
-            <h3 class="text-lg font-bold text-primary mb-1">{{ formatCurrency(activeSummary.payment) }}</h3>
+            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ formatCurrency(activeSummary.payment) }}</p>
             <p class="text-sm text-gray-500">{{ paymentFreqLabel(activeScenario.paymentFreq) }}</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
@@ -183,7 +184,7 @@
               </div>
               <span class="text-xs font-bold text-accent uppercase tracking-widest">Total interest</span>
             </div>
-            <h3 class="text-lg font-bold text-primary mb-1">{{ formatCurrency(activeSummary.totalInterest) }}</h3>
+            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ formatCurrency(activeSummary.totalInterest) }}</p>
             <p class="text-sm text-gray-500">Over life of loan</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
@@ -193,7 +194,7 @@
               </div>
               <span class="text-xs font-bold text-accent uppercase tracking-widest">Interest saved</span>
             </div>
-            <h3 class="text-lg font-bold text-primary mb-1">{{ formatCurrency(activeSummary.interestSaved) }}</h3>
+            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ formatCurrency(activeSummary.interestSaved) }}</p>
             <p class="text-sm text-gray-500">vs no extra principal</p>
           </div>
           <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
@@ -203,20 +204,192 @@
               </div>
               <span class="text-xs font-bold text-accent uppercase tracking-widest">Payoff</span>
             </div>
-            <h3 class="text-lg font-bold text-primary mb-1">{{ activeSummary.yearsToPayoff != null ? activeSummary.yearsToPayoff.toFixed(1) + ' years' : '—' }}</h3>
+            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ activeSummary.yearsToPayoff != null ? activeSummary.yearsToPayoff.toFixed(1) + ' years' : '—' }}</p>
             <p class="text-sm text-gray-500">{{ activeSummary.yearsReduction != null ? activeSummary.yearsReduction.toFixed(1) + ' years sooner' : '' }}</p>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- Scenario comparison (when 2+ scenarios) — near top for quick comparison -->
+    <section v-if="scenarios.length >= 2" class="py-12 border-b border-gray-100 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-primary mb-2">Scenario comparison</h2>
+        <p class="text-gray-600 mb-6">Compare key metrics across your scenarios at a glance.</p>
+        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
+          <table class="w-full text-left border-collapse bg-white">
+            <thead class="bg-primary/10 border-b-2 border-primary/20">
+              <tr>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary">Metric</th>
+                <th
+                  v-for="(s, idx) in scenarios"
+                  :key="idx"
+                  class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-center"
+                  :class="{ 'ring-2 ring-primary ring-inset': activeScenarioIndex === idx }"
+                >
+                  <div>{{ scenarioLabel(idx) }}</div>
+                  <div class="text-xs font-normal text-gray-600 mt-1">{{ formatCurrency(s.amount) }} · {{ s.ratePct }}% · {{ s.amortYears }}yr</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <td class="py-4 px-6 text-sm font-medium text-gray-800">Payment</td>
+                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right font-medium tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5' : 'text-gray-700'">
+                  {{ formatCurrency(comparisonRows[idx].payment) }}
+                </td>
+              </tr>
+              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <td class="py-4 px-6 text-sm font-medium text-gray-800">Total interest</td>
+                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5 text-gray-800 font-medium' : 'text-gray-600'">
+                  {{ formatCurrency(comparisonRows[idx].totalInterest) }}
+                </td>
+              </tr>
+              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <td class="py-4 px-6 text-sm font-medium text-gray-800">Interest saved</td>
+                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right tabular-nums text-green-700" :class="activeScenarioIndex === idx ? 'bg-primary/5 font-medium' : ''">
+                  {{ formatCurrency(comparisonRows[idx].interestSaved) }}
+                </td>
+              </tr>
+              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <td class="py-4 px-6 text-sm font-medium text-gray-800">Years to payoff</td>
+                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5 font-medium' : 'text-gray-600'">
+                  {{ comparisonRows[idx].yearsToPayoff != null ? comparisonRows[idx].yearsToPayoff.toFixed(1) : '—' }}
+                </td>
+              </tr>
+              <tr class="bg-gray-100/80">
+                <td class="py-4 px-6 text-sm font-bold text-gray-900">Total amount paid</td>
+                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right font-bold tabular-nums text-gray-900" :class="activeScenarioIndex === idx ? 'bg-primary/10' : ''">
+                  {{ formatCurrency(comparisonRows[idx].totalPaid) }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Term summary — near top so users see it early -->
+    <section class="py-12 border-b border-gray-100 bg-gray-50/30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-primary mb-2">Term summary</h2>
+        <p class="text-gray-600 mb-6">Summary per {{ activeScenario.termYears }}-year term for {{ scenarioLabel(activeScenarioIndex) }}. Savings vs no extra principal.</p>
+        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
+          <table class="w-full text-left border-collapse bg-white">
+            <thead class="bg-primary/10 border-b-2 border-primary/20">
+              <tr>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary">Term</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Starting balance</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Principal paid</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Interest paid</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Extra principal</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Ending balance</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Interest saved (term)</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Interest saved (cumulative)</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Years saved</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="row in termSummaryRows"
+                :key="row.termIndex"
+                class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors"
+              >
+                <td class="py-4 px-6 text-sm font-semibold text-gray-800">Term {{ row.termIndex + 1 }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.startBalance) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.principalPaid) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.interestPaid) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.extraPaid) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-semibold text-gray-900">{{ formatCurrency(row.endBalance) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(row.interestSavedThisTerm) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(row.interestSavedCumulative) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-primary">
+                  {{ row.yearsSavedOverall != null ? row.yearsSavedOverall.toFixed(1) + ' yr' : '—' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-500 mt-3">
+          Interest saved (term) = interest you would have paid this term without extra principal minus interest actually paid. Years saved = how much sooner the loan is paid off overall (same for all terms).
+        </p>
+      </div>
+    </section>
+
+    <!-- Return: extra principal vs investing elsewhere -->
+    <section class="py-12 border-b border-gray-100 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-bold text-primary mb-2">Return on additional principal vs investing</h2>
+        <p class="text-gray-600 mb-4">Compare putting extra money into your mortgage versus investing the same amounts in stocks, bonds, or savings.</p>
+        <div class="mb-6 flex flex-wrap items-end gap-4">
+          <div class="w-48">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Alternative investment return (% per year)</label>
+            <input
+              v-model.number="alternativeReturnPct"
+              type="number"
+              min="0"
+              max="20"
+              step="0.5"
+              class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
+            />
+            <p class="text-xs text-gray-500 mt-1">e.g. 4% savings, 5–7% bonds, 7–10% stocks (avg)</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
+          <table class="w-full text-left border-collapse bg-white">
+            <thead class="bg-primary/10 border-b-2 border-primary/20">
+              <tr>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary">Metric</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Extra to mortgage</th>
+                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Same $ at {{ extraVsInvestComparison.altReturnPct }}% (stocks/bonds/savings)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <td class="py-4 px-6 text-sm font-medium text-gray-800">Total amount invested / paid in</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(extraVsInvestComparison.totalExtraPaid) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(extraVsInvestComparison.totalExtraPaid) }}</td>
+              </tr>
+              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <td class="py-4 px-6 text-sm font-medium text-gray-800">Result</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">
+                  <span class="block">Interest saved: {{ formatCurrency(extraVsInvestComparison.interestSaved) }}</span>
+                  <span class="text-xs text-gray-500">Years saved: {{ extraVsInvestComparison.yearsSaved != null ? extraVsInvestComparison.yearsSaved.toFixed(1) + ' yr' : '—' }}</span>
+                </td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">
+                  Future value: {{ formatCurrency(extraVsInvestComparison.fvInvested) }}
+                </td>
+              </tr>
+              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
+                <td class="py-4 px-6 text-sm font-medium text-gray-800">Dollar gain (vs amount put in)</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(extraVsInvestComparison.interestSaved) }}</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(extraVsInvestComparison.investmentGain) }}</td>
+              </tr>
+              <tr class="bg-gray-100/80">
+                <td class="py-4 px-6 text-sm font-bold text-gray-900">Effective return (gain ÷ invested)</td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-bold text-gray-900">
+                  {{ extraVsInvestComparison.totalExtraPaid > 0 ? ((extraVsInvestComparison.interestSaved / extraVsInvestComparison.totalExtraPaid) * 100).toFixed(1) + '%' : '—' }}
+                </td>
+                <td class="py-4 px-6 text-sm text-right tabular-nums font-bold text-gray-900">
+                  {{ extraVsInvestComparison.totalExtraPaid > 0 ? ((extraVsInvestComparison.investmentGain / extraVsInvestComparison.totalExtraPaid) * 100).toFixed(1) + '%' : '—' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="text-xs text-gray-500 mt-3">
+          Extra to mortgage: you pay the same total extra into the loan and save interest (your “return” is the interest saved). Same $ at {{ extraVsInvestComparison.altReturnPct }}%: the same stream of extra payments is invested at {{ extraVsInvestComparison.altReturnPct }}% per year (compounded with your payment frequency). Compare which gives a higher dollar gain for {{ scenarioLabel(activeScenarioIndex) }}.
+        </p>
+      </div>
+    </section>
+
     <!-- Charts -->
-    <section class="py-12 border-b border-gray-100">
+    <section class="py-12 border-b border-gray-100 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div>
           <h2 class="text-2xl font-bold text-primary mb-2">Principal vs interest over time</h2>
-          <p class="text-gray-600 mb-4">How each payment splits between principal and interest (by year).</p>
-          <div class="bg-white rounded-xl border border-gray-100 p-4 h-80">
+          <p class="text-gray-600 mb-4">How each year’s payments split between principal (reduces debt) and interest (cost).</p>
+          <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 h-80">
             <client-only>
               <MortgageStackedChart :chart-data="principalInterestChartData" />
             </client-only>
@@ -224,8 +397,8 @@
         </div>
         <div>
           <h2 class="text-2xl font-bold text-primary mb-2">Balance over time</h2>
-          <p class="text-gray-600 mb-4">Remaining balance (with and without extra principal).</p>
-          <div class="bg-white rounded-xl border border-gray-100 p-4 h-80">
+          <p class="text-gray-600 mb-4">Remaining balance: with extra principal (green) vs no extra (accent).</p>
+          <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 h-80">
             <client-only>
               <MortgageBalanceChart :chart-data="balanceChartData" />
             </client-only>
@@ -234,137 +407,44 @@
       </div>
     </section>
 
-    <!-- Amortization table -->
+    <!-- Payment schedule (amortization) -->
     <section class="py-12 border-b border-gray-100">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold text-primary mb-2">Payment schedule</h2>
-        <p class="text-gray-600 mb-4">Amortization for {{ scenarioLabel(activeScenarioIndex) }}. {{ showFullSchedule ? 'Showing all rows.' : 'First ' + tablePageSize + ' rows.' }}</p>
+        <p class="text-gray-600 mb-4">Full amortization for {{ scenarioLabel(activeScenarioIndex) }}. {{ showFullSchedule ? 'Showing all rows.' : 'First ' + tablePageSize + ' rows.' }}</p>
         <div class="mb-4 flex gap-2">
           <button
             type="button"
-            class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-50"
+            class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
             @click="showFullSchedule = !showFullSchedule"
           >
             {{ showFullSchedule ? 'Show less' : 'Show full schedule' }}
           </button>
         </div>
-        <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-lg">
+        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
           <table class="w-full text-left border-collapse bg-white">
-            <thead class="bg-gray-50 border-b-2 border-gray-100">
+            <thead class="bg-primary/10 border-b-2 border-primary/20">
               <tr>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">#</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Payment (P+I)</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Principal</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Interest</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Extra principal</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Ending balance</th>
+                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary">#</th>
+                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Payment (P+I)</th>
+                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Principal</th>
+                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Interest</th>
+                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Extra</th>
+                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Ending balance</th>
               </tr>
             </thead>
             <tbody>
               <tr
                 v-for="row in amortizationTableRows"
                 :key="row.paymentNum"
-                class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors"
+                class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors"
               >
                 <td class="py-3 px-6 text-sm text-gray-800 font-medium">{{ row.paymentNum }}</td>
-                <td class="py-3 px-6 text-sm text-gray-600">{{ formatCurrency(row.payment) }}</td>
-                <td class="py-3 px-6 text-sm text-gray-600">{{ formatCurrency(row.principal) }}</td>
-                <td class="py-3 px-6 text-sm text-gray-600">{{ formatCurrency(row.interest) }}</td>
-                <td class="py-3 px-6 text-sm text-gray-600">{{ formatCurrency(row.extraPrincipal) }}</td>
-                <td class="py-3 px-6 text-sm text-gray-800 font-medium">{{ formatCurrency(row.endingBalance) }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- Term summary table -->
-    <section class="py-12 border-b border-gray-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">Term summary</h2>
-        <p class="text-gray-600 mb-6">Summary per {{ activeScenario.termYears }}-year term.</p>
-        <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-lg">
-          <table class="w-full text-left border-collapse bg-white">
-            <thead class="bg-gray-50 border-b-2 border-gray-100">
-              <tr>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Term</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Starting balance</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Principal paid</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Interest paid</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Extra principal</th>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Ending balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="row in termSummaryRows"
-                :key="row.termIndex"
-                class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors"
-              >
-                <td class="py-4 px-6 text-sm text-gray-800 font-medium">Term {{ row.termIndex + 1 }}</td>
-                <td class="py-4 px-6 text-sm text-gray-600">{{ formatCurrency(row.startBalance) }}</td>
-                <td class="py-4 px-6 text-sm text-gray-600">{{ formatCurrency(row.principalPaid) }}</td>
-                <td class="py-4 px-6 text-sm text-gray-600">{{ formatCurrency(row.interestPaid) }}</td>
-                <td class="py-4 px-6 text-sm text-gray-600">{{ formatCurrency(row.extraPaid) }}</td>
-                <td class="py-4 px-6 text-sm text-gray-800 font-medium">{{ formatCurrency(row.endBalance) }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- Comparison table (when 2+ scenarios) -->
-    <section v-if="scenarios.length >= 2" class="py-12">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">Scenario comparison</h2>
-        <p class="text-gray-600 mb-6">Compare key metrics across scenarios.</p>
-        <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-lg">
-          <table class="w-full text-left border-collapse bg-white">
-            <thead class="bg-gray-50 border-b-2 border-gray-100">
-              <tr>
-                <th class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary">Metric</th>
-                <th
-                  v-for="(s, idx) in scenarios"
-                  :key="idx"
-                  class="py-4 px-6 font-bold text-xs uppercase tracking-widest text-primary text-center"
-                >
-                  <div>{{ scenarioLabel(idx) }}</div>
-                  <div class="text-[10px] font-normal text-gray-500 mt-1">{{ formatCurrency(s.amount) }}, {{ s.ratePct }}%, {{ s.amortYears }}yr</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Payment</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-gray-600 text-center">
-                  {{ formatCurrency(comparisonRows[idx].payment) }}
-                </td>
-              </tr>
-              <tr class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Total interest</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-gray-600 text-center">
-                  {{ formatCurrency(comparisonRows[idx].totalInterest) }}
-                </td>
-              </tr>
-              <tr class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Interest saved</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-gray-600 text-center">
-                  {{ formatCurrency(comparisonRows[idx].interestSaved) }}
-                </td>
-              </tr>
-              <tr class="border-b border-gray-50 hover:bg-gray-50/30 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Years to payoff</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-gray-600 text-center">
-                  {{ comparisonRows[idx].yearsToPayoff != null ? comparisonRows[idx].yearsToPayoff.toFixed(1) : '—' }}
-                </td>
-              </tr>
-              <tr class="bg-gray-50/50">
-                <td class="py-4 px-6 text-sm font-bold text-gray-800">Total amount paid</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm font-bold text-gray-800 text-center">
-                  {{ formatCurrency(comparisonRows[idx].totalPaid) }}
-                </td>
+                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.payment) }}</td>
+                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.principal) }}</td>
+                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.interest) }}</td>
+                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.extraPrincipal) }}</td>
+                <td class="py-3 px-6 text-sm text-right tabular-nums font-medium text-gray-900">{{ formatCurrency(row.endingBalance) }}</td>
               </tr>
             </tbody>
           </table>
@@ -412,6 +492,7 @@ const scenarios = ref([defaultScenario()])
 const activeScenarioIndex = ref(0)
 const showFullSchedule = ref(false)
 const tablePageSize = 60
+const alternativeReturnPct = ref(4)
 
 function scenarioLabel (idx) {
   return ['Scenario A', 'Scenario B', 'Scenario C'][idx] || `Scenario ${idx + 1}`
@@ -539,6 +620,40 @@ const activeSummary = computed(() => {
   }
 })
 
+function futureValueOfExtraStream (schedule, annualRatePct, payPerYear) {
+  if (schedule.length === 0) return 0
+  const r = Math.max(0, annualRatePct) / 100 / payPerYear
+  let fv = 0
+  const n = schedule.length
+  for (let t = 0; t < n; t++) {
+    const extra = schedule[t].extraPrincipal || 0
+    const periodsToGrow = n - 1 - t
+    if (extra > 0 && periodsToGrow >= 0) fv += extra * Math.pow(1 + r, periodsToGrow)
+  }
+  return fv
+}
+
+const extraVsInvestComparison = computed(() => {
+  const schedule = activeSchedule.value.schedule
+  const payPerYear = getPaymentsPerYear(activeScenario.value.paymentFreq)
+  const totalExtraPaid = schedule.reduce((a, r) => a + (r.extraPrincipal || 0), 0)
+  const interestSaved = activeSummary.value.interestSaved
+  const yearsSaved = activeSummary.value.yearsReduction
+  const altPct = Math.max(0, Number(alternativeReturnPct.value) ?? 4)
+  const fvInvested = futureValueOfExtraStream(schedule, altPct, payPerYear)
+  const investmentGain = fvInvested - totalExtraPaid
+  const mortgageRate = activeScenario.value.ratePct || 0
+  return {
+    totalExtraPaid,
+    interestSaved,
+    yearsSaved,
+    altReturnPct: altPct,
+    fvInvested,
+    investmentGain,
+    mortgageRate
+  }
+})
+
 const amortizationTableRows = computed(() => {
   const rows = activeSchedule.value.schedule
   if (showFullSchedule.value) return rows
@@ -547,12 +662,15 @@ const amortizationTableRows = computed(() => {
 
 const termSummaryRows = computed(() => {
   const s = activeSchedule.value.schedule
+  const noExtra = activeScheduleNoExtra.value.schedule
   const termYears = Math.max(1, activeScenario.value.termYears)
   const payPerYear = getPaymentsPerYear(activeScenario.value.paymentFreq)
   const periodsPerTerm = termYears * payPerYear
+  const yearsSavedOverall = activeSummary.value.yearsReduction
   const rows = []
   let idx = 0
   let start = 0
+  let interestSavedCumulative = 0
   while (start < s.length) {
     const chunk = s.slice(start, start + periodsPerTerm)
     if (chunk.length === 0) break
@@ -561,13 +679,20 @@ const termSummaryRows = computed(() => {
     const extraPaid = chunk.reduce((a, r) => a + (r.extraPrincipal || 0), 0)
     const startBalance = start === 0 ? (activeScenario.value.amount || 0) : s[start - 1].endingBalance
     const endBalance = chunk[chunk.length - 1].endingBalance
+    const noExtraChunk = noExtra.slice(start, start + periodsPerTerm)
+    const interestNoExtraThisTerm = noExtraChunk.reduce((a, r) => a + r.interest, 0)
+    const interestSavedThisTerm = interestNoExtraThisTerm - interestPaid
+    interestSavedCumulative += interestSavedThisTerm
     rows.push({
       termIndex: idx,
       startBalance,
       principalPaid,
       interestPaid,
       extraPaid,
-      endBalance
+      endBalance,
+      interestSavedThisTerm,
+      interestSavedCumulative,
+      yearsSavedOverall
     })
     start += periodsPerTerm
     idx++
