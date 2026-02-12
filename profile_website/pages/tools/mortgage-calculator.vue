@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-white">
-    <!-- Hero -->
+    <!-- Hero (matches site: inverse, primary, accent) -->
     <section class="relative pt-12 pb-12 overflow-hidden bg-inverse/85">
       <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
       <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
@@ -10,810 +10,569 @@
           Back to Tools
         </NuxtLink>
         <h1 class="text-4xl md:text-6xl font-black text-primary mb-4 tracking-tighter">
-          Mortgage Calculator
+          Mortgage Strategist
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Calculate payments, amortization, and savings with extra principal. Compare up to three scenarios with different amounts, terms, and rates.
+          Compare scenarios, optimize extra payments, and see the real return on your home equity.
         </p>
       </div>
     </section>
 
-    <!-- Scenarios & Inputs -->
-    <section class="py-12 border-b border-gray-100">
+    <!-- Scenarios bar (visible below hero, not under header) -->
+    <section class="py-4 border-b border-gray-100 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
           <h2 class="text-xl font-bold text-primary">Scenarios</h2>
           <div class="flex items-center gap-3">
             <button
-              v-for="(s, idx) in scenarios"
-              :key="idx"
+              v-for="(_, i) in scenarios"
+              :key="i"
               type="button"
+              @click="activeScenarioIndex = i"
               :class="[
-                'px-4 py-2 rounded-lg font-medium transition-colors',
-                activeScenarioIndex === idx
+                'px-4 py-2.5 rounded-lg font-medium transition-colors',
+                activeScenarioIndex === i
                   ? 'bg-primary text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               ]"
-              @click="activeScenarioIndex = idx"
             >
-              {{ scenarioLabel(idx) }}
+              {{ ['A', 'B', 'C'][i] }}
             </button>
             <button
               v-if="scenarios.length < 3"
               type="button"
-              class="px-4 py-2 text-sm font-semibold text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
               @click="addScenario"
+              class="px-4 py-2.5 text-sm font-semibold text-primary border-2 border-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
+              title="Add scenario"
             >
               + Add scenario
             </button>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div v-for="(scenario, idx) in scenarios" :key="idx" class="mb-10">
-          <div
-            v-show="activeScenarioIndex === idx"
-            class="space-y-6"
-          >
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Mortgage amount ($)</label>
-                <input
-                  v-model.number="scenario.amount"
-                  type="number"
-                  min="1000"
-                  step="10000"
-                  class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Interest rate (%)</label>
-                <input
-                  v-model.number="scenario.ratePct"
-                  type="number"
-                  min="0"
-                  step="0.05"
-                  class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Amortization (years)</label>
-                <input
-                  v-model.number="scenario.amortYears"
-                  type="number"
-                  min="1"
-                  max="30"
-                  class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Term (years)</label>
-                <input
-                  v-model.number="scenario.termYears"
-                  type="number"
-                  min="1"
-                  max="30"
-                  class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Payment frequency</label>
-                <select
-                  v-model="scenario.paymentFreq"
-                  class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                >
-                  <option value="monthly">Monthly</option>
-                  <option value="biweekly">Bi-weekly</option>
-                  <option value="weekly">Weekly</option>
-                </select>
-              </div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <aside class="lg:col-span-4 space-y-6">
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-24">
+            <div class="p-6 border-b border-gray-50 bg-gray-50/50">
+              <h2 class="font-bold text-primary">Configure</h2>
+              <p class="text-sm text-gray-500 mt-0.5">Adjust loan and acceleration for Scenario {{ ['A', 'B', 'C'][activeScenarioIndex] }}</p>
             </div>
 
-            <div class="pt-4 border-t border-gray-100">
-              <h3 class="text-sm font-bold text-primary mb-3">Extra principal</h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="p-6 space-y-5">
+              <div class="space-y-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Extra amount ($)</label>
-                  <input
-                    v-model.number="scenario.extraAmount"
-                    type="number"
-                    min="0"
-                    step="50"
-                    class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  />
+                  <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Mortgage Amount</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-2.5 text-gray-400">$</span>
+                    <input v-model.number="activeScenario.amount" type="number" class="w-full pl-7 pr-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
+                  </div>
                 </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Extra frequency</label>
-                  <select
-                    v-model="scenario.extraFreq"
-                    class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  >
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rate (%)</label>
+                    <input v-model.number="activeScenario.ratePct" type="number" step="0.1" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Amortization (yr)</label>
+                    <input v-model.number="activeScenario.amortYears" type="number" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Term (yr)</label>
+                    <select v-model.number="activeScenario.termYears" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold">
+                      <option :value="3">3</option>
+                      <option :value="4">4</option>
+                      <option :value="5">5</option>
+                      <option :value="7">7</option>
+                      <option :value="10">10</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Frequency</label>
+                  <select v-model="activeScenario.paymentFreq" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold">
                     <option value="monthly">Monthly</option>
                     <option value="biweekly">Bi-weekly</option>
                     <option value="weekly">Weekly</option>
                   </select>
                 </div>
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Annual limit (%)</label>
-                  <input
-                    v-model.number="scenario.annualLimitPct"
-                    type="number"
-                    min="0"
-                    max="100"
-                    step="1"
-                    class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-                  />
-                  <p class="text-xs text-gray-500 mt-1">Max extra principal per year (of original)</p>
+              </div>
+
+              <div class="pt-4 border-t border-gray-100">
+                <button @click="showTaxes = !showTaxes" class="flex items-center text-xs font-bold text-primary uppercase">
+                  {{ showTaxes ? '−' : '+' }} Add Taxes & Insurance (PITI)
+                </button>
+                <div v-if="showTaxes" class="mt-4 grid grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Annual Tax</label>
+                    <input v-model.number="activeScenario.annualTax" type="number" class="w-full px-3 py-2 bg-gray-50 border-none rounded-lg text-sm" />
+                  </div>
+                  <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Annual Ins.</label>
+                    <input v-model.number="activeScenario.annualIns" type="number" class="w-full px-3 py-2 bg-gray-50 border-none rounded-lg text-sm" />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div v-if="scenarios.length > 1" class="flex justify-end">
-              <button
-                type="button"
-                class="text-sm text-red-600 hover:text-red-700 font-medium"
-                @click="removeScenario(idx)"
-              >
-                Remove scenario
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Summary cards (active scenario) -->
-    <section class="py-12 bg-gradient-to-br from-inverse/50 via-white to-secondary/20">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">At a glance — {{ scenarioLabel(activeScenarioIndex) }}</h2>
-        <p class="text-gray-600 mb-6">Key numbers for your current scenario.</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <CalendarIcon class="w-6 h-6 text-primary" />
+              <div class="pt-4 border-t border-gray-100 bg-accent/5 -mx-6 px-6 pb-6">
+                <h3 class="text-sm font-bold text-accent mb-4 pt-4">Acceleration Strategy</h3>
+                <div class="space-y-4">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-semibold text-gray-600">Extra Amount</label>
+                    <input v-model.number="activeScenario.extraAmount" type="number" class="w-24 px-2 py-1 bg-white border border-accent/20 rounded text-right font-bold text-accent" />
+                  </div>
+                  <input type="range" v-model.number="activeScenario.extraAmount" min="0" max="5000" step="50" class="w-full accent-accent" />
+                  
+                  <div class="flex justify-between items-center text-xs text-gray-500">
+                    <span>Freq: {{ activeScenario.extraFreq }}</span>
+                    <span>Cap: {{ activeScenario.annualLimitPct }}%</span>
+                  </div>
+                </div>
               </div>
-              <span class="text-xs font-bold text-accent uppercase tracking-widest">Payment</span>
+              
+              <button v-if="scenarios.length > 1" @click="removeScenario(activeScenarioIndex)" class="w-full text-xs text-red-400 font-medium hover:text-red-600 transition-colors py-2">Delete This Scenario</button>
             </div>
-            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ formatCurrency(activeSummary.payment) }}</p>
-            <p class="text-sm text-gray-500">{{ paymentFreqLabel(activeScenario.paymentFreq) }}</p>
+            </div>
           </div>
-          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-                <BanknotesIcon class="w-6 h-6 text-accent" />
+        </aside>
+
+        <div class="lg:col-span-8 space-y-8">
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full"></div>
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Payment</p>
+              <h3 class="text-3xl font-black text-primary">{{ formatCurrency(activeSummary.payment + (activeScenario.annualTax + activeScenario.annualIns) / getPaymentsPerYear(activeScenario.paymentFreq)) }}</h3>
+              <p class="text-[10px] text-gray-400 mt-1 uppercase">Principal + Interest + PITI</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Interest Saved</p>
+              <h3 class="text-3xl font-black text-green-500">{{ formatCurrency(activeSummary.interestSaved) }}</h3>
+              <p class="text-xs text-green-600/70 font-bold mt-1">↑ {{ activeSummary.yearsReduction?.toFixed(1) }} Years Faster</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Payoff Date</p>
+              <h3 class="text-3xl font-black text-slate-700">{{ payoffDate }}</h3>
+              <p class="text-[10px] text-gray-400 mt-1 uppercase">Based on {{ activeSummary.yearsToPayoff?.toFixed(1) }}yr duration</p>
+            </div>
+          </div>
+
+          <section v-if="scenarios.length > 1" class="bg-primary rounded-2xl overflow-hidden shadow-xl">
+            <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center">
+              <h3 class="text-white font-bold">Scenario Comparison</h3>
+              <span class="text-[10px] bg-accent text-primary px-2 py-0.5 rounded-full font-black uppercase">Live Benchmarking</span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm text-white/90">
+                <thead class="bg-white/5 text-[10px] uppercase font-black tracking-widest">
+                  <tr>
+                    <th class="px-6 py-3">Metric</th>
+                    <th v-for="(_, i) in scenarios" :key="i" class="px-6 py-3 text-center" :class="{'bg-accent/10': activeScenarioIndex === i}">
+                      Scenario {{ ['A', 'B', 'C'][i] }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                  <tr>
+                    <td class="px-6 py-4 font-medium">Total Interest</td>
+                    <td v-for="(row, i) in comparisonRows" :key="i" class="px-6 py-4 text-center tabular-nums" :class="{'text-green-400 font-bold': isCheapest(i, 'totalInterest')}">
+                      {{ formatCurrency(row.totalInterest) }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4 font-medium">Payoff Time</td>
+                    <td v-for="(row, i) in comparisonRows" :key="i" class="px-6 py-4 text-center tabular-nums" :class="{'text-green-400 font-bold': isCheapest(i, 'yearsToPayoff')}">
+                      {{ row.yearsToPayoff?.toFixed(1) }}yr
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div class="flex flex-wrap items-end justify-between gap-4 mb-8">
+              <div>
+                <h3 class="text-xl font-bold text-primary">Financial Trajectory</h3>
+                <p class="text-sm text-gray-500">Balance projection vs interest accumulation.</p>
               </div>
-              <span class="text-xs font-bold text-accent uppercase tracking-widest">Total interest</span>
-            </div>
-            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ formatCurrency(activeSummary.totalInterest) }}</p>
-            <p class="text-sm text-gray-500">Over life of loan</p>
-          </div>
-          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-secondary/50 flex items-center justify-center">
-                <ChartBarIcon class="w-6 h-6 text-primary" />
+              <div class="flex bg-gray-100 p-1 rounded-lg">
+                <button @click="chartMode = 'balance'" :class="['px-4 py-1.5 text-xs font-bold rounded-md transition-all', chartMode === 'balance' ? 'bg-white shadow-sm text-primary' : 'text-gray-400']">Balance</button>
+                <button @click="chartMode = 'equity'" :class="['px-4 py-1.5 text-xs font-bold rounded-md transition-all', chartMode === 'equity' ? 'bg-white shadow-sm text-primary' : 'text-gray-400']">Equity</button>
               </div>
-              <span class="text-xs font-bold text-accent uppercase tracking-widest">Interest saved</span>
             </div>
-            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ formatCurrency(activeSummary.interestSaved) }}</p>
-            <p class="text-sm text-gray-500">vs no extra principal</p>
-          </div>
-          <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center justify-between mb-4">
-              <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <ClockIcon class="w-6 h-6 text-primary" />
-              </div>
-              <span class="text-xs font-bold text-accent uppercase tracking-widest">Payoff</span>
+            <div class="h-80 w-full">
+              <client-only>
+                <component :is="chartMode === 'balance' ? MortgageBalanceChart : MortgageStackedChart" :chart-data="chartMode === 'balance' ? balanceChartData : principalInterestChartData" :chart-options="chartMode === 'balance' ? chartOptionsLine : chartOptionsStacked" />
+              </client-only>
             </div>
-            <p class="text-2xl font-black text-primary mb-1 tabular-nums">{{ activeSummary.yearsToPayoff != null ? activeSummary.yearsToPayoff.toFixed(1) + ' years' : '—' }}</p>
-            <p class="text-sm text-gray-500">{{ activeSummary.yearsReduction != null ? activeSummary.yearsReduction.toFixed(1) + ' years sooner' : '' }}</p>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Scenario comparison (when 2+ scenarios) — near top for quick comparison -->
-    <section v-if="scenarios.length >= 2" class="py-12 border-b border-gray-100 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">Scenario comparison</h2>
-        <p class="text-gray-600 mb-6">Compare key metrics across your scenarios at a glance.</p>
-        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
-          <table class="w-full text-left border-collapse bg-white">
-            <thead class="bg-primary/10 border-b-2 border-primary/20">
-              <tr>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary">Metric</th>
-                <th
-                  v-for="(s, idx) in scenarios"
-                  :key="idx"
-                  class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-center"
-                  :class="{ 'ring-2 ring-primary ring-inset': activeScenarioIndex === idx }"
-                >
-                  <div>{{ scenarioLabel(idx) }}</div>
-                  <div class="text-xs font-normal text-gray-600 mt-1">{{ formatCurrency(s.amount) }} · {{ s.ratePct }}% · {{ s.amortYears }}yr</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Payment</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right font-medium tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5' : 'text-gray-700'">
-                  {{ formatCurrency(comparisonRows[idx].payment) }}
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Total interest</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5 text-gray-800 font-medium' : 'text-gray-600'">
-                  {{ formatCurrency(comparisonRows[idx].totalInterest) }}
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Interest saved</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right tabular-nums text-green-700" :class="activeScenarioIndex === idx ? 'bg-primary/5 font-medium' : ''">
-                  {{ formatCurrency(comparisonRows[idx].interestSaved) }}
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Years to payoff</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5 font-medium' : 'text-gray-600'">
-                  {{ comparisonRows[idx].yearsToPayoff != null ? comparisonRows[idx].yearsToPayoff.toFixed(1) : '—' }}
-                </td>
-              </tr>
-              <tr class="bg-gray-100/80">
-                <td class="py-4 px-6 text-sm font-bold text-gray-900">Total amount paid</td>
-                <td v-for="(_, idx) in scenarios" :key="idx" class="py-4 px-6 text-sm text-right font-bold tabular-nums text-gray-900" :class="activeScenarioIndex === idx ? 'bg-primary/10' : ''">
-                  {{ formatCurrency(comparisonRows[idx].totalPaid) }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- Term summary — near top so users see it early -->
-    <section class="py-12 border-b border-gray-100 bg-gray-50/30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">Term summary</h2>
-        <p class="text-gray-600 mb-6">Summary per {{ activeScenario.termYears }}-year term for {{ scenarioLabel(activeScenarioIndex) }}. Savings vs no extra principal.</p>
-        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
-          <table class="w-full text-left border-collapse bg-white">
-            <thead class="bg-primary/10 border-b-2 border-primary/20">
-              <tr>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary">Term</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Starting balance</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Principal paid</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Interest paid</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Extra principal</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Ending balance</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Interest saved (term)</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Interest saved (cumulative)</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Years saved</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="row in termSummaryRows"
-                :key="row.termIndex"
-                class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors"
-              >
-                <td class="py-4 px-6 text-sm font-semibold text-gray-800">Term {{ row.termIndex + 1 }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.startBalance) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.principalPaid) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.interestPaid) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.extraPaid) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-semibold text-gray-900">{{ formatCurrency(row.endBalance) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(row.interestSavedThisTerm) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(row.interestSavedCumulative) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-primary">
-                  {{ row.yearsSavedOverall != null ? row.yearsSavedOverall.toFixed(1) + ' yr' : '—' }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="text-xs text-gray-500 mt-3">
-          Interest saved (term) = interest you would have paid this term without extra principal minus interest actually paid. Years saved = how much sooner the loan is paid off overall (same for all terms).
-        </p>
-      </div>
-    </section>
-
-    <!-- Return: extra principal vs investing elsewhere -->
-    <section class="py-12 border-b border-gray-100 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">Return on additional principal vs investing</h2>
-        <p class="text-gray-600 mb-4">Compare putting extra money into your mortgage versus investing the same amounts in stocks, bonds, or savings.</p>
-        <div class="mb-6 flex flex-wrap items-end gap-4">
-          <div class="w-48">
-            <label class="block text-sm font-medium text-gray-700 mb-2">Alternative investment return (% per year)</label>
-            <input
-              v-model.number="alternativeReturnPct"
-              type="number"
-              min="0"
-              max="20"
-              step="0.5"
-              class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
-            />
-            <p class="text-xs text-gray-500 mt-1">e.g. 4% savings, 5–7% bonds, 7–10% stocks (avg)</p>
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+             <div class="p-6 ">
+               <h3 class="text-lg font-bold">Mortgage vs. Market</h3>
+               <p class="text-sm text-slate-400">Is your extra {{ formatCurrency(activeScenario.extraAmount) }} better off in the S&P 500?</p>
+             </div>
+             <div class="p-6">
+                <div class="flex items-center gap-4 mb-6">
+                  <div class="flex-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase">Est. Market Return (%)</label>
+                    <input v-model.number="alternativeReturnPct" type="range" min="0" max="15" class="w-full accent-primary" />
+                  </div>
+                  <span class="text-2xl font-black text-primary">{{ alternativeReturnPct }}%</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div class="space-y-2">
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Interest Saved:</span><span class="font-bold text-green-600">{{ formatCurrency(extraVsInvestComparison.interestSaved) }}</span></div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-primary h-full" :style="{width: (extraVsInvestComparison.interestSaved / Math.max(extraVsInvestComparison.interestSaved, extraVsInvestComparison.investmentGain) * 100) + '%'}"></div></div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Market Gain:</span><span class="font-bold text-blue-600">{{ formatCurrency(extraVsInvestComparison.investmentGain) }}</span></div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-accent h-full" :style="{width: (extraVsInvestComparison.investmentGain / Math.max(extraVsInvestComparison.interestSaved, extraVsInvestComparison.investmentGain) * 100) + '%'}"></div></div>
+                  </div>
+                </div>
+             </div>
           </div>
-        </div>
-        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
-          <table class="w-full text-left border-collapse bg-white">
-            <thead class="bg-primary/10 border-b-2 border-primary/20">
-              <tr>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary">Metric</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Extra to mortgage</th>
-                <th class="py-4 px-6 font-bold text-sm uppercase tracking-wider text-primary text-right">Same $ at {{ extraVsInvestComparison.altReturnPct }}% (stocks/bonds/savings)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Total amount invested / paid in</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(extraVsInvestComparison.totalExtraPaid) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(extraVsInvestComparison.totalExtraPaid) }}</td>
-              </tr>
-              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Result</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">
-                  <span class="block">Interest saved: {{ formatCurrency(extraVsInvestComparison.interestSaved) }}</span>
-                  <span class="text-xs text-gray-500">Years saved: {{ extraVsInvestComparison.yearsSaved != null ? extraVsInvestComparison.yearsSaved.toFixed(1) + ' yr' : '—' }}</span>
-                </td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums text-gray-700">
-                  Future value: {{ formatCurrency(extraVsInvestComparison.fvInvested) }}
-                </td>
-              </tr>
-              <tr class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors">
-                <td class="py-4 px-6 text-sm font-medium text-gray-800">Dollar gain (vs amount put in)</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(extraVsInvestComparison.interestSaved) }}</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-medium text-green-700">{{ formatCurrency(extraVsInvestComparison.investmentGain) }}</td>
-              </tr>
-              <tr class="bg-gray-100/80">
-                <td class="py-4 px-6 text-sm font-bold text-gray-900">Effective return (gain ÷ invested)</td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-bold text-gray-900">
-                  {{ extraVsInvestComparison.totalExtraPaid > 0 ? ((extraVsInvestComparison.interestSaved / extraVsInvestComparison.totalExtraPaid) * 100).toFixed(1) + '%' : '—' }}
-                </td>
-                <td class="py-4 px-6 text-sm text-right tabular-nums font-bold text-gray-900">
-                  {{ extraVsInvestComparison.totalExtraPaid > 0 ? ((extraVsInvestComparison.investmentGain / extraVsInvestComparison.totalExtraPaid) * 100).toFixed(1) + '%' : '—' }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="text-xs text-gray-500 mt-3">
-          Extra to mortgage: you pay the same total extra into the loan and save interest (your “return” is the interest saved). Same $ at {{ extraVsInvestComparison.altReturnPct }}%: the same stream of extra payments is invested at {{ extraVsInvestComparison.altReturnPct }}% per year (compounded with your payment frequency). Compare which gives a higher dollar gain for {{ scenarioLabel(activeScenarioIndex) }}.
-        </p>
-      </div>
-    </section>
 
-    <!-- Charts -->
-    <section class="py-12 border-b border-gray-100 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div>
-          <h2 class="text-2xl font-bold text-primary mb-2">Principal vs interest over time</h2>
-          <p class="text-gray-600 mb-4">How each year’s payments split between principal (reduces debt) and interest (cost).</p>
-          <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 h-80">
-            <client-only>
-              <MortgageStackedChart :chart-data="principalInterestChartData" />
-            </client-only>
+          <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <button @click="showFullSchedule = !showFullSchedule" class="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+              <span class="font-bold text-primary">Amortization Schedule</span>
+              <span class="text-xs text-gray-400 font-bold uppercase">{{ showFullSchedule ? 'Hide' : 'View' }} Details</span>
+            </button>
+            <div v-if="showFullSchedule" class="overflow-x-auto max-h-96">
+              <table class="w-full text-left text-xs tabular-nums">
+                <thead class="sticky top-0 bg-gray-50 border-b border-gray-100">
+                  <tr>
+                    <th class="px-6 py-3 font-bold text-gray-500">Pmt #</th>
+                    <th class="px-6 py-3 font-bold text-gray-500 text-right">Principal</th>
+                    <th class="px-6 py-3 font-bold text-gray-500 text-right">Interest</th>
+                    <th class="px-6 py-3 font-bold text-gray-500 text-right">Balance</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50">
+                  <tr v-for="row in amortizationTableRows" :key="row.paymentNum">
+                    <td class="px-6 py-3 font-medium">{{ row.paymentNum }}</td>
+                    <td class="px-6 py-3 text-right text-gray-600">{{ formatCurrency(row.principal) }}</td>
+                    <td class="px-6 py-3 text-right text-gray-600">{{ formatCurrency(row.interest) }}</td>
+                    <td class="px-6 py-3 text-right font-bold text-gray-900">{{ formatCurrency(row.endingBalance) }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-        <div>
-          <h2 class="text-2xl font-bold text-primary mb-2">Balance over time</h2>
-          <p class="text-gray-600 mb-4">Remaining balance: with extra principal (green) vs no extra (accent).</p>
-          <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-4 h-80">
-            <client-only>
-              <MortgageBalanceChart :chart-data="balanceChartData" />
-            </client-only>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Payment schedule (amortization) -->
-    <section class="py-12 border-b border-gray-100">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-2xl font-bold text-primary mb-2">Payment schedule</h2>
-        <p class="text-gray-600 mb-4">Full amortization for {{ scenarioLabel(activeScenarioIndex) }}. {{ showFullSchedule ? 'Showing all rows.' : 'First ' + tablePageSize + ' rows.' }}</p>
-        <div class="mb-4 flex gap-2">
-          <button
-            type="button"
-            class="px-4 py-2 text-sm font-medium rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors"
-            @click="showFullSchedule = !showFullSchedule"
-          >
-            {{ showFullSchedule ? 'Show less' : 'Show full schedule' }}
-          </button>
-        </div>
-        <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-md">
-          <table class="w-full text-left border-collapse bg-white">
-            <thead class="bg-primary/10 border-b-2 border-primary/20">
-              <tr>
-                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary">#</th>
-                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Payment (P+I)</th>
-                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Principal</th>
-                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Interest</th>
-                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Extra</th>
-                <th class="py-3 px-6 font-bold text-xs uppercase tracking-wider text-primary text-right">Ending balance</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="row in amortizationTableRows"
-                :key="row.paymentNum"
-                class="border-b border-gray-100 hover:bg-gray-50/50 transition-colors"
-              >
-                <td class="py-3 px-6 text-sm text-gray-800 font-medium">{{ row.paymentNum }}</td>
-                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.payment) }}</td>
-                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.principal) }}</td>
-                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.interest) }}</td>
-                <td class="py-3 px-6 text-sm text-right tabular-nums text-gray-700">{{ formatCurrency(row.extraPrincipal) }}</td>
-                <td class="py-3 px-6 text-sm text-right tabular-nums font-medium text-gray-900">{{ formatCurrency(row.endingBalance) }}</td>
-              </tr>
-            </tbody>
-          </table>
         </div>
       </div>
-    </section>
+    </main>
   </div>
 </template>
 
 <script setup>
-import { h, defineComponent } from 'vue'
-import { ArrowLeftIcon, CalendarIcon, BanknotesIcon, ChartBarIcon, ClockIcon } from '@heroicons/vue/24/outline'
+import { ref, computed, defineComponent, h } from 'vue'
+import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { Bar, Line } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  LineElement,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-} from 'chart.js'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, Filler } from 'chart.js'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, Title, Tooltip, Legend, Filler)
 
-const PAYMENT_FREQ_MAP = { monthly: 12, biweekly: 26, weekly: 52 }
-
-function defaultScenario () {
-  return {
-    amount: 400000,
-    ratePct: 5.5,
-    amortYears: 25,
-    termYears: 5,
-    paymentFreq: 'monthly',
-    extraAmount: 200,
-    extraFreq: 'monthly',
-    annualLimitPct: 15
-  }
-}
-
-const scenarios = ref([defaultScenario()])
-const activeScenarioIndex = ref(0)
-const showFullSchedule = ref(false)
-const tablePageSize = 60
-const alternativeReturnPct = ref(4)
-
-function scenarioLabel (idx) {
-  return ['Scenario A', 'Scenario B', 'Scenario C'][idx] || `Scenario ${idx + 1}`
-}
-
-function addScenario () {
-  if (scenarios.value.length >= 3) return
-  scenarios.value.push(defaultScenario())
-  activeScenarioIndex.value = scenarios.value.length - 1
-}
-
-function removeScenario (idx) {
-  if (scenarios.value.length <= 1) return
-  scenarios.value.splice(idx, 1)
-  if (activeScenarioIndex.value >= scenarios.value.length) {
-    activeScenarioIndex.value = Math.max(0, scenarios.value.length - 1)
-  } else if (idx < activeScenarioIndex.value) {
-    activeScenarioIndex.value--
-  }
-}
-
-function paymentFreqLabel (f) {
-  return { monthly: 'Per month', biweekly: 'Per 2 weeks', weekly: 'Per week' }[f] || f
-}
-
-function getPaymentsPerYear (freq) {
-  return PAYMENT_FREQ_MAP[freq] || 12
-}
-
-function paymentAmount (principal, annualRatePct, amortYears, paymentsPerYear) {
-  if (principal <= 0) return 0
-  const n = amortYears * paymentsPerYear
-  const r = (annualRatePct / 100) / paymentsPerYear
-  if (r === 0) return principal / n
-  return principal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
-}
-
-function buildSchedule (scenario) {
-  const amount = Math.max(0, Number(scenario.amount) || 0)
-  const ratePct = Math.max(0, Number(scenario.ratePct) || 0)
-  const amortYears = Math.max(1, Math.min(30, Number(scenario.amortYears) || 25))
-  const payFreq = scenario.paymentFreq || 'monthly'
-  const extraAmt = Math.max(0, Number(scenario.extraAmount) || 0)
-  const extraFreq = scenario.extraFreq || 'monthly'
-  const annualLimitPct = Math.max(0, Math.min(100, Number(scenario.annualLimitPct) ?? 15))
-
-  const payPerYear = getPaymentsPerYear(payFreq)
-  const extraPerYear = getPaymentsPerYear(extraFreq)
-  const r = (ratePct / 100) / payPerYear
-  const payment = paymentAmount(amount, ratePct, amortYears, payPerYear)
-  const maxExtraPerYear = amount * (annualLimitPct / 100)
-
-  const schedule = []
-  let balance = amount
-  let period = 0
-  let extraThisYear = 0
-  const periodsPerYear = payPerYear
-
-  while (balance > 0.01 && period < amortYears * payPerYear * 2) {
-    if (period > 0 && period % periodsPerYear === 0) extraThisYear = 0
-    const interest = balance * r
-    const principal = Math.min(payment - interest, balance)
-    let extra = 0
-    if (extraAmt > 0 && balance > principal) {
-      const remainingCap = maxExtraPerYear - extraThisYear
-      const extraThisPeriod = Math.min(extraAmt, balance - principal, remainingCap)
-      extra = Math.max(0, extraThisPeriod)
-      extraThisYear += extra
+// Plugin: vertical lines at mortgage term boundaries (e.g. 5, 10, 15, 20, 25 for 5-year term)
+const termMarkersPlugin = {
+  id: 'termMarkers',
+  afterDraw (chart) {
+    const opts = chart.options.plugins?.termMarkers
+    if (!opts?.termYears || !opts?.amortYears || !chart.scales?.x) return
+    const { termYears, amortYears } = opts
+    const ctx = chart.ctx
+    const xScale = chart.scales.x
+    const yScale = chart.scales.y
+    const topY = yScale.top
+    const bottomY = yScale.bottom
+    for (let t = termYears; t < amortYears; t += termYears) {
+      const dataIndex = t - 1
+      if (dataIndex < 0 || dataIndex >= chart.data.labels?.length) continue
+      const x = xScale.getPixelForValue(dataIndex)
+      ctx.save()
+      ctx.strokeStyle = 'rgba(115, 142, 107, 0.6)'
+      ctx.lineWidth = 1.5
+      ctx.setLineDash([4, 4])
+      ctx.beginPath()
+      ctx.moveTo(x, topY)
+      ctx.lineTo(x, bottomY)
+      ctx.stroke()
+      ctx.restore()
     }
-    const totalPrincipal = principal + extra
-    balance = Math.max(0, balance - totalPrincipal)
-    schedule.push({
-      paymentNum: period + 1,
-      payment,
-      principal,
-      interest,
-      extraPrincipal: extra,
-      endingBalance: balance
-    })
-    period++
   }
+}
+ChartJS.register(termMarkersPlugin)
 
-  return { schedule, payment, totalInterest: schedule.reduce((s, row) => s + row.interest, 0) }
+const baseChartOptionsLine = {
+  responsive: true,
+  maintainAspectRatio: false,
+  scales: {
+    y: { beginAtZero: true }
+  },
+  plugins: { legend: { position: 'top' } }
 }
 
-function buildScheduleNoExtra (scenario) {
-  const amount = Math.max(0, Number(scenario.amount) || 0)
-  const ratePct = Math.max(0, Number(scenario.ratePct) || 0)
-  const amortYears = Math.max(1, Math.min(30, Number(scenario.amortYears) || 25))
-  const payFreq = scenario.paymentFreq || 'monthly'
-  const payPerYear = getPaymentsPerYear(payFreq)
-  const r = (ratePct / 100) / payPerYear
-  const payment = paymentAmount(amount, ratePct, amortYears, payPerYear)
-  const schedule = []
-  let balance = amount
-  let period = 0
-  while (balance > 0.01 && period < amortYears * payPerYear * 2) {
-    const interest = balance * r
-    const principal = Math.min(payment - interest, balance)
-    balance = Math.max(0, balance - principal)
-    schedule.push({ paymentNum: period + 1, interest, endingBalance: balance })
-    period++
-  }
-  const totalInterest = schedule.reduce((s, row) => s + row.interest, 0)
-  const yearsToPayoff = period / payPerYear
-  return { schedule, payment, totalInterest, yearsToPayoff }
-}
-
-const activeScenario = computed(() => scenarios.value[activeScenarioIndex.value] || defaultScenario())
-
-const activeSchedule = computed(() => buildSchedule(activeScenario.value))
-
-const activeScheduleNoExtra = computed(() => buildScheduleNoExtra(activeScenario.value))
-
-const activeSummary = computed(() => {
-  const withExtra = activeSchedule.value
-  const noExtra = activeScheduleNoExtra.value
-  const yearsWithExtra = withExtra.schedule.length / getPaymentsPerYear(activeScenario.value.paymentFreq)
-  return {
-    payment: withExtra.payment,
-    totalInterest: withExtra.totalInterest,
-    interestSaved: noExtra.totalInterest - withExtra.totalInterest,
-    yearsToPayoff: withExtra.schedule.length > 0 ? yearsWithExtra : null,
-    yearsReduction: noExtra.yearsToPayoff != null && withExtra.schedule.length > 0 ? noExtra.yearsToPayoff - yearsWithExtra : null
-  }
-})
-
-function futureValueOfExtraStream (schedule, annualRatePct, payPerYear) {
-  if (schedule.length === 0) return 0
-  const r = Math.max(0, annualRatePct) / 100 / payPerYear
-  let fv = 0
-  const n = schedule.length
-  for (let t = 0; t < n; t++) {
-    const extra = schedule[t].extraPrincipal || 0
-    const periodsToGrow = n - 1 - t
-    if (extra > 0 && periodsToGrow >= 0) fv += extra * Math.pow(1 + r, periodsToGrow)
-  }
-  return fv
-}
-
-const extraVsInvestComparison = computed(() => {
-  const schedule = activeSchedule.value.schedule
-  const payPerYear = getPaymentsPerYear(activeScenario.value.paymentFreq)
-  const totalExtraPaid = schedule.reduce((a, r) => a + (r.extraPrincipal || 0), 0)
-  const interestSaved = activeSummary.value.interestSaved
-  const yearsSaved = activeSummary.value.yearsReduction
-  const altPct = Math.max(0, Number(alternativeReturnPct.value) ?? 4)
-  const fvInvested = futureValueOfExtraStream(schedule, altPct, payPerYear)
-  const investmentGain = fvInvested - totalExtraPaid
-  const mortgageRate = activeScenario.value.ratePct || 0
-  return {
-    totalExtraPaid,
-    interestSaved,
-    yearsSaved,
-    altReturnPct: altPct,
-    fvInvested,
-    investmentGain,
-    mortgageRate
-  }
-})
-
-const amortizationTableRows = computed(() => {
-  const rows = activeSchedule.value.schedule
-  if (showFullSchedule.value) return rows
-  return rows.slice(0, tablePageSize)
-})
-
-const termSummaryRows = computed(() => {
-  const s = activeSchedule.value.schedule
-  const noExtra = activeScheduleNoExtra.value.schedule
-  const termYears = Math.max(1, activeScenario.value.termYears)
-  const payPerYear = getPaymentsPerYear(activeScenario.value.paymentFreq)
-  const periodsPerTerm = termYears * payPerYear
-  const yearsSavedOverall = activeSummary.value.yearsReduction
-  const rows = []
-  let idx = 0
-  let start = 0
-  let interestSavedCumulative = 0
-  while (start < s.length) {
-    const chunk = s.slice(start, start + periodsPerTerm)
-    if (chunk.length === 0) break
-    const principalPaid = chunk.reduce((a, r) => a + r.principal, 0)
-    const interestPaid = chunk.reduce((a, r) => a + r.interest, 0)
-    const extraPaid = chunk.reduce((a, r) => a + (r.extraPrincipal || 0), 0)
-    const startBalance = start === 0 ? (activeScenario.value.amount || 0) : s[start - 1].endingBalance
-    const endBalance = chunk[chunk.length - 1].endingBalance
-    const noExtraChunk = noExtra.slice(start, start + periodsPerTerm)
-    const interestNoExtraThisTerm = noExtraChunk.reduce((a, r) => a + r.interest, 0)
-    const interestSavedThisTerm = interestNoExtraThisTerm - interestPaid
-    interestSavedCumulative += interestSavedThisTerm
-    rows.push({
-      termIndex: idx,
-      startBalance,
-      principalPaid,
-      interestPaid,
-      extraPaid,
-      endBalance,
-      interestSavedThisTerm,
-      interestSavedCumulative,
-      yearsSavedOverall
-    })
-    start += periodsPerTerm
-    idx++
-    if (endBalance <= 0) break
-  }
-  return rows
-})
-
-const principalInterestChartData = computed(() => {
-  const s = activeSchedule.value.schedule
-  const payPerYear = getPaymentsPerYear(activeScenario.value.paymentFreq)
-  const byYear = []
-  let y = 0
-  while (y * payPerYear < s.length) {
-    const start = y * payPerYear
-    const end = Math.min((y + 1) * payPerYear, s.length)
-    const slice = s.slice(start, end)
-    byYear.push({
-      year: `Year ${y + 1}`,
-      principal: slice.reduce((a, r) => a + r.principal, 0),
-      interest: slice.reduce((a, r) => a + r.interest, 0)
-    })
-    y++
-    if (end >= s.length) break
-  }
-  return {
-    labels: byYear.map(d => d.year),
-    datasets: [
-      { label: 'Principal', data: byYear.map(d => d.principal), backgroundColor: 'rgba(115, 142, 107, 0.8)', stack: 'stack' },
-      { label: 'Interest', data: byYear.map(d => d.interest), backgroundColor: 'rgba(232, 193, 109, 0.8)', stack: 'stack' }
-    ]
-  }
-})
-
-const balanceChartData = computed(() => {
-  const withExtra = activeSchedule.value.schedule
-  const noExtra = activeScheduleNoExtra.value.schedule
-  const payPerYear = getPaymentsPerYear(activeScenario.value.paymentFreq)
-  const maxLen = Math.max(withExtra.length, noExtra.length)
-  const step = Math.max(1, Math.floor(maxLen / 60))
-  const labels = []
-  const withExtraBal = []
-  const noExtraBal = []
-  for (let i = 0; i < maxLen; i += step) {
-    labels.push(`Payment ${i + 1}`)
-    withExtraBal.push(i < withExtra.length ? withExtra[i].endingBalance : null)
-    noExtraBal.push(i < noExtra.length ? noExtra[i].endingBalance : null)
-  }
-  return {
-    labels,
-    datasets: [
-      { label: 'With extra principal', data: withExtraBal, borderColor: '#738E6B', fill: false, tension: 0.1 },
-      { label: 'No extra principal', data: noExtraBal, borderColor: '#E8C16D', fill: false, tension: 0.1 }
-    ]
-  }
-})
-
-const comparisonRows = computed(() => {
-  return scenarios.value.map(sc => {
-    const withExtra = buildSchedule(sc)
-    const noExtra = buildScheduleNoExtra(sc)
-    const payPerYear = getPaymentsPerYear(sc.paymentFreq)
-    const yearsToPayoff = withExtra.schedule.length / payPerYear
-    return {
-      payment: withExtra.payment,
-      totalInterest: withExtra.totalInterest,
-      interestSaved: noExtra.totalInterest - withExtra.totalInterest,
-      yearsToPayoff: withExtra.schedule.length > 0 ? yearsToPayoff : null,
-      totalPaid: withExtra.schedule.reduce((a, r) => a + r.payment + r.extraPrincipal, 0)
-    }
-  })
-})
-
-function formatCurrency (n) {
-  if (n == null || Number.isNaN(n)) return '—'
-  return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(n)
-}
-
-const chartOptionsStacked = {
+const baseChartOptionsStacked = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
     x: { stacked: true },
     y: { stacked: true }
   },
-  plugins: {
-    legend: { position: 'top' }
-  }
+  plugins: { legend: { position: 'top' } }
 }
-
-const chartOptionsLine = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    y: { beginAtZero: true }
-  },
-  plugins: {
-    legend: { position: 'top' }
-  }
-}
-
-const MortgageStackedChart = defineComponent({
-  name: 'MortgageStackedChart',
-  components: { Bar },
-  props: { chartData: { type: Object, required: true } },
-  setup (props) {
-    return () => h(Bar, { data: props.chartData, options: chartOptionsStacked })
-  }
-})
 
 const MortgageBalanceChart = defineComponent({
   name: 'MortgageBalanceChart',
   components: { Line },
-  props: { chartData: { type: Object, required: true } },
+  props: {
+    chartData: { type: Object, required: true },
+    chartOptions: { type: Object, default: null }
+  },
   setup (props) {
-    return () => h(Line, { data: props.chartData, options: chartOptionsLine })
+    return () => h(Line, { data: props.chartData, options: props.chartOptions || baseChartOptionsLine })
   }
 })
 
-useSeoMeta({
-  title: 'Mortgage Calculator - Prishan Fernando',
-  description: 'Calculate mortgage payments, amortization, and savings with extra principal. Compare up to three scenarios with charts and term summary.'
+const MortgageStackedChart = defineComponent({
+  name: 'MortgageStackedChart',
+  components: { Bar },
+  props: {
+    chartData: { type: Object, required: true },
+    chartOptions: { type: Object, default: null }
+  },
+  setup (props) {
+    return () => h(Bar, { data: props.chartData, options: props.chartOptions || baseChartOptionsStacked })
+  }
+})
+
+// State
+const PAYMENT_FREQ_MAP = { monthly: 12, biweekly: 26, weekly: 52 }
+const activeScenarioIndex = ref(0)
+const showFullSchedule = ref(false)
+const showTaxes = ref(false)
+const chartMode = ref('balance')
+const alternativeReturnPct = ref(7)
+
+const defaultScenario = () => ({
+  amount: 450000,
+  ratePct: 5.2,
+  amortYears: 25,
+  termYears: 5,
+  paymentFreq: 'monthly',
+  extraAmount: 0,
+  extraFreq: 'monthly',
+  annualLimitPct: 15,
+  annualTax: 3000,
+  annualIns: 1200
+})
+
+const scenarios = ref([defaultScenario()])
+
+// Helpers
+const activeScenario = computed(() => scenarios.value[activeScenarioIndex.value])
+const formatCurrency = (val) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val || 0)
+const getPaymentsPerYear = (freq) => PAYMENT_FREQ_MAP[freq] || 12
+
+const payoffDate = computed(() => {
+  const years = activeSummary.value.yearsToPayoff || 0
+  const date = new Date()
+  date.setMonth(date.getMonth() + (years * 12))
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+})
+
+const addScenario = () => {
+  if (scenarios.value.length < 3) {
+    scenarios.value.push(JSON.parse(JSON.stringify(activeScenario.value)))
+    activeScenarioIndex.value = scenarios.value.length - 1
+  }
+}
+
+const removeScenario = (idx) => {
+  scenarios.value.splice(idx, 1)
+  activeScenarioIndex.value = 0
+}
+
+const isCheapest = (idx, key) => {
+  const values = comparisonRows.value.map(r => r[key])
+  return comparisonRows.value[idx][key] === Math.min(...values)
+}
+
+// Chart options with Amortization label and term markers (computed so they use active scenario)
+const chartOptionsLine = computed(() => {
+  const s = activeScenario.value
+  return {
+    ...baseChartOptionsLine,
+    scales: {
+      ...baseChartOptionsLine.scales,
+      x: {
+        title: { display: true, text: 'Amortization (years)' }
+      }
+    },
+    plugins: {
+      ...baseChartOptionsLine.plugins,
+      termMarkers: { termYears: s.termYears, amortYears: s.amortYears }
+    }
+  }
+})
+
+const chartOptionsStacked = computed(() => {
+  const s = activeScenario.value
+  return {
+    ...baseChartOptionsStacked,
+    scales: {
+      ...baseChartOptionsStacked.scales,
+      x: {
+        ...baseChartOptionsStacked.scales?.x,
+        title: { display: true, text: 'Amortization (years)' }
+      }
+    },
+    plugins: {
+      ...baseChartOptionsStacked.plugins,
+      termMarkers: { termYears: s.termYears, amortYears: s.amortYears }
+    }
+  }
+})
+
+// Math Engine
+function calculateSchedule(scen, useExtra = true) {
+  let bal = scen.amount
+  const r = (scen.ratePct / 100) / getPaymentsPerYear(scen.paymentFreq)
+  const n = scen.amortYears * getPaymentsPerYear(scen.paymentFreq)
+  const pmt = bal * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)
+  
+  const schedule = []
+  let totalInt = 0
+  let totalExtra = 0
+  let period = 0
+  const maxExtraYearly = scen.amount * (scen.annualLimitPct / 100)
+  let extraThisYear = 0
+
+  while (bal > 0.1 && period < 600) {
+    if (period % getPaymentsPerYear(scen.paymentFreq) === 0) extraThisYear = 0
+    
+    const interest = bal * r
+    const principal = Math.min(pmt - interest, bal)
+    let extra = 0
+    if (useExtra && scen.extraAmount > 0) {
+      extra = Math.min(scen.extraAmount, bal - principal, maxExtraYearly - extraThisYear)
+    }
+
+    totalInt += interest
+    totalExtra += extra
+    bal -= (principal + extra)
+    
+    schedule.push({
+      paymentNum: period + 1,
+      principal,
+      interest,
+      extraPrincipal: extra,
+      endingBalance: Math.max(0, bal)
+    })
+    period++
+    extraThisYear += extra
+  }
+
+  return { schedule, payment: pmt, totalInterest: totalInt, totalExtra, yearsToPayoff: period / getPaymentsPerYear(scen.paymentFreq) }
+}
+
+const activeSummary = computed(() => {
+  const withExtra = calculateSchedule(activeScenario.value, true)
+  const noExtra = calculateSchedule(activeScenario.value, false)
+  return {
+    ...withExtra,
+    interestSaved: Math.max(0, noExtra.totalInterest - withExtra.totalInterest),
+    yearsReduction: noExtra.yearsToPayoff - withExtra.yearsToPayoff
+  }
+})
+
+const comparisonRows = computed(() => scenarios.value.map(s => {
+  const res = calculateSchedule(s, true)
+  const base = calculateSchedule(s, false)
+  return { ...res, interestSaved: base.totalInterest - res.totalInterest }
+}))
+
+const amortizationTableRows = computed(() => activeSummary.value.schedule)
+
+const extraVsInvestComparison = computed(() => {
+  const s = activeScenario.value
+  const totalExtra = activeSummary.value.totalExtra
+  const periods = activeSummary.value.schedule.length
+  const rate = (alternativeReturnPct.value / 100) / getPaymentsPerYear(s.paymentFreq)
+  
+  // Future Value of periodic investments
+  const fv = s.extraAmount * ((Math.pow(1 + rate, periods) - 1) / rate)
+  
+  return {
+    interestSaved: activeSummary.value.interestSaved,
+    investmentGain: fv - totalExtra,
+    totalExtraPaid: totalExtra
+  }
+})
+
+// Chart Data Mappers — use periods per year so biweekly/weekly show correct # of years (not 2x)
+const balanceChartData = computed(() => {
+  const sch = activeSummary.value.schedule
+  const ppy = getPaymentsPerYear(activeScenario.value.paymentFreq)
+  const points = sch.filter((_, i) => i % ppy === 0).map(r => ({
+    label: `Yr ${Math.floor(r.paymentNum / ppy)}`,
+    value: r.endingBalance
+  }))
+  return {
+    labels: points.map(p => p.label),
+    datasets: [{
+      label: 'Remaining Balance',
+      data: points.map(p => p.value),
+      borderColor: '#0F172A',
+      backgroundColor: 'rgba(15, 23, 42, 0.1)',
+      fill: true,
+      tension: 0.4
+    }]
+  }
+})
+
+const principalInterestChartData = computed(() => {
+  const sch = activeSummary.value.schedule
+  const ppy = getPaymentsPerYear(activeScenario.value.paymentFreq)
+  const yearly = []
+  for (let i = 0; i < sch.length; i += ppy) {
+    const slice = sch.slice(i, i + ppy)
+    if (slice.length === 0) break
+    yearly.push({
+      interest: slice.reduce((a, b) => a + b.interest, 0),
+      principal: slice.reduce((a, b) => a + (b.principal + b.extraPrincipal), 0)
+    })
+  }
+  return {
+    labels: yearly.map((_, i) => `Yr ${i + 1}`),
+    datasets: [
+      { label: 'Principal', data: yearly.map(y => y.principal), backgroundColor: '#10B981' },
+      { label: 'Interest', data: yearly.map(y => y.interest), backgroundColor: '#F43F5E' }
+    ]
+  }
 })
 </script>
+
+<style>
+.bg-grid-pattern {
+  background-image: radial-gradient(circle, #ffffff 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+input[type="range"] {
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e2e8f0;
+  border-radius: 99px;
+}
+</style>
