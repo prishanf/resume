@@ -144,26 +144,84 @@
 
         <div class="lg:col-span-8 space-y-8">
           
+          <!-- Original 3 metric cards: Amortization + selected term values where applicable -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden">
               <div class="absolute top-0 right-0 w-16 h-16 bg-primary/5 rounded-bl-full"></div>
               <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Payment</p>
-              <h3 class="text-3xl font-black text-primary">{{ formatCurrency(activeSummary.payment + (activeScenario.annualTax + activeScenario.annualIns) / getPaymentsPerYear(activeScenario.paymentFreq)) }}</h3>
-              <p class="text-[10px] text-gray-400 mt-1 uppercase">Principal + Interest + PITI</p>
+              <h3 class="text-3xl font-black text-primary">{{ formatCurrency(activeSummary.payment + (activeScenario.extraAmount || 0) + (activeScenario.annualTax + activeScenario.annualIns) / getPaymentsPerYear(activeScenario.paymentFreq)) }}</h3>
+              <p class="text-[10px] text-gray-400 mt-1 uppercase">P+I{{ activeScenario.extraAmount ? ' + extra' : '' }}{{ showTaxes ? ' + PITI' : '' }} per {{ paymentFreqLabel.toLowerCase() }}</p>
+              <p class="text-[10px] text-gray-400 mt-0.5">Without extra: {{ formatCurrency(activeSummary.paymentNoExtra + (activeScenario.annualTax + activeScenario.annualIns) / getPaymentsPerYear(activeScenario.paymentFreq)) }}</p>
             </div>
-            
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Interest Saved</p>
-              <h3 class="text-3xl font-black text-green-500">{{ formatCurrency(activeSummary.interestSaved) }}</h3>
-              <p class="text-xs text-green-600/70 font-bold mt-1">↑ {{ activeSummary.yearsReduction?.toFixed(1) }} Years Faster</p>
+              <h3 class="text-3xl font-black text-primary">{{ formatCurrency(activeSummary.interestSaved) }}</h3>
+              <p class="text-[10px] text-gray-500 mt-0.5" v-if="firstTermSummary">First term ({{ activeScenario.termYears }} yr): {{ formatCurrency(firstTermSummary.interestSavedThisTerm) }}</p>
             </div>
-
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Payoff Date</p>
-              <h3 class="text-3xl font-black text-slate-700">{{ payoffDate }}</h3>
-              <p class="text-[10px] text-gray-400 mt-1 uppercase">Based on {{ activeSummary.yearsToPayoff?.toFixed(1) }}yr duration</p>
+              <p class="text-xs font-bold  text-gray-400 uppercase tracking-widest mb-1">Years Saved</p>
+              <h3 class="text-3xl font-black text-accent">{{ activeSummary.yearsReduction?.toFixed(1) ?? '0' }} yr</h3>
+              <p class="text-[10px] text-gray-400 mt-1">Payoff date: {{ payoffDate }}</p>
             </div>
           </div>
+
+          <!-- 3 summary cards: Amortization + selected term (first term) for each -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Interest</p>
+              <p class="text-lg font-black text-slate-700 tabular-nums">{{ formatCurrency(activeSummary.totalInterest) }}</p>
+              <p class="text-[10px] text-gray-500 mt-0.5" v-if="firstTermSummary">First term ({{ activeScenario.termYears }} yr): {{ formatCurrency(firstTermSummary.interestPaid) }}</p>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Extra Principal Paid</p>
+              <p class="text-lg font-black text-slate-700 tabular-nums">{{ formatCurrency(activeSummary.totalExtra) }}</p>
+              <p class="text-[10px] text-gray-500 mt-0.5" v-if="firstTermSummary">First term ({{ activeScenario.termYears }} yr): {{ formatCurrency(firstTermSummary.extraPaid) }}</p>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
+              <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Total Principal Paid</p>
+              <p class="text-lg font-black text-slate-700 tabular-nums">{{ formatCurrency(totalPrincipalPaidAmortization) }}</p>
+              <p class="text-[10px] text-gray-500 mt-0.5" v-if="firstTermSummary">First term ({{ activeScenario.termYears }} yr): {{ formatCurrency(firstTermSummary.principalPaid) }}</p>
+            </div>
+          </div>
+
+          <!-- Term summary table -->
+          <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100">
+              <h3 class="text-xl font-bold text-primary">Term summary</h3>
+              <p class="text-sm text-gray-500 mt-0.5">Per {{ activeScenario.termYears }}-year term for Scenario {{ ['A', 'B', 'C'][activeScenarioIndex] }}. Savings vs no extra principal.</p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-sm border-collapse">
+                <thead class="bg-primary/10 border-b border-primary/20">
+                  <tr>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary">Term</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Starting balance</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Principal paid</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Interest paid</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Extra principal</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Ending balance</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Interest saved (term)</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Interest saved (cumulative)</th>
+                    <th class="py-3 px-3 font-bold text-xs uppercase text-primary text-right">Years saved</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-50 text-xs">
+                  <tr v-for="row in termSummaryRows" :key="row.termIndex" class="hover:bg-gray-50/50">
+                    <td class="py-2 px-3 font-semibold text-gray-800">T {{ row.termIndex + 1 }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums text-gray-700">{{ formatCurrency(row.startBalance) }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums text-gray-700">{{ formatCurrency(row.principalPaid) }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums text-gray-700">{{ formatCurrency(row.interestPaid) }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums text-gray-700">{{ formatCurrency(row.extraPaid) }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums font-semibold text-gray-900">{{ formatCurrency(row.endBalance) }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums font-medium text-green-700">{{ formatCurrency(row.interestSavedThisTerm) }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums font-medium text-green-700">{{ formatCurrency(row.interestSavedCumulative) }}</td>
+                    <td class="py-2 px-3 text-right tabular-nums font-medium text-primary">{{ row.yearsSavedOverall != null ? row.yearsSavedOverall.toFixed(1) + ' yr' : '—' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="text-xs text-gray-500 px-6 py-3 border-t border-gray-50">Interest saved (term) = interest you would have paid this term without extra principal minus interest actually paid. Years saved = how much sooner the loan is paid off overall.</p>
+          </section>
 
           <section v-if="scenarios.length > 1" class="bg-primary rounded-2xl overflow-hidden shadow-xl">
             <div class="px-6 py-4 border-b border-white/10 flex justify-between items-center">
@@ -217,11 +275,12 @@
           </div>
 
           <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-             <div class="p-6 ">
+             <div class="p-6">
                <h3 class="text-lg font-bold">Mortgage vs. Market</h3>
                <p class="text-sm text-slate-400">Is your extra {{ formatCurrency(activeScenario.extraAmount) }} better off in the S&P 500?</p>
+               <p class="text-sm text-gray-600 mt-2">Total investment: <span class="font-semibold">{{ formatCurrency(extraVsInvestComparison.totalExtraPaid) }}</span> (full amortization) · <span class="font-semibold">{{ formatCurrency(extraVsInvestComparison.extraPaidTerm) }}</span> (first {{ extraVsInvestComparison.termYears }} yr term)</p>
              </div>
-             <div class="p-6">
+             <div class="p-6 pt-0">
                 <div class="flex items-center gap-4 mb-6">
                   <div class="flex-1">
                     <label class="text-[10px] font-bold text-gray-400 uppercase">Est. Market Return (%)</label>
@@ -229,16 +288,46 @@
                   </div>
                   <span class="text-2xl font-black text-primary">{{ alternativeReturnPct }}%</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Amortization (full loan life) -->
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Over full amortization</p>
+                <p class="text-sm text-gray-600 mb-3">Total investment: <span class="font-semibold text-slate-800">{{ formatCurrency(extraVsInvestComparison.totalExtraPaid) }}</span></p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-3">
                   <div class="space-y-2">
                     <div class="flex justify-between text-sm"><span class="text-gray-500">Interest Saved:</span><span class="font-bold text-green-600">{{ formatCurrency(extraVsInvestComparison.interestSaved) }}</span></div>
-                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-primary h-full" :style="{width: (extraVsInvestComparison.interestSaved / Math.max(extraVsInvestComparison.interestSaved, extraVsInvestComparison.investmentGain) * 100) + '%'}"></div></div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-primary h-full" :style="{width: (extraVsInvestComparison.interestSaved / Math.max(extraVsInvestComparison.interestSaved, extraVsInvestComparison.investmentGain, 1) * 100) + '%'}"></div></div>
                   </div>
                   <div class="space-y-2">
                     <div class="flex justify-between text-sm"><span class="text-gray-500">Market Gain:</span><span class="font-bold text-blue-600">{{ formatCurrency(extraVsInvestComparison.investmentGain) }}</span></div>
-                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-accent h-full" :style="{width: (extraVsInvestComparison.investmentGain / Math.max(extraVsInvestComparison.interestSaved, extraVsInvestComparison.investmentGain) * 100) + '%'}"></div></div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-accent h-full" :style="{width: (extraVsInvestComparison.investmentGain / Math.max(extraVsInvestComparison.interestSaved, extraVsInvestComparison.investmentGain, 1) * 100) + '%'}"></div></div>
                   </div>
                 </div>
+                <p class="text-sm mb-8" :class="(extraVsInvestComparison.interestSaved - extraVsInvestComparison.investmentGain) >= 0 ? 'text-green-600 font-medium' : 'text-blue-600 font-medium'">
+                  Difference (Interest Saved − Market Gain): {{ formatCurrency(extraVsInvestComparison.interestSaved - extraVsInvestComparison.investmentGain) }}
+                  <span v-if="(extraVsInvestComparison.interestSaved - extraVsInvestComparison.investmentGain) > 0"> — Mortgage wins</span>
+                  <span v-else-if="(extraVsInvestComparison.interestSaved - extraVsInvestComparison.investmentGain) < 0"> — Market wins</span>
+                  <span v-else> — Tie</span>
+                </p>
+
+                <!-- First term (selected term years) -->
+                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">First term ({{ extraVsInvestComparison.termYears }} yr)</p>
+                <p class="text-sm text-gray-600 mb-3">Total investment: <span class="font-semibold text-slate-800">{{ formatCurrency(extraVsInvestComparison.extraPaidTerm) }}</span> · Market value at end of term: {{ formatCurrency(extraVsInvestComparison.fvTerm) }}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-3">
+                  <div class="space-y-2">
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Interest Saved:</span><span class="font-bold text-green-600">{{ formatCurrency(extraVsInvestComparison.interestSavedTerm) }}</span></div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-primary h-full" :style="{width: (extraVsInvestComparison.interestSavedTerm / Math.max(extraVsInvestComparison.interestSavedTerm, extraVsInvestComparison.investmentGainTerm, 1) * 100) + '%'}"></div></div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">Market Gain:</span><span class="font-bold text-blue-600">{{ formatCurrency(extraVsInvestComparison.investmentGainTerm) }}</span></div>
+                    <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden"><div class="bg-accent h-full" :style="{width: (extraVsInvestComparison.investmentGainTerm / Math.max(extraVsInvestComparison.interestSavedTerm, extraVsInvestComparison.investmentGainTerm, 1) * 100) + '%'}"></div></div>
+                  </div>
+                </div>
+                <p class="text-sm" :class="(extraVsInvestComparison.interestSavedTerm - extraVsInvestComparison.investmentGainTerm) >= 0 ? 'text-green-600 font-medium' : 'text-blue-600 font-medium'">
+                  Difference (Interest Saved − Market Gain): {{ formatCurrency(extraVsInvestComparison.interestSavedTerm - extraVsInvestComparison.investmentGainTerm) }}
+                  <span v-if="(extraVsInvestComparison.interestSavedTerm - extraVsInvestComparison.investmentGainTerm) > 0"> — Mortgage wins</span>
+                  <span v-else-if="(extraVsInvestComparison.interestSavedTerm - extraVsInvestComparison.investmentGainTerm) < 0"> — Market wins</span>
+                  <span v-else> — Tie</span>
+                </p>
              </div>
           </div>
 
@@ -458,7 +547,8 @@ function calculateSchedule(scen, useExtra = true) {
   const maxExtraYearly = scen.amount * (scen.annualLimitPct / 100)
   let extraThisYear = 0
 
-  while (bal > 0.1 && period < 600) {
+  const maxPeriods = scen.amortYears * getPaymentsPerYear(scen.paymentFreq) + 52
+  while (bal > 0.1 && period < maxPeriods) {
     if (period % getPaymentsPerYear(scen.paymentFreq) === 0) extraThisYear = 0
     
     const interest = bal * r
@@ -474,6 +564,7 @@ function calculateSchedule(scen, useExtra = true) {
     
     schedule.push({
       paymentNum: period + 1,
+      payment: pmt,
       principal,
       interest,
       extraPrincipal: extra,
@@ -486,14 +577,22 @@ function calculateSchedule(scen, useExtra = true) {
   return { schedule, payment: pmt, totalInterest: totalInt, totalExtra, yearsToPayoff: period / getPaymentsPerYear(scen.paymentFreq) }
 }
 
+const activeScheduleNoExtra = computed(() => calculateSchedule(activeScenario.value, false))
+
 const activeSummary = computed(() => {
   const withExtra = calculateSchedule(activeScenario.value, true)
-  const noExtra = calculateSchedule(activeScenario.value, false)
+  const noExtra = activeScheduleNoExtra.value
   return {
     ...withExtra,
+    paymentNoExtra: noExtra.payment,
     interestSaved: Math.max(0, noExtra.totalInterest - withExtra.totalInterest),
     yearsReduction: noExtra.yearsToPayoff - withExtra.yearsToPayoff
   }
+})
+
+const paymentFreqLabel = computed(() => {
+  const f = activeScenario.value.paymentFreq
+  return f === 'monthly' ? 'Monthly' : f === 'biweekly' ? 'Bi-weekly' : 'Weekly'
 })
 
 const comparisonRows = computed(() => scenarios.value.map(s => {
@@ -502,21 +601,86 @@ const comparisonRows = computed(() => scenarios.value.map(s => {
   return { ...res, interestSaved: base.totalInterest - res.totalInterest }
 }))
 
+const termSummaryRows = computed(() => {
+  const s = activeSummary.value.schedule
+  const noExtra = activeScheduleNoExtra.value.schedule
+  const termYears = Math.max(1, activeScenario.value.termYears)
+  const payPerYear = getPaymentsPerYear(activeScenario.value.paymentFreq)
+  const periodsPerTerm = termYears * payPerYear
+  const yearsSavedOverall = activeSummary.value.yearsReduction
+  const rows = []
+  let idx = 0
+  let start = 0
+  let interestSavedCumulative = 0
+  while (start < s.length) {
+    const chunk = s.slice(start, start + periodsPerTerm)
+    if (chunk.length === 0) break
+    const principalPaid = chunk.reduce((a, r) => a + r.principal, 0)
+    const interestPaid = chunk.reduce((a, r) => a + r.interest, 0)
+    const extraPaid = chunk.reduce((a, r) => a + (r.extraPrincipal || 0), 0)
+    const startBalance = start === 0 ? (activeScenario.value.amount || 0) : s[start - 1].endingBalance
+    const endBalance = chunk[chunk.length - 1].endingBalance
+    const noExtraChunk = noExtra.slice(start, start + periodsPerTerm)
+    const interestNoExtraThisTerm = noExtraChunk.reduce((a, r) => a + r.interest, 0)
+    const interestSavedThisTerm = interestNoExtraThisTerm - interestPaid
+    interestSavedCumulative += interestSavedThisTerm
+    rows.push({
+      termIndex: idx,
+      startBalance,
+      principalPaid,
+      interestPaid,
+      extraPaid,
+      endBalance,
+      interestSavedThisTerm,
+      interestSavedCumulative,
+      yearsSavedOverall
+    })
+    start += periodsPerTerm
+    idx++
+    if (endBalance <= 0) break
+  }
+  return rows
+})
+
+const firstTermSummary = computed(() => termSummaryRows.value[0] || null)
+
+const totalPrincipalPaidAmortization = computed(() => {
+  const sch = activeSummary.value.schedule
+  return sch.reduce((sum, row) => sum + row.principal + (row.extraPrincipal || 0), 0)
+})
+
 const amortizationTableRows = computed(() => activeSummary.value.schedule)
 
 const extraVsInvestComparison = computed(() => {
   const s = activeScenario.value
   const totalExtra = activeSummary.value.totalExtra
   const periods = activeSummary.value.schedule.length
-  const rate = (alternativeReturnPct.value / 100) / getPaymentsPerYear(s.paymentFreq)
-  
-  // Future Value of periodic investments
+  const payPerYear = getPaymentsPerYear(s.paymentFreq)
+  const rate = (alternativeReturnPct.value / 100) / payPerYear
+
+  // Amortization: Future Value of full extra stream
   const fv = s.extraAmount * ((Math.pow(1 + rate, periods) - 1) / rate)
-  
+
+  // First term only: periods in selected term, FV of extra stream over that term
+  const termYears = Math.max(1, s.termYears)
+  const periodsInTerm = termYears * payPerYear
+  const fvTerm = rate > 0
+    ? s.extraAmount * ((Math.pow(1 + rate, periodsInTerm) - 1) / rate)
+    : s.extraAmount * periodsInTerm
+  const firstTerm = firstTermSummary.value
+  const extraPaidTerm = firstTerm ? firstTerm.extraPaid : 0
+  const interestSavedTerm = firstTerm ? firstTerm.interestSavedThisTerm : 0
+
   return {
     interestSaved: activeSummary.value.interestSaved,
     investmentGain: fv - totalExtra,
-    totalExtraPaid: totalExtra
+    totalExtraPaid: totalExtra,
+    // First term (selected term years)
+    termYears,
+    interestSavedTerm,
+    extraPaidTerm,
+    investmentGainTerm: fvTerm - extraPaidTerm,
+    fvTerm
   }
 })
 
@@ -525,7 +689,7 @@ const balanceChartData = computed(() => {
   const sch = activeSummary.value.schedule
   const ppy = getPaymentsPerYear(activeScenario.value.paymentFreq)
   const points = sch.filter((_, i) => i % ppy === 0).map(r => ({
-    label: `Yr ${Math.floor(r.paymentNum / ppy)}`,
+    label: `Yr ${Math.floor(r.paymentNum / ppy)+ 1 }`,
     value: r.endingBalance
   }))
   return {
