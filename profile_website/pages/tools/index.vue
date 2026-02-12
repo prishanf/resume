@@ -15,7 +15,25 @@
 
     <section class="py-16">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-8 md:grid-cols-2">
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <NuxtLink
+            to="/tools/mortgage-calculator"
+            class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
+          >
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+              <CalculatorIcon class="w-6 h-6 text-primary" />
+            </div>
+            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+              Mortgage Calculator
+            </h2>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Amortization, extra principal with annual limit, term summary, and compare up to 3 scenarios with charts.
+            </p>
+            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
+              Open calculator →
+            </span>
+          </NuxtLink>
+
           <NuxtLink
             to="/tools/heloc-mortgage-calculator"
             class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
@@ -62,6 +80,6 @@ import { CalculatorIcon, DocumentTextIcon } from '@heroicons/vue/24/outline'
 
 useSeoMeta({
   title: 'Tools - Prishan Fernando',
-  description: 'Interactive calculators and tools: HELOC vs Mortgage calculator and more.'
+  description: 'Interactive calculators and tools: Mortgage calculator, HELOC vs Mortgage calculator, Rental application and more.'
 })
 </script>
