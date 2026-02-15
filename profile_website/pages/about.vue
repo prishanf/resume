@@ -68,6 +68,14 @@
                       <div class="text-[10px] text-gray-400 uppercase tracking-widest">Recent Activity</div>
                     </div>
                   </a>
+                  <a href="/resume.pdf" download class="flex items-center group">
+                    <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 mr-4">
+                      <ArrowDownTrayIcon class="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <div class="text-sm font-bold text-primary group-hover:text-accent transition-colors">Resume</div>
+                    </div>
+                  </a>
                 </div>
               </div>
 

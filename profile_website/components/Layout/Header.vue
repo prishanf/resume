@@ -133,11 +133,22 @@ const navigation = [
     name: 'Tools',
     href: '/tools',
     children: [
-      { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator' }
+      { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator' },
+      { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator' },
+      { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator' },
+      { name: 'Rental Application', href: '/tools/rental-application' }
     ]
   },
-  { name: 'Posts', href: '/posts' },
-  { name: 'Resume', href: '/resume.pdf', download: true }
+  {
+    name: 'Blog',
+    href: '',
+    children: [
+      { name: 'Posts', href: '/posts' },
+      { name: 'Book Summaries', href: '/book-summaries' },
+    ]
+  },
+  
+
 ]
 
 function isToolsActive (item) {
