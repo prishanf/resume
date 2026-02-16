@@ -5,7 +5,11 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://prishanfernando.com'
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://prishanfernando.com',
+      /** Google Sheet ID for YouTube videos (from the sheet URL: .../d/SHEET_ID/edit). Sheet must be shared "Anyone with the link can view". */
+      googleSheetIdVideos: process.env.NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS || '1Etit50X5tAj4Zh4d9WH23QHoCgSbdo4Qm6c4_XWM01A',
+      /** Optional: sheet tab GID (default 0 = first tab). */
+      googleSheetGidVideos: process.env.NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS || '0'
     }
   },
 

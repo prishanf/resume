@@ -1,6 +1,32 @@
 {
   "summaries": [
     {
+      "id": "049-rethinking_positive_thinking",
+      "title": "Rethinking Positive Thinking",
+      "day": 49,
+      "date": "Feb 16, 2026",
+      "bookName": "Rethinking Positive Thinking",
+      "bookAuthor": "G.Oettingen",
+      "amazonUrl": "https://amzn.to/4rfy2Rj",
+      "pdfUrl": "/pdfs/049-Rethinking_Positive_Thinking.pdf",
+      "author": "Nathan Lozeron",
+      "sourceUrl": "https://youtu.be/OBfes3qFs4A?si=JAVmy5k1lEI14tGO",
+      "description": ""
+    },
+    {
+      "id": "048-eat_that_frog",
+      "title": "Eat That Frog",
+      "day": 48,
+      "date": "Feb 15, 2026",
+      "bookName": "Eat That Frog",
+      "bookAuthor": "Brian Tracy",
+      "amazonUrl": "https://amzn.to/4rZmIc5",
+      "pdfUrl": "/pdfs/048-Eat_That_Frog.pdf",
+      "author": "Nathan Lozeron",
+      "sourceUrl": "https://youtu.be/y6mGuFe5YNc?si=LxgcebizMJyHXHU0",
+      "description": ""
+    },
+    {
       "id": "047-so-good-they-cant-ignore-you",
       "title": "So Good They Cant Ignore You",
       "pdfUrl": "/pdfs/047-So Good They Cant Ignore You.pdf",
