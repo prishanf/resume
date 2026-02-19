@@ -1045,7 +1045,7 @@
                 <span
                   class="text-[10px] bg-accent text-white px-2 py-0.5 rounded-full font-black uppercase">Real-time</span>
               </div>
-              <div class="p-6 space-y-4">
+              <div class="p-6">
                 <SidebarRow label="Gross Monthly Income" :value="formatCurrency(grossMonthlyIncome)" highlight />
                 <SidebarRow label="Non-Housing Debts / mo" :value="formatCurrency(totalNonHousingDebts)" />
                 <SidebarRow label="Existing Mortgage Payments" :value="formatCurrency(totalExistingMortgagePayments)" />
@@ -1141,14 +1141,14 @@ const SidebarRow = defineComponent({
   },
   setup(props) {
     return () => h('div', { class: 'flex justify-between items-center py-1' }, [
-      h('span', { class: 'text-white/60 text-xs' }, props.label),
+      h('span', { class: 'text-xs' }, props.label),
       h('span', {
         class: [
           'text-sm font-bold tabular-nums',
           props.highlight ? 'text-accent' :
             props.status === 'good' ? 'text-primary' :
               props.status === 'bad' ? 'text-red-400' :
-                'text-white'
+                'text-gray-700'
         ].join(' ')
       }, props.value)
     ])
@@ -1519,70 +1519,181 @@ const strengthTips = computed(() => {
 
 // ── PDF Export ─────────────────────────────────────────────────────────────
 
+const PDF = {
+  primary: [15, 23, 42],
+  primaryLight: [51, 65, 85],
+  muted: [100, 116, 139],
+  accent: [16, 185, 129],
+  danger: [220, 38, 38],
+  bgSection: [248, 250, 252],
+  border: [226, 232, 240],
+  disclaimer: [100, 116, 139]   // darker for readability
+}
+
 const generatePDF = () => {
   const doc = new jsPDF({ unit: 'mm', format: 'a4' })
-  const W = 210; const M = 15; const CW = W - M * 2
-  let y = 20
+  const W = 210
+  const M = 16
+  const CW = W - M * 2
+  let y = 0
 
-  const ln = (n = 6) => { y += n }
-  const header = (text) => { doc.setFontSize(10); doc.setFont('helvetica', 'bold'); doc.setTextColor(15, 23, 42); doc.text(text.toUpperCase(), M, y); y += 1; doc.setDrawColor(15, 23, 42); doc.setLineWidth(0.3); doc.line(M, y, M + CW, y); ln(5); }
-  const row = (label, value, accent = false) => { doc.setFontSize(9); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 116, 139); doc.text(label, M, y); doc.setFont('helvetica', 'bold'); doc.setTextColor(accent ? 16 : 15, accent ? 185 : 23, accent ? 129 : 42); doc.text(String(value), W - M, y, { align: 'right' }); ln(5); }
+  const ln = (n = 1) => { y += n }
+  const setY = (val) => { y = val }
 
-  // Title
-  doc.setFontSize(20); doc.setFont('helvetica', 'bold'); doc.setTextColor(15, 23, 42)
-  doc.text('Mortgage Qualification Summary', M, y); ln(6)
-  doc.setFontSize(9); doc.setFont('helvetica', 'normal'); doc.setTextColor(100, 116, 139)
-  doc.text(`Generated ${new Date().toLocaleDateString('en-CA', { dateStyle: 'full' })} · For personal reference only — not a lender approval.`, M, y); ln(10)
+  const row = (label, value, accent = false) => {
+    doc.setFontSize(9)
+    doc.setFont('helvetica', 'normal')
+    doc.setTextColor(...PDF.muted)
+    doc.text(label, M + 2, y)
+    doc.setFont('helvetica', accent ? 'bold' : 'normal')
+    doc.setTextColor(...(accent ? PDF.accent : PDF.primary))
+    doc.text(String(value), W - M - 2, y, { align: 'right' })
+    ln(6.5)
+  }
 
-  header('Income')
-  incomeSources.value.forEach(src => {
-    if (src.gross > 0) row(`${src.label || src.type} (${src.frequency})`, formatCurrency(toMonthly(src)) + '/mo')
+  const sectionBox = (title, startY, drawContent) => {
+    const titleH = 7
+    // Accent bar (left) + title bar
+    // doc.setFillColor(...PDF.accent)
+    // doc.rect(M, startY, 3, titleH, 'F')
+    doc.setFillColor(...PDF.bgSection)
+    doc.setDrawColor(...PDF.border)
+    doc.setLineWidth(0.2)
+    doc.rect(M + 1, startY, CW - 2, titleH, 'FD')
+    doc.setFontSize(11)
+    doc.setFont('helvetica', 'bold')
+    doc.setTextColor(...PDF.primary)
+    doc.text(title, M + 3, startY + 4.8)
+    setY(startY + titleH + 4)
+    drawContent()
+    setY(y + 1)
+  }
+
+  // ── Header ──
+  doc.setFillColor(...PDF.primary)
+  doc.rect(0, 0, W, 36, 'F')
+  doc.setFontSize(24)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(255, 255, 255)
+  doc.text('Mortgage Qualification Summary', M, 16)
+  doc.setFontSize(10)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(203, 213, 225)
+  doc.text(`Generated ${new Date().toLocaleDateString('en-CA', { dateStyle: 'full' })}  ·  For personal reference only — not a lender approval`, M, 24)
+  setY(44)
+
+  // ── At a glance: 4 equal columns with dividers ──
+  const colW = CW / 4
+  const boxH = 22
+  doc.setFillColor(255, 255, 255)
+  doc.setDrawColor(...PDF.border)
+  doc.setLineWidth(0.25)
+  doc.rect(M, y, CW, boxH, 'FD')
+  doc.rect(M, y, CW, boxH, 'S')
+  for (let c = 1; c < 4; c++) {
+    doc.setDrawColor(...PDF.border)
+    doc.line(M + c * colW, y, M + c * colW, y + boxH)
+  }
+  const colCenter = (i) => M + (i + 0.5) * colW
+  const labelY = y + 5
+  const valueY = y + 15
+  doc.setFontSize(8)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...PDF.muted)
+  doc.text('GDS (limit 39%)', colCenter(0), labelY, { align: 'center' })
+  doc.text('TDS (limit 44%)', colCenter(1), labelY, { align: 'center' })
+  doc.text('Max qualifying mortgage', colCenter(2), labelY, { align: 'center' })
+  doc.text('Status', colCenter(3), labelY, { align: 'center' })
+  doc.setFontSize(11)
+  doc.setFont('helvetica', 'bold')
+  doc.setTextColor(...(gdsRatio.value <= 39 ? PDF.accent : PDF.danger))
+  doc.text(formatPct(gdsRatio.value), colCenter(0), valueY, { align: 'center' })
+  doc.setTextColor(...(tdsRatio.value <= 44 ? PDF.accent : PDF.danger))
+  doc.text(formatPct(tdsRatio.value), colCenter(1), valueY, { align: 'center' })
+  doc.setTextColor(...PDF.primary)
+  const qualifies = requestedMortgage.value <= maxQualifyingMortgage.value
+  doc.setTextColor(...(qualifies ? PDF.accent : PDF.primary))
+  doc.text(formatCurrency(maxQualifyingMortgage.value), colCenter(2), valueY, { align: 'center' })
+  const statusOk = gdsRatio.value <= 39 && tdsRatio.value <= 44 && qualifies
+  doc.setTextColor(...(statusOk ? PDF.accent : PDF.danger))
+  doc.setFontSize(9)
+  doc.text(approvalStatus.value.title, colCenter(3), valueY, { align: 'center' })
+  setY(y + boxH + 5)
+
+  // ── Income ──
+  sectionBox('Income', y, () => {
+    incomeSources.value.forEach(src => {
+      if (src.gross > 0) row(`${src.label || src.type} (${src.frequency})`, formatCurrency(toMonthly(src)) + '/mo')
+    })
+    if (showCoApplicant.value && coApplicant.value.gross > 0) row('Co-Applicant', formatCurrency(coApplicant.value.gross / 12) + '/mo')
+    row('Total gross monthly income', formatCurrency(grossMonthlyIncome.value), true)
   })
-  if (showCoApplicant.value && coApplicant.value.gross > 0) row('Co-Applicant', formatCurrency(coApplicant.value.gross / 12) + '/mo')
-  row('TOTAL GROSS MONTHLY INCOME', formatCurrency(grossMonthlyIncome.value), true); ln(2)
 
-  header('Debts')
-  debts.value.existingMortgages.forEach((m, i) => {
-    if (m.mortgageType === 'standard') {
-      row(`Existing Mortgage ${i + 1} (${m.propertyType})`, formatCurrency(m.payment) + '/mo')
-    } else if (m.mortgageType === 'readvanceable') {
-      row(`Readvanceable – Fixed Segment (${m.label || 'Mtg ' + (i + 1)})`, formatCurrency(m.fixedPayment) + '/mo')
-      row(`Readvanceable – LOC Segment (lender qual.)`, formatCurrency(calcLocMonthlyObligation(m)) + '/mo')
-    } else if (m.mortgageType === 'heloc') {
-      row(`HELOC (limit ${formatCurrency(m.locLimit)}, lender qual.)`, formatCurrency(calcLocMonthlyObligation(m)) + '/mo')
-    }
+  // ── Debts ──
+  sectionBox('Debts & obligations', y, () => {
+    debts.value.existingMortgages.forEach((m, i) => {
+      if (m.mortgageType === 'standard') row(`Existing mortgage ${i + 1} (${m.propertyType})`, formatCurrency(m.payment) + '/mo')
+      else if (m.mortgageType === 'readvanceable') {
+        row(`Readvanceable – fixed (${m.label || 'Mtg ' + (i + 1)})`, formatCurrency(m.fixedPayment) + '/mo')
+        row('Readvanceable – LOC (lender qual.)', formatCurrency(calcLocMonthlyObligation(m)) + '/mo')
+      } else if (m.mortgageType === 'heloc') row(`HELOC (limit ${formatCurrency(m.locLimit)})`, formatCurrency(calcLocMonthlyObligation(m)) + '/mo')
+    })
+    row('Vehicle loans / leases', formatCurrency(debts.value.vehicles.reduce((s, d) => s + (d.payment || 0), 0)) + '/mo')
+    row('Credit cards (3% of balance)', formatCurrency(debts.value.creditCards.reduce((s, cc) => s + (cc.balance || 0) * 0.03, 0)) + '/mo')
+    row('Personal LOCs (3% of limit)', formatCurrency(debts.value.personalLOCs.reduce((s, loc) => s + (loc.limit || 0) * 0.03, 0)) + '/mo')
+    row('Student / other loans', formatCurrency(debts.value.other.reduce((s, d) => s + (d.payment || 0), 0)) + '/mo')
+    row('Total non-housing debts', formatCurrency(totalNonHousingDebts.value), true)
   })
-  row('Vehicle Loans / Leases', formatCurrency(debts.value.vehicles.reduce((s, d) => s + d.payment, 0)) + '/mo')
-  row('Credit Cards (3% of balance)', formatCurrency(debts.value.creditCards.reduce((s, cc) => s + cc.balance * 0.03, 0)) + '/mo')
-  row('Personal LOCs (3% of limit)', formatCurrency(debts.value.personalLOCs.reduce((s, loc) => s + loc.limit * 0.03, 0)) + '/mo')
-  row('Student / Other Loans', formatCurrency(debts.value.other.reduce((s, d) => s + d.payment, 0)) + '/mo')
-  row('TOTAL NON-HOUSING DEBTS', formatCurrency(totalNonHousingDebts.value), true); ln(2)
 
-  header('Property')
-  row('Purchase Price', formatCurrency(property.value.purchasePrice))
-  row(`Down Payment (${formatPct(property.value.downPaymentPct)})`, formatCurrency(downPaymentDollars.value))
-  row('Requested Mortgage', formatCurrency(requestedMortgage.value))
-  row('Contract Rate', formatPct(property.value.requestedRate))
-  row('Stress Test Rate', formatPct(stressTestRate.value))
-  row('Amortization', property.value.amortizationYears + ' years')
-  row('Property Tax (monthly)', formatCurrency(property.value.monthlyTax))
-  row('Heating (monthly)', formatCurrency(property.value.monthlyHeating)); ln(2)
+  // ── Property ──
+  sectionBox('Property details', y, () => {
+    row('Purchase price', formatCurrency(property.value.purchasePrice))
+    row(`Down payment (${formatPct(property.value.downPaymentPct)})`, formatCurrency(downPaymentDollars.value))
+    row('Requested mortgage', formatCurrency(requestedMortgage.value))
+    row('Contract rate', formatPct(property.value.requestedRate))
+    row('Stress test rate', formatPct(stressTestRate.value))
+    row('Amortization', property.value.amortizationYears + ' years')
+    row('Property tax (monthly)', formatCurrency(property.value.monthlyTax))
+    row('Heating (monthly)', formatCurrency(property.value.monthlyHeating))
+  })
 
-  header('Qualification Results')
-  row('GDS Ratio (limit 39%)', formatPct(gdsRatio.value), gdsRatio.value <= 39)
-  row('TDS Ratio (limit 44%)', formatPct(tdsRatio.value), tdsRatio.value <= 44)
-  row('LTV Ratio', formatPct(ltv.value))
-  if (cmhcPremium.value > 0) row('CMHC Premium', formatCurrency(cmhcPremium.value))
-  row('Max Qualifying Mortgage', formatCurrency(maxQualifyingMortgage.value), true)
-  row('Max Purchase Price', formatCurrency(maxPurchasePrice.value), true)
-  row('Actual Monthly Payment (P+I)', formatCurrency(actualMonthlyPayment.value))
-  row('Total Monthly PITH', formatCurrency(totalMonthlyPITH.value)); ln(2)
+  // ── Qualification results ──
+  sectionBox('Qualification results', y, () => {
+    row('GDS ratio (limit 39%)', formatPct(gdsRatio.value), gdsRatio.value <= 39)
+    row('TDS ratio (limit 44%)', formatPct(tdsRatio.value), tdsRatio.value <= 44)
+    row('LTV ratio', formatPct(ltv.value))
+    if (cmhcPremium.value > 0) row('CMHC premium', formatCurrency(cmhcPremium.value))
+    row('Max qualifying mortgage', formatCurrency(maxQualifyingMortgage.value), true)
+    row('Max purchase price (20% down)', formatCurrency(maxPurchasePrice.value), true)
+    row('Actual monthly payment (P+I)', formatCurrency(actualMonthlyPayment.value))
+    row('Total monthly PITH', formatCurrency(totalMonthlyPITH.value))
+  })
 
-  header('Disclaimer')
-  doc.setFontSize(7.5); doc.setFont('helvetica', 'normal'); doc.setTextColor(150, 150, 150)
+  // ── Disclaimer ──
+  ln(1)
+  doc.setDrawColor(...PDF.border)
+  doc.setLineWidth(0.4)
+  doc.line(M, y, M + CW, y)
+  ln(1)
+  doc.setFontSize(8)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...PDF.disclaimer)
   const disclaimer = 'This report is for educational and planning purposes only. It does not constitute a mortgage pre-approval or commitment from any lender. Actual qualification is determined by a licensed mortgage broker or lender based on your full application, credit history, and current guidelines. Consult a qualified mortgage professional for advice.'
   const lines = doc.splitTextToSize(disclaimer, CW)
-  doc.text(lines, M, y)
+  const lineHeight = 5
+  const disclaimerStartY = y
+  lines.forEach((line, i) => {
+    doc.text(line, M, disclaimerStartY + (i + 1) * lineHeight)
+  })
+  const disclaimerEndY = disclaimerStartY + lines.length * lineHeight
+  setY(disclaimerEndY + 8)
+
+  // Footer (always below disclaimer to avoid overlap)
+  doc.setFontSize(8)
+  doc.setFont('helvetica', 'normal')
+  doc.setTextColor(...PDF.muted)
+  doc.text('Prishan Fernando.com — Mortgage Qualifier Tool', M, y)
+  doc.text('For personal reference only', W - M, y, { align: 'right' })
 
   doc.save('mortgage-qualification.pdf')
 }
