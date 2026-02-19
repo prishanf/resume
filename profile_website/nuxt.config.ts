@@ -56,7 +56,15 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [
-        { rel: 'canonical', href: 'https://prishanfernando.com' }
+        { rel: 'canonical', href: 'https://prishanfernando.com' },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' },
+        { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicons/favicon-32x32.png' },
+        { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicons/favicon-16x16.png' },
+        { rel: 'manifest', href: '/favicons/site.webmanifest' },
+        { rel: 'shortcut icon', href: '/favicons/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '192x192', href: '/favicons/android-chrome-192x192.png' },
+        { rel: 'icon', type: 'image/png', sizes: '512x512', href: '/favicons/android-chrome-512x512.png' },
       ],
       script: [
         {
