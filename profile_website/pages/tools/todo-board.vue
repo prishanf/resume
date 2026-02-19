@@ -101,13 +101,15 @@
       <!-- Board: 3 columns -->
       <div
         v-else-if="ready && activeProjectId"
-        class="grid grid-cols-3 gap-6 overflow-x-auto no-scrollbar pb-4"
+        class="md:grid md:grid-cols-3 gap-6 overflow-x-auto no-scrollbar pb-4 justify-between"
       >
         <ToolsTodoColumn
           status="new"
           label="New"
           :items="columnTodos('new')"
           :can-add="true"
+          :content-visible="columnContentVisible.new"
+          @update:content-visible="columnContentVisible.new = $event"
           @update="(id, u) => handleUpdateTodo(id, u)"
           @delete="handleDeleteTodo"
           @add="openAddTodo('new')"
@@ -120,6 +122,8 @@
           label="Working"
           :items="columnTodos('working')"
           :can-add="true"
+          :content-visible="columnContentVisible.working"
+          @update:content-visible="columnContentVisible.working = $event"
           @update="(id, u) => handleUpdateTodo(id, u)"
           @delete="handleDeleteTodo"
           @add="openAddTodo('working')"
@@ -132,6 +136,8 @@
           label="Done"
           :items="columnTodos('done')"
           :can-add="true"
+          :content-visible="columnContentVisible.done"
+          @update:content-visible="columnContentVisible.done = $event"
           @update="(id, u) => handleUpdateTodo(id, u)"
           @delete="handleDeleteTodo"
           @add="openAddTodo('done')"
@@ -233,10 +239,11 @@
             <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Content (optional)</label>
             <textarea
               v-model="newTodoContent"
-              rows="3"
-              placeholder="Notes..."
-              class="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-primary/20 text-sm resize-none"
+              rows="4"
+              placeholder="Plain text or **markdown**..."
+              class="w-full px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-primary/20 text-sm resize-none font-mono"
             />
+            <p class="text-[10px] text-gray-400 mt-1">Supports plain text and markdown (e.g. **bold**, lists, code).</p>
           </div>
         </div>
         <div class="flex justify-end gap-2 mt-6">
@@ -322,9 +329,31 @@ const newTodoTitle = ref('')
 const newTodoContent = ref('')
 const draggingTodo = ref<any>(null)
 
+const COLUMN_VISIBILITY_KEY = 'todo-board-column-content'
+const columnContentVisible = ref<Record<TodoStatus, boolean>>({
+  new: true,
+  working: true,
+  done: true
+})
+
 onMounted(() => {
   init()
+  try {
+    const raw = localStorage.getItem(COLUMN_VISIBILITY_KEY)
+    if (raw) {
+      const parsed = JSON.parse(raw) as Record<string, boolean>
+      if (parsed.new !== undefined) columnContentVisible.value.new = parsed.new
+      if (parsed.working !== undefined) columnContentVisible.value.working = parsed.working
+      if (parsed.done !== undefined) columnContentVisible.value.done = parsed.done
+    }
+  } catch (_) {}
 })
+
+watch(columnContentVisible, (v) => {
+  try {
+    localStorage.setItem(COLUMN_VISIBILITY_KEY, JSON.stringify(v))
+  } catch (_) {}
+}, { deep: true })
 
 // When we have projects and no selection, select first
 watch([projects, activeProjectId], () => {
@@ -389,7 +418,7 @@ async function submitNewTodo () {
   newTodoContent.value = ''
 }
 
-function handleUpdateTodo (id: string, u: Partial<{ title: string; content: string; status: TodoStatus }>) {
+function handleUpdateTodo (id: string, u: Partial<{ title: string; content: string; status: TodoStatus; contentCollapsed: boolean }>) {
   updateTodo(id, u)
 }
 

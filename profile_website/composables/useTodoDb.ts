@@ -24,6 +24,8 @@ export interface Todo {
   status: TodoStatus
   order: number
   createdAt: number
+  /** When true, content is hidden at card level until user expands */
+  contentCollapsed?: boolean
 }
 
 function openDb (): Promise<IDBDatabase> {
@@ -169,7 +171,7 @@ export function useTodoDb () {
     return todo
   }
 
-  async function updateTodo (id: string, updates: Partial<Pick<Todo, 'title' | 'content' | 'status' | 'order'>>) {
+  async function updateTodo (id: string, updates: Partial<Pick<Todo, 'title' | 'content' | 'status' | 'order' | 'contentCollapsed'>>) {
     const db = dbRef.value
     if (!db) throw new Error('Database not ready')
     const existing = todos.value.find(t => t.id === id)

@@ -8,21 +8,40 @@
   >
     <div
       :class="[
-        'flex items-center justify-between px-4 py-3 rounded-t-2xl border-b border-gray-100',
+        'px-4 py-3 rounded-t-2xl border-b border-gray-100',
         status === 'new' && 'bg-sky-50 border-sky-100',
         status === 'working' && 'bg-amber-50 border-amber-100',
         status === 'done' && 'bg-green-50 border-green-100'
       ]"
     >
-      <span
-        :class="[
-          'text-xs font-black uppercase tracking-wide',
-          status === 'new' && 'text-sky-700',
-          status === 'working' && 'text-amber-800',
-          status === 'done' && 'text-green-700'
-        ]"
-      >{{ label }}</span>
-      <span class="text-sm font-bold text-gray-500 tabular-nums">{{ items.length }}</span>
+      <div class="flex items-center justify-between gap-2 mb-2">
+        <span
+          :class="[
+            'text-xs font-black uppercase tracking-wide',
+            status === 'new' && 'text-sky-700',
+            status === 'working' && 'text-amber-800',
+            status === 'done' && 'text-green-700'
+          ]"
+        >{{ label }}</span>
+        <span class="text-sm font-bold text-gray-500 tabular-nums">{{ items.length }}</span>
+      </div>
+      <div class="flex items-center justify-between gap-2">
+        <button
+          type="button"
+          :class="[
+            'flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide transition-colors rounded-lg px-2 py-1',
+            contentVisible
+              ? 'text-gray-600 hover:text-primary bg-white/60'
+              : 'text-gray-400 hover:text-gray-600'
+          ]"
+          :title="contentVisible ? 'Hide content in this column' : 'Show content in this column'"
+          @click="$emit('update:contentVisible', !contentVisible)"
+        >
+          <EyeIcon v-if="contentVisible" class="w-3.5 h-3.5" />
+          <EyeSlashIcon v-else class="w-3.5 h-3.5" />
+          {{ contentVisible ? 'Content on' : 'Content off' }}
+        </button>
+      </div>
     </div>
     <div
       :class="[
@@ -33,6 +52,7 @@
       <template v-for="todo in items" :key="todo.id">
         <ToolsTodoCard
           :todo="todo"
+          :column-content-visible="contentVisible"
           @update="(u) => $emit('update', todo.id, u)"
           @delete="$emit('delete', todo.id)"
           @dragstart="$emit('dragstart', $event)"
@@ -53,7 +73,7 @@
 </template>
 
 <script setup lang="ts">
-import { PlusIcon } from '@heroicons/vue/24/outline'
+import { PlusIcon, EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
 import type { Todo, TodoStatus } from '~/composables/useTodoDb'
 
 const props = withDefaults(
@@ -62,17 +82,20 @@ const props = withDefaults(
     label: string
     items: Todo[]
     canAdd?: boolean
+    /** Column-level: show/hide content for all cards in this column */
+    contentVisible?: boolean
   }>(),
-  { canAdd: true }
+  { canAdd: true, contentVisible: true }
 )
 
 const emit = defineEmits<{
-  (e: 'update', id: string, payload: Partial<Pick<Todo, 'title' | 'content' | 'status'>>): void
+  (e: 'update', id: string, payload: Partial<Pick<Todo, 'title' | 'content' | 'status' | 'contentCollapsed'>>): void
   (e: 'delete', id: string): void
   (e: 'add'): void
   (e: 'drop', todoId: string): void
   (e: 'dragstart', todo: Todo): void
   (e: 'dragend'): void
+  (e: 'update:contentVisible', value: boolean): void
 }>()
 
 const allowDrop = ref(false)
