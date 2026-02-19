@@ -87,6 +87,24 @@
               Open form →
             </span>
           </NuxtLink>
+
+          <NuxtLink
+            to="/tools/todo-board"
+            class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
+          >
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+              <ClipboardDocumentListIcon class="w-6 h-6 text-primary" />
+            </div>
+            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+              Todo Board
+            </h2>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Organize todos by project with New, Working, and Done columns. Stored in your browser — similar to Trello.
+            </p>
+            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
+              Open board →
+            </span>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -94,10 +112,10 @@
 </template>
 
 <script setup>
-import { CalculatorIcon, DocumentTextIcon } from '@heroicons/vue/24/outline'
+import { CalculatorIcon, DocumentTextIcon, ClipboardDocumentListIcon } from '@heroicons/vue/24/outline'
 
 useSeoMeta({
   title: 'Tools - Prishan Fernando',
-  description: 'Interactive calculators and tools: Mortgage calculator, Canadian tax calculator, HELOC vs Mortgage calculator, Rental application and more.'
+  description: 'Interactive calculators and tools: Mortgage calculator, Canadian tax calculator, HELOC vs Mortgage calculator, Rental application, Todo board and more.'
 })
 </script>

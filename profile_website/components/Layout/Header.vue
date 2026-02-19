@@ -136,7 +136,8 @@ const navigation = [
       { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator' },
       { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator' },
       { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator' },
-      { name: 'Rental Application', href: '/tools/rental-application' }
+      { name: 'Rental Application', href: '/tools/rental-application' },
+      { name: 'Todo Board', href: '/tools/todo-board' }
     ]
   },
   {
