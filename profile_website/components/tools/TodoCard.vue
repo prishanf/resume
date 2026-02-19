@@ -96,6 +96,7 @@
 <script setup lang="ts">
 import { TrashIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/vue/24/outline'
 import { marked } from 'marked'
+import DOMPurify from 'dompurify'
 import type { Todo, TodoStatus } from '~/composables/useTodoDb'
 
 const props = defineProps<{
@@ -123,7 +124,12 @@ const renderedContent = computed(() => {
   const raw = props.todo.content?.trim()
   if (!raw) return '<p class="text-gray-400">Add notes... (plain text or markdown)</p>'
   try {
-    return marked.parse(raw, { async: false }) as string
+    const html = marked.parse(raw, { async: false }) as string
+    // Sanitize to prevent XSS when rendering user markdown with v-html
+    if (import.meta.client && typeof DOMPurify?.sanitize === 'function') {
+      return DOMPurify.sanitize(html)
+    }
+    return escapeHtml(raw)
   } catch {
     return escapeHtml(raw)
   }

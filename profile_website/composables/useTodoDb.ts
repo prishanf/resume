@@ -83,6 +83,27 @@ function del (db: IDBDatabase, storeName: string, id: string): Promise<void> {
   })
 }
 
+/** Delete a project and all its todos in a single transaction (all-or-nothing). */
+function deleteProjectWithTodos (db: IDBDatabase, projectId: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction([TODOS_STORE, PROJECTS_STORE], 'readwrite')
+    const todoStore = tx.objectStore(TODOS_STORE)
+    const projectStore = tx.objectStore(PROJECTS_STORE)
+    const index = todoStore.index('projectId')
+    const range = IDBKeyRange.only(projectId)
+    const getReq = index.getAll(range)
+    getReq.onerror = () => reject(getReq.error)
+    getReq.onsuccess = () => {
+      for (const todo of getReq.result as Todo[]) {
+        todoStore.delete(todo.id)
+      }
+      projectStore.delete(projectId)
+    }
+    tx.oncomplete = () => resolve()
+    tx.onerror = () => reject(tx.error)
+  })
+}
+
 function generateId (): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 11)}`
 }
@@ -95,12 +116,12 @@ export function useTodoDb () {
   const error = ref<string | null>(null)
 
   async function init () {
+    error.value = null
     try {
       const db = await openDb()
       dbRef.value = db
       await loadAll()
       ready.value = true
-      error.value = null
     } catch (e: any) {
       error.value = e?.message || 'Failed to open database'
       ready.value = false
@@ -119,76 +140,109 @@ export function useTodoDb () {
   }
 
   async function addProject (title: string): Promise<Project> {
+    error.value = null
     const db = dbRef.value
     if (!db) throw new Error('Database not ready')
-    const project: Project = {
-      id: generateId(),
-      title: title.trim() || 'Untitled Project',
-      createdAt: Date.now()
+    try {
+      const project: Project = {
+        id: generateId(),
+        title: title.trim() || 'Untitled Project',
+        createdAt: Date.now()
+      }
+      await put(db, PROJECTS_STORE, project)
+      projects.value = [...projects.value, project].sort((a, b) => a.createdAt - b.createdAt)
+      return project
+    } catch (e: any) {
+      error.value = e?.message || 'Failed to create project'
+      throw e
     }
-    await put(db, PROJECTS_STORE, project)
-    projects.value = [...projects.value, project].sort((a, b) => a.createdAt - b.createdAt)
-    return project
   }
 
   async function updateProject (id: string, updates: Partial<Pick<Project, 'title'>>) {
+    error.value = null
     const db = dbRef.value
     if (!db) throw new Error('Database not ready')
     const existing = projects.value.find(p => p.id === id)
     if (!existing) return
-    const updated = { ...existing, ...updates }
-    await put(db, PROJECTS_STORE, updated)
-    projects.value = projects.value.map(p => p.id === id ? updated : p)
+    try {
+      const updated = { ...existing, ...updates }
+      await put(db, PROJECTS_STORE, updated)
+      projects.value = projects.value.map(p => p.id === id ? updated : p)
+    } catch (e: any) {
+      error.value = e?.message || 'Failed to update project'
+      throw e
+    }
   }
 
   async function deleteProject (id: string) {
+    error.value = null
     const db = dbRef.value
     if (!db) throw new Error('Database not ready')
-    const projectTodos = todos.value.filter(t => t.projectId === id)
-    for (const t of projectTodos) {
-      await del(db, TODOS_STORE, t.id)
+    try {
+      await deleteProjectWithTodos(db, id)
+      projects.value = projects.value.filter(p => p.id !== id)
+      todos.value = todos.value.filter(t => t.projectId !== id)
+    } catch (e: any) {
+      error.value = e?.message || 'Failed to delete project'
+      throw e
     }
-    await del(db, PROJECTS_STORE, id)
-    projects.value = projects.value.filter(p => p.id !== id)
-    todos.value = todos.value.filter(t => t.projectId !== id)
   }
 
   async function addTodo (projectId: string, title: string, content: string = '', status: TodoStatus = 'new'): Promise<Todo> {
+    error.value = null
     const db = dbRef.value
     if (!db) throw new Error('Database not ready')
-    const maxOrder = Math.max(0, ...todos.value.filter(t => t.projectId === projectId && t.status === status).map(t => t.order))
-    const todo: Todo = {
-      id: generateId(),
-      projectId,
-      title: title.trim() || 'Untitled',
-      content: (content || '').trim(),
-      status,
-      order: maxOrder + 1,
-      createdAt: Date.now()
+    try {
+      const maxOrder = Math.max(0, ...todos.value.filter(t => t.projectId === projectId && t.status === status).map(t => t.order))
+      const todo: Todo = {
+        id: generateId(),
+        projectId,
+        title: title.trim() || 'Untitled',
+        content: (content || '').trim(),
+        status,
+        order: maxOrder + 1,
+        createdAt: Date.now()
+      }
+      await put(db, TODOS_STORE, todo)
+      todos.value = [...todos.value, todo].sort((a, b) => a.order - b.order || a.createdAt - b.createdAt)
+      return todo
+    } catch (e: any) {
+      error.value = e?.message || 'Failed to add card'
+      throw e
     }
-    await put(db, TODOS_STORE, todo)
-    todos.value = [...todos.value, todo].sort((a, b) => a.order - b.order || a.createdAt - b.createdAt)
-    return todo
   }
 
   async function updateTodo (id: string, updates: Partial<Pick<Todo, 'title' | 'content' | 'status' | 'order' | 'contentCollapsed'>>) {
+    error.value = null
     const db = dbRef.value
     if (!db) throw new Error('Database not ready')
     const existing = todos.value.find(t => t.id === id)
     if (!existing) return
-    const updated = { ...existing, ...updates }
-    await put(db, TODOS_STORE, updated)
-    todos.value = todos.value.map(t => t.id === id ? updated : t).sort((a, b) => a.order - b.order || a.createdAt - b.createdAt)
+    try {
+      const updated = { ...existing, ...updates }
+      await put(db, TODOS_STORE, updated)
+      todos.value = todos.value.map(t => t.id === id ? updated : t).sort((a, b) => a.order - b.order || a.createdAt - b.createdAt)
+    } catch (e: any) {
+      error.value = e?.message || 'Failed to update card'
+      throw e
+    }
   }
 
   async function deleteTodo (id: string) {
+    error.value = null
     const db = dbRef.value
     if (!db) throw new Error('Database not ready')
-    await del(db, TODOS_STORE, id)
-    todos.value = todos.value.filter(t => t.id !== id)
+    try {
+      await del(db, TODOS_STORE, id)
+      todos.value = todos.value.filter(t => t.id !== id)
+    } catch (e: any) {
+      error.value = e?.message || 'Failed to delete card'
+      throw e
+    }
   }
 
   async function moveTodo (id: string, newStatus: TodoStatus) {
+    error.value = null
     const existing = todos.value.find(t => t.id === id)
     if (!existing || existing.status === newStatus) return
     const maxOrder = Math.max(0, ...todos.value.filter(t => t.projectId === existing.projectId && t.status === newStatus).map(t => t.order))

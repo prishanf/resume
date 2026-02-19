@@ -106,7 +106,7 @@
         <ToolsTodoColumn
           status="new"
           label="New"
-          :items="columnTodos('new')"
+          :items="columnTodosMap.new"
           :can-add="true"
           :content-visible="columnContentVisible.new"
           @update:content-visible="columnContentVisible.new = $event"
@@ -120,7 +120,7 @@
         <ToolsTodoColumn
           status="working"
           label="Working"
-          :items="columnTodos('working')"
+          :items="columnTodosMap.working"
           :can-add="true"
           :content-visible="columnContentVisible.working"
           @update:content-visible="columnContentVisible.working = $event"
@@ -134,7 +134,7 @@
         <ToolsTodoColumn
           status="done"
           label="Done"
-          :items="columnTodos('done')"
+          :items="columnTodosMap.done"
           :can-add="true"
           :content-visible="columnContentVisible.done"
           @update:content-visible="columnContentVisible.done = $event"
@@ -300,7 +300,7 @@
 
 <script setup lang="ts">
 import { ArrowLeftIcon, PlusIcon } from '@heroicons/vue/24/outline'
-import type { TodoStatus } from '~/composables/useTodoDb'
+import type { Todo, TodoStatus } from '~/composables/useTodoDb'
 
 const {
   projects,
@@ -327,7 +327,7 @@ const deleteProjectId = ref<string | null>(null)
 const showAddTodoStatus = ref<TodoStatus | null>(null)
 const newTodoTitle = ref('')
 const newTodoContent = ref('')
-const draggingTodo = ref<any>(null)
+const draggingTodo = ref<Todo | null>(null)
 
 const COLUMN_VISIBILITY_KEY = 'todo-board-column-content'
 const LAST_PROJECT_KEY = 'todo-board-last-project'
@@ -348,13 +348,17 @@ onMounted(() => {
       if (parsed.working !== undefined) columnContentVisible.value.working = parsed.working
       if (parsed.done !== undefined) columnContentVisible.value.done = parsed.done
     }
-  } catch (_) {}
+  } catch {
+    // Ignore localStorage parse errors (corrupt or private mode)
+  }
 })
 
 watch(columnContentVisible, (v) => {
   try {
     localStorage.setItem(COLUMN_VISIBILITY_KEY, JSON.stringify(v))
-  } catch (_) {}
+  } catch {
+    // Ignore localStorage quota or access errors
+  }
 }, { deep: true })
 
 // Persist selected project as last used
@@ -362,7 +366,9 @@ watch(activeProjectId, (id) => {
   if (id) {
     try {
       localStorage.setItem(LAST_PROJECT_KEY, id)
-    } catch (_) {}
+    } catch {
+      // Ignore localStorage quota or access errors
+    }
   }
 }, { immediate: false })
 
@@ -378,18 +384,25 @@ watch([projects, ready], () => {
         activeProjectId.value = lastId
         return
       }
-    } catch (_) {}
+    } catch {
+      // Ignore localStorage access errors
+    }
   }
   if (!activeProjectId.value) {
     activeProjectId.value = projects.value[0].id
   }
 }, { immediate: true })
 
-const columnTodos = (status: TodoStatus) => {
-  if (!activeProjectId.value) return []
-  const list = (todosByProject.value[activeProjectId.value] || []).filter(t => t.status === status)
-  return list.sort((a, b) => a.order - b.order || a.createdAt - b.createdAt)
-}
+const columnTodosMap = computed<Record<TodoStatus, Todo[]>>(() => {
+  if (!activeProjectId.value) return { new: [], working: [], done: [] }
+  const list = todosByProject.value[activeProjectId.value] || []
+  const sort = (a: Todo, b: Todo) => a.order - b.order || a.createdAt - b.createdAt
+  return {
+    new: [...list.filter(t => t.status === 'new')].sort(sort),
+    working: [...list.filter(t => t.status === 'working')].sort(sort),
+    done: [...list.filter(t => t.status === 'done')].sort(sort)
+  }
+})
 
 function openAddTodo (status: TodoStatus) {
   showAddTodoStatus.value = status
@@ -400,10 +413,14 @@ function openAddTodo (status: TodoStatus) {
 async function submitNewProject () {
   const title = newProjectTitle.value.trim()
   if (!title) return
-  const p = await addProject(title)
-  newProjectTitle.value = ''
-  showNewProject.value = false
-  activeProjectId.value = p.id
+  try {
+    const p = await addProject(title)
+    newProjectTitle.value = ''
+    showNewProject.value = false
+    activeProjectId.value = p.id
+  } catch {
+    // Error shown via composable error ref
+  }
 }
 
 watch(editProjectTitleId, (id) => {
@@ -415,8 +432,12 @@ watch(editProjectTitleId, (id) => {
 
 async function submitRenameProject () {
   if (!editProjectTitleId.value) return
-  await updateProject(editProjectTitleId.value, { title: editProjectTitle.value.trim() || 'Untitled' })
-  editProjectTitleId.value = null
+  try {
+    await updateProject(editProjectTitleId.value, { title: editProjectTitle.value.trim() || 'Untitled' })
+    editProjectTitleId.value = null
+  } catch {
+    // Error shown via composable error ref
+  }
 }
 
 function confirmDeleteProject (id: string) {
@@ -425,32 +446,52 @@ function confirmDeleteProject (id: string) {
 
 async function doDeleteProject () {
   if (!deleteProjectId.value) return
-  await deleteProject(deleteProjectId.value)
-  if (activeProjectId.value === deleteProjectId.value) {
-    activeProjectId.value = projects.value[0]?.id ?? null
+  try {
+    await deleteProject(deleteProjectId.value)
+    if (activeProjectId.value === deleteProjectId.value) {
+      activeProjectId.value = projects.value[0]?.id ?? null
+    }
+    deleteProjectId.value = null
+  } catch {
+    // Error shown via composable error ref
   }
-  deleteProjectId.value = null
 }
 
 async function submitNewTodo () {
   const title = newTodoTitle.value.trim()
   if (!title || !activeProjectId.value || showAddTodoStatus.value === null) return
-  await addTodo(activeProjectId.value, title, newTodoContent.value, showAddTodoStatus.value)
-  showAddTodoStatus.value = null
-  newTodoTitle.value = ''
-  newTodoContent.value = ''
+  try {
+    await addTodo(activeProjectId.value, title, newTodoContent.value, showAddTodoStatus.value)
+    showAddTodoStatus.value = null
+    newTodoTitle.value = ''
+    newTodoContent.value = ''
+  } catch {
+    // Error shown via composable error ref
+  }
 }
 
-function handleUpdateTodo (id: string, u: Partial<{ title: string; content: string; status: TodoStatus; contentCollapsed: boolean }>) {
-  updateTodo(id, u)
+async function handleUpdateTodo (id: string, u: Partial<{ title: string; content: string; status: TodoStatus; contentCollapsed: boolean }>) {
+  try {
+    await updateTodo(id, u)
+  } catch {
+    // Error shown via composable error ref
+  }
 }
 
-function handleDeleteTodo (id: string) {
-  deleteTodo(id)
+async function handleDeleteTodo (id: string) {
+  try {
+    await deleteTodo(id)
+  } catch {
+    // Error shown via composable error ref
+  }
 }
 
-function handleDrop (todoId: string, newStatus: TodoStatus) {
-  moveTodo(todoId, newStatus)
+async function handleDrop (todoId: string, newStatus: TodoStatus) {
+  try {
+    await moveTodo(todoId, newStatus)
+  } catch {
+    // Error shown via composable error ref
+  }
 }
 
 useSeoMeta({
