@@ -330,11 +330,13 @@ const newTodoContent = ref('')
 const draggingTodo = ref<any>(null)
 
 const COLUMN_VISIBILITY_KEY = 'todo-board-column-content'
+const LAST_PROJECT_KEY = 'todo-board-last-project'
 const columnContentVisible = ref<Record<TodoStatus, boolean>>({
   new: true,
   working: true,
   done: true
 })
+const hasRestoredProject = ref(false)
 
 onMounted(() => {
   init()
@@ -355,9 +357,30 @@ watch(columnContentVisible, (v) => {
   } catch (_) {}
 }, { deep: true })
 
-// When we have projects and no selection, select first
-watch([projects, activeProjectId], () => {
-  if (projects.value.length > 0 && !activeProjectId.value) {
+// Persist selected project as last used
+watch(activeProjectId, (id) => {
+  if (id) {
+    try {
+      localStorage.setItem(LAST_PROJECT_KEY, id)
+    } catch (_) {}
+  }
+}, { immediate: false })
+
+// When projects are ready: restore last used project, or default to first
+watch([projects, ready], () => {
+  if (!ready.value || projects.value.length === 0) return
+  if (!hasRestoredProject.value) {
+    hasRestoredProject.value = true
+    try {
+      const lastId = localStorage.getItem(LAST_PROJECT_KEY)
+      const exists = lastId && projects.value.some(p => p.id === lastId)
+      if (exists) {
+        activeProjectId.value = lastId
+        return
+      }
+    } catch (_) {}
+  }
+  if (!activeProjectId.value) {
     activeProjectId.value = projects.value[0].id
   }
 }, { immediate: true })
