@@ -2,11 +2,11 @@
  * Fetches GitHub commit history for the repo and writes data/activity-summary.json.
  * Run before nuxt build/generate so the static site has activity data at build time.
  *
- * Env:
- *   GITHUB_REPO (e.g. "owner/repo" or full GitHub URL) — required for real data
- *   GITHUB_BRANCH — optional; branch to fetch commits from (default: main)
- *   GITHUB_TOKEN — optional; increases rate limit and allows private repo
- * If GITHUB_REPO is not set, writes minimal placeholder so build still succeeds.
+ * Env (use ACTIVITY_* names in GitHub Actions — GitHub disallows variable names starting with GITHUB_):
+ *   ACTIVITY_REPO or GITHUB_REPO (e.g. "owner/repo" or full GitHub URL) — required for real data
+ *   ACTIVITY_BRANCH or GITHUB_BRANCH — optional; branch to fetch commits from (default: main)
+ *   ACTIVITY_TOKEN or GITHUB_TOKEN — optional; GitHub PAT for rate limit and commit stats
+ * If repo is not set, writes minimal placeholder so build still succeeds.
  */
 import fs from 'fs/promises'
 import path from 'path'
@@ -274,7 +274,7 @@ function buildActivity(commits) {
 }
 
 /**
- * Parse GITHUB_REPO from either "owner/repo" or "https://github.com/owner/repo" (with or without trailing slash).
+ * Parse repo from either "owner/repo" or "https://github.com/owner/repo" (with or without trailing slash).
  */
 function parseRepoInput(input) {
   const s = (input || '').trim()
@@ -296,14 +296,14 @@ function parseRepoInput(input) {
 
 async function run() {
   await loadEnv()
-  const repoInput = (process.env.GITHUB_REPO || '').trim()
-  const token = (process.env.GITHUB_TOKEN || '').trim()
+  const repoInput = (process.env.ACTIVITY_REPO || process.env.GITHUB_REPO || '').trim()
+  const token = (process.env.ACTIVITY_TOKEN || process.env.GITHUB_TOKEN || '').trim()
   const parsed = parseRepoInput(repoInput)
 
   let payload
 
   if (!parsed) {
-    console.log('📋 GITHUB_REPO not set or invalid (use owner/repo or https://github.com/owner/repo) — writing placeholder activity-summary.')
+    console.log('📋 ACTIVITY_REPO / GITHUB_REPO not set or invalid (use owner/repo or https://github.com/owner/repo) — writing placeholder activity-summary.')
     payload = {
       lastSync: new Date().toISOString(),
       summary: { totalCommits: 0, totalFeatures: 0, totalTools: 0, activeDays: 0 },
@@ -314,7 +314,7 @@ async function run() {
     }
   } else {
     const { owner, repo: repoName } = parsed
-    const branch = (process.env.GITHUB_BRANCH || 'main').trim() || 'main'
+    const branch = (process.env.ACTIVITY_BRANCH || process.env.GITHUB_BRANCH || 'main').trim() || 'main'
     const since = new Date()
     since.setDate(since.getDate() - 90)
     const commits = await fetchCommits(owner, repoName, token, since, branch)
@@ -351,7 +351,7 @@ async function run() {
         }
       }
       if (!token && fetched > 0) {
-        console.log('   Fetched stats for', fetched, 'commits (no token: limited to 20; set GITHUB_TOKEN for more)')
+        console.log('   Fetched stats for', fetched, 'commits (no token: limited to 20; set ACTIVITY_TOKEN for more)')
       }
       recomputeThisWeek(payload, todayUtc)
     }
