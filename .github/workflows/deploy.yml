@@ -15,6 +15,7 @@ permissions:
 jobs:
   build_site:
     runs-on: ubuntu-latest
+    environment: github-pages  # so ACTIVITY_REPO, ACTIVITY_BRANCH, ACTIVITY_TOKEN are available
     steps:
       - name: Checkout
         uses: actions/checkout@v4
