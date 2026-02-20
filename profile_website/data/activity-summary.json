@@ -1,0 +1,697 @@
+{
+  "lastSync": "2026-02-20T01:11:23.002Z",
+  "summary": {
+    "totalCommits": 39,
+    "totalFeatures": 20,
+    "totalTools": 4,
+    "activeDays": 10
+  },
+  "heatmap": {
+    "2026-02-01": 1,
+    "2026-02-02": 0,
+    "2026-02-03": 0,
+    "2026-02-04": 12,
+    "2026-02-05": 7,
+    "2026-02-06": 1,
+    "2026-02-07": 0,
+    "2026-02-08": 0,
+    "2026-02-09": 0,
+    "2026-02-10": 0,
+    "2026-02-11": 0,
+    "2026-02-12": 5,
+    "2026-02-13": 0,
+    "2026-02-14": 0,
+    "2026-02-15": 1,
+    "2026-02-16": 1,
+    "2026-02-17": 1,
+    "2026-02-18": 0,
+    "2026-02-19": 8,
+    "2026-02-20": 0,
+    "2026-02-21": 0,
+    "2026-02-22": 0,
+    "2026-02-23": 0,
+    "2026-02-24": 0,
+    "2026-02-25": 0,
+    "2026-02-26": 0,
+    "2026-02-27": 0,
+    "2026-02-28": 0
+  },
+  "typeBreakdown": {
+    "Feature": 20,
+    "Fix": 0,
+    "Design": 4,
+    "Content": 10,
+    "Tool": 4,
+    "Refactor": 12,
+    "Perf": 0,
+    "Docs": 0
+  },
+  "thisWeek": {
+    "commits": 10,
+    "filesChanged": 54,
+    "linesAdded": 4063,
+    "linesRemoved": 125,
+    "weekLabel": "Feb 16 – Feb 22"
+  },
+  "months": [
+    {
+      "id": "feb2026",
+      "label": "February 2026",
+      "year": "2026",
+      "commits": 37,
+      "features": 19,
+      "activeDays": 9,
+      "weeks": [
+        {
+          "id": "week-2026-02-16",
+          "weekNum": 7,
+          "range": "Feb 16 – Feb 22",
+          "commits": 10,
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "days": [
+            {
+              "date": "Feb 19",
+              "dateKey": "2026-02-19",
+              "dayOfWeek": "Thu",
+              "commits": 8,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "da369c7",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add favicons and update Nuxt configuration",
+                  "description": "- Added multiple favicon files including various sizes and types for better compatibility across devices.\n- Updated `nuxt.config.ts` to include new favicon links and a web manifest for improved site branding and user experience.\n- Created an `about.txt` file detailing the font used for the favicons.",
+                  "files": 9,
+                  "additions": 16,
+                  "deletions": 1,
+                  "_fullSha": "da369c76850024ca56afebad36ce5f7b7ae2d426"
+                },
+                {
+                  "sha": "62f996c",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "custom page error page with site braning",
+                  "description": "",
+                  "files": 1,
+                  "additions": 76,
+                  "deletions": 0,
+                  "_fullSha": "62f996c221639ac66aaade4f43d36c667c2aead4"
+                },
+                {
+                  "sha": "7665fc3",
+                  "types": [
+                    "Tool"
+                  ],
+                  "title": "Merge pull request #1 from prishanf/todo-tool",
+                  "description": "Todo tool",
+                  "files": 10,
+                  "additions": 1207,
+                  "deletions": 6,
+                  "_fullSha": "7665fc3fe0a68c5d8e96e9575383a4413f16f769"
+                },
+                {
+                  "sha": "3d939f8",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add DOMPurify for XSS protection and enhance Todo functionality",
+                  "description": "- Integrated DOMPurify to sanitize user-generated markdown content in the TodoCard component, preventing potential XSS attacks.\n- Updated the TodoBoard to utilize a computed property for managing todos by status, improving code clarity and performance.\n- Refactored error handling in various async functions within the useTodoDb composable to provide better user feedback during database operations.\n- Enhanced project and todo management functions to ensure consistent error handling and state updates.",
+                  "files": 5,
+                  "additions": 186,
+                  "deletions": 72,
+                  "_fullSha": "3d939f8101ac37d2aa5f832d4a6782619ec0d8b2"
+                },
+                {
+                  "sha": "db32766",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add TypeScript configuration and enhance Todo Board project persistence",
+                  "description": "- Introduced a new `tsconfig.json` file to extend the Nuxt configuration for TypeScript support.\n- Implemented functionality to persist the last used project in the Todo Board, improving user experience by restoring the last selected project on reload.\n- Enhanced project selection logic to default to the first project if no previous selection exists, ensuring a smoother workflow for users.",
+                  "files": 2,
+                  "additions": 29,
+                  "deletions": 3,
+                  "_fullSha": "db327662a352d731d596da8d080f7cf5891df715"
+                },
+                {
+                  "sha": "610b9b1",
+                  "types": [
+                    "Content"
+                  ],
+                  "title": "Enhance TodoCard and TodoColumn components with content visibility features",
+                  "description": "- Added functionality to toggle content visibility at the column level, allowing users to show or hide content for all cards within a column.\n- Updated TodoCard to support markdown rendering and improved the textarea for content editing.\n- Introduced computed properties for managing content visibility and rendering markdown content.\n- Enhanced the TodoColumn component to include buttons for toggling content visibility, improving user interaction.\n- Updated the useTodoDb composable to handle new contentCollapsed property for todos.\n- Persisted column content visibility settings in local storage for a better user experience.",
+                  "files": 4,
+                  "additions": 223,
+                  "deletions": 36,
+                  "_fullSha": "610b9b166998f7cc62ffb2b9cdacce11440d7932"
+                },
+                {
+                  "sha": "dd0beac",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add Todo Board feature and update tools index",
+                  "description": "",
+                  "files": 7,
+                  "additions": 877,
+                  "deletions": 3,
+                  "_fullSha": "dd0beac322ec58c2f2b0ae9b309cfce9571e51bb"
+                },
+                {
+                  "sha": "25a9df6",
+                  "types": [
+                    "Feature",
+                    "Content"
+                  ],
+                  "title": "Add new article on Canadian investment strategies for 2026",
+                  "description": "- Introduced a comprehensive guide detailing how Canadians can effectively invest $20,000 across five tax tiers to maximize after-tax returns.\n- Included an analysis of different investment vehicles, such as discount bonds and dividend ETFs, highlighting their tax implications.\n- Provided a structured approach with strategies tailored for various income levels, ensuring accessibility for all Canadian investors.\n- Accompanied the article with relevant images to enhance engagement and visual appeal.",
+                  "files": 2,
+                  "additions": 326,
+                  "deletions": 0,
+                  "_fullSha": "25a9df670258bf4893cdf994792d1baf6a1fcb66"
+                }
+              ]
+            },
+            {
+              "date": "Feb 17",
+              "dateKey": "2026-02-17",
+              "dayOfWeek": "Tue",
+              "commits": 1,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "59a29a8",
+                  "types": [
+                    "Feature",
+                    "Content"
+                  ],
+                  "title": "Add new article on debt vs. investment strategies for Canadians in 2026",
+                  "description": "- Introduced a comprehensive guide comparing the benefits of paying down debt versus investing extra cash, tailored for Canadian readers.\n- Included detailed analysis of mortgage and HELOC interest rates, investment returns, and tax implications.\n- Added practical examples and a tiered debt priority ladder to assist readers in making informed financial decisions.\n- Accompanied the article with a new image to enhance visual appeal and engagement.",
+                  "files": 2,
+                  "additions": 417,
+                  "deletions": 0,
+                  "_fullSha": "59a29a8d8402553394ae807e8b2bd4ba24add8f3"
+                }
+              ]
+            },
+            {
+              "date": "Feb 16",
+              "dateKey": "2026-02-16",
+              "dayOfWeek": "Mon",
+              "commits": 1,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "ec029db",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Update profile website configuration and enhance features",
+                  "description": "- Added Google Sheet ID and GID for YouTube videos in `nuxt.config.ts` to facilitate video synchronization.\n- Updated `package.json` and `package-lock.json` to include the `marked` package for improved markdown processing.\n- Modified build and generate scripts to include a new sync script for YouTube videos.\n- Enhanced header navigation by adding a link to the new YouTube Videos page.\n- Expanded `summaries.json` with additional book summaries, including links to YouTube sources for better resource accessibility.",
+                  "files": 12,
+                  "additions": 706,
+                  "deletions": 4,
+                  "_fullSha": "ec029dba9e30890dd360cc8f7f516d585cc36170"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "week-2026-02-09",
+          "weekNum": 6,
+          "range": "Feb 9 – Feb 15",
+          "commits": 6,
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "days": [
+            {
+              "date": "Feb 15",
+              "dateKey": "2026-02-15",
+              "dayOfWeek": "Sun",
+              "commits": 1,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "dbc9b04",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Enhance profile website with new features and updates",
+                  "description": "- Updated `package.json` to include a new script for syncing PDF summaries and modified build and generate scripts to incorporate this functionality.\n- Enhanced the header navigation by adding new tools, including a dropdown for easy access to the Canadian Tax Calculator and the new Book Summaries page.\n- Introduced a new `book-summaries.vue` page to display a list of book summaries with search and filter capabilities, improving user engagement with the content.\n- Added multiple PDF summaries and updated the `summaries.json` file to include detailed information about each summary, enhancing the resource library.\n- Updated the `about.vue` page to include a downloadable resume link, providing users with easy access to the author's professional background.\n- Created a script to automate the synchronization of PDF summaries, ensuring the data remains up-to-date and accurate.",
+                  "files": 61,
+                  "additions": 1468,
+                  "deletions": 6,
+                  "_fullSha": "dbc9b049fb031d79ff18eb64faa637b15da7df86"
+                }
+              ]
+            },
+            {
+              "date": "Feb 12",
+              "dateKey": "2026-02-12",
+              "dayOfWeek": "Thu",
+              "commits": 5,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "1e0f031",
+                  "types": [
+                    "Feature",
+                    "Design"
+                  ],
+                  "title": "Add Canadian Income, RRSP, and Tax Strategies article and update tax calculator UI",
+                  "description": "- Introduced a new article detailing how income is taxed in Canada, the benefits of RRSP, and a guide to using the Canadian Tax Calculator for various income strategies.\n- Updated the Canadian Tax Calculator UI to include a link to the new article, enhancing user experience and providing additional resources for understanding tax implications.\n- Added a script for generating tax comparison tables for different income types, improving the article's practical application and user engagement.",
+                  "files": 3,
+                  "additions": 238,
+                  "deletions": 2,
+                  "_fullSha": "1e0f031be3f5d9094e1d2b359767008ca5526add"
+                },
+                {
+                  "sha": "e9a29c6",
+                  "types": [
+                    "Feature",
+                    "Design"
+                  ],
+                  "title": "Add mortgage strategies article and enhance mortgage calculator UI",
+                  "description": "- Introduced a new article on mortgage strategies, detailing how to save money through extra payments versus investing, complete with practical examples and a comparison tool.\n- Updated the mortgage calculator UI to include additional metrics such as total interest, extra principal paid, and a term summary table for improved user insights and comparisons.",
+                  "files": 2,
+                  "additions": 390,
+                  "deletions": 22,
+                  "_fullSha": "e9a29c6cef680dc95981789b850e92e2709451f6"
+                },
+                {
+                  "sha": "2380d8d",
+                  "types": [
+                    "Feature",
+                    "Tool"
+                  ],
+                  "title": "Add Canadian Tax Calculator and update tools index",
+                  "description": "- Introduced a new `canadian-tax-calculator.vue` component for estimating federal and provincial income tax, allowing users to input various income sources and deductions.\n- Added a copy of the tax calculator for enhanced user experience and scenario comparisons.\n- Updated the tools index page to include a link to the new Canadian Tax Calculator, improving accessibility to this tool.\n- Enhanced SEO metadata for the tools section to reflect the addition of the tax calculator.",
+                  "files": 6,
+                  "additions": 2253,
+                  "deletions": 686,
+                  "_fullSha": "2380d8dd9d4b4c37e32fa1ca0477e7758e5227b6"
+                },
+                {
+                  "sha": "944495d",
+                  "types": [
+                    "Design",
+                    "Tool"
+                  ],
+                  "title": "Revise mortgage calculator UI for improved clarity and comparison",
+                  "description": "- Updated summary section headings and added descriptive text for better user understanding.\n- Enhanced the display of key metrics with larger, bolder text for improved visibility.\n- Introduced a scenario comparison section to facilitate quick metric comparisons across multiple scenarios.",
+                  "files": 1,
+                  "additions": 243,
+                  "deletions": 118,
+                  "_fullSha": "944495d2f822eaed52d62b2e8040a63e9d6d5dd0"
+                },
+                {
+                  "sha": "19e1d2d",
+                  "types": [
+                    "Tool"
+                  ],
+                  "title": "implement mortgage calculator",
+                  "description": "- Created a new `mortgage-calculator.vue` component for calculating mortgage payments, including scenarios for different amounts, terms, and rates.\n- Updated the tools index page to include a link to the new mortgage calculator.\n- Enhanced the layout of the tools section to accommodate additional tools and improve user experience.",
+                  "files": 5,
+                  "additions": 755,
+                  "deletions": 4,
+                  "_fullSha": "19e1d2dc62a53e6687e18dc1604df5b4352e56b1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "week-2026-02-02",
+          "weekNum": 5,
+          "range": "Feb 2 – Feb 8",
+          "commits": 20,
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "days": [
+            {
+              "date": "Feb 6",
+              "dateKey": "2026-02-06",
+              "dayOfWeek": "Fri",
+              "commits": 1,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "86fa2a2",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Update package dependencies, enhance header navigation, and add new tools",
+                  "description": "- Added `jspdf`, `jspdf-autotable`, and `signature_pad` to package dependencies for improved PDF generation and signature capture.\n- Enhanced the header navigation to include a dropdown for tools, improving user experience and accessibility.\n- Introduced a new `ResidenceBlock` component for the rental application tool, allowing users to input residence details.\n- Added a new blog post analyzing the HELOC vs fixed mortgage decision, complete with a calculator tool for user interaction.\n- Created a tools index page to organize and present available calculators and utilities.",
+                  "files": 9,
+                  "additions": 2872,
+                  "deletions": 17,
+                  "_fullSha": "86fa2a228f5b82deb1103033f573cdc8818aec3a"
+                }
+              ]
+            },
+            {
+              "date": "Feb 5",
+              "dateKey": "2026-02-05",
+              "dayOfWeek": "Thu",
+              "commits": 7,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "46ed8c4",
+                  "types": [
+                    "Content"
+                  ],
+                  "title": "Update Natural Planning Model post description and enhance SEO metadata",
+                  "description": "- Revised the description of the Natural Planning Model to include the author's name, David Allen, for clarity.\n- Added article author and published time metadata to improve SEO and content attribution in the post component.",
+                  "files": 2,
+                  "additions": 3,
+                  "deletions": 1,
+                  "_fullSha": "46ed8c44ed8d9ff5797ce6d5fb04f335467fe369"
+                },
+                {
+                  "sha": "4613df5",
+                  "types": [
+                    "Content",
+                    "Refactor"
+                  ],
+                  "title": "SEO metadata handling in post component",
+                  "description": "- Replaced useHead with useSeoMeta for improved SSR support of meta tags.\n- Updated site URL handling for absolute image and page URLs using runtime configuration.\n- Enhanced SEO capabilities for better social media sharing and indexing.",
+                  "files": 1,
+                  "additions": 18,
+                  "deletions": 16,
+                  "_fullSha": "4613df5660cd464c6cd234f8a4587d4929b6c365"
+                },
+                {
+                  "sha": "99982c8",
+                  "types": [
+                    "Content"
+                  ],
+                  "title": "Enhance post metadata handling and site URL configuration",
+                  "description": "- Added runtime configuration for public site URL in nuxt.config.ts.\n- Updated post component to compute absolute URLs for images and pages, improving SEO and sharing capabilities.",
+                  "files": 2,
+                  "additions": 25,
+                  "deletions": 2,
+                  "_fullSha": "99982c8fa0bbe1d396facf29f73df2e7e1bcd41d"
+                },
+                {
+                  "sha": "2ebbaaf",
+                  "types": [
+                    "Feature",
+                    "Content"
+                  ],
+                  "title": "Add new blog post on the Natural Planning Model",
+                  "description": "",
+                  "files": 3,
+                  "additions": 128,
+                  "deletions": 1,
+                  "_fullSha": "2ebbaafdf08faab71a46df0f4d3fe2cd3d4b8966"
+                },
+                {
+                  "sha": "6d85a47",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "SocialShare component and update page layouts",
+                  "description": "- Enhanced the SocialShare component to support vertical and horizontal orientations, improving layout flexibility.\n- Updated various page sections (certifications, education, posts) to reduce padding for a more compact design.\n- Adjusted the post layout to improve responsiveness and visual consistency across different screen sizes.",
+                  "files": 5,
+                  "additions": 48,
+                  "deletions": 24,
+                  "_fullSha": "6d85a47b89ff3f92069a957cccd4d878312ac67a"
+                },
+                {
+                  "sha": "98666c0",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add Google Tag Manager script to nuxt.config.ts",
+                  "description": "- Integrated Google Tag Manager for enhanced tracking capabilities.\n- Added async script loading and initialization code for Google Analytics 4.",
+                  "files": 2,
+                  "additions": 11,
+                  "deletions": 10,
+                  "_fullSha": "98666c045b9b43d379cdd829235d6319646eda33"
+                },
+                {
+                  "sha": "1c4b440",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Update Google Analytics configuration in nuxt.config.ts",
+                  "description": "- Refined Google Analytics 4 setup for prishanfernando.com with a default Measurement ID.\n- Simplified the enabled condition to only check for production environment.",
+                  "files": 1,
+                  "additions": 3,
+                  "deletions": 3,
+                  "_fullSha": "1c4b440bb6b1e7111c5bc187cede1ed2b9f1eb39"
+                }
+              ]
+            },
+            {
+              "date": "Feb 4",
+              "dateKey": "2026-02-04",
+              "dayOfWeek": "Wed",
+              "commits": 12,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "d50cb80",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Integrate Google Analytics 4 with nuxt-gtag for enhanced tracking",
+                  "description": "- Added nuxt-gtag module to the project for Google Analytics 4 integration.\n- Updated nuxt.config.ts to configure Google Analytics with dynamic Measurement ID.\n- Modified deploy.yml to pass NUXT_PUBLIC_GTAG_ID as an environment variable.\n- Enhanced README.md with setup instructions for Google Analytics 4, including property creation and page-change tracking configuration.",
+                  "files": 5,
+                  "additions": 110,
+                  "deletions": 13,
+                  "_fullSha": "d50cb80686e4ab6cf061f12b03b0f968ff4cc22c"
+                },
+                {
+                  "sha": "c3b3a43",
+                  "types": [
+                    "Content"
+                  ],
+                  "title": "update the blog post with",
+                  "description": "",
+                  "files": 1,
+                  "additions": 82,
+                  "deletions": 1,
+                  "_fullSha": "c3b3a435f057774f7ca61370ca280ac0a520940f"
+                },
+                {
+                  "sha": "4bf1d8b",
+                  "types": [
+                    "Design",
+                    "Refactor"
+                  ],
+                  "title": "Update package-lock.json and refactor UI components",
+                  "description": "- Updated several Babel dependencies to version 7.29.0 and 7.29.1 for improved performance and features.\n- Refactored Recommendations and SummaryCard components to replace <Card> with <UICard> for consistency in UI design.\n- Removed debug logging from posts index page to clean up the codebase.\n- Updated multiple images in the public directory, reflecting changes in visual content.",
+                  "files": 8,
+                  "additions": 196,
+                  "deletions": 230,
+                  "_fullSha": "4bf1d8b7b31ecc458789df282a495578e9d04120"
+                },
+                {
+                  "sha": "ad00513",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Update Nuxt configuration and package dependencies",
+                  "description": "- Added '@nuxtjs/google-fonts' module to the Nuxt configuration for improved font management.\n- Configured Google Fonts to include the 'Inter' family with specified weights and display options.\n- Updated build and generate scripts in package.json to include a new 'compress' script for image optimization.\n- Added 'glob' and 'sharp' as development dependencies for enhanced file handling and image processing.\n- Updated several images in the public directory, reflecting changes in visual content.",
+                  "files": 9,
+                  "additions": 644,
+                  "deletions": 26,
+                  "_fullSha": "ad00513fdd67397f0558f79f6119f84e906f51ec"
+                },
+                {
+                  "sha": "c09da3f",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add new recommendation from Sneha Mandewar to the recommendations section",
+                  "description": "",
+                  "files": 1,
+                  "additions": 4,
+                  "deletions": 1,
+                  "_fullSha": "c09da3f3daaafdf3b3c42ac9e2c1eb878dd610cd"
+                },
+                {
+                  "sha": "e82bdb6",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Update featured recommendations logic to display up to 4 items instead of 2",
+                  "description": "",
+                  "files": 1,
+                  "additions": 1,
+                  "deletions": 1,
+                  "_fullSha": "e82bdb690bd0cc28b4e82af97af2c999940f0207"
+                },
+                {
+                  "sha": "4e07676",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add Career Timeline and Milestone Card Components",
+                  "description": "- Introduced a new CareerTimeline component to visually represent career progression with a vertical timeline layout.\n- Added a MilestoneCard component for displaying individual career milestones, including promotions and key achievements.\n- Implemented a useCareerTimeline composable to parse experience data into a structured format for the timeline.\n- Updated the main index page to include the CareerTimeline section, enhancing the overall user experience with a comprehensive view of career history.",
+                  "files": 4,
+                  "additions": 811,
+                  "deletions": 0,
+                  "_fullSha": "4e07676eddaadda1435b10fe479228a4c98bf45a"
+                },
+                {
+                  "sha": "a771130",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Enhance Experience and Recommendations Sections",
+                  "description": "- Updated the Experience section to reflect strategic leadership, practice growth, and innovation in AI delivery, highlighting key achievements and contributions.\n- Added a new recommendation from Brad Jackson, emphasizing a \"people first\" leadership approach and team culture initiatives.\n- Removed duplicate recommendation to streamline content and improve clarity.",
+                  "files": 2,
+                  "additions": 23,
+                  "deletions": 15,
+                  "_fullSha": "a771130658d27887e423735c61bbe593b45a5ad2"
+                },
+                {
+                  "sha": "a8b7497",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add Feedback Documents and Enhance Experience Section",
+                  "description": "",
+                  "files": 6,
+                  "additions": 145,
+                  "deletions": 46,
+                  "_fullSha": "a8b7497e1fc391d69fd29d5c1cb6d463ce3f8c57"
+                },
+                {
+                  "sha": "87c9be2",
+                  "types": [
+                    "Feature",
+                    "Content"
+                  ],
+                  "title": "Enhance Recommendations and SummaryCard components, add endorsements page, and update content",
+                  "description": "- Refactored the Recommendations component to include a \"View All Endorsements\" link and improved layout for better responsiveness.\n- Updated the SummaryCard component with enhanced styling and metrics for clarity.\n- Expanded the recommendations content with additional testimonials and feedback.\n- Introduced a new endorsements page to display all recommendations, improving user navigation and experience.",
+                  "files": 6,
+                  "additions": 289,
+                  "deletions": 55,
+                  "_fullSha": "87c9be202e597567dc892a9008c0a5a70998e343"
+                },
+                {
+                  "sha": "8591566",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Update GitHub Actions workflow to deploy specific paths and add Consulting Panel Q&A document",
+                  "description": "- Modified the GitHub Actions workflow to deploy changes only for files in the \"profile_website/**\" path.\n- Added a new markdown file containing concise Q&A responses for a Consulting Panel and Networking Event, providing insights on skills, roles, and industry trends in consulting.",
+                  "files": 2,
+                  "additions": 63,
+                  "deletions": 0,
+                  "_fullSha": "8591566949c4d73eeea9d36777df98a7dc0f48b6"
+                },
+                {
+                  "sha": "7063a95",
+                  "types": [
+                    "Feature",
+                    "Content"
+                  ],
+                  "title": "Add blog post on building a profile website with AI-assisted development and update Tailwind CSS configuration",
+                  "description": "- Introduced a new blog post detailing the process of creating a portfolio website using Nuxt 3, Nuxt Content, and Tailwind CSS.\n- Added images to support the blog content, including architecture diagrams and workflow visuals.\n- Updated Tailwind CSS configuration to include comments on a custom color palette.",
+                  "files": 8,
+                  "additions": 483,
+                  "deletions": 0,
+                  "_fullSha": "7063a952a7e649abcb751ff16662e5e3a97c3394"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "week-2026-01-26",
+          "weekNum": 4,
+          "range": "Jan 26 – Feb 1",
+          "commits": 1,
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "days": [
+            {
+              "date": "Feb 1",
+              "dateKey": "2026-02-01",
+              "dayOfWeek": "Sun",
+              "commits": 1,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "f757211",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Remove baseURL from nuxt.config.ts",
+                  "description": "Remove baseURL configuration from app settings. base URL was not working with custom domain.",
+                  "files": 1,
+                  "additions": 0,
+                  "deletions": 1,
+                  "_fullSha": "f757211e9643a68c12abd2503cdddd62023cd2ef"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jan2026",
+      "label": "January 2026",
+      "year": "2026",
+      "commits": 2,
+      "features": 1,
+      "activeDays": 1,
+      "weeks": [
+        {
+          "id": "week-2026-01-26",
+          "weekNum": 4,
+          "range": "Jan 26 – Feb 1",
+          "commits": 2,
+          "linesAdded": 0,
+          "linesRemoved": 0,
+          "days": [
+            {
+              "date": "Jan 29",
+              "dateKey": "2026-01-29",
+              "dayOfWeek": "Thu",
+              "commits": 2,
+              "isToday": false,
+              "items": [
+                {
+                  "sha": "a8eac65",
+                  "types": [
+                    "Feature"
+                  ],
+                  "title": "Add GitHub Actions workflow for deploying to GitHub Pages and update base URL in Nuxt config",
+                  "description": "",
+                  "files": 2,
+                  "additions": 50,
+                  "deletions": 0,
+                  "_fullSha": "a8eac65a3b89e969a7eccfefaa638f35a1dfcd2f"
+                },
+                {
+                  "sha": "b940448",
+                  "types": [
+                    "Refactor"
+                  ],
+                  "title": "Initial commit",
+                  "description": "",
+                  "files": 126,
+                  "additions": 22944,
+                  "deletions": 0,
+                  "_fullSha": "b94044884ebd6338b8cd325269814ee91d258a91"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
