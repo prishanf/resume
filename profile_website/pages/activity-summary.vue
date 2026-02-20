@@ -22,7 +22,7 @@
           v-if="months.length === 0"
           class="text-center text-gray-500 font-medium py-12"
         >
-          No activity data yet. Set <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">GITHUB_REPO</code> (e.g. <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">owner/repo</code>) in your env and run <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">npm run sync-activity-summary</code> before build.
+          No activity data yet. Set <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">ACTIVITY_REPO</code> (e.g. <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">owner/repo</code>) in your env and run <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">npm run sync-activity-summary</code> before build.
         </p>
         <ActivitySummaryMonth
           v-for="month in months"
