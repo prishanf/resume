@@ -1,0 +1,17 @@
+---
+alwaysApply: true
+---
+
+- Always put the summary on the first line. The first line is used for categorization.
+- Start the first line with one of these prefixes so it categorizes correctly:
+  - feat: or "add" / "new" for new features → feature
+  - fix: or "fix" / "bug" / "resolve" for bug fixes → fix
+  - design / ui / style / layout for UI/design changes → design
+  - content / blog / post / article / docs for content or docs → content or docs
+  - tool / calculator / app for tools or apps → tool
+  - refactor / clean / reorg for refactors → refactor
+  - perf / speed / optim for performance → perf
+  - chore: or "cursor" / "rules" / "commands" / "skills" / "subagents" / "ci" / "workflow" / "config" / "deps" for Cursor rules, commands, skills, subagents, CI/CD, config, dependencies → chore
+  - test: or "test" / "spec" for tests → test
+- Prefer Conventional Commits style: "type: short description" (e.g. "feat: add activity heatmap", "chore: add Cursor commit message rule", "fix: resolve login redirect").
+- You can add a body after a blank line if needed.

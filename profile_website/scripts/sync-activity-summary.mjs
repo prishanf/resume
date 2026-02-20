@@ -16,8 +16,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
 const OUTPUT_PATH = path.join(ROOT, 'data', 'activity-summary.json')
 
-const COMMIT_TYPES = ['feature', 'fix', 'design', 'content', 'tool', 'refactor', 'perf', 'docs']
-const TYPE_LABELS = { feature: 'Feature', fix: 'Fix', design: 'Design', content: 'Content', tool: 'Tool', refactor: 'Refactor', perf: 'Perf', docs: 'Docs' }
+const COMMIT_TYPES = ['feature', 'fix', 'design', 'content', 'tool', 'refactor', 'perf', 'docs', 'chore', 'test']
+const TYPE_LABELS = { feature: 'Feature', fix: 'Fix', design: 'Design', content: 'Content', tool: 'Tool', refactor: 'Refactor', perf: 'Perf', docs: 'Docs', chore: 'Chore', test: 'Test' }
 
 async function loadEnv() {
   const envPath = path.join(ROOT, '.env')
@@ -46,6 +46,8 @@ function inferTypes(message) {
   if (/\b(refactor|clean|reorg)\b/.test(firstLine)) types.push('refactor')
   if (/\b(perf|speed|optim)\b/.test(firstLine)) types.push('perf')
   if (/\b(docs?|readme|changelog)\b/.test(firstLine) && !types.includes('content')) types.push('docs')
+  if (/\b(chore|cursor|rules|commands|skills|subagents|ci|workflow|deploy|config|deps|dependency)\b/.test(firstLine) || /^chore[(\s:]/.test(firstLine)) types.push('chore')
+  if (/\b(test|spec|unit|e2e)\b/.test(firstLine) || /^test[(\s:]/.test(firstLine)) types.push('test')
   if (types.length === 0) types.push('refactor')
   return [...new Set(types)].slice(0, 2)
 }
