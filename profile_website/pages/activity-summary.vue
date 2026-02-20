@@ -39,7 +39,7 @@
           </p>
           <div class="flex items-center gap-4">
             <a
-              href="https://github.com/prishanf"
+              :href="config.public.githubProfileUrl"
               target="_blank"
               rel="noopener noreferrer"
               class="text-white/50 hover:text-accent text-xs font-medium transition-colors"
@@ -63,6 +63,7 @@ definePageMeta({
   layout: 'default',
 })
 
+const config = useRuntimeConfig()
 const {
   summary,
   heatmap,

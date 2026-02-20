@@ -15,11 +15,12 @@ dist/
 # macOS
 .DS_Store
 
-# IDEs
+# IDEs / editor scratch files
 .idea/
 .vscode/
 *.swp
 *.swo
+Untitled
 
 # Environment files
 .env

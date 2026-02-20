@@ -164,7 +164,6 @@ function buildActivity(commits) {
       files: 0,
       additions: 0,
       deletions: 0,
-      _fullSha: c.sha,
     })
   }
 
