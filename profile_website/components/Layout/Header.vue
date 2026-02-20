@@ -147,10 +147,9 @@ const navigation = [
       { name: 'Posts', href: '/posts' },
       { name: 'Book Summaries', href: '/book-summaries' },
       { name: 'YouTube Videos', href: '/youtube-videos' },
+      { name: 'Activity Summary', href: '/activity-summary' },
     ]
   },
-  
-
 ]
 
 function isToolsActive (item) {

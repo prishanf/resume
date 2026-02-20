@@ -3,14 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run sync-summaries && npm run sync-youtube-videos && npm run compress && nuxt build",
+    "build": "npm run sync-summaries && npm run sync-youtube-videos && npm run sync-activity-summary && npm run compress && nuxt build",
     "dev": "nuxt dev",
-    "generate": "npm run sync-summaries && npm run sync-youtube-videos && npm run compress && nuxt generate",
+    "generate": "npm run sync-summaries && npm run sync-youtube-videos && npm run sync-activity-summary && npm run compress && nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "compress": "node scripts/compress_images.mjs",
     "sync-summaries": "node scripts/sync-pdf-summaries.mjs",
-    "sync-youtube-videos": "node scripts/sync-youtube-videos.mjs"
+    "sync-youtube-videos": "node scripts/sync-youtube-videos.mjs",
+    "sync-activity-summary": "node scripts/sync-activity-summary.mjs"
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.0",
