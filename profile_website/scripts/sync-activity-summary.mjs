@@ -274,6 +274,18 @@ function buildActivity(commits) {
 }
 
 /**
+ * If path exists and contains valid activity data (has months with data), return the parsed object; else return null.
+ */
+async function readExistingIfValid(outputPath) {
+  try {
+    const raw = await fs.readFile(outputPath, 'utf8')
+    const data = JSON.parse(raw)
+    if (data && Array.isArray(data.months) && data.months.length > 0) return data
+  } catch (_) {}
+  return null
+}
+
+/**
  * Parse repo from either "owner/repo" or "https://github.com/owner/repo" (with or without trailing slash).
  */
 function parseRepoInput(input) {
@@ -303,7 +315,13 @@ async function run() {
   let payload
 
   if (!parsed) {
-    console.log('📋 ACTIVITY_REPO / GITHUB_REPO not set or invalid (use owner/repo or https://github.com/owner/repo) — writing placeholder activity-summary.')
+    console.log('📋 ACTIVITY_REPO / GITHUB_REPO not set or invalid (use owner/repo or https://github.com/owner/repo).')
+    const existing = await readExistingIfValid(OUTPUT_PATH)
+    if (existing) {
+      console.log('   Keeping existing activity-summary.json from repo (not overwriting with placeholder).')
+      return
+    }
+    console.log('   Writing placeholder activity-summary.')
     payload = {
       lastSync: new Date().toISOString(),
       summary: { totalCommits: 0, totalFeatures: 0, totalTools: 0, activeDays: 0 },
@@ -313,47 +331,57 @@ async function run() {
       months: [],
     }
   } else {
-    const { owner, repo: repoName } = parsed
-    const branch = (process.env.ACTIVITY_BRANCH || process.env.GITHUB_BRANCH || 'main').trim() || 'main'
-    const since = new Date()
-    since.setDate(since.getDate() - 90)
-    const commits = await fetchCommits(owner, repoName, token, since, branch)
-    console.log('📋 Fetched', commits.length, 'commits from', `${owner}/${repoName}` + (branch !== 'main' ? ` (branch: ${branch})` : ''))
+    try {
+      const { owner, repo: repoName } = parsed
+      const branch = (process.env.ACTIVITY_BRANCH || process.env.GITHUB_BRANCH || 'main').trim() || 'main'
+      const since = new Date()
+      since.setDate(since.getDate() - 90)
+      const commits = await fetchCommits(owner, repoName, token, since, branch)
+      console.log('📋 Fetched', commits.length, 'commits from', `${owner}/${repoName}` + (branch !== 'main' ? ` (branch: ${branch})` : ''))
 
-    const todayUtc = toDateKey(new Date())
-    payload = buildActivity(commits)
+      const todayUtc = toDateKey(new Date())
+      payload = buildActivity(commits)
 
-    const maxDetails = token ? 50 : 20
-    if (commits.length > 0) {
-      let fetched = 0
-      const byDate = {}
-      commits.forEach((c) => {
-        const d = (c.commit?.author?.date || '').slice(0, 10)
-        if (!byDate[d]) byDate[d] = []
-        byDate[d].push(c)
-      })
-      for (const dateStr of Object.keys(byDate).sort().reverse()) {
-        if (fetched >= maxDetails) break
-        for (const c of byDate[dateStr]) {
+      const maxDetails = token ? 50 : 20
+      if (commits.length > 0) {
+        let fetched = 0
+        const byDate = {}
+        commits.forEach((c) => {
+          const d = (c.commit?.author?.date || '').slice(0, 10)
+          if (!byDate[d]) byDate[d] = []
+          byDate[d].push(c)
+        })
+        for (const dateStr of Object.keys(byDate).sort().reverse()) {
           if (fetched >= maxDetails) break
-          const details = await fetchCommitDetails(owner, repoName, c.sha, token)
-          if (details) {
-            const week = payload.months.flatMap((m) => m.weeks).find((w) => w.days.some((d) => d.dateKey === dateStr))
-            const day = week?.days?.find((d) => d.dateKey === dateStr)
-            const item = day?.items?.find((i) => i.sha === (c.sha || '').slice(0, 7))
-            if (item) {
-              item.files = details.files
-              item.additions = details.additions
-              item.deletions = details.deletions
-              fetched++
+          for (const c of byDate[dateStr]) {
+            if (fetched >= maxDetails) break
+            const details = await fetchCommitDetails(owner, repoName, c.sha, token)
+            if (details) {
+              const week = payload.months.flatMap((m) => m.weeks).find((w) => w.days.some((d) => d.dateKey === dateStr))
+              const day = week?.days?.find((d) => d.dateKey === dateStr)
+              const item = day?.items?.find((i) => i.sha === (c.sha || '').slice(0, 7))
+              if (item) {
+                item.files = details.files
+                item.additions = details.additions
+                item.deletions = details.deletions
+                fetched++
+              }
             }
           }
         }
+        if (!token && fetched > 0) {
+          console.log('   Fetched stats for', fetched, 'commits (no token: limited to 20; set ACTIVITY_TOKEN for more)')
+        }
+        recomputeThisWeek(payload, todayUtc)
       }
-      if (!token && fetched > 0) {
-        console.log('   Fetched stats for', fetched, 'commits (no token: limited to 20; set ACTIVITY_TOKEN for more)')
+    } catch (err) {
+      const existing = await readExistingIfValid(OUTPUT_PATH)
+      if (existing) {
+        console.warn('⚠️ Sync failed:', err.message)
+        console.log('   Keeping existing activity-summary.json from repo (not overwriting).')
+        return
       }
-      recomputeThisWeek(payload, todayUtc)
+      throw err
     }
   }
 
