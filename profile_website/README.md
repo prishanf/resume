@@ -98,10 +98,14 @@ Replace `public/resume.pdf` with your updated resume PDF.
 
 The **Activity Summary** page (`/activity-summary`) shows a build-time changelog derived from your GitHub commit history: heatmap, type breakdown (feature, fix, design, etc.), and weekly/day details. Data is generated when you run the sync script (or as part of `npm run build` / `npm run generate`).
 
-1. **Set environment variables** (in `.env` in `profile_website/`, or in GitHub Actions as **repository variables/secrets** using the `ACTIVITY_*` names — GitHub does not allow variable names starting with `GITHUB_`):
-   - **`ACTIVITY_REPO`** (or `GITHUB_REPO` locally): repository in `owner/repo` form, or full URL e.g. `https://github.com/owner/repo`. Required for real data.
-   - **`ACTIVITY_BRANCH`** (or `GITHUB_BRANCH` locally, optional): branch to fetch commits from (default: `main`).
-   - **`ACTIVITY_TOKEN`** (or `GITHUB_TOKEN` locally, optional): GitHub personal access token; increases API rate limit and allows fetching commit stats (files/lines) for more commits. Without a token, only a limited number of commits get detailed stats.
+1. **Set environment variables**:
+   - **Local**: in `.env` in `profile_website/` use `ACTIVITY_REPO`, `ACTIVITY_BRANCH`, `ACTIVITY_TOKEN` (or the `GITHUB_*` names; GitHub disallows `GITHUB_*` in repo settings).
+   - **GitHub Actions**: use **Repository** variables/secrets (Settings → Secrets and variables → Actions → **Variables** and **Secrets**), not Environment variables. The deploy workflow passes them explicitly:
+     - **Variables**: `ACTIVITY_REPO`, `ACTIVITY_BRANCH`, `NUXT_PUBLIC_GTAG_ID`, `NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS`, `NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS`
+     - **Secret**: `ACTIVITY_TOKEN` (GitHub PAT)
+   - **`ACTIVITY_REPO`** (or `GITHUB_REPO` locally): repository as `owner/repo` or full URL e.g. `https://github.com/owner/repo`. Required for real data.
+   - **`ACTIVITY_BRANCH`** (optional): branch to fetch commits from (default: `main`).
+   - **`ACTIVITY_TOKEN`** (optional): GitHub PAT for higher rate limit and commit stats; store as a **secret** in Actions.
 
 2. **Run the sync** (or rely on build):
    ```bash
