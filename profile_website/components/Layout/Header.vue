@@ -145,6 +145,7 @@ const navigation = [
     href: '',
     children: [
       { name: 'Posts', href: '/posts' },
+      { name: 'Podcasts', href: '/podcasts' },
       { name: 'Book Summaries', href: '/book-summaries' },
       { name: 'YouTube Videos', href: '/youtube-videos' },
       { name: 'Activity Summary', href: '/activity-summary' },

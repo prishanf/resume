@@ -22,3 +22,7 @@ logs
 .env
 .env.*
 !.env.example
+
+# Large media (host externally; see content/podcasts/README.md)
+*.m4a
+public/*.m4a

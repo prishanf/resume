@@ -105,6 +105,24 @@
               Open board →
             </span>
           </NuxtLink>
+
+          <NuxtLink
+            to="/tools/stock-gap-simulator"
+            class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
+          >
+            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+              <ChartBarIcon class="w-6 h-6 text-primary" />
+            </div>
+            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
+              Stock Gap Simulator
+            </h2>
+            <p class="text-gray-600 text-sm leading-relaxed mb-4">
+              Backtest gap-open predictions with 5-day MA confirmation. Paste OHLCV CSV and see accuracy for gap-only vs MA-confirmed signals.
+            </p>
+            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
+              Open simulator →
+            </span>
+          </NuxtLink>
         </div>
       </div>
     </section>
@@ -112,10 +130,10 @@
 </template>
 
 <script setup>
-import { CalculatorIcon, DocumentTextIcon, ClipboardDocumentListIcon } from '@heroicons/vue/24/outline'
+import { CalculatorIcon, DocumentTextIcon, ClipboardDocumentListIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
 
 useSeoMeta({
   title: 'Tools - Prishan Fernando',
-  description: 'Interactive calculators and tools: Mortgage calculator, Canadian tax calculator, HELOC vs Mortgage calculator, Rental application, Todo board and more.'
+  description: 'Interactive calculators and tools: Mortgage calculator, Canadian tax calculator, HELOC vs Mortgage calculator, Rental application, Todo board, Stock Gap Simulator and more.'
 })
 </script>
