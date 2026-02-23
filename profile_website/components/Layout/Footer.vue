@@ -28,6 +28,9 @@
               <NuxtLink to="/posts" class="hover:text-accent transition-colors">Posts</NuxtLink>
             </li>
             <li>
+              <NuxtLink to="/podcasts" class="hover:text-accent transition-colors">Podcasts</NuxtLink>
+            </li>
+            <li>
               <a href="/resume.pdf" download class="hover:text-accent transition-colors">Resume (PDF)</a>
             </li>
           </ul>
