@@ -20,7 +20,8 @@
           <ol class="list-decimal list-inside space-y-1 ml-1">
             <li><strong>Gap</strong> — Today’s open minus yesterday’s close. Open higher → predict UP; open lower → predict DOWN.</li>
             <li><strong>5-day MA</strong> — Average of the previous 5 days’ closes. Confirmed when the gap and the open agree with the MA (e.g. gap UP and open above MA, or gap DOWN and open below MA).</li>
-            <li><strong>Confidence</strong> — Base 50% plus extra for gap size; +20% if MA confirms, −10% if MA conflicts. The simulator scores each day as correct when the predicted direction matches whether the close went up or down vs the previous close.</li>
+            <li><strong>Prediction</strong> — The algorithm predicts whether price will go <strong>UP or DOWN relative to the open</strong> for that day.</li>
+            <li><strong>HIT / MISS</strong> — Whether the prediction was correct. We check if the stock really went that way by comparing <strong>close to open</strong>: UP = close &gt; open, DOWN = close &lt; open. HIT = predicted direction matched (e.g. predicted UP and close &gt; open). So HIT means the simulated trade (buy at open, sell at close) would have been profitable.</li>
           </ol>
           <p class="font-semibold text-gray-700 pt-2">How to read the metrics:</p>
           <ul class="list-disc list-inside space-y-1 ml-1">

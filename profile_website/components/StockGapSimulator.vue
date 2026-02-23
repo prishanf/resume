@@ -103,6 +103,109 @@
       </div>
     </section>
 
+        <!-- ── Investment simulation — limit + stop orders, all set at open ── -->
+    <section v-if="results.length" class="invest-panel">
+      <div class="invest-title">💰 INVESTMENT SIMULATION — LIMIT ORDER + STOP LOSS</div>
+      <p class="invest-desc">
+        On each <strong>UP-prediction day</strong>: simulates buying at open, then immediately placing a
+        <strong>take-profit limit order</strong> and a <strong>stop-loss order</strong> — both calculated from the buy price.
+        <strong>Close price is never used as a sell target.</strong>
+        <span class="invest-note">
+          Intraday High/Low determines which order fills. If Low ≤ stop → stop triggered (checked first — conservative worst case).
+          If High ≥ target → limit filled. If neither: forced EOD exit at close (fallback, not the sell target).
+          DOWN-prediction days: no trade (no short selling).
+        </span>
+      </p>
+      <div class="invest-controls">
+        <div class="invest-control">
+          <label class="invest-label">Daily amount ($)</label>
+          <input v-model.number="investmentAmount" type="number" min="1" step="50" class="invest-input" />
+        </div>
+        <div class="invest-control">
+          <label class="invest-label">Entry slippage %</label>
+          <input v-model.number="investmentSlippagePct" type="number" min="0" max="1" step="0.05"
+            class="invest-input invest-input-small" title="Buy fills at open + this %" />
+          <span class="invest-hint">Buy = open × (1 + slip%)</span>
+        </div>
+        <div class="invest-control">
+          <label class="invest-label">Take-profit target %</label>
+          <input v-model.number="sellTargetPct" type="number" min="0.1" max="10" step="0.1"
+            class="invest-input invest-input-small"
+            title="Limit order set at buy × (1 + target%). Filled if intraday High reaches this price." />
+          <span class="invest-hint">Limit at buy + target%</span>
+        </div>
+        <div class="invest-control">
+          <label class="invest-label">Stop-loss %</label>
+          <input v-model.number="stopLossPct" type="number" min="0.1" max="10" step="0.1"
+            class="invest-input invest-input-small"
+            title="Stop order at buy × (1 − stop%). Triggered if intraday Low reaches this price (checked first)." />
+          <span class="invest-hint">Stop at buy − stop%</span>
+        </div>
+      </div>
+
+      <!-- visual order flow diagram -->
+      <div class="invest-order-diagram">
+        <div class="order-node order-entry">
+          <div class="order-node-label">ENTRY</div>
+          <div class="order-node-price">Open + {{ investmentSlippagePct }}%</div>
+        </div>
+        <div class="order-arrows">
+          <div class="order-arrow-up">
+            <div class="order-node order-target">
+              <div class="order-node-label text-green">✓ LIMIT</div>
+              <div class="order-node-price">+{{ sellTargetPct }}%</div>
+              <div class="order-node-sub">if High ≥ target</div>
+            </div>
+          </div>
+          <div class="order-arrow-down">
+            <div class="order-node order-stop">
+              <div class="order-node-label text-red">⛔ STOP</div>
+              <div class="order-node-price">−{{ stopLossPct }}%</div>
+              <div class="order-node-sub">if Low ≤ stop (checked first)</div>
+            </div>
+          </div>
+          <div class="order-arrow-eod">
+            <div class="order-node order-eod">
+              <div class="order-node-label text-muted">→ EOD</div>
+              <div class="order-node-price">at Close</div>
+              <div class="order-node-sub">fallback if neither fills</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="invest-stats">
+        <div class="invest-stat">
+          <span class="invest-stat-label">UP days traded</span>
+          <span class="invest-stat-value">{{ upPredictionDays.length }}</span>
+        </div>
+        <div class="invest-stat">
+          <span class="invest-stat-label">✓ Target hit</span>
+          <span class="invest-stat-value text-green">{{ investSimSummary.targetHits }}</span>
+        </div>
+        <div class="invest-stat">
+          <span class="invest-stat-label">⛔ Stop triggered</span>
+          <span class="invest-stat-value text-red">{{ investSimSummary.stopHits }}</span>
+        </div>
+        <div class="invest-stat">
+          <span class="invest-stat-label">→ EOD exit</span>
+          <span class="invest-stat-value text-muted">{{ investSimSummary.eodExits }}</span>
+        </div>
+        <div class="invest-stat">
+          <span class="invest-stat-label">Total invested</span>
+          <span class="invest-stat-value">${{ totalInvested.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) }}</span>
+        </div>
+        <div class="invest-stat">
+          <span class="invest-stat-label">Total P&amp;L</span>
+          <span class="invest-stat-value" :class="totalPnl >= 0 ? 'text-green' : 'text-red'">${{ totalPnl.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}</span>
+        </div>
+        <div class="invest-stat">
+          <span class="invest-stat-label">ROI</span>
+          <span class="invest-stat-value" :class="roiPct >= 0 ? 'text-green' : 'text-red'">{{ roiPct >= 0 ? '+' : '' }}{{ roiPct.toFixed(1) }}%</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ── Algorithm Explainer ── -->
     <section v-if="results.length" class="algo-panel">
       <div class="algo-title">ALGORITHM — {{ currentAlgorithm.hasMaConfirmation ? '3 STEP' : '2 STEP' }} PATTERN</div>
@@ -161,13 +264,17 @@
               <th>Date (n)</th>
               <th>Prev Close</th>
               <th>Today Open</th>
+              <th>High</th>
+              <th>Low</th>
               <th>Gap $</th>
               <th>Gap %</th>
-              <th>{{ currentAlgorithm.hasMaConfirmation ? (currentAlgorithm.maPeriod || 5) + '-Day MA' : 'MA' }}</th>
+              <th>{{ currentAlgorithm.id === 'gap-midrange' ? 'Mid (H+L)/2' : currentAlgorithm.hasMaConfirmation ? (currentAlgorithm.maPeriod || 5) + '-Day MA' : 'MA' }}</th>
               <th>MA Signal</th>
               <th>Prediction</th>
               <th>Today Close</th>
               <th>Result</th>
+              <th>Exit type · buy→exit price</th>
+              <th>Sim P&amp;L</th>
             </tr>
           </thead>
           <tbody>
@@ -179,6 +286,8 @@
                 <td class="date-cell">{{ r.date }}</td>
                 <td class="mono">${{ r.yesterdayClose.toFixed(2) }}</td>
                 <td class="mono bold" :class="r.gapPositive ? 'text-green' : 'text-red'">${{ r.todayOpen.toFixed(2) }}</td>
+                <td class="mono text-muted">${{ (r.todayHigh != null ? r.todayHigh : r.todayOpen).toFixed(2) }}</td>
+                <td class="mono text-muted">${{ (r.todayLow != null ? r.todayLow : r.todayOpen).toFixed(2) }}</td>
                 <td class="mono" :class="r.gapPositive ? 'text-green' : 'text-red'">{{ r.gapPositive ? '+' : '' }}{{ r.gap }}</td>
                 <td class="mono" :class="r.gapPositive ? 'text-green' : 'text-red'">{{ r.gapPositive ? '+' : '' }}{{ r.gapPct }}%</td>
                 <td class="mono text-muted">${{ r.ma5 }}</td>
@@ -199,36 +308,85 @@
                   <span v-else-if="r.correct" class="result-hit">✓ HIT</span>
                   <span v-else class="result-miss">✗ MISS</span>
                 </td>
+                <td class="mono sim-trade-cell">
+                  <template v-if="r.predicted === 'UP' && getTradeResult(r)">
+                    <span :class="getTradeResult(r).exitReason === 'TARGET' ? 'text-green' : getTradeResult(r).exitReason === 'STOP' ? 'text-red' : 'text-muted'">
+                      {{ getTradeResult(r).exitReason === 'TARGET' ? '✓ TARGET' : getTradeResult(r).exitReason === 'STOP' ? '⛔ STOP' : '→ EOD' }}
+                    </span>
+                    <span class="text-muted"> ${{ getTradeResult(r).buyPrice.toFixed(2) }}→${{ getTradeResult(r).exitPrice.toFixed(2) }}</span>
+                  </template>
+                  <span v-else class="text-muted">—</span>
+                </td>
+                <td class="mono">
+                  <template v-if="r.predicted === 'UP' && getTradeResult(r)">
+                    <span :class="getTradeResult(r).pnl >= 0 ? 'text-green' : 'text-red'">
+                      {{ getTradeResult(r).pnl >= 0 ? '+' : '' }}${{ getTradeResult(r).pnl.toFixed(2) }}
+                    </span>
+                  </template>
+                  <span v-else class="text-muted">—</span>
+                </td>
               </tr>
               <!-- Expanded Detail Row -->
               <tr v-if="expanded === i" :key="r.date + '_detail'" class="detail-row">
-                <td colspan="10">
+                <td colspan="14">
                   <div class="detail-grid">
                     <div class="detail-card">
-                      <div class="detail-title">STEP 1 — Gap Analysis</div>
+                      <div class="detail-title">STEP 1 — Gap &amp; Range</div>
                       <div class="detail-line">Yesterday Close: <strong>${{ r.yesterdayClose.toFixed(2) }}</strong></div>
                       <div class="detail-line">Today Open: <strong :class="r.gapPositive ? 'text-green' : 'text-red'">${{ r.todayOpen.toFixed(2) }}</strong></div>
+                      <div class="detail-line">High / Low: <strong class="text-muted">${{ (r.todayHigh != null ? r.todayHigh : r.todayOpen).toFixed(2) }}</strong> / <strong class="text-muted">${{ (r.todayLow != null ? r.todayLow : r.todayOpen).toFixed(2) }}</strong></div>
                       <div class="detail-line">Gap: <strong :class="r.gapPositive ? 'text-green' : 'text-red'">{{ r.gapPositive ? '+' : '' }}{{ r.gap }} ({{ r.gapPositive ? '+' : '' }}{{ r.gapPct }}%)</strong></div>
                       <div class="detail-signal" :class="r.predicted === 'UP' ? 'text-green' : 'text-red'">
                         → {{ r.predicted === 'UP' ? '▲ Predict UP' : '▼ Predict DOWN' }}
                       </div>
                     </div>
                     <div class="detail-card">
-                      <div class="detail-title">STEP 2 — {{ currentAlgorithm.hasMaConfirmation ? 'MA Confirmation' : 'MA' }}</div>
-                      <div class="detail-line">{{ currentAlgorithm.maPeriod || 5 }}-Day MA: <strong>${{ r.ma5 }}</strong></div>
+                      <div class="detail-title">STEP 2 — {{ currentAlgorithm.id === 'gap-midrange' ? 'Mid-range' : currentAlgorithm.hasMaConfirmation ? 'MA Confirmation' : 'MA' }}</div>
+                      <div class="detail-line">{{ currentAlgorithm.id === 'gap-midrange' ? 'Mid (H+L)/2' : (currentAlgorithm.maPeriod || 5) + '-Day MA' }}: <strong>${{ r.ma5 }}</strong></div>
                       <div v-if="currentAlgorithm.hasMaConfirmation" class="detail-line">Open vs MA: <strong :class="r.aboveMA === true ? 'text-green' : r.aboveMA === false ? 'text-red' : 'text-muted'">{{ r.aboveMA === true ? 'Above ↑' : r.aboveMA === false ? 'Below ↓' : '—' }}</strong></div>
                       <div class="detail-signal" :class="r.maConfirms ? 'text-purple' : 'text-amber'">
                         {{ currentAlgorithm.hasMaConfirmation ? (r.maConfirms ? '★ MA confirms — HIGH confidence' : '⚠ MA conflicts — LOWER confidence') : '— Not used (Gap only)' }}
                       </div>
                     </div>
                     <div class="detail-card">
-                      <div class="detail-title">STEP 3 — Outcome</div>
+                      <div class="detail-title">STEP 3 — Outcome (close vs open)</div>
                       <div class="detail-line">Predicted: <strong :class="r.predicted === 'UP' ? 'text-green' : 'text-red'">{{ r.predicted }}</strong></div>
-                      <div class="detail-line">Actual: <strong :class="r.actual === 'UP' ? 'text-green' : r.actual === 'DOWN' ? 'text-red' : 'text-muted'">{{ r.actual }} (${{ r.todayClose.toFixed(2) }})</strong></div>
+                      <div class="detail-line">Actual (close vs open): <strong :class="r.actual === 'UP' ? 'text-green' : r.actual === 'DOWN' ? 'text-red' : 'text-muted'">{{ r.actual }} (close ${{ r.todayClose.toFixed(2) }} {{ r.actual === 'UP' ? '>' : r.actual === 'DOWN' ? '<' : '=' }} open ${{ r.todayOpen.toFixed(2) }})</strong></div>
                       <div class="detail-line">Confidence: <strong>{{ r.confidence }}%</strong></div>
                       <div class="detail-signal" :class="r.correct ? 'text-green' : 'text-red'">
                         {{ r.correct ? '✓ CORRECT PREDICTION' : '✗ MISSED PREDICTION' }}
                       </div>
+                    </div>
+                    <div v-if="r.predicted === 'UP' && getTradeResult(r)" class="detail-card detail-card-trade">
+                      <div class="detail-title">💰 SIM TRADE — ${{ investmentAmount || 0 }}/day</div>
+                      <div class="detail-line">Open: <strong>${{ r.todayOpen.toFixed(2) }}</strong> &nbsp;|&nbsp; High: <strong class="text-green">${{ r.todayHigh.toFixed(2) }}</strong> &nbsp;|&nbsp; Low: <strong class="text-red">${{ r.todayLow.toFixed(2) }}</strong></div>
+                      <div class="detail-line">Buy price: <strong>${{ getTradeResult(r).buyPrice.toFixed(2) }}</strong> <span class="text-muted">(open + {{ investmentSlippagePct }}% slippage)</span></div>
+                      <div class="detail-line">
+                        Limit target:
+                        <strong class="text-green">${{ getTradeResult(r).targetPrice.toFixed(2) }}</strong>
+                        <span class="text-muted">(+{{ sellTargetPct }}%)</span>
+                        &nbsp;—&nbsp;
+                        <span :class="getTradeResult(r).exitReason === 'TARGET' ? 'text-green' : 'text-muted'">
+                          {{ getTradeResult(r).exitReason === 'TARGET' ? '✓ HIGH reached it ($' + r.todayHigh.toFixed(2) + ')' : 'High $' + r.todayHigh.toFixed(2) + ' did not reach' }}
+                        </span>
+                      </div>
+                      <div class="detail-line">
+                        Stop-loss:
+                        <strong class="text-red">${{ getTradeResult(r).stopPrice.toFixed(2) }}</strong>
+                        <span class="text-muted">(−{{ stopLossPct }}%)</span>
+                        &nbsp;—&nbsp;
+                        <span :class="getTradeResult(r).exitReason === 'STOP' ? 'text-red' : 'text-muted'">
+                          {{ getTradeResult(r).exitReason === 'STOP' ? '⛔ LOW hit it ($' + r.todayLow.toFixed(2) + ')' : 'Low $' + r.todayLow.toFixed(2) + ' stayed above' }}
+                        </span>
+                      </div>
+                      <div class="detail-line">
+                        Exit:
+                        <strong :class="getTradeResult(r).exitReason === 'TARGET' ? 'text-green' : getTradeResult(r).exitReason === 'STOP' ? 'text-red' : 'text-muted'">
+                          ${{ getTradeResult(r).exitPrice.toFixed(2) }}
+                          ({{ getTradeResult(r).exitReason === 'TARGET' ? '✓ TARGET HIT' : getTradeResult(r).exitReason === 'STOP' ? '⛔ STOP HIT' : '→ EOD (fallback)' }})
+                        </strong>
+                      </div>
+                      <div class="detail-line">P&amp;L: <strong :class="getTradeResult(r).pnl >= 0 ? 'text-green' : 'text-red'">{{ getTradeResult(r).pnl >= 0 ? '+' : '' }}${{ getTradeResult(r).pnl.toFixed(2) }} ({{ getTradeResult(r).pnlPct.toFixed(2) }}%)</strong></div>
                     </div>
                   </div>
                 </td>
@@ -379,6 +537,10 @@ export default {
       yahooLoading: false,
       yahooError:   '',
       selectedAlgorithmId: 'gap-ma-5',
+      investmentAmount: 100,
+      investmentSlippagePct: 0.1,  // entry slippage only (buy leg)
+      sellTargetPct: 0.5,          // take-profit % above buy price (limit order)
+      stopLossPct: 0.3,            // stop-loss % below buy price (stop order)
     };
   },
 
@@ -420,6 +582,32 @@ export default {
     unconfirmedCorrect(){ return this.unconfirmedResults.filter(r => r.correct).length; },
     unconfirmedAccuracy(){ return pct(this.unconfirmedCorrect, this.unconfirmedResults.length); },
     confirmationLift()  { return (parseFloat(this.confirmedAccuracy) - parseFloat(this.unconfirmedAccuracy)).toFixed(1); },
+
+    upPredictionDays() {
+      return this.filteredResults.filter((r) => r.predicted === 'UP');
+    },
+    investSimSummary() {
+      const days = this.upPredictionDays;
+      let targetHits = 0, stopHits = 0, eodExits = 0;
+      days.forEach(r => {
+        const t = this.getTradeResult(r);
+        if (!t) return;
+        if (t.exitReason === 'TARGET') targetHits++;
+        else if (t.exitReason === 'STOP') stopHits++;
+        else eodExits++;
+      });
+      return { targetHits, stopHits, eodExits };
+    },
+    totalInvested() {
+      return this.upPredictionDays.length * (this.investmentAmount || 0);
+    },
+    totalPnl() {
+      return this.upPredictionDays.reduce((sum, r) => sum + this.getTradePnl(r), 0);
+    },
+    roiPct() {
+      const invested = this.totalInvested;
+      return invested > 0 ? (this.totalPnl / invested) * 100 : 0;
+    },
   },
 
   watch: {
@@ -427,6 +615,56 @@ export default {
   },
 
   methods: {
+    // ── Realistic trade simulation ──────────────────────────────────────────
+    // Everything known at open: buy price, target limit, stop-loss.
+    // Close price is only used as a last-resort EOD exit fallback.
+    // H/L intraday range determines whether limit or stop was filled first.
+    getTradeResult(r) {
+      if (r.predicted !== 'UP') return null;
+      const amt        = this.investmentAmount || 0;
+      const slipFrac   = (this.investmentSlippagePct ?? 0.1) / 100;
+      const targetFrac = (this.sellTargetPct ?? 0.5) / 100;
+      const stopFrac   = (this.stopLossPct ?? 0.3) / 100;
+
+      // Entry — all known at open
+      const buyPrice    = r.todayOpen * (1 + slipFrac);
+      const targetPrice = buyPrice * (1 + targetFrac);
+      const stopPrice   = buyPrice * (1 - stopFrac);
+
+      const high = r.todayHigh ?? r.todayOpen;
+      const low  = r.todayLow  ?? r.todayOpen;
+
+      // Determine exit — conservative: check stop first (no tick data, assume worst case)
+      let exitPrice, exitReason;
+      if (low <= stopPrice) {
+        exitPrice  = stopPrice;
+        exitReason = 'STOP';
+      } else if (high >= targetPrice) {
+        exitPrice  = targetPrice;
+        exitReason = 'TARGET';
+      } else {
+        // Neither order filled — forced EOD exit at close (unknown at open, but this
+        // is the fallback path when neither target nor stop was reached intraday)
+        exitPrice  = r.todayClose;
+        exitReason = 'EOD';
+      }
+
+      const pnl        = amt * (exitPrice - buyPrice) / buyPrice;
+      const pnlPct     = ((exitPrice - buyPrice) / buyPrice) * 100;
+
+      return { buyPrice, targetPrice, stopPrice, exitPrice, exitReason, pnl, pnlPct, amt };
+    },
+
+    getTradePnl(r) {
+      const t = this.getTradeResult(r);
+      return t ? t.pnl : 0;
+    },
+
+    // ── Legacy helpers kept for template compatibility ──
+    getPracticalBuyPrice(r) {
+      const t = this.getTradeResult(r);
+      return t ? t.buyPrice : r.todayOpen;
+    },
     onAlgorithmChange() {
       if (this.parsedData.length) this.runSimulation();
     },
@@ -652,6 +890,78 @@ export default {
 .stat-bar-fill.amber  { background: #f59e0b; }
 .stat-bar-fill.blue   { background: #3b82f6; }
 
+/* ── Investment simulation ── */
+.invest-panel {
+  background: #0d1a28;
+  border: 1px solid #1a2d42;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+.invest-title { font-family: 'Space Mono', monospace; font-size: 11px; color: #1ec878; font-weight: 700; letter-spacing: 3px; margin-bottom: 8px; }
+.invest-desc { font-size: 12px; color: #6a8ab0; margin-bottom: 14px; line-height: 1.6; }
+.invest-note { display: block; margin-top: 6px; font-family: 'Space Mono', monospace; font-size: 10px; color: #3a5a7a; line-height: 1.7; }
+.invest-controls { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px 24px; margin-bottom: 16px; }
+.invest-control { display: flex; flex-direction: column; gap: 4px; }
+.invest-label { font-family: 'Space Mono', monospace; font-size: 11px; color: #4a6a8a; font-weight: 700; }
+.invest-hint { font-size: 10px; color: #3a5a7a; font-family: 'Space Mono', monospace; }
+.invest-input {
+  width: 100px; padding: 6px 10px; border-radius: 6px; border: 1px solid #1a2d42;
+  background: #060e18; color: #c8d6e8; font-family: 'Space Mono', monospace; font-size: 12px; outline: none;
+}
+.invest-input-small { width: 80px; }
+.invest-input:focus { border-color: #1ec87840; }
+
+/* Order diagram */
+.invest-order-diagram {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #060e18;
+  border: 1px solid #1a2d42;
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.order-node {
+  border-radius: 8px;
+  padding: 8px 14px;
+  text-align: center;
+  min-width: 90px;
+}
+.order-entry  { background: #0d2a3a; border: 1px solid #1a4a6a; }
+.order-target { background: #0a2a1a; border: 1px solid #1ec87840; }
+.order-stop   { background: #2a0a0a; border: 1px solid #f05a5a40; }
+.order-eod    { background: #1a1a2a; border: 1px solid #4a4a6a; }
+.order-node-label { font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px; }
+.order-entry  .order-node-label { color: #6ab0e0; }
+.order-target .order-node-label { color: #1ec878; }
+.order-stop   .order-node-label { color: #f05a5a; }
+.order-eod    .order-node-label { color: #6a6a9a; }
+.order-node-price { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: #c8d6e8; }
+.order-node-sub   { font-size: 9px; color: #3a5a7a; margin-top: 3px; font-family: 'Space Mono', monospace; }
+.order-arrows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+  justify-content: center;
+}
+.order-arrow-up::before   { content: '→ HIGH ≥'; font-family: 'Space Mono', monospace; font-size: 9px; color: #1ec878; display: block; margin-bottom: 2px; }
+.order-arrow-down::before { content: '→ LOW ≤'; font-family: 'Space Mono', monospace; font-size: 9px; color: #f05a5a; display: block; margin-bottom: 2px; }
+.order-arrow-eod::before  { content: '→ else:'; font-family: 'Space Mono', monospace; font-size: 9px; color: #4a4a6a; display: block; margin-bottom: 2px; }
+
+.invest-stats { display: flex; flex-wrap: wrap; gap: 16px; }
+.invest-stat { display: flex; flex-direction: column; gap: 2px; }
+.invest-stat-label { font-size: 10px; color: #4a6a8a; font-family: 'Space Mono', monospace; letter-spacing: 1px; }
+.invest-stat-value { font-size: 18px; font-weight: 700; }
+.invest-stat-value.text-green { color: #1ec878; }
+.invest-stat-value.text-red { color: #f05a5a; }
+.invest-stat-value.text-muted { color: #3a5a7a; }
+
 /* ── Algorithm Panel ── */
 .algo-panel {
   background: #0d1a28;
@@ -758,6 +1068,8 @@ export default {
 .detail-title { font-family: 'Space Mono', monospace; font-size: 10px; color: #3a5a7a; letter-spacing: 2px; font-weight: 700; margin-bottom: 10px; }
 .detail-line  { font-size: 12px; color: #8aa8c8; margin-bottom: 5px; }
 .detail-signal { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; margin-top: 8px; }
+.detail-card-trade { border-left: 2px solid #1ec878; }
+.sim-trade-cell { white-space: nowrap; font-size: 11px; }
 
 /* ── Timeline ── */
 .timeline-section {
