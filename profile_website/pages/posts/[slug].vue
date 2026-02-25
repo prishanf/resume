@@ -257,4 +257,54 @@ const formatDate = (dateString) => {
 :deep(.prose td) {
   @apply py-4 px-3 text-sm text-gray-600;
 }
+
+/* Mobile-first: turn wide comparison tables (5 cols) into stacked cards */
+@media (max-width: 768px) {
+  :deep(.prose table:has(tbody td:nth-child(5))) {
+    @apply block max-w-none overflow-visible shadow-none border-0 my-8;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) thead) {
+    @apply hidden;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody tr) {
+    @apply block border border-gray-200 rounded-xl mb-4 p-4 bg-white shadow-sm last:border last:mb-0;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td) {
+    @apply block py-2 px-0 border-0 text-sm;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:first-child) {
+    @apply font-bold text-primary text-base pb-2 mb-2 border-b border-gray-100;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(2)::before) {
+    content: "Cline: ";
+    @apply font-semibold text-gray-700;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(3)::before) {
+    content: "Copilot: ";
+    @apply font-semibold text-gray-700;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(4)::before) {
+    content: "Claude Code: ";
+    @apply font-semibold text-gray-700;
+  }
+
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(5)::before) {
+    content: "Cursor: ";
+    @apply font-semibold text-gray-700;
+  }
+}
+
+/* Other tables on mobile: horizontal scroll */
+@media (max-width: 768px) {
+  :deep(.prose table:not(:has(tbody td:nth-child(5)))) {
+    @apply block max-w-none overflow-x-auto -mx-2 text-sm;
+  }
+}
 </style>
