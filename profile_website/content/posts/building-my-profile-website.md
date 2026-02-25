@@ -2,7 +2,7 @@
 title: "Building My Stunning Profile Website: A Journey with AI-Assisted Development"
 description: "How I built a beautiful, content-rich portfolio website using Nuxt 3, Nuxt Content, and Tailwind CSS, then deployed it for free on GitHub Pages—all with the help of AI pair programming."
 image: "/images/posts/profile-website-hero.png"
-date: "2025-01-28"
+date: "2026-01-28"
 excerpt: "Discover how I leveraged AI-powered development tools to build a stunning, database-free portfolio website that showcases my professional journey, then deployed it seamlessly to GitHub Pages."
 tags: ["nuxt", "vue", "github-pages", "ai", "web-development", "static-site"]
 published: true

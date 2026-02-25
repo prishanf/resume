@@ -84,7 +84,10 @@ const { data: posts, pending, error } = await useAsyncData('posts', async () => 
         .find()
     }
     
-    return result || []
+    const list = result || []
+    // Guarantee date desc (newest first) in case content driver order differs
+    list.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
+    return list
   } catch (err) {
     console.error('Error fetching posts:', err)
     // Return empty array instead of throwing to prevent page crash

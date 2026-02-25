@@ -5,7 +5,7 @@ image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072
 date: "2026-01-15"
 excerpt: "Experience Cloud is more than just a portal; it's a window into your enterprise data. Learn how to architect secure and scalable community experiences."
 tags: ["Salesforce", "Experience Cloud", "Architecture"]
-published: true
+published: false
 ---
 
 # Mastering the Salesforce Experience Cloud

@@ -2,10 +2,10 @@
 title: "Welcome to My Blog"
 description: "Introducing my new blog where I'll share thoughts on technology, leadership, and innovation"
 image: "/images/posts/me.jpg"
-date: "2025-01-28"
+date: "2026-01-28"
 excerpt: "Welcome to my blog! I'll be sharing insights on Salesforce architecture, AI, leadership, and more."
 tags: ["welcome", "technology", "leadership"]
-published: true
+published: false
 ---
 
 # Welcome to My Blog
