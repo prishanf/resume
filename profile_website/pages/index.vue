@@ -13,7 +13,7 @@
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
             </span>
-            <span>Available for Strategic Leadership</span>
+            <span>Available for AI Leadership & Strategic Architecture Roles</span>
           </div>
           
           <h1 class="text-6xl md:text-8xl font-black text-primary mb-8 tracking-tighter leading-[0.9]">
@@ -21,7 +21,7 @@
           </h1>
           
           <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl font-medium leading-relaxed">
-            Technology leader and architect specializing in <span class="text-primary border-b-2 border-accent/30">AI-enabled cloud transformation</span> and enterprise multi-cloud ecosystems.
+            <span class="text-primary border-b-2 border-accent/30">AI Leader & Enterprise Architect</span> | Driving organizational AI adoption, safe implementation, and hands-on experimentation across cloud ecosystems.
           </p>
           
           <div class="flex flex-col sm:flex-row gap-6 items-start">
@@ -44,10 +44,17 @@
           <div class="lg:col-span-5">
             <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">The Overview</h2>
             <h3 class="text-4xl md:text-5xl font-bold text-primary mb-8 leading-tight">
-              Technology Leader & <br/>Strategic Architect
+              AI Leader & <br/>Enterprise Architect 
+
             </h3>
             <p class="text-lg text-gray-600 leading-relaxed mb-8">
-              Hands-on architect with over 20 years in software development and 12+ years specializing in Salesforce ecosystems. Known for translating complex business challenges into pragmatic, scalable solutions while building high-trust teams.
+              Hands-on AI leader and enterprise architect with 20+ years building solutions that matter — and 2+ years going deep on AI adoption, agentic systems, and responsible implementation inside real organizations.
+            </p>
+            <p class="text-lg text-gray-600 leading-relaxed mb-8">
+              I build AI frameworks that cut delivery effort by 70%. I lead teams through the shift from AI experimentation to operational reality. And I architect enterprise ecosystems where AI amplifies human potential — safely, deliberately, and at scale.
+            </p>
+            <p class="text-lg text-gray-600 leading-relaxed mb-8">
+              Known for translating complex technical possibilities into business outcomes, upskilling practitioners on AI tools, and building high-trust teams that deliver in an AI-first world.
             </p>
             <div class="flex items-center space-x-6">
               <div class="flex flex-col">
@@ -60,6 +67,10 @@
                 <span class="text-xs text-gray-400 uppercase tracking-widest">Years SF</span>
               </div>
               <div class="w-px h-10 bg-gray-200"></div>
+              <div class="flex flex-col">
+                <span class="text-2xl font-bold text-primary">500+</span>
+                <span class="text-xs text-gray-400 uppercase tracking-widest"> Hrs of AI Exp</span>
+              </div>
               <div class="flex flex-col">
                 <span class="text-2xl font-bold text-primary">100+</span>
                 <span class="text-xs text-gray-400 uppercase tracking-widest">Interviews</span>
