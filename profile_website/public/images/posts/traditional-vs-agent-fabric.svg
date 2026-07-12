@@ -1,0 +1,79 @@
+<svg viewBox="0 0 1200 680" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowNavy" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrowTeal" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#0E8574"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="680" fill="#F5F7F8"/>
+
+  <text x="600" y="46" text-anchor="middle" font-size="26" font-weight="700" fill="#0F172A">Two Ways to Move a Claim Through Your Systems</text>
+  <text x="600" y="70" text-anchor="middle" font-size="14" fill="#64748B">Same insurance claim, same backend systems — different decision logic</text>
+
+  <line x1="600" y1="98" x2="600" y2="648" stroke="#DDE3E8" stroke-width="2"/>
+
+  <!-- LEFT: Traditional -->
+  <text x="300" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#334155">TRADITIONAL MULESOFT</text>
+
+  <g font-size="15" font-weight="600" fill="#0F172A">
+    <rect x="185" y="140" width="230" height="58" rx="6" fill="#FFFFFF" stroke="#334155" stroke-width="1.75"/>
+    <text x="300" y="174" text-anchor="middle">System API</text>
+
+    <rect x="185" y="248" width="230" height="58" rx="6" fill="#FFFFFF" stroke="#334155" stroke-width="1.75"/>
+    <text x="300" y="282" text-anchor="middle">Process API</text>
+
+    <rect x="185" y="356" width="230" height="58" rx="6" fill="#FFFFFF" stroke="#334155" stroke-width="1.75"/>
+    <text x="300" y="390" text-anchor="middle">Experience API</text>
+
+    <rect x="185" y="464" width="230" height="58" rx="6" fill="#EFF2F4" stroke="#334155" stroke-width="1.75"/>
+    <text x="300" y="498" text-anchor="middle">Fixed Web UI</text>
+  </g>
+
+  <line x1="300" y1="198" x2="300" y2="243" stroke="#334155" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+  <line x1="300" y1="306" x2="300" y2="351" stroke="#334155" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+  <line x1="300" y1="414" x2="300" y2="459" stroke="#334155" stroke-width="2.5" marker-end="url(#arrowNavy)"/>
+
+  <text x="300" y="560" text-anchor="middle" font-size="14" fill="#334155" font-weight="600">Fixed sequence</text>
+  <text x="300" y="582" text-anchor="middle" font-size="13" fill="#64748B">Decided once, at build time.</text>
+  <text x="300" y="602" text-anchor="middle" font-size="13" fill="#64748B">Edge case → error handler.</text>
+
+  <!-- RIGHT: Agent Fabric -->
+  <text x="900" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#0E8574">MULESOFT AGENT FABRIC</text>
+
+  <!-- hub -->
+  <circle cx="900" cy="320" r="58" fill="#0E8574"/>
+  <text x="900" y="315" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">Agent</text>
+  <text x="900" y="333" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">Broker</text>
+
+  <!-- satellites -->
+  <g font-size="13" font-weight="600" fill="#0F172A">
+    <rect x="720" y="185" width="160" height="52" rx="26" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+    <text x="800" y="216" text-anchor="middle">Claims Agent</text>
+
+    <rect x="1020" y="185" width="160" height="52" rx="26" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+    <text x="1100" y="216" text-anchor="middle">Fraud Agent</text>
+
+    <rect x="720" y="403" width="160" height="52" rx="26" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+    <text x="800" y="434" text-anchor="middle">Payout Agent</text>
+
+    <rect x="1020" y="403" width="160" height="52" rx="26" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+    <text x="1100" y="428" text-anchor="middle">Customer Service</text>
+    <text x="1100" y="444" text-anchor="middle">Agent</text>
+  </g>
+
+  <line x1="855" y1="285" x2="810" y2="235" stroke="#0E8574" stroke-width="2.25" marker-end="url(#arrowTeal)"/>
+  <line x1="945" y1="285" x2="1090" y2="235" stroke="#0E8574" stroke-width="2.25" marker-end="url(#arrowTeal)"/>
+  <line x1="855" y1="355" x2="810" y2="403" stroke="#0E8574" stroke-width="2.25" marker-end="url(#arrowTeal)"/>
+  <line x1="945" y1="355" x2="1090" y2="403" stroke="#0E8574" stroke-width="2.25" marker-end="url(#arrowTeal)"/>
+
+  <path d="M1180,211 Q1198,320 1180,429" fill="none" stroke="#9AC9C2" stroke-width="1.75" stroke-dasharray="4 4" marker-end="url(#arrowTeal)"/>
+
+  <text x="900" y="560" text-anchor="middle" font-size="14" fill="#0E8574" font-weight="600">Dynamic routing</text>
+  <text x="900" y="582" text-anchor="middle" font-size="13" fill="#64748B">Decided at runtime, from context.</text>
+  <text x="900" y="602" text-anchor="middle" font-size="13" fill="#64748B">Edge case → next best agent.</text>
+
+  <text x="600" y="655" text-anchor="middle" font-size="12" fill="#94A3B8">Same underlying MuleSoft APIs power both — what changes is who decides the next step.</text>
+</svg>

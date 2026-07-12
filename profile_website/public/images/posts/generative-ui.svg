@@ -1,0 +1,82 @@
+<svg viewBox="0 0 1200 660" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrN" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrT" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#0E8574"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="660" fill="#F5F7F8"/>
+
+  <text x="600" y="44" text-anchor="middle" font-size="26" font-weight="700" fill="#0F172A">One Fixed Screen, or an Interface Shaped by the Moment</text>
+  <text x="600" y="68" text-anchor="middle" font-size="14" fill="#64748B">Same underlying agent task — the UI itself is generated for who's asking, and why</text>
+
+  <line x1="600" y1="96" x2="600" y2="628" stroke="#DDE3E8" stroke-width="2"/>
+
+  <!-- LEFT: traditional fixed UI -->
+  <text x="270" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#334155">TRADITIONAL UI</text>
+
+  <rect x="120" y="140" width="300" height="330" rx="8" fill="#FFFFFF" stroke="#334155" stroke-width="1.75"/>
+  <rect x="120" y="140" width="300" height="32" rx="8" fill="#E2E8F0"/>
+  <circle cx="140" cy="156" r="5" fill="#94A3B8"/>
+  <circle cx="156" cy="156" r="5" fill="#94A3B8"/>
+  <circle cx="172" cy="156" r="5" fill="#94A3B8"/>
+
+  <g fill="#CBD5E1">
+    <rect x="145" y="196" width="250" height="12" rx="3"/>
+    <rect x="145" y="222" width="250" height="34" rx="4" fill="#EFF2F4" stroke="#CBD5E1"/>
+    <rect x="145" y="270" width="250" height="12" rx="3"/>
+    <rect x="145" y="296" width="250" height="34" rx="4" fill="#EFF2F4" stroke="#CBD5E1"/>
+    <rect x="145" y="344" width="250" height="12" rx="3"/>
+    <rect x="145" y="370" width="250" height="34" rx="4" fill="#EFF2F4" stroke="#CBD5E1"/>
+  </g>
+  <rect x="145" y="425" width="120" height="32" rx="5" fill="#334155"/>
+  <text x="205" y="446" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="600">Submit</text>
+
+  <text x="270" y="512" text-anchor="middle" font-size="14" fill="#334155" font-weight="600">Same fields, same layout</text>
+  <text x="270" y="534" text-anchor="middle" font-size="13" fill="#64748B">for every user, every time —</text>
+  <text x="270" y="554" text-anchor="middle" font-size="13" fill="#64748B">built once, in advance.</text>
+
+  <!-- RIGHT: generative UI -->
+  <text x="900" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#0E8574">GENERATIVE UI</text>
+
+  <circle cx="700" cy="320" r="42" fill="#0E8574"/>
+  <text x="700" y="325" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">Agent</text>
+
+  <line x1="742" y1="300" x2="855" y2="200" stroke="#0E8574" stroke-width="2.25" marker-end="url(#arrT)"/>
+  <line x1="742" y1="320" x2="855" y2="320" stroke="#0E8574" stroke-width="2.25" marker-end="url(#arrT)"/>
+  <line x1="742" y1="340" x2="855" y2="440" stroke="#0E8574" stroke-width="2.25" marker-end="url(#arrT)"/>
+
+  <!-- analyst mock -->
+  <rect x="860" y="140" width="290" height="120" rx="7" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+  <text x="880" y="164" font-size="13.5" font-weight="700" fill="#0F172A">Analyst View</text>
+  <g fill="#9AC9C2">
+    <rect x="880" y="178" width="14" height="50" />
+    <rect x="900" y="196" width="14" height="32" />
+    <rect x="920" y="164" width="14" height="64" />
+    <rect x="940" y="206" width="14" height="22" />
+  </g>
+  <text x="1000" y="200" font-size="11.5" fill="#475569">charts, filters,</text>
+  <text x="1000" y="216" font-size="11.5" fill="#475569">raw metrics</text>
+
+  <!-- manager mock -->
+  <rect x="860" y="292" width="290" height="120" rx="7" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+  <text x="880" y="316" font-size="13.5" font-weight="700" fill="#0F172A">Manager View</text>
+  <rect x="880" y="336" width="110" height="42" rx="6" fill="#0E8574"/>
+  <text x="935" y="362" text-anchor="middle" font-size="12" fill="#FFFFFF" font-weight="600">Approve</text>
+  <rect x="1000" y="336" width="110" height="42" rx="6" fill="#FFFFFF" stroke="#B45309" stroke-width="1.5"/>
+  <text x="1055" y="362" text-anchor="middle" font-size="12" fill="#B45309" font-weight="600">Flag</text>
+
+  <!-- customer mock -->
+  <rect x="860" y="444" width="290" height="120" rx="7" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+  <text x="880" y="468" font-size="13.5" font-weight="700" fill="#0F172A">Customer View</text>
+  <rect x="880" y="482" width="250" height="30" rx="14" fill="#EFF2F4"/>
+  <text x="895" y="502" font-size="11.5" fill="#475569">Here's what happens next…</text>
+  <rect x="880" y="520" width="140" height="26" rx="13" fill="#EFF2F4"/>
+  <text x="895" y="538" font-size="11.5" fill="#475569">Upload a photo</text>
+
+  <text x="900" y="600" text-anchor="middle" font-size="14" fill="#0E8574" font-weight="600">Interface generated at runtime</text>
+  <text x="900" y="622" text-anchor="middle" font-size="13" fill="#64748B">for who's asking, and why — not built once, in advance.</text>
+</svg>

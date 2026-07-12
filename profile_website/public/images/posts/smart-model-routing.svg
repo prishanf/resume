@@ -1,0 +1,65 @@
+<svg viewBox="0 0 1200 660" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrHead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrTeal" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#0E8574"/>
+    </marker>
+    <marker id="arrSlate" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#5C6B7A"/>
+    </marker>
+    <marker id="arrAmber" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#B45309"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1200" height="660" fill="#F5F7F8"/>
+
+  <text x="600" y="44" text-anchor="middle" font-size="26" font-weight="700" fill="#0F172A">Smart Model Routing: Right-Sizing Every Request</text>
+  <text x="600" y="68" text-anchor="middle" font-size="14" fill="#64748B">The AI Gateway reads each prompt and routes it to the most cost-effective model that can still do the job</text>
+
+  <!-- Incoming request -->
+  <rect x="50" y="288" width="190" height="66" rx="6" fill="#FFFFFF" stroke="#5C6B7A" stroke-width="1.75"/>
+  <text x="145" y="315" text-anchor="middle" font-size="14" font-weight="600" fill="#0F172A">Incoming Request</text>
+  <text x="145" y="335" text-anchor="middle" font-size="11.5" fill="#64748B">from any agent or app</text>
+
+  <line x1="240" y1="321" x2="405" y2="321" stroke="#334155" stroke-width="2.25" marker-end="url(#arrHead)"/>
+
+  <!-- Gateway -->
+  <rect x="410" y="256" width="270" height="130" rx="8" fill="#0F172A"/>
+  <text x="545" y="298" text-anchor="middle" font-size="17" font-weight="700" fill="#FFFFFF">AI Gateway</text>
+  <text x="545" y="320" text-anchor="middle" font-size="12.5" fill="#B7C4CE">Semantic Router</text>
+  <text x="545" y="344" text-anchor="middle" font-size="11.5" fill="#8CA0AC">reads intent, then matches the</text>
+  <text x="545" y="360" text-anchor="middle" font-size="11.5" fill="#8CA0AC">cheapest model that can handle it</text>
+
+  <!-- Branches -->
+  <path d="M680,290 C 800,290 800,165 900,165" fill="none" stroke="#0E8574" stroke-width="7" marker-end="url(#arrTeal)"/>
+  <line x1="680" y1="321" x2="900" y2="321" stroke="#5C6B7A" stroke-width="4.5" marker-end="url(#arrSlate)"/>
+  <path d="M680,352 C 800,352 800,477 900,477" fill="none" stroke="#B45309" stroke-width="2.25" marker-end="url(#arrAmber)"/>
+
+  <!-- Tier boxes -->
+  <rect x="905" y="118" width="245" height="94" rx="7" fill="#FFFFFF" stroke="#0E8574" stroke-width="1.75"/>
+  <text x="927" y="145" font-size="14.5" font-weight="700" fill="#0F172A">Small / Fast Model</text>
+  <text x="927" y="166" font-size="12" fill="#475569">Simple lookups &amp; routine tasks</text>
+  <text x="927" y="184" font-size="12" fill="#0E8574" font-weight="600">Lowest cost · fastest response</text>
+  <text x="1128" y="145" text-anchor="end" font-size="12" fill="#0E8574" font-weight="700">~70%</text>
+
+  <rect x="905" y="274" width="245" height="94" rx="7" fill="#FFFFFF" stroke="#5C6B7A" stroke-width="1.75"/>
+  <text x="927" y="301" font-size="14.5" font-weight="700" fill="#0F172A">Mid-Tier Model</text>
+  <text x="927" y="322" font-size="12" fill="#475569">Standard reasoning tasks</text>
+  <text x="927" y="340" font-size="12" fill="#475569" font-weight="600">Balanced cost &amp; speed</text>
+  <text x="1128" y="301" text-anchor="end" font-size="12" fill="#5C6B7A" font-weight="700">~25%</text>
+
+  <rect x="905" y="430" width="245" height="94" rx="7" fill="#FFFFFF" stroke="#B45309" stroke-width="1.75"/>
+  <text x="927" y="457" font-size="14.5" font-weight="700" fill="#0F172A">Premium Reasoning Model</text>
+  <text x="927" y="478" font-size="12" fill="#475569">Complex, high-stakes tasks</text>
+  <text x="927" y="496" font-size="12" fill="#B45309" font-weight="600">Highest cost — used sparingly</text>
+  <text x="1128" y="457" text-anchor="end" font-size="12" fill="#B45309" font-weight="700">~5%</text>
+
+  <!-- Governance feedback -->
+  <line x1="545" y1="386" x2="545" y2="560" stroke="#94A3B8" stroke-width="1.75" stroke-dasharray="5 4" marker-end="url(#arrHead)"/>
+  <rect x="365" y="560" width="360" height="58" rx="6" fill="#EFF2F4" stroke="#94A3B8" stroke-width="1.25"/>
+  <text x="545" y="584" text-anchor="middle" font-size="13" font-weight="600" fill="#334155">Token Budgets · Usage Dashboards · Rate Limits</text>
+  <text x="545" y="602" text-anchor="middle" font-size="11.5" fill="#64748B">enforced before spend happens, not discovered after the bill arrives</text>
+</svg>
