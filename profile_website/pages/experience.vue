@@ -35,7 +35,7 @@
             </div>
             
             <!-- Performance Evidence Section -->
-            <div v-if="evidenceYears.length > 0" class="mt-16 pt-16 border-t border-gray-100">
+            <div id="evidence" v-if="evidenceYears.length > 0" class="mt-16 pt-16 border-t border-gray-100 scroll-mt-24">
               <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
                   <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">The Proof</h2>

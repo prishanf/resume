@@ -56,7 +56,7 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: ['/sitemap.xml'],
+      routes: ['/sitemap.xml', '/expertise/', '/speaking/'],
       // Directory placeholder from summaries with no PDF file; not a real page.
       ignore: ['/pdfs', '/pdfs/']
     }
@@ -69,9 +69,9 @@ export default defineNuxtConfig({
       },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Prishan Fernando — AI Leader & Salesforce Architect',
+      title: 'Prishan Fernando — Salesforce & Agentforce Architect',
       meta: [
-        { name: 'description', content: 'AI leader and enterprise architect with 20+ years building software and 12+ years in Salesforce. Driving organizational AI adoption, safe implementation, and hands-on experimentation.' },
+        { name: 'description', content: 'Salesforce and Agentforce architect in Vancouver, BC, helping teams ship AI and integrations that work. Insights, tools, and architecture notes from Slalom.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Prishan Fernando' },
         { property: 'og:image', content: 'https://prishanfernando.com/images/og-default.jpg' },

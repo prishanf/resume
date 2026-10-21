@@ -13,6 +13,8 @@ const STATIC_PATHS = [
   '/education',
   '/certifications',
   '/endorsements',
+  '/expertise',
+  '/speaking',
   '/tools',
   '/tools/mortgage-calculator',
   '/tools/canadian-tax-calculator',
