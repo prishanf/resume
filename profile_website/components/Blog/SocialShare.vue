@@ -74,13 +74,22 @@ const props = defineProps({
   }
 })
 
-const route = useRoute()
+import { canonicalUrl } from '~/utils/canonical'
+
+const config = useRuntimeConfig()
 
 const fullUrl = computed(() => {
-  if (import.meta.client) {
-    return window.location.origin + props.url
+  const raw = props.url || ''
+  if (raw.startsWith('http://') || raw.startsWith('https://')) {
+    try {
+      const parsed = new URL(raw)
+      parsed.pathname = parsed.pathname === '/' ? '/' : parsed.pathname.replace(/\/?$/, '/')
+      return parsed.toString()
+    } catch {
+      return raw
+    }
   }
-  return props.url
+  return canonicalUrl(config.public.siteUrl, raw)
 })
 
 const twitterUrl = computed(() => {

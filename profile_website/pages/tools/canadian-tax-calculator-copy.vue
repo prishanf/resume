@@ -532,8 +532,8 @@ function formatCurrency (n) {
   return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(n)
 }
 
-useSeoMeta({
-  title: 'Canadian Tax Calculator - Prishan Fernando',
-  description: 'Estimate Canadian federal and provincial income tax. Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. Compare scenarios by province.'
+usePageSeo({
+  title: 'Canadian Tax Calculator (draft) | Prishan Fernando',
+  description: 'Estimate Canadian federal and provincial income tax. Salary, interest, dividends, capital gains, rental income, RRSP deductions, and scenario comparison.'
 })
 </script>

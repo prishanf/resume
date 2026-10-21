@@ -812,8 +812,8 @@ const MortgageBalanceChart = defineComponent({
   }
 })
 
-useSeoMeta({
-  title: 'Mortgage Calculator - Prishan Fernando',
+usePageSeo({
+  title: 'Mortgage Calculator (draft) | Prishan Fernando',
   description: 'Calculate mortgage payments, amortization, and savings with extra principal. Compare up to three scenarios with charts and term summary.'
 })
 </script>

@@ -39,7 +39,7 @@ This detailed analysis examines whether to convert a $300,000 HELOC balance (at 
 - Financial planners advising clients on debt optimization
 
 ### Tools Provided:
-- **[HELOC vs Mortgage Calculator](/tools/heloc-mortgage-calculator)** — Run your own numbers with the interactive calculator
+- **[HELOC vs Mortgage Calculator](/tools/heloc-mortgage-calculator/)** — Run your own numbers with the interactive calculator
 - Monthly payment comparison tables across 7 conversion scenarios
 - 5-year outcome projections with interest and principal breakdowns
 - Head-to-head matchups at similar payment levels
@@ -51,7 +51,7 @@ If you're sitting on a $300,000 HELOC balance at 4.65% and wondering whether to 
 
 I recently ran a comprehensive analysis comparing three strategies: keeping everything in the HELOC, converting portions to a fixed mortgage, and making aggressive extra payments on the HELOC. The results surprised me, and they'll likely surprise you too.
 
-**→ [Use the HELOC vs Mortgage Calculator](/tools/heloc-mortgage-calculator) to run your own numbers.**
+**→ [Use the HELOC vs Mortgage Calculator](/tools/heloc-mortgage-calculator/) to run your own numbers.**
 
 ## The Setup: Understanding Your Options
 

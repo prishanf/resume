@@ -116,7 +116,7 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 - [Anthropic Commercial Terms](https://www.anthropic.com/legal/commercial-terms)
 - [Anthropic Data Processing Addendum](https://www.anthropic.com/legal/data-processing-addendum)
 - [EU AI Act Overview](https://artificialintelligenceact.eu/)
-- [GDPR SCCs](https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection/standard-contractual-clauses-scc_en)
+- [GDPR SCCs](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/standard-contractual-clauses-scc_en)
 
 ---
 
@@ -147,8 +147,8 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 - 🟢 Stay informed about AI-specific regulations emerging in your jurisdiction — the pace of regulatory change is fast.
 
 **Key References:**
-- [NCSC (UK) SMB Cyber Security Guidance](https://www.ncsc.gov.uk/section/information-for/small-medium-sized-organisations)
-- [Australian Privacy Act — Small Business Guide](https://www.oaic.gov.au/privacy/your-privacy-rights/small-business)
+- [NCSC (UK) SMB Cyber Security Guidance](https://www.ncsc.gov.uk/section/advice-guidance/small-medium-sized-organisations)
+- [Australian Privacy Act — Small Business Guide](https://www.oaic.gov.au/privacy/privacy-guidance-for-organisations-and-government-agencies/organisations/small-business)
 - [CCPA for Small Businesses](https://cppa.ca.gov/)
 
 ---
@@ -184,9 +184,9 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 - 🟢 Engage your agency's legal counsel and privacy commissioner early — don't treat AI governance as an IT project alone.
 
 **Key References:**
-- [US NIST AI Risk Management Framework](https://www.nist.gov/system/files/documents/2023/01/26/AI%20RMF%201.0.pdf)
-- [UK Government AI Framework](https://www.gov.uk/government/publications/ai-framework-for-the-uk-government)
-- [Australian Government AI Ethics Principles](https://www.industry.gov.au/publications/australias-artificial-intelligence-ethics-framework)
+- [US NIST AI Risk Management Framework](https://tsapps.nist.gov/publication/get_pdf.cfm?pub_id=936225)
+- [UK Government AI Playbook](https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government/artificial-intelligence-playbook-for-the-uk-government-html)
+- [Australian Government AI Ethics Principles](https://www.industry.gov.au/publications/australias-ai-ethics-principles)
 - [FedRAMP Marketplace](https://marketplace.fedramp.gov/)
 
 ---
@@ -221,9 +221,9 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 - 🟢 Have you reviewed the HHS Office for Civil Rights guidance on AI and HIPAA?
 
 **Key References:**
-- [HHS HIPAA and Cloud Computing Guidance](https://www.hhs.gov/hipaa/for-professionals/special-topics/cloud-computing/index.html)
+- [HHS HIPAA and Cloud Computing Guidance](https://www.hhs.gov/hipaa/for-professionals/special-topics/health-information-technology/cloud-computing/index.html)
 - [HITRUST Alliance](https://hitrustalliance.net/)
-- [FDA Guidance on AI/ML-Based Software as a Medical Device](https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-and-machine-learning-software-medical-device)
+- [FDA Guidance on AI-Enabled Medical Devices](https://www.fda.gov/medical-devices/digital-health-center-excellence/artificial-intelligence-enabled-medical-devices)
 - [NHS Data Security and Protection Toolkit](https://www.dsptoolkit.nhs.uk/)
 
 ---
@@ -258,10 +258,10 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 - 🟢 Engage your regulator proactively — many financial regulators now have innovation offices or regulatory sandboxes specifically for AI experimentation.
 
 **Key References:**
-- [Federal Reserve SR 11-7: Guidance on Model Risk Management](https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm)
-- [FCA/PRA AI and Machine Learning Discussion Paper](https://www.bankofengland.co.uk/prudential-regulation/publication/2022/october/artificial-intelligence-and-machine-learning)
+- [Federal Reserve SR 26-2: Revised Guidance on Model Risk Management](https://www.federalreserve.gov/supervisionreg/srletters/SR2602.htm)
+- [FCA/PRA AI and Machine Learning Discussion Paper](https://www.bankofengland.co.uk/prudential-regulation/publication/2022/october/artificial-intelligence)
 - [MAS Principles for AI in Financial Services (FEAT)](https://www.mas.gov.sg/news/media-releases/2019/mas-introduces-principles-to-promote-fairness-ethics-accountability-and-transparency-in-the-use-of-ai)
-- [APRA CPS 234 Information Security](https://www.apra.gov.au/sites/default/files/cps_234_july_2019_for_public_release.pdf)
+- [APRA CPS 234 Information Security](https://www.apra.gov.au/system/files/cps_234_july_2019_for_public_release.pdf)
 
 ---
 
@@ -288,8 +288,8 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 - 🟢 Stay informed about emerging guidance on AI in education from your education authority or data protection regulator.
 
 **Key References:**
-- [FERPA (Family Educational Rights and Privacy Act)](https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html)
-- [COPPA (Children's Online Privacy Protection Rule)](https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa)
+- [FERPA (Family Educational Rights and Privacy Act)](https://studentprivacy.ed.gov/ferpa)
+- [COPPA (Children's Online Privacy Protection Rule)](https://www.ecfr.gov/current/title-16/chapter-I/subchapter-C/part-312)
 - [Student Privacy Resource (SOPIPA and state laws)](https://studentprivacy.ed.gov/)
 
 ---
@@ -319,7 +319,7 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 ## Universal References
 
 **AI Governance Frameworks**
-- [NIST AI Risk Management Framework (AI RMF 1.0)](https://www.nist.gov/artificial-intelligence/ai-risk-management-framework)
+- [NIST AI Risk Management Framework (AI RMF 1.0)](https://www.nist.gov/itl/ai-risk-management-framework)
 - [ISO/IEC 42001 — AI Management Systems Standard](https://www.iso.org/standard/81230.html)
 - [EU AI Act](https://artificialintelligenceact.eu/)
 - [OECD AI Principles](https://oecd.ai/en/ai-principles)
@@ -334,7 +334,7 @@ Start with the **Universal Baseline Checklist** (applies to all organisations), 
 - [AWS Compliance Centre](https://aws.amazon.com/compliance/)
 - [Microsoft Trust Center](https://www.microsoft.com/en-us/trust-center)
 - [Google Cloud Compliance](https://cloud.google.com/compliance)
-- [Salesforce Trust](https://www.salesforce.com/company/trust/)
+- [Salesforce Trust](https://trust.salesforce.com/)
 
 ---
 

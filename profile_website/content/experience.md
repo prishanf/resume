@@ -1,6 +1,6 @@
 ---
-title: Experience
-description: Employment history and professional experience spanning 20+ years
+title: Experience | Prishan Fernando
+description: Director of Global Salesforce at Slalom. Career history spanning enterprise Salesforce architecture, practice leadership, and delivery across manufacturing, healthcare, and financial services.
 ---
 
 # Experience

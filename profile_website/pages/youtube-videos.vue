@@ -89,8 +89,11 @@
                       <img
                         :src="youtubeThumbnail(video.videoUrl)"
                         :alt="video.title"
+                        width="128"
+                        height="72"
                         class="w-full h-full object-cover"
                         loading="lazy"
+                        decoding="async"
                       />
                     </a>
                     <div class="min-w-0 flex-1">
@@ -268,19 +271,6 @@ const pageUrl = `${siteUrl}/youtube-videos/`
 const pageTitle = 'YouTube Videos I Watched | Video Summaries - Prishan Fernando'
 const pageDescription = 'A curated list of YouTube videos I’ve watched with short summaries and tags. Productivity, learning, and tech recommendations.'
 
-useSeoMeta({
-  title: pageTitle,
-  description: pageDescription,
-  ogTitle: pageTitle,
-  ogDescription: pageDescription,
-  ogUrl: pageUrl,
-  ogType: 'website',
-  ogSiteName: 'Prishan Fernando',
-  twitterCard: 'summary_large_image',
-  twitterTitle: pageTitle,
-  twitterDescription: pageDescription,
-})
-
 const structuredData = computed(() => {
   const list = filteredVideos.value || []
   return {
@@ -311,17 +301,16 @@ const structuredData = computed(() => {
   }
 })
 
-useHead(() => ({
+usePageSeo({
   title: pageTitle,
+  description: pageDescription,
+  jsonLd: structuredData
+})
+
+useHead(() => ({
   meta: [
     { name: 'robots', content: 'index, follow' },
     { name: 'keywords', content: 'YouTube videos, video summaries, productivity videos, learning, recommendations' },
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(structuredData.value),
-    },
   ],
 }))
 </script>

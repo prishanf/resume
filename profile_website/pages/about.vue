@@ -39,7 +39,7 @@
           <!-- Left Column: Biography -->
           <div class="lg:col-span-8">
             <div class="prose prose-lg prose-primary max-w-none">
-              <ContentDoc />
+              <ContentDoc :head="false" />
             </div>
           </div>
 
@@ -59,7 +59,7 @@
                       <div class="text-[10px] text-gray-400 uppercase tracking-widest">70+ Repositories</div>
                     </div>
                   </a>
-                  <a href="https://linkedin.com/in/prishanf" target="_blank" class="flex items-center group">
+                  <a href="https://www.linkedin.com/in/prishanf" target="_blank" rel="noopener noreferrer" class="flex items-center group">
                     <div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300 mr-4">
                       <LinkedinIcon class="w-5 h-5 text-primary" />
                     </div>
@@ -94,21 +94,26 @@
         </div>
       </div>
     </section>
+
+    <LayoutGetInTouch variant="page" />
   </div>
 </template>
 
 <script setup>
-import { UserIcon, TrophyIcon } from '@heroicons/vue/24/outline'
+import { UserIcon, TrophyIcon, ArrowDownTrayIcon } from '@heroicons/vue/24/outline'
 import GithubIcon from '~/components/Icons/GithubIcon.vue'
 import LinkedinIcon from '~/components/Icons/LinkedinIcon.vue'
 
-const { data: about } = await useAsyncData('about', () => queryContent('/about').findOne())
+import { personJsonLd } from '~/utils/seo'
 
-useHead({
-  title: about.value?.title ? `${about.value.title} - Prishan Fernando` : 'About - Prishan Fernando',
-  meta: [
-    { name: 'description', content: about.value?.description || 'Learn more about Prishan Fernando' }
-  ]
+const { data: about } = await useAsyncData('about', () => queryContent('/about').findOne())
+const seoConfig = useRuntimeConfig()
+const siteUrl = seoConfig.public.siteUrl
+
+usePageSeo({
+  title: () => about.value?.title || 'About Prishan Fernando',
+  description: () => about.value?.description || 'AI leader, hands-on architect, and mentor with 20+ years building enterprise solutions — and 2+ years focused on AI adoption and governance.',
+  jsonLd: () => personJsonLd(siteUrl)
 })
 </script>
 

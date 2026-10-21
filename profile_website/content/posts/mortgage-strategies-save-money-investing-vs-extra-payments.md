@@ -12,7 +12,7 @@ published: true
 
 If you have a mortgage, you’ve probably wondered: *Should I pay extra toward the principal, or invest that money instead?* The answer depends on your rate, your timeline, and how comfortable you are with risk. This article gives you clear insight into how mortgages work, concrete strategies to save money, and honest comparisons between paying down your mortgage and investing—including why **putting extra into your mortgage can be a smart, low-risk “return”** if you’re not ready for the stock market.
 
-**→ Use the [Mortgage Strategist](/tools/mortgage-calculator) to run your own numbers, compare scenarios, and see mortgage vs. market side by side.**
+**→ Use the [Mortgage Strategist](/tools/mortgage-calculator/) to run your own numbers, compare scenarios, and see mortgage vs. market side by side.**
 
 ---
 
@@ -34,7 +34,7 @@ A mortgage payment has two parts: **principal** (reduces the loan) and **interes
 2. Future interest is calculated on a smaller balance.  
 3. You pay less interest over the life of the loan and often pay off the loan sooner.
 
-**Payment frequency matters.** Paying **weekly** or **bi-weekly** (instead of monthly) means more frequent principal paydown, so slightly less interest over time—and a lower *per-payment* amount. The [Mortgage Strategist](/tools/mortgage-calculator) lets you switch between monthly, bi-weekly, and weekly to see the difference.
+**Payment frequency matters.** Paying **weekly** or **bi-weekly** (instead of monthly) means more frequent principal paydown, so slightly less interest over time—and a lower *per-payment* amount. The [Mortgage Strategist](/tools/mortgage-calculator/) lets you switch between monthly, bi-weekly, and weekly to see the difference.
 
 **Example idea to try in the tool:**  
 $450,000 at 5.2% over 25 years:
@@ -65,7 +65,7 @@ Typical mortgage contracts allow extra principal up to a cap (e.g. 10–20% of t
 | Frequency | Monthly |
 | **Extra principal** | **$0 vs $350/month** |
 
-In the [Mortgage Strategist](/tools/mortgage-calculator), set the above, then add **$350/month** extra and compare:
+In the [Mortgage Strategist](/tools/mortgage-calculator/), set the above, then add **$350/month** extra and compare:
 
 - **Interest saved** over the life of the loan  
 - **Years saved** (how much sooner you’d pay off)  
@@ -90,7 +90,7 @@ The other use of your money is **investing** (e.g. in a savings account, GIC, bo
 - **Extra to mortgage:** “return” = interest you *don’t* pay (effectively your mortgage rate, risk-free).  
 - **Same money invested:** return = interest or investment growth (depends on product and market).
 
-The [Mortgage Strategist](/tools/mortgage-calculator) has a **“Mortgage vs. Market”** section where you:
+The [Mortgage Strategist](/tools/mortgage-calculator/) has a **“Mortgage vs. Market”** section where you:
 
 1. Enter your **extra payment** (e.g. $350).  
 2. Move the **“Est. Market Return (%)”** slider (e.g. 4%, 7%, 10%).  
@@ -149,7 +149,7 @@ The tool doesn’t replace an emergency fund or a full financial plan—it helps
 
 ## How to Use the Mortgage Strategist for Your Own Experiments
 
-The [Mortgage Strategist](/tools/mortgage-calculator) is built so you can replicate the ideas in this article and try your own scenarios.
+The [Mortgage Strategist](/tools/mortgage-calculator/) is built so you can replicate the ideas in this article and try your own scenarios.
 
 ### 1. Match the Examples Here
 
@@ -185,7 +185,7 @@ The [Mortgage Strategist](/tools/mortgage-calculator) is built so you can replic
 ## Summary: Key Takeaways
 
 1. **Extra principal** reduces the balance, so you pay less interest and often pay off the loan sooner. Payment **frequency** (monthly vs bi-weekly vs weekly) also affects total interest slightly.  
-2. **Concrete examples** (e.g. $450k at 5.2%, 25 years, $350 extra) can be recreated in the [Mortgage Strategist](/tools/mortgage-calculator)—try different amounts and frequencies to see what saves you the most.  
+2. **Concrete examples** (e.g. $450k at 5.2%, 25 years, $350 extra) can be recreated in the [Mortgage Strategist](/tools/mortgage-calculator/)—try different amounts and frequencies to see what saves you the most.  
 3. **Mortgage vs. investing** depends on the return you assume. The tool lets you compare “Interest Saved” vs “Market Gain” at different return scenarios (e.g. 4%, 7%, 10%) for both full amortization and the first term.  
 4. **If you’re scared of the market**, comparing extra mortgage payments to a **savings-style return** (e.g. 4%) often shows that putting extra on the mortgage gives a better, guaranteed outcome—while still leaving room for an emergency fund and other priorities.  
 5. **Experimentation** is built in: multiple scenarios, term summary, and mortgage-vs-market sections are there so you can come back and run different experiments whenever your situation or assumptions change.
@@ -194,11 +194,11 @@ The [Mortgage Strategist](/tools/mortgage-calculator) is built so you can replic
 
 ## Run Your Own Numbers
 
-The numbers in this article are illustrative. Your mortgage amount, rate, term, and comfort with risk are unique. Use the **[Mortgage Strategist](/tools/mortgage-calculator)** to:
+The numbers in this article are illustrative. Your mortgage amount, rate, term, and comfort with risk are unique. Use the **[Mortgage Strategist](/tools/mortgage-calculator/)** to:
 
 - See your exact payment and total interest.  
 - Test extra principal amounts and payment frequencies.  
 - Compare mortgage payoff vs investing at different return scenarios.  
 - Decide whether extra payments or savings (or a mix) fits your goals and risk tolerance.
 
-**[Open the Mortgage Strategist →](/tools/mortgage-calculator)**
+**[Open the Mortgage Strategist →](/tools/mortgage-calculator/)**

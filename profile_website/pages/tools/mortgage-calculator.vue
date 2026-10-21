@@ -365,6 +365,11 @@
 </template>
 
 <script setup>
+usePageSeo({
+  title: 'Mortgage Calculator | Prishan Fernando',
+  description: 'Compare mortgage scenarios, extra principal payments, and amortization. Charts and term summaries for Canadian home-finance planning.'
+})
+
 import { ref, computed, defineComponent, h } from 'vue'
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { Bar, Line } from 'vue-chartjs'

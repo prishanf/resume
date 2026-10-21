@@ -618,6 +618,6 @@ The bottom line: the fear is understandable, but the conversation needs to move 
 
 **Regulatory Frameworks**
 - [EU General Data Protection Regulation (GDPR)](https://gdpr.eu/) — EU data protection and privacy law
-- [HIPAA for Cloud Providers](https://www.hhs.gov/hipaa/for-professionals/special-topics/cloud-computing/index.html) — US healthcare data requirements
+- [HIPAA for Cloud Providers](https://www.hhs.gov/hipaa/for-professionals/special-topics/health-information-technology/cloud-computing/index.html) — US healthcare data requirements
 
 

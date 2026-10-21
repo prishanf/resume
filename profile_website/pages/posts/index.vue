@@ -99,10 +99,8 @@ if (error.value) {
   console.error('Error in useAsyncData:', error.value)
 }
 
-useHead({
-  title: 'Blog Posts - Prishan Fernando',
-  meta: [
-    { name: 'description', content: 'Blog posts and articles on technology, leadership, and innovation' }
-  ]
+usePageSeo({
+  title: 'Insights & Articles | Prishan Fernando',
+  description: 'Writing on AI governance, Salesforce architecture, Canadian personal finance, and building software with modern AI tools.'
 })
 </script>

@@ -5,7 +5,7 @@
         <ArrowLeftIcon class="w-5 h-5 mr-2" />
         Back to Experience
       </NuxtLink>
-      <ContentDoc />
+      <ContentDoc :head="false" />
     </div>
   </div>
 </template>
@@ -20,11 +20,9 @@ const { data: evidence } = await useAsyncData(`evidence-${year}`, () =>
   queryContent(`/evidence/${year}`).findOne()
 )
 
-useHead({
-  title: `${year} Evidence - Prishan Fernando`,
-  meta: [
-    { name: 'description', content: `Performance highlights and achievements for ${year}` }
-  ]
+usePageSeo({
+  title: () => `${year} Evidence | Prishan Fernando`,
+  description: () => evidence.value?.description || `Performance highlights and achievements for ${year}.`
 })
 </script>
 

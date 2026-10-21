@@ -90,10 +90,8 @@
     console.error('Error in useAsyncData podcasts:', error.value)
   }
   
-  useHead({
-    title: 'Podcasts - Prishan Fernando',
-    meta: [
-      { name: 'description', content: 'Podcast episodes on AI, architecture, security, and leadership' }
-    ]
+  usePageSeo({
+    title: 'Podcasts | Prishan Fernando',
+    description: 'Podcast episodes on AI safety, cloud architecture, and leadership, with notes and takeaways from Prishan Fernando.'
   })
   </script>
