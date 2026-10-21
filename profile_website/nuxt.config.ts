@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     families: {
       Inter: [400, 500, 600, 700]
     },
-    display: 'swap',
+    display: 'optional',
     subsets: ['latin'],
     prefetch: false,
     preconnect: false,
@@ -75,9 +75,9 @@ export default defineNuxtConfig({
       },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Prishan Fernando — Salesforce & Agentforce Architect',
+      title: 'Prishan Fernando — AI Solutions Architect & Builder',
       meta: [
-        { name: 'description', content: 'Salesforce and Agentforce architect in Vancouver, BC, helping teams ship AI and integrations that work. Insights, tools, and architecture notes from Slalom.' },
+        { name: 'description', content: 'AI Solutions Architect & Builder in Vancouver, BC. I solve real business problems with AI — not the other way around. Insights and experiments from Slalom.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Prishan Fernando' },
         { property: 'og:image', content: 'https://prishanfernando.com/images/og-default.jpg' },

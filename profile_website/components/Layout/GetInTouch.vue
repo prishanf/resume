@@ -71,9 +71,9 @@ const resolvedTitle = computed(() => props.title || "Let's talk.")
 const resolvedDescription = computed(() => {
   if (props.description) return props.description
   if (props.variant === 'page') {
-    return 'Open to conversations about AI leadership, Salesforce architecture, and collaboration. The best way to reach Prishan is on LinkedIn.'
+    return 'Open to conversations about AI solutions, automation, and collaboration. The best way to reach Prishan is on LinkedIn.'
   }
-  return 'For AI leadership, Salesforce architecture, or collaboration, connect on LinkedIn.'
+  return 'For AI solutions, automation, or collaboration, connect on LinkedIn.'
 })
 const resolvedButtonLabel = computed(() => {
   if (props.buttonLabel) return props.buttonLabel

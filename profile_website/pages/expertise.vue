@@ -2,16 +2,16 @@
   <div class="min-h-screen">
     <section class="relative bg-gradient-to-br from-white via-inverse to-secondary/10 py-12 overflow-hidden">
       <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
-      <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+      <div class="hidden lg:block absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
 
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl">
           <p class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-6">Vancouver, BC · Slalom</p>
-          <h1 class="text-4xl md:text-6xl font-black text-primary mb-6 tracking-tighter leading-[0.95]">
-            Salesforce &amp; Agentforce Architect in Vancouver, BC
+          <h1 class="text-4xl md:text-6xl font-bold text-primary mb-6 tracking-tighter leading-[0.95]">
+            AI Solutions Architect &amp; Builder in Vancouver, BC
           </h1>
           <p class="text-xl text-gray-600 max-w-2xl font-medium leading-relaxed">
-            Director, Global Salesforce at Slalom. Hands-on architect for Agentforce, enterprise integrations, AI governance, and the Salesforce platform.
+            I solve real business problems with AI — not the other way around. Director, Global Salesforce at Slalom. Salesforce and Agentforce are the enterprise platform I work on.
           </p>
         </div>
       </div>
@@ -71,7 +71,7 @@
           </div>
           <div class="lg:col-span-8 space-y-4 text-gray-700 leading-relaxed">
             <p>
-              Great technology serves people, not the other way around. Whether the work is a multi-cloud integration or introducing AI into a delivery team, the same sequence applies: start with the human need, design backward from there, and measure outcomes that actually matter.
+              Great technology serves people, not the other way around. Whether the work is introducing AI into a delivery team or architecting on an enterprise platform, the same sequence applies: start with the human need, design backward from there, and measure outcomes that actually matter.
             </p>
             <p>
               AI adoption fails when it is treated as a technology project. It succeeds when it is treated as a people and process transformation — with governance, guardrails, and leaders who can bring skeptics along.
@@ -86,7 +86,7 @@
 
     <LayoutGetInTouch
       variant="page"
-      title="Have an Agentforce or integration challenge? Let's talk."
+      title="Have a real business problem AI could solve? Let's talk."
       description="The best way to reach Prishan is on LinkedIn."
       button-label="Connect on LinkedIn"
     />
@@ -96,19 +96,19 @@
 <script setup>
 import { personJsonLd, webPageJsonLd, PROFILE_IMAGE_PATH } from '~/utils/seo'
 
-const pageTitle = 'Salesforce & Agentforce Architect in Vancouver, BC'
-const pageDescription = 'Salesforce and Agentforce architect in Vancouver, BC. Agentforce, MuleSoft integration, AI governance, and Salesforce platform architecture at Slalom.'
+const pageTitle = 'AI Solutions Architect & Builder · Vancouver, BC'
+const pageDescription = 'AI Solutions Architect & Builder in Vancouver, BC. Real business problems with AI: agents, automation, testing, governance. Salesforce & Agentforce at Slalom.'
 
 const sections = [
   {
-    id: 'agentforce-ai',
-    title: 'Agentforce & AI architecture',
+    id: 'ai-solutions',
+    title: 'AI for real business problems',
     problems: [
-      'Organizations stuck in AI experimentation without a path to production Agentforce or agentic workflows.',
-      'Agent sprawl across teams and vendors, with no shared visibility or consistent rules.',
+      'Teams looking for AI uses instead of starting from a business problem that needs a better answer.',
+      'AI experiments that never become working agents, automation, or production workflows — including Agentforce at work.',
       'Practitioners who need practical upskilling, not another slide deck about generative AI.'
     ],
-    approach: 'I treat AI adoption as a people and process change, not a tool rollout. That means hands-on frameworks, clear guardrails, and time spent upskilling practitioners so Agentforce and AI assistants show up in real delivery work. I experiment in the open — Claude, Cursor, custom agents, and Agentforce — then bring what holds up into enterprise architecture.',
+    approach: 'I treat AI as a way to solve a real business problem, not as a solution looking for a home. That means agents and automation that show up in delivery work — including Agentforce on the Salesforce platform — with clear guardrails and time spent upskilling practitioners. I experiment in the open, then bring what holds up into enterprise architecture.',
     experience: [
       'Director, Global Salesforce at Slalom, sitting at the intersection of enterprise delivery and AI transformation.',
       'Spearheaded Slalom’s internal AI Task Team to scale AI capabilities and adoption across the Western Canada practice.',
@@ -122,28 +122,28 @@ const sections = [
     ]
   },
   {
-    id: 'integration-mulesoft',
-    title: 'Integration architecture & MuleSoft',
+    id: 'ai-assisted-development',
+    title: 'AI-assisted development',
     problems: [
-      'Salesforce programs that stall because ERP, files, and quote-to-cash flows were never designed as a system.',
-      'Rule-based integration that cannot handle unstructured, off-script work now showing up with agentic AI.',
-      'Disconnected agents and APIs with no control plane for discovery, orchestration, or audit.'
+      'Delivery teams that want AI in the software lifecycle — development, automation, and testing — without a toy demo.',
+      'Too many coding assistants, not enough clarity on which workflow actually fits how people work.',
+      'Manual scripting and repeatable delivery steps that still have not been turned into reusable AI-assisted frameworks.'
     ],
-    approach: 'I design integration as architecture, not a pile of point-to-point interfaces: data model, API contracts, migration, and the operating model for change. MuleSoft, Workato, and custom APIs are part of the stack I use. On the agentic side, I write about MuleSoft Agent Fabric as a control plane on top of existing APIs — so agents can use integrations as tools without giving up governance.',
+    approach: 'I use AI the way I use any other tool: on real software. Hands-on with Cursor, Claude Code, GitHub Copilot, and custom agents for development, automation, and testing. The test is whether the work ships — a site, a calculator, a migration framework — not whether the prompt looked clever.',
     experience: [
-      'Held the Integration Architect role on the Avigilon account, alongside Program Architect and Enterprise Architect, including Fusion X multi-brand CRM consolidation, integration strategy, and data migration.',
-      'Led the technical architecture stream for MSI Quote-to-Cash, partnering with the client on integration requirements.',
-      'Delivered IG Wealth Management Secure File Exchange and the Splan Integration Project.',
-      'Worked the Pelco & IndigoVision Integration Discovery, and earlier TELUS integrations with Apttus and DocuSign plus HSBC SSO integrations.',
-      'Integration stack listed in current work: MuleSoft, Workato, and custom APIs. Workato Automation Pro I and II certified.'
+      'Built this profile site with AI-assisted development (Nuxt 3, Nuxt Content, Tailwind, GitHub Pages), documented in the open.',
+      'Published a same-model comparison of Cline, GitHub Copilot, Claude Code, and Cursor for 2026 — interface, context, agentic behaviour, and cost.',
+      'Built AI-assisted delivery frameworks used on data migration work, including the Duravant migration, now reused across engagements.',
+      '70+ GitHub repositories spanning Claude integrations, custom AI agents, Next.js, Vue/Nuxt, and experimental frameworks. Current tools include Cursor, Claude Code, Copilot, OpenRouter, and OpenAI APIs.'
     ],
     posts: [
-      { href: '/posts/mulesoft-agent-fabric-rethinking-integration/', label: 'Rethinking Integration: Why MuleSoft Agent Fabric Challenges the Status Quo' }
+      { href: '/posts/ai-coding-assistants-comparison-2026/', label: 'Cline vs Copilot vs Claude Code vs Cursor' },
+      { href: '/posts/building-my-profile-website/', label: 'Building this profile website with AI-assisted development' }
     ]
   },
   {
     id: 'ai-governance',
-    title: 'AI governance & data security',
+    title: 'AI governance & security',
     problems: [
       'Teams shipping prompts before legal, security, and compliance have a repeatable way to say yes or no.',
       'Shadow AI, unclear data residency, and vendor risk treated as an AI-specific panic instead of ordinary cloud due diligence.',
@@ -163,16 +163,38 @@ const sections = [
     ]
   },
   {
-    id: 'salesforce-platform',
-    title: 'Salesforce platform architecture',
+    id: 'ai-experiments',
+    title: 'Experiments with AI tools',
+    problems: [
+      'AI enthusiasm that never turns into a business use case someone can actually run.',
+      'New tools shipping every week, with no habit of trying them on real work before recommending them.',
+      'Side projects and production work treated as separate worlds, so experiments never inform delivery.'
+    ],
+    approach: 'I am an AI enthusiast who tests tools by building with them. This site, the Canadian finance calculators, and live experiments — including an AI assistant that prepares weekday trading tickets — are how I learn what is useful, then bring the pattern back to business automation.',
+    experience: [
+      'Built and maintain this site as a living profile: Nuxt 3, markdown content, and GitHub Pages, with AI pair programming in the loop.',
+      'Shipped free Canadian finance tools — mortgage, tax, HELOC vs mortgage, rental application, and a todo board — as practical software, not slides.',
+      'Ran a live micro-trading experiment with Malli, an AI assistant in the Muse app: weekday tickets, two Canadian stocks, real brokerage orders.',
+      '70+ GitHub repositories and ongoing experiments with Claude, Cursor, custom agents, Next.js, Vue/Nuxt, Supabase, and related tools.'
+    ],
+    posts: [
+      { href: '/posts/ai-micro-trading-experiment/', label: 'My AI assistant micro-trades while I work' },
+      { href: '/posts/building-my-profile-website/', label: 'Building this profile website' },
+      { href: '/tools/', label: 'Canadian finance tools' }
+    ]
+  },
+  {
+    id: 'salesforce-agentforce',
+    title: 'Salesforce & Agentforce at work',
     problems: [
       'Multi-cloud programs (Sales, Service, Experience, CPQ) that need one architecture, not four disconnected implementations.',
       'Org mergers, large data volumes, and Experience Cloud portals that have to stay secure under real traffic.',
       'Executives who need demos and options they can decide on, not a solution already locked in the architect’s head.'
     ],
-    approach: 'I stay hands-on across the Salesforce ecosystem — Sales Cloud, Service Cloud, Experience Cloud, CPQ, and Agentforce — and translate that into language executives can use. Architectural rigor is balanced with empathy for the people on both sides of the system.',
+    approach: 'Salesforce and Agentforce are the enterprise platform I work on — experience and proof, not the headline. I stay hands-on across Sales Cloud, Service Cloud, Experience Cloud, CPQ, and Agentforce, and translate that into language executives can use.',
     experience: [
       '12+ years specializing in Salesforce architecture, delivery, and practice leadership, with 12+ Salesforce certifications including Experience Cloud Consultant.',
+      'Director, Global Salesforce at Slalom. Currently architecting production Agentforce deployments for enterprise clients.',
       'Program Architect for Avigilon (Motorola Solutions) Fusion X, a multi-brand CRM consolidation spanning cross-cloud governance and data migration.',
       'Led technical architecture streams for Rockwell Automation and Fraser Health discoveries, including PRM work and demos for non-technical stakeholders.',
       '2025 platform work included FCL Sales Cloud and Distributed Marketing, 407 Express Phase 1 platform stabilization and data architecture, and reusable Map Point Management for desktop and mobile.',

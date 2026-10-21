@@ -13,8 +13,11 @@
             <h1 class="text-5xl md:text-7xl font-bold text-primary mb-6 tracking-tighter leading-[0.95]">
               Prishan Fernando
             </h1>
-            <p class="text-lg md:text-2xl text-gray-600 mb-10 max-w-2xl font-medium leading-relaxed">
-              Salesforce &amp; Agentforce architect helping teams ship AI and integrations that work.
+            <p class="text-lg md:text-2xl text-gray-600 mb-2 max-w-2xl font-medium leading-snug">
+              AI Solutions Architect &amp; Builder.
+            </p>
+            <p class="text-sm md:text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
+              I solve real business problems with AI — not the other way around.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 items-start">
               <a
@@ -73,9 +76,9 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-12">
           <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Problems I solve</h2>
-          <h3 class="text-4xl md:text-5xl font-bold text-primary leading-tight">Architecture that ships.</h3>
+          <h3 class="text-4xl md:text-5xl font-bold text-primary leading-tight">Start with the business problem.</h3>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <article
             v-for="problem in problems"
             :key="problem.title"
@@ -105,7 +108,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Featured insights</h2>
-            <h3 class="text-4xl md:text-5xl font-bold text-primary">Writing on AI, integration, and governance.</h3>
+            <h3 class="text-4xl md:text-5xl font-bold text-primary">Writing on AI, automation, and experiments.</h3>
           </div>
           <NuxtLink to="/posts/" class="text-sm font-bold uppercase tracking-widest text-primary hover:text-accent">
             All insights →
@@ -235,7 +238,7 @@
 
     <LayoutGetInTouch
       variant="page"
-      title="Have an Agentforce or integration challenge? Let's talk."
+      title="Have a real business problem AI could solve? Let's talk."
       description="The best way to reach Prishan is on LinkedIn."
       button-label="Connect on LinkedIn"
     />
@@ -247,8 +250,9 @@ import { computed } from 'vue'
 import {
   ArrowRightIcon,
   SparklesIcon,
-  CircleStackIcon,
-  ShieldCheckIcon
+  CodeBracketIcon,
+  ShieldCheckIcon,
+  BeakerIcon
 } from '@heroicons/vue/24/outline'
 import PostCard from '~/components/Blog/PostCard.vue'
 import {
@@ -261,21 +265,21 @@ const linkedinUrl = LINKEDIN_PROFILE_URL
 
 const problems = [
   {
-    title: 'Agentforce & AI architecture',
-    description: 'Moving teams from AI experiments to production Agentforce and agentic workflows, with the governance to make adoption stick.',
+    title: 'AI for real business problems',
+    description: 'I start with the business problem, then apply AI — agents and automation, including Agentforce at work. Not a hunt for places to put a model.',
     icon: SparklesIcon,
-    expertiseHref: { path: '/expertise/', hash: '#agentforce-ai' },
+    expertiseHref: { path: '/expertise/', hash: '#ai-solutions' },
     expertiseLabel: 'Expertise',
     postHref: '/posts/ai-cloud-transformation/',
     postLabel: 'Related insight'
   },
   {
-    title: 'Integration & MuleSoft',
-    description: 'Designing Salesforce, ERP, and API integrations that stay adaptable as agentic systems change how work gets routed.',
-    icon: CircleStackIcon,
-    expertiseHref: { path: '/expertise/', hash: '#integration-mulesoft' },
+    title: 'AI-assisted development',
+    description: 'Hands-on AI-assisted software development, automation, and testing — Cursor, Claude Code, Copilot, and delivery frameworks used on real work.',
+    icon: CodeBracketIcon,
+    expertiseHref: { path: '/expertise/', hash: '#ai-assisted-development' },
     expertiseLabel: 'Expertise',
-    postHref: '/posts/mulesoft-agent-fabric-rethinking-integration/',
+    postHref: '/posts/ai-coding-assistants-comparison-2026/',
     postLabel: 'Related insight'
   },
   {
@@ -285,6 +289,15 @@ const problems = [
     expertiseHref: { path: '/expertise/', hash: '#ai-governance' },
     expertiseLabel: 'Expertise',
     postHref: '/posts/ai-governance-checklist-by-org-type/',
+    postLabel: 'Related insight'
+  },
+  {
+    title: 'Experiments with AI tools',
+    description: 'I try the latest AI tools and bring back business use cases — this site, Canadian finance tools, and live experiments like micro-trading with an AI assistant.',
+    icon: BeakerIcon,
+    expertiseHref: { path: '/expertise/', hash: '#ai-experiments' },
+    expertiseLabel: 'Expertise',
+    postHref: '/posts/ai-micro-trading-experiment/',
     postLabel: 'Related insight'
   }
 ]
@@ -318,9 +331,9 @@ const tools = [
 ]
 
 const featuredPostSlugs = [
-  'mulesoft-agent-fabric-rethinking-integration',
   'ai-governance-checklist-by-org-type',
-  'ai-coding-assistants-comparison-2026'
+  'ai-coding-assistants-comparison-2026',
+  'ai-micro-trading-experiment'
 ]
 
 const featuredQuoteAuthors = ['Yi Zho', 'Morgan Cartier', 'Colleague']
@@ -386,8 +399,8 @@ const seoConfig = useRuntimeConfig()
 const siteUrl = seoConfig.public.siteUrl
 
 usePageSeo({
-  title: 'Prishan Fernando — Salesforce & Agentforce Architect',
-  description: 'Salesforce and Agentforce architect in Vancouver, BC, helping teams ship AI and integrations that work. Insights, tools, and architecture notes from Slalom.',
+  title: 'Prishan Fernando — AI Solutions Architect & Builder',
+  description: 'AI Solutions Architect & Builder in Vancouver, BC. I solve real business problems with AI — not the other way around. Insights and experiments from Slalom.',
   jsonLd: () => [personJsonLd(siteUrl), websiteJsonLd(siteUrl)]
 })
 </script>

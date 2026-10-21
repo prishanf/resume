@@ -2,29 +2,23 @@ import { canonicalUrl, siteOrigin } from '~/utils/canonical'
 
 export const SITE_NAME = 'Prishan Fernando'
 export const PERSON_NAME = 'Prishan Fernando'
-<<<<<<< HEAD
-export const PERSON_JOB_TITLE = 'Salesforce / Solutions Architect'
-export const DEFAULT_OG_IMAGE_PATH = '/images/og-default.jpg'
-=======
-export const PERSON_JOB_TITLE = 'Salesforce / Agentforce Architect'
+export const PERSON_JOB_TITLE = 'AI Solutions Architect & Builder'
 export const PERSON_LOCATION = 'Vancouver, BC'
-export const DEFAULT_OG_IMAGE_PATH = '/images/posts/profile-website-hero.png'
+export const DEFAULT_OG_IMAGE_PATH = '/images/og-default.jpg'
 export const PROFILE_IMAGE_PATH = '/images/posts/me.jpg'
->>>>>>> 43f3d6c (Restructure the site from résumé-led to expertise-led.)
 export const LINKEDIN_PROFILE_URL = 'https://www.linkedin.com/in/prishanf'
 export const GITHUB_PROFILE_URL = 'https://github.com/prishanf'
 export const SAME_AS = [LINKEDIN_PROFILE_URL, GITHUB_PROFILE_URL]
 
 export const PERSON_KNOWS_ABOUT = [
-  'Salesforce',
-  'Agentforce',
   'Artificial Intelligence',
-  'MuleSoft',
-  'Enterprise Integration',
+  'AI Solutions Architecture',
+  'AI-assisted Software Development',
+  'AI Automation',
   'AI Governance',
   'Data Security',
-  'Experience Cloud',
-  'Salesforce CPQ',
+  'Salesforce',
+  'Agentforce',
   'Enterprise Architecture'
 ]
 

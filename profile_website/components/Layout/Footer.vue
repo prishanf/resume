@@ -5,7 +5,7 @@
         <div>
           <h3 class="text-white font-bold text-lg mb-4">Prishan Fernando</h3>
           <p class="text-sm">
-            Salesforce &amp; Agentforce architect in Vancouver, BC, helping teams ship AI and integrations that work.
+            AI Solutions Architect &amp; Builder in Vancouver, BC. I solve real business problems with AI.
           </p>
         </div>
         
