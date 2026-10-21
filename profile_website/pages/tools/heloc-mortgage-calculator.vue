@@ -14,10 +14,18 @@
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
           Compare converting your HELOC to a fixed mortgage vs making extra principal payments. Uses the same methodology as the
-          <NuxtLink to="/posts/heloc-vs-mortgage-conversion-analysis" class="font-semibold text-primary hover:text-accent underline">
+          <NuxtLink to="/posts/heloc-vs-mortgage-conversion-analysis" class="font-semibold text-primary hover:underline">
             HELOC vs Fixed Mortgage analysis
           </NuxtLink>.
         </p>
+        <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
+          <NuxtLink to="/posts/mortgage-strategies-save-money-investing-vs-extra-payments" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Mortgage strategies →
+          </NuxtLink>
+          <NuxtLink to="/posts/debt-vs-invest-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Pay down debt or invest →
+          </NuxtLink>
+        </div>
       </div>
     </section>
 
@@ -27,8 +35,9 @@
         <h2 class="text-xl font-bold text-primary mb-6">Your scenario</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">HELOC balance ($)</label>
+            <label for="heloc-balance" class="block text-sm font-medium text-gray-700 mb-2">HELOC balance ($)</label>
             <input
+              id="heloc-balance"
               v-model.number="inputs.balance"
               type="number"
               min="10000"
@@ -37,8 +46,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">HELOC rate (%)</label>
+            <label for="heloc-rate" class="block text-sm font-medium text-gray-700 mb-2">HELOC rate (%)</label>
             <input
+              id="heloc-rate"
               v-model.number="inputs.helocRatePct"
               type="number"
               min="0"
@@ -47,8 +57,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Fixed rate (%)</label>
+            <label for="heloc-fixed-rate" class="block text-sm font-medium text-gray-700 mb-2">Fixed rate (%)</label>
             <input
+              id="heloc-fixed-rate"
               v-model.number="inputs.fixedRatePct"
               type="number"
               min="0"
@@ -57,8 +68,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Amortization (years)</label>
+            <label for="heloc-amort" class="block text-sm font-medium text-gray-700 mb-2">Amortization (years)</label>
             <input
+              id="heloc-amort"
               v-model.number="inputs.amortYears"
               type="number"
               min="1"
@@ -67,8 +79,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Analysis period (years)</label>
+            <label for="heloc-analysis-years" class="block text-sm font-medium text-gray-700 mb-2">Analysis period (years)</label>
             <input
+              id="heloc-analysis-years"
               v-model.number="inputs.analysisYears"
               type="number"
               min="1"
@@ -82,11 +95,12 @@
         <div class="mt-6 pt-6 border-t border-gray-100">
           <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <div class="flex-1">
-              <label class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="heloc-conversion-amount" class="block text-sm font-medium text-gray-700 mb-2">
                 Conversion amount to compare ($)
                 <span class="text-xs text-gray-500 font-normal ml-2">(for comparison table)</span>
               </label>
               <input
+                id="heloc-conversion-amount"
                 v-model.number="inputs.conversionAmount"
                 type="number"
                 :min="0"
@@ -319,8 +333,9 @@
           <p class="text-gray-600 mb-6">Keep balance in HELOC and add a fixed extra principal payment each month.</p>
           <div class="mb-6 flex flex-wrap gap-4 items-end">
             <div class="w-48">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Extra payment ($/month)</label>
+              <label for="heloc-extra-payment" class="block text-sm font-medium text-gray-700 mb-2">Extra payment ($/month)</label>
               <input
+                id="heloc-extra-payment"
                 v-model.number="inputs.extraPayment"
                 type="number"
                 min="0"
@@ -450,15 +465,22 @@
         </div>
       </div>
     </section>
+
+    <ToolsToolSeoContent seo-key="heloc-mortgage-calculator" />
   </div>
 </template>
 
 <script setup>
 import { ArrowLeftIcon, ArrowRightIcon, TrophyIcon, CalendarIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
+import { getToolSeo } from '~/data/toolSeo'
+import { faqPageJsonLd } from '~/utils/seo'
+
+const helocSeo = getToolSeo('heloc-mortgage-calculator')
 
 usePageSeo({
-  title: 'HELOC vs Mortgage Calculator | Prishan Fernando',
-  description: 'Compare converting a HELOC to a fixed mortgage versus extra principal payments. Interactive calculator with monthly payments and 5-year outcomes.'
+  title: helocSeo.title,
+  description: helocSeo.description,
+  jsonLd: faqPageJsonLd(helocSeo.faqs)
 })
 
 const inputs = reactive({

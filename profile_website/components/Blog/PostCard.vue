@@ -4,7 +4,9 @@
       <!-- Image Wrapper -->
       <div v-if="post.image" class="relative h-56 overflow-hidden">
         <img
-          :src="post.image"
+          :src="cardImage.src"
+          :srcset="cardImage.srcset"
+          :sizes="cardImage.sizes"
           :alt="post.title"
           width="640"
           height="224"
@@ -17,12 +19,12 @@
       
       <!-- Content -->
       <div class="p-8 flex-1 flex flex-col">
-        <div class="flex items-center text-[10px] font-bold text-accent uppercase tracking-[0.2em] mb-4">
+        <div class="flex items-center text-xs font-bold text-primary uppercase tracking-[0.2em] mb-4">
           <CalendarIcon class="w-3.5 h-3.5 mr-2 opacity-70" />
-          <time :datetime="post.date">{{ formatDate(post.date) }}</time>
+          <time :datetime="postDateTime">{{ formatDate(post.date) }}</time>
         </div>
         
-        <h3 class="text-xl font-bold text-primary mb-3 leading-tight group-hover:text-accent transition-colors duration-300">
+        <h3 class="text-xl font-bold text-primary mb-3 leading-tight group-hover:text-primary/80 transition-colors duration-300">
           {{ post.title }}
         </h3>
         
@@ -36,7 +38,7 @@
             <span
               v-for="tag in post.tags.slice(0, 2)"
               :key="tag"
-              class="text-[10px] bg-inverse text-gray-500 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider"
+              class="text-xs bg-inverse text-gray-700 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider"
             >
               {{ tag }}
             </span>
@@ -53,6 +55,9 @@
 
 <script setup>
 import { CalendarIcon, ArrowRightIcon } from '@heroicons/vue/24/outline'
+import { formatDisplayDate } from '~/utils/formatDate'
+import { toIsoDate } from '~/utils/seo'
+import { responsiveImageAttrs } from '~/utils/responsiveImage'
 
 const props = defineProps({
   post: {
@@ -61,9 +66,7 @@ const props = defineProps({
   }
 })
 
-const formatDate = (dateString) => {
-  if (!dateString) return ''
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-}
+const formatDate = formatDisplayDate
+const postDateTime = computed(() => toIsoDate(props.post.date) || '')
+const cardImage = computed(() => responsiveImageAttrs(props.post.image, '(max-width: 768px) 100vw, 400px'))
 </script>

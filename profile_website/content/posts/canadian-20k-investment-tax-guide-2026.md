@@ -10,6 +10,8 @@ published: true
 
 # The 2026 Canadian Investment Playbook: Investing $20,000 Across 5 Tax Tiers
 
+**→ Estimate after-tax take-home for interest, eligible dividends, and capital gains in the [Canadian Tax Calculator](/tools/canadian-tax-calculator/).**
+
 If you are a high earner in Canada, the "headline yield" on your investments is a lie. When you are in the top tax bracket (~54%), the government takes more than half of your interest income before it ever hits your account. But this problem is not limited to the wealthy — even middle earners in the $85k–$150k range face a significant tax drag that quietly destroys returns. To maximize profit, you have to stop looking at yield and start looking at **after-tax cash flow**. Whether you are just starting out or at your peak earning years, the way the CRA taxes your $20,000 varies wildly. Here is exactly how to make it work at every income level.
 
 ## The Core Problem: The "Tax Trap"

@@ -3,7 +3,7 @@ import { canonicalUrl, siteOrigin } from '~/utils/canonical'
 export const SITE_NAME = 'Prishan Fernando'
 export const PERSON_NAME = 'Prishan Fernando'
 export const PERSON_JOB_TITLE = 'Salesforce / Solutions Architect'
-export const DEFAULT_OG_IMAGE_PATH = '/images/posts/profile-website-hero.png'
+export const DEFAULT_OG_IMAGE_PATH = '/images/og-default.jpg'
 export const LINKEDIN_PROFILE_URL = 'https://www.linkedin.com/in/prishanf'
 export const GITHUB_PROFILE_URL = 'https://github.com/prishanf'
 export const SAME_AS = [LINKEDIN_PROFILE_URL, GITHUB_PROFILE_URL]
@@ -21,14 +21,41 @@ export function absoluteAssetUrl(siteUrl: string | null | undefined, src?: strin
 
 export function toIsoDate(value: unknown): string | undefined {
   if (!value) return undefined
+  const raw = value instanceof Date
+    ? undefined
+    : String(value).trim()
+  const isoDay = raw?.match(/^(\d{4})-(\d{2})-(\d{2})/)
+  if (isoDay) return `${isoDay[1]}-${isoDay[2]}-${isoDay[3]}`
   if (value instanceof Date && !Number.isNaN(value.getTime())) {
-    return value.toISOString().slice(0, 10)
+    const y = value.getUTCFullYear()
+    const m = String(value.getUTCMonth() + 1).padStart(2, '0')
+    const d = String(value.getUTCDate()).padStart(2, '0')
+    return `${y}-${m}-${d}`
   }
-  const raw = String(value).trim()
   if (!raw) return undefined
   const parsed = new Date(raw)
   if (Number.isNaN(parsed.getTime())) return undefined
-  return parsed.toISOString().slice(0, 10)
+  const y = parsed.getUTCFullYear()
+  const m = String(parsed.getUTCMonth() + 1).padStart(2, '0')
+  const d = String(parsed.getUTCDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
+export type FaqItem = { question: string; answer: string }
+
+export function faqPageJsonLd(faqs: FaqItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer
+      }
+    }))
+  }
 }
 
 export function personJsonLd(siteUrl?: string | null) {

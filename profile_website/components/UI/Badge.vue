@@ -24,7 +24,7 @@ const badgeClasses = computed(() => {
   const variants = {
     primary: 'bg-primary/10 text-primary',
     secondary: 'bg-secondary text-gray-800',
-    accent: 'bg-accent/20 text-accent'
+    accent: 'bg-accent/20 text-accent-ink'
   }
   
   const sizes = {

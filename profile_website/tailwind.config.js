@@ -11,9 +11,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#738E6B',
+        // #627A5B keeps the olive look while meeting WCAG AA for white-on-primary buttons
+        // and primary-on-white small labels (4.5:1). Decorative gold stays on accent.
+        primary: {
+          DEFAULT: '#627A5B',
+          ink: '#3F5539'
+        },
         secondary: '#EAE3CB',
-        accent: '#E8C16D',
+        accent: {
+          DEFAULT: '#E8C16D',
+          ink: '#7A5F14'
+        },
         inverse: '#F0F0F0',
       },
       // colors: {

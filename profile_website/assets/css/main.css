@@ -19,6 +19,17 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Gold (#E8C16D) and gray-400 fail WCAG AA at text-xs / 10px. Darken labels only. */
+  .text-xs.text-accent,
+  .text-\[10px\].text-accent {
+    color: #7A5F14;
+  }
+
+  .text-xs.text-gray-400,
+  .text-\[10px\].text-gray-400 {
+    color: #4B5563;
+  }
   
   .bg-grid-pattern {
     background-image: 
@@ -29,7 +40,7 @@
 }
 
 /* Activity Summary page — commit type tags (site branding) */
-.activity-tag-feature { background: #E8F0E8; color: #738E6B; border: 1px solid #b8d0b0; }
+.activity-tag-feature { background: #E8F0E8; color: #4F6848; border: 1px solid #b8d0b0; }
 .activity-tag-fix { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
 .activity-tag-content { background: #F0FDF4; color: #15803D; border: 1px solid #BBF7D0; }
 .activity-tag-tool { background: #FFF7ED; color: #C2410C; border: 1px solid #FED7AA; }

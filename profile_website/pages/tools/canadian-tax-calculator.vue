@@ -15,9 +15,17 @@
         <p class="text-lg text-gray-600 max-w-2xl">
           Federal &amp; provincial estimate by tax year. Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. CPP/EI and investment gross-ups.
         </p>
-        <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center mt-4 text-sm font-semibold text-accent hover:text-primary transition-colors">
-          Read: Canadian income, RRSP, and tax strategies →
-        </NuxtLink>
+        <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
+          <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Read: Canadian income, RRSP, and tax strategies →
+          </NuxtLink>
+          <NuxtLink to="/posts/canadian-20k-investment-tax-guide-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Investment playbook →
+          </NuxtLink>
+          <NuxtLink to="/posts/debt-vs-invest-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Pay down debt or invest →
+          </NuxtLink>
+        </div>
       </div>
     </section>
 
@@ -62,8 +70,9 @@
               </div>
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Tax year</label>
+                  <label for="tax-year" class="block text-sm font-medium text-gray-700 mb-2">Tax year</label>
                   <select
+                    id="tax-year"
                     v-model="taxYear"
                     class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   >
@@ -71,8 +80,9 @@
                   </select>
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Province</label>
+                  <label for="tax-province" class="block text-sm font-medium text-gray-700 mb-2">Province</label>
                   <select
+                    id="tax-province"
                     v-model="activeScenario.province"
                     class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
                   >
@@ -89,10 +99,11 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div v-for="field in incomeFields" :key="field.key">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">{{ field.label }}</label>
+                  <label :for="'income-' + field.key" class="block text-sm font-medium text-gray-700 mb-2">{{ field.label }}</label>
                   <div class="relative group">
                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-medium group-focus-within:text-primary transition-colors">$</span>
                     <input
+                      :id="'income-' + field.key"
                       v-model.number="activeScenario[field.key]"
                       type="number"
                       min="0"
@@ -110,12 +121,12 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">RRSP contribution</label>
-                  <input v-model.number="activeScenario.rrsp" type="number" min="0" class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary tabular-nums" />
+                  <label for="tax-rrsp" class="block text-sm font-medium text-gray-700 mb-2">RRSP contribution</label>
+                  <input id="tax-rrsp" v-model.number="activeScenario.rrsp" type="number" min="0" class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary tabular-nums" />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Rental expenses</label>
-                  <input v-model.number="activeScenario.rentalExpenses" type="number" min="0" class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary tabular-nums" />
+                  <label for="tax-rental-expenses" class="block text-sm font-medium text-gray-700 mb-2">Rental expenses</label>
+                  <input id="tax-rental-expenses" v-model.number="activeScenario.rentalExpenses" type="number" min="0" class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary tabular-nums" />
                 </div>
               </div>
             </div>
@@ -234,13 +245,21 @@
         </div>
       </div>
     </section>
+
+    <ToolsToolSeoContent seo-key="canadian-tax-calculator" />
   </div>
 </template>
 
 <script setup>
+import { getToolSeo } from '~/data/toolSeo'
+import { faqPageJsonLd } from '~/utils/seo'
+
+const taxSeo = getToolSeo('canadian-tax-calculator')
+
 usePageSeo({
-  title: 'Canadian Tax Calculator | Prishan Fernando',
-  description: 'Estimate Canadian federal and provincial income tax by year. Salary, interest, dividends, capital gains, rental income, RRSP deductions, and scenario comparison.'
+  title: taxSeo.title,
+  description: taxSeo.description,
+  jsonLd: faqPageJsonLd(taxSeo.faqs)
 })
 
 import { ref, computed } from 'vue'
