@@ -3,332 +3,404 @@
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-br from-white via-inverse to-secondary/10 py-12 overflow-hidden">
       <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
-      <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-      <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      <div class="hidden lg:block absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+      <div class="hidden lg:block absolute -bottom-24 -left-24 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
       
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl">
-          <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-8">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-            </span>
-            <span>Available for AI Leadership & Strategic Architecture Roles</span>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7">
+            <p class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-6">Vancouver, BC</p>
+            <h1 class="text-5xl md:text-7xl font-bold text-primary mb-6 tracking-tighter leading-[0.95]">
+              Prishan Fernando
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-600 mb-2 max-w-2xl font-medium leading-snug">
+              AI Solutions Architect &amp; Builder.
+            </p>
+            <p class="text-sm md:text-xl text-gray-600 mb-10 max-w-2xl leading-relaxed">
+              I solve real business problems with AI — not the other way around.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 items-start">
+              <a
+                :href="linkedinUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group inline-flex items-center px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300"
+              >
+                Work with me
+                <ArrowRightIcon class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+              </a>
+              <NuxtLink
+                to="/posts/"
+                class="group inline-flex items-center px-8 py-4 bg-white text-primary border border-gray-100 font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-inverse transition-all duration-300"
+              >
+                Read insights
+              </NuxtLink>
+            </div>
           </div>
-          
-          <h1 class="text-6xl md:text-8xl font-black text-primary mb-8 tracking-tighter leading-[0.9]">
-            Prishan <br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">Fernando.</span>
-          </h1>
-          
-          <p class="text-xl md:text-2xl text-gray-600 mb-12 max-w-2xl font-medium leading-relaxed">
-            <span class="text-primary border-b-2 border-accent/30">AI Leader & Enterprise Architect</span> | Driving organizational AI adoption, safe implementation, and hands-on experimentation across cloud ecosystems.
-          </p>
-          
-          <div class="flex flex-col sm:flex-row gap-6 items-start">
-            <NuxtLink to="/experience/" class="group flex items-center px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300">
-              View Professional Journey 
-              <ArrowRightIcon class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
-            </NuxtLink>
-            <NuxtLink to="/about/" class="group flex items-center px-8 py-4 bg-white text-primary border border-gray-100 font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-inverse transition-all duration-300">
-              Learn More
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Executive Summary Section -->
-    <section v-if="summary" class="py-16 bg-white relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
           <div class="lg:col-span-5">
-            <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">The Overview</h2>
-            <h3 class="text-4xl md:text-5xl font-bold text-primary mb-8 leading-tight">
-              AI Leader & <br/>Enterprise Architect 
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                type="image/avif"
+                srcset="/images/posts/me-640.avif"
+              />
+              <source
+                media="(min-width: 1024px)"
+                type="image/webp"
+                srcset="/images/posts/me-640.webp"
+              />
+              <source
+                media="(min-width: 1024px)"
+                type="image/jpeg"
+                srcset="/images/posts/me-640.jpg"
+              />
+              <source type="image/avif" srcset="/images/posts/me-384.avif" />
+              <source type="image/webp" srcset="/images/posts/me-384.webp" />
+              <img
+                src="/images/posts/me-384.jpg"
+                width="384"
+                height="430"
+                alt="Prishan Fernando"
+                fetchpriority="high"
+                decoding="async"
+                class="w-36 h-36 mx-auto rounded-full object-cover shadow-md lg:w-full lg:h-auto lg:max-w-sm lg:ml-auto lg:rounded-3xl lg:shadow-2xl shadow-primary/10 border border-white"
+              />
+            </picture>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            </h3>
-            <p class="text-lg text-gray-600 leading-relaxed mb-8">
-              Hands-on AI leader and enterprise architect with 20+ years building solutions that matter — and 2+ years going deep on AI adoption, agentic systems, and responsible implementation inside real organizations.
-            </p>
-            <p class="text-lg text-gray-600 leading-relaxed mb-8">
-              I build AI frameworks that cut delivery effort by 70%. I lead teams through the shift from AI experimentation to operational reality. And I architect enterprise ecosystems where AI amplifies human potential — safely, deliberately, and at scale.
-            </p>
-            <p class="text-lg text-gray-600 leading-relaxed mb-8">
-              Known for translating complex technical possibilities into business outcomes, upskilling practitioners on AI tools, and building high-trust teams that deliver in an AI-first world.
-            </p>
-            <div class="flex items-center space-x-6">
-              <div class="flex flex-col">
-                <span class="text-2xl font-bold text-primary">20+</span>
-                <span class="text-xs text-gray-400 uppercase tracking-widest">Years Dev</span>
-              </div>
-              <div class="w-px h-10 bg-gray-200"></div>
-              <div class="flex flex-col">
-                <span class="text-2xl font-bold text-primary">12+</span>
-                <span class="text-xs text-gray-400 uppercase tracking-widest">Years SF</span>
-              </div>
-              <div class="w-px h-10 bg-gray-200"></div>
-              <div class="flex flex-col">
-                <span class="text-2xl font-bold text-primary">500+</span>
-                <span class="text-xs text-gray-400 uppercase tracking-widest"> Hrs of AI Exp</span>
-              </div>
-              <div class="flex flex-col">
-                <span class="text-2xl font-bold text-primary">100+</span>
-                <span class="text-xs text-gray-400 uppercase tracking-widest">Interviews</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-inverse p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-              <div class="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
-                <BriefcaseIcon class="w-6 h-6" />
-              </div>
-              <h4 class="text-lg font-bold text-primary mb-3">Enterprise Architecture</h4>
-              <p class="text-sm text-gray-600 leading-relaxed">
-                Specializing in multi-cloud programs (Sales, Service, Experience, CPQ) with complex integrations and large-scale data migrations.
-              </p>
-            </div>
-            
-            <div class="bg-inverse p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-              <div class="w-12 h-12 bg-accent text-primary rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-accent/20">
-                <SparklesIcon class="w-6 h-6" />
-              </div>
-              <h4 class="text-lg font-bold text-primary mb-3">AI & Acceleration</h4>
-              <p class="text-sm text-gray-600 leading-relaxed">
-                Pioneering AI-assisted delivery frameworks that cut manual effort by ~70% and produce reusable enterprise toolkits.
-              </p>
-            </div>
-            
-            <div class="bg-inverse p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-              <div class="w-12 h-12 bg-secondary text-primary rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-secondary/20">
-                <UserGroupIcon class="w-6 h-6" />
-              </div>
-              <h4 class="text-lg font-bold text-primary mb-3">People-First Leadership</h4>
-              <p class="text-sm text-gray-600 leading-relaxed">
-                Dedicated mentor and practice lead focused on building high-performing teams and developing future technical architects.
-              </p>
-            </div>
-            
-            <div class="bg-inverse p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300 md:mt-0">
-              <div class="w-12 h-12 bg-gray-800 text-white rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-gray-800/20">
-                <ChartBarIcon class="w-6 h-6" />
-              </div>
-              <h4 class="text-lg font-bold text-primary mb-3">Strategic Alignment</h4>
-              <p class="text-sm text-gray-600 leading-relaxed">
-                Expert at making complex technical concepts accessible and actionable for executive stakeholders and non-technical audiences.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Key Highlights Section -->
-    <section class="py-16 bg-inverse relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-1/3 h-full bg-primary/[0.02] -skew-x-12"></div>
-      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-20">
-          <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Core Strengths</h2>
-          <h3 class="text-4xl md:text-5xl font-bold text-primary">Strategic <br/>Key Highlights.</h3>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
-            v-for="(card, index) in summaryCards"
-            :key="card.title"
-            :class="[
-              index === summaryCards.length - 1 && summaryCards.length % 3 === 1
-                ? 'md:col-span-2 lg:col-span-3'
-                : ''
-            ]"
-          >
-            <SummaryCard
-              :title="card.title"
-              :description="card.description"
-              :icon="card.icon"
-              :metrics="card.metrics"
-              :link="card.link"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    <!-- Career Timeline Section -->
-    <CareerTimeline :timeline-data="timelineData" />
-    
-    <!-- Recommendations Section -->
-    <section v-if="recommendations && recommendations.length > 0" class="py-16 bg-white">
+    <!-- Problems I solve -->
+    <section class="py-16 bg-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-20 text-right">
-          <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Endorsements</h2>
-          <h3 class="text-4xl md:text-5xl font-bold text-primary">What People <br/>Actually Say.</h3>
+        <div class="mb-12">
+          <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Problems I solve</h2>
+          <h3 class="text-4xl md:text-5xl font-bold text-primary leading-tight">Start with the business problem.</h3>
         </div>
-        <Recommendations
-          :recommendations="featuredRecommendations"
-          :show-view-more="recommendations.length > featuredRecommendations.length"
-        />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <article
+            v-for="problem in problems"
+            :key="problem.title"
+            class="bg-inverse p-8 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow duration-300 flex flex-col"
+          >
+            <div class="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
+              <component :is="problem.icon" class="w-6 h-6" />
+            </div>
+            <h4 class="text-lg font-bold text-primary-ink mb-3">{{ problem.title }}</h4>
+            <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">{{ problem.description }}</p>
+            <div class="flex flex-col gap-2 text-sm font-bold">
+              <NuxtLink :to="problem.expertiseHref" class="text-primary-ink hover:text-accent-ink transition-colors">
+                {{ problem.expertiseLabel }} →
+              </NuxtLink>
+              <NuxtLink :to="problem.postHref" class="text-gray-600 hover:text-primary-ink transition-colors">
+                {{ problem.postLabel }} →
+              </NuxtLink>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
+
+    <!-- Featured insights -->
+    <section class="py-16 bg-inverse">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Featured insights</h2>
+            <h3 class="text-4xl md:text-5xl font-bold text-primary">Writing on AI, automation, and experiments.</h3>
+          </div>
+          <NuxtLink to="/posts/" class="text-sm font-bold uppercase tracking-widest text-primary-ink hover:text-accent-ink">
+            All insights →
+          </NuxtLink>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <PostCard
+            v-for="post in featuredPosts"
+            :key="post._path || post._id"
+            :post="postWithoutRemoteImage(post)"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Proof strip -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-12">
+          <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Proof</h2>
+          <h3 class="text-4xl md:text-5xl font-bold text-primary">Credentials, experience, and what people say.</h3>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+          <div class="bg-inverse p-6 rounded-2xl border border-gray-100">
+            <div class="text-3xl font-black text-primary mb-1">20+</div>
+            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Years in software</div>
+          </div>
+          <div class="bg-inverse p-6 rounded-2xl border border-gray-100">
+            <div class="text-3xl font-black text-primary mb-1">12+</div>
+            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Years Salesforce</div>
+          </div>
+          <div class="bg-inverse p-6 rounded-2xl border border-gray-100">
+            <div class="text-3xl font-black text-primary mb-1">12+</div>
+            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Certifications</div>
+          </div>
+          <div class="bg-inverse p-6 rounded-2xl border border-gray-100">
+            <div class="text-3xl font-black text-primary mb-1">Slalom</div>
+            <div class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Director, Global Salesforce</div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-10">
+          <span
+            v-for="cert in featuredCertifications"
+            :key="cert.name"
+            class="px-3 py-1.5 bg-inverse text-sm font-medium text-primary-ink rounded-full border border-gray-100"
+          >
+            {{ cert.name }}
+          </span>
+          <NuxtLink to="/certifications/" class="px-3 py-1.5 text-sm font-bold text-accent-ink hover:text-primary-ink">
+            All credentials →
+          </NuxtLink>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          <blockquote
+            v-for="(rec, index) in featuredRecommendations"
+            :key="index"
+            class="bg-inverse p-8 rounded-2xl border border-gray-100"
+          >
+            <p class="text-gray-700 italic leading-relaxed mb-6">“{{ rec.quote }}”</p>
+            <footer>
+              <p class="font-bold text-primary-ink">{{ rec.author }}</p>
+              <p v-if="rec.title" class="text-sm text-gray-600 mt-1">{{ rec.title }}</p>
+            </footer>
+          </blockquote>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+          <NuxtLink to="/experience/" class="text-sm font-bold uppercase tracking-widest text-primary hover:text-accent">
+            Experience →
+          </NuxtLink>
+          <NuxtLink :to="{ path: '/experience/', hash: '#evidence' }" class="text-sm font-bold uppercase tracking-widest text-primary hover:text-accent">
+            Evidence →
+          </NuxtLink>
+          <NuxtLink to="/endorsements/" class="text-sm font-bold uppercase tracking-widest text-primary hover:text-accent">
+            All endorsements →
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tools -->
+    <section class="py-16 bg-inverse">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Tools</h2>
+            <h3 class="text-4xl md:text-5xl font-bold text-primary">Free Canadian finance calculators</h3>
+          </div>
+          <NuxtLink to="/tools/" class="text-sm font-bold uppercase tracking-widest text-primary-ink hover:text-accent-ink">
+            All tools →
+          </NuxtLink>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <NuxtLink
+            v-for="tool in tools"
+            :key="tool.href"
+            :to="tool.href"
+            class="group block p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
+          >
+            <h4 class="text-lg font-bold text-primary mb-2 group-hover:text-accent transition-colors">{{ tool.name }}</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">{{ tool.description }}</p>
+          </NuxtLink>
+        </div>
+      </div>
+    </section>
+
+    <!-- Speaking & media -->
+    <section v-if="latestPodcast" class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div>
+            <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Speaking &amp; media</h2>
+            <h3 class="text-4xl md:text-5xl font-bold text-primary">Latest episode</h3>
+          </div>
+          <NuxtLink to="/speaking/" class="text-sm font-bold uppercase tracking-widest text-primary hover:text-accent">
+            All media →
+          </NuxtLink>
+        </div>
+        <div class="max-w-xl">
+          <PostCard :post="postWithoutRemoteImage(latestPodcast)" />
+        </div>
+      </div>
+    </section>
+
+    <LayoutGetInTouch
+      variant="page"
+      title="Have a real business problem AI could solve? Let's talk."
+      description="The best way to reach Prishan is on LinkedIn."
+      button-label="Connect on LinkedIn"
+    />
   </div>
 </template>
 
 <script setup>
-import { 
-  BriefcaseIcon, 
-  AcademicCapIcon, 
-  TrophyIcon,
-  UserGroupIcon,
-  ChartBarIcon,
-  SparklesIcon,
-  ArrowRightIcon,
-  CodeBracketIcon,
-  RocketLaunchIcon
-} from '@heroicons/vue/24/outline'
-
-// Explicitly import components to ensure they're available
-import SummaryCard from '~/components/Sections/SummaryCard.vue'
-import Recommendations from '~/components/Sections/Recommendations.vue'
-import CareerTimeline from '~/components/Sections/CareerTimeline.vue'
-import { personJsonLd, websiteJsonLd } from '~/utils/seo'
-
-const { data: summary } = await useAsyncData('summary', () => queryContent('/summary').findOne())
-
-// Load summaryCards from content/summary-cards.md so they can be managed via content
 import { computed } from 'vue'
-
-const iconMap = {
-  BriefcaseIcon,
-  UserGroupIcon,
+import {
+  ArrowRightIcon,
   SparklesIcon,
-  TrophyIcon,
-  ChartBarIcon,
-  AcademicCapIcon,
   CodeBracketIcon,
-  RocketLaunchIcon
-}
+  ShieldCheckIcon,
+  BeakerIcon
+} from '@heroicons/vue/24/outline'
+import PostCard from '~/components/Blog/PostCard.vue'
+import {
+  LINKEDIN_PROFILE_URL,
+  personJsonLd,
+  websiteJsonLd
+} from '~/utils/seo'
 
-// Fetch the summary cards from markdown frontmatter/content
-const { data: summaryCardsContent } = await useAsyncData('summary-cards', () =>
-  queryContent('/summary-cards').findOne()
+const linkedinUrl = LINKEDIN_PROFILE_URL
+
+const problems = [
+  {
+    title: 'AI for real business problems',
+    description: 'I start with the business problem, then apply AI — agents and automation, including Agentforce at work. Not a hunt for places to put a model.',
+    icon: SparklesIcon,
+    expertiseHref: { path: '/expertise/', hash: '#ai-solutions' },
+    expertiseLabel: 'Expertise',
+    postHref: '/posts/ai-cloud-transformation/',
+    postLabel: 'Related insight'
+  },
+  {
+    title: 'AI-assisted development',
+    description: 'Hands-on AI-assisted software development, automation, and testing — Cursor, Claude Code, Copilot, and delivery frameworks used on real work.',
+    icon: CodeBracketIcon,
+    expertiseHref: { path: '/expertise/', hash: '#ai-assisted-development' },
+    expertiseLabel: 'Expertise',
+    postHref: '/posts/ai-coding-assistants-comparison-2026/',
+    postLabel: 'Related insight'
+  },
+  {
+    title: 'AI governance & security',
+    description: 'Helping organizations evaluate AI vendors, data risk, and sector-specific controls before a single prompt goes to production.',
+    icon: ShieldCheckIcon,
+    expertiseHref: { path: '/expertise/', hash: '#ai-governance' },
+    expertiseLabel: 'Expertise',
+    postHref: '/posts/ai-governance-checklist-by-org-type/',
+    postLabel: 'Related insight'
+  },
+  {
+    title: 'Experiments with AI tools',
+    description: 'I try the latest AI tools and bring back business use cases — this site, Canadian finance tools, and live experiments like micro-trading with an AI assistant.',
+    icon: BeakerIcon,
+    expertiseHref: { path: '/expertise/', hash: '#ai-experiments' },
+    expertiseLabel: 'Expertise',
+    postHref: '/posts/ai-micro-trading-experiment/',
+    postLabel: 'Related insight'
+  }
+]
+
+const tools = [
+  {
+    name: 'Mortgage Calculator',
+    href: '/tools/mortgage-calculator/',
+    description: 'Amortization, extra principal, term summary, and compare up to 3 scenarios.'
+  },
+  {
+    name: 'Canadian Tax Calculator',
+    href: '/tools/canadian-tax-calculator/',
+    description: 'Federal and provincial tax estimate for salary, investments, RRSP, and rental income.'
+  },
+  {
+    name: 'HELOC vs Mortgage Calculator',
+    href: '/tools/heloc-mortgage-calculator/',
+    description: 'Compare converting a HELOC to a fixed mortgage vs extra principal payments.'
+  },
+  {
+    name: 'Rental Application',
+    href: '/tools/rental-application/',
+    description: 'Multi-step residential rental application with a downloadable PDF.'
+  },
+  {
+    name: 'Todo Board',
+    href: '/tools/todo-board/',
+    description: 'Browser-based board with New, Working, and Done columns.'
+  }
+]
+
+const featuredPostSlugs = [
+  'ai-governance-checklist-by-org-type',
+  'ai-coding-assistants-comparison-2026',
+  'ai-micro-trading-experiment'
+]
+
+const featuredQuoteAuthors = ['Yi Zho', 'Morgan Cartier', 'Colleague']
+
+const { data: posts } = await useAsyncData('home-featured-posts', () =>
+  queryContent('posts')
+    .where({ published: { $ne: false } })
+    .only(['_path', '_id', 'title', 'excerpt', 'description', 'date', 'image', 'tags', 'published'])
+    .find()
 )
 
-const summaryCards = computed(() => {
-  // Assume the .md file exports an array frontmatter field called cards
-  return (summaryCardsContent.value?.cards || []).map(card => ({
-    ...card,
-    icon: iconMap[card.icon] || BriefcaseIcon // fallback icon
-  }))
-})
-
-// Fetch and parse experience data for timeline
-const { data: experienceRaw } = await useAsyncData('experience-timeline', () => 
-  queryContent('/experience').findOne()
+const { data: podcasts } = await useAsyncData('home-podcasts', () =>
+  queryContent('podcasts')
+    .where({ published: { $ne: false } })
+    .sort({ date: -1 })
+    .only(['_path', '_id', 'title', 'excerpt', 'description', 'date', 'image', 'tags', 'published'])
+    .find()
 )
 
-// Parse experience data into timeline format
-const { parseExperienceToTimeline } = useCareerTimeline()
-const timelineData = computed(() => {
-  if (!experienceRaw.value) return []
-  
-  // Parse the experience content - handle both string and object formats
-  const content = typeof experienceRaw.value === 'string' 
-    ? experienceRaw.value 
-    : experienceRaw.value.body?.children 
-      ? extractTextFromBody(experienceRaw.value.body)
-      : ''
-  
-  return parseExperienceToTimeline(content || experienceRaw.value)
-})
+const { data: certificationsContent } = await useAsyncData('home-certifications', () =>
+  queryContent('/certifications').findOne()
+)
 
-// Helper function to extract text from Nuxt Content body structure
-function extractTextFromBody(body) {
-  if (!body || !body.children) return ''
-  
-  let text = ''
-  body.children.forEach(child => {
-    if (child.type === 'text') {
-      text += child.value + '\n'
-    } else if (child.type === 'element') {
-      if (child.tag === 'h3' || child.tag === 'h4') {
-        text += extractTextFromElement(child) + '\n'
-      } else if (child.tag === 'ul' || child.tag === 'p') {
-        text += extractTextFromElement(child) + '\n'
-      }
-    }
-  })
-  
-  return text
-}
-
-function extractTextFromElement(element) {
-  if (element.type === 'text') {
-    return element.value || ''
-  }
-  
-  if (element.children) {
-    return element.children.map(child => extractTextFromElement(child)).join('')
-  }
-  
-  return ''
-}
-
-// Load recommendations from content/recommendations.md so they can be managed via content
-const { data: recommendationsContent } = await useAsyncData('recommendations', () =>
+const { data: recommendationsContent } = await useAsyncData('home-recommendations', () =>
   queryContent('/recommendations').findOne()
 )
 
-const recommendations = computed(() => {
-  // Extract recommendations from markdown frontmatter
-  return recommendationsContent.value?.recommendations || []
+const featuredPosts = computed(() => {
+  const bySlug = new Map(
+    (posts.value || []).map((post) => {
+      const slug = String(post._path || '').split('/').filter(Boolean).pop()
+      return [slug, post]
+    })
+  )
+  return featuredPostSlugs.map((slug) => bySlug.get(slug)).filter(Boolean)
 })
 
-const featuredRecommendations = computed(() => {
-  const all = recommendations.value
-  const featured = all.filter(r => r.featured === true)
-  return featured.length > 0 ? featured : all.slice(0, 4)
+const latestPodcast = computed(() => (podcasts.value && podcasts.value[0]) || null)
+
+const allCertifications = computed(() => certificationsContent.value?.certifications || [])
+const featuredCertifications = computed(() => {
+  const featured = allCertifications.value.filter((cert) => cert.badge === 'Featured' || cert.badge === 'New')
+  return featured.length ? featured : allCertifications.value.slice(0, 4)
 })
+const featuredRecommendations = computed(() => {
+  const all = recommendationsContent.value?.recommendations || []
+  return featuredQuoteAuthors
+    .map((author) => all.find((rec) => rec.author === author))
+    .filter(Boolean)
+})
+
+function postWithoutRemoteImage (post) {
+  if (!post) return post
+  const image = post.image
+  if (image && String(image).startsWith('http')) {
+    const { image: _ignored, ...rest } = post
+    return rest
+  }
+  return post
+}
 
 const seoConfig = useRuntimeConfig()
 const siteUrl = seoConfig.public.siteUrl
 
 usePageSeo({
-  title: 'Prishan Fernando — AI Leader & Salesforce Architect',
-  description: 'AI leader and enterprise architect with 20+ years building software and 12+ years in Salesforce. Driving organizational AI adoption, safe implementation, and hands-on experimentation.',
+  title: 'Prishan Fernando — AI Solutions Architect & Builder',
+  description: 'AI Solutions Architect & Builder in Vancouver, BC. I solve real business problems with AI — not the other way around. Insights and experiments from Slalom.',
   jsonLd: () => [personJsonLd(siteUrl), websiteJsonLd(siteUrl)]
 })
 </script>
-
-<style scoped>
-:deep(.prose h1) {
-  @apply text-3xl font-bold text-primary mb-4;
-}
-
-:deep(.prose h2) {
-  @apply text-2xl font-bold text-primary mt-8 mb-4;
-}
-
-:deep(.prose h3) {
-  @apply text-xl font-bold text-primary mt-6 mb-3;
-}
-
-:deep(.prose p) {
-  @apply text-gray-700 mb-4 leading-relaxed;
-}
-
-:deep(.prose ul) {
-  @apply list-disc list-inside mb-4 space-y-2;
-}
-
-:deep(.prose li) {
-  @apply text-gray-700;
-}
-
-:deep(.prose strong) {
-  @apply font-semibold text-gray-900;
-}
-
-:deep(.prose a) {
-  @apply text-primary hover:text-primary/80 underline;
-}
-</style>

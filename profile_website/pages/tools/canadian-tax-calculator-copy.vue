@@ -289,6 +289,7 @@
 
 <script setup>
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
+import { canonicalUrl } from '~/utils/canonical'
 
 // 2024 Federal brackets: [ threshold, rate ] — tax on amount up to threshold at rate
 const FEDERAL_2024 = {
@@ -535,5 +536,19 @@ function formatCurrency (n) {
 usePageSeo({
   title: 'Canadian Tax Calculator (draft) | Prishan Fernando',
   description: 'Estimate Canadian federal and provincial income tax. Salary, interest, dividends, capital gains, rental income, RRSP deductions, and scenario comparison.'
+})
+
+const copySeoConfig = useRuntimeConfig()
+useSeoMeta({
+  robots: 'noindex'
+})
+useHead({
+  link: [
+    {
+      key: 'canonical',
+      rel: 'canonical',
+      href: canonicalUrl(copySeoConfig.public.siteUrl, '/tools/canadian-tax-calculator')
+    }
+  ]
 })
 </script>

@@ -2,11 +2,25 @@ import { canonicalUrl, siteOrigin } from '~/utils/canonical'
 
 export const SITE_NAME = 'Prishan Fernando'
 export const PERSON_NAME = 'Prishan Fernando'
-export const PERSON_JOB_TITLE = 'Salesforce / Solutions Architect'
+export const PERSON_JOB_TITLE = 'AI Solutions Architect & Builder'
+export const PERSON_LOCATION = 'Vancouver, BC'
 export const DEFAULT_OG_IMAGE_PATH = '/images/og-default.jpg'
+export const PROFILE_IMAGE_PATH = '/images/posts/me.jpg'
 export const LINKEDIN_PROFILE_URL = 'https://www.linkedin.com/in/prishanf'
 export const GITHUB_PROFILE_URL = 'https://github.com/prishanf'
 export const SAME_AS = [LINKEDIN_PROFILE_URL, GITHUB_PROFILE_URL]
+
+export const PERSON_KNOWS_ABOUT = [
+  'Artificial Intelligence',
+  'AI Solutions Architecture',
+  'AI-assisted Software Development',
+  'AI Automation',
+  'AI Governance',
+  'Data Security',
+  'Salesforce',
+  'Agentforce',
+  'Enterprise Architecture'
+]
 
 export function defaultOgImage(siteUrl?: string | null) {
   return `${siteOrigin(siteUrl)}${DEFAULT_OG_IMAGE_PATH}`
@@ -58,14 +72,28 @@ export function faqPageJsonLd(faqs: FaqItem[]) {
   }
 }
 
-export function personJsonLd(siteUrl?: string | null) {
+export function personJsonLd(siteUrl?: string | null, extras?: {
+  jobTitle?: string
+  knowsAbout?: string[]
+}) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: PERSON_NAME,
-    jobTitle: PERSON_JOB_TITLE,
+    jobTitle: extras?.jobTitle || PERSON_JOB_TITLE,
     url: canonicalUrl(siteUrl, '/'),
-    sameAs: SAME_AS
+    sameAs: SAME_AS,
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Slalom'
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Vancouver',
+      addressRegion: 'BC',
+      addressCountry: 'CA'
+    },
+    knowsAbout: extras?.knowsAbout || PERSON_KNOWS_ABOUT
   }
 }
 
@@ -80,6 +108,28 @@ export function websiteJsonLd(siteUrl?: string | null) {
       name: PERSON_NAME,
       url: canonicalUrl(siteUrl, '/')
     }
+  }
+}
+
+export function webPageJsonLd(opts: {
+  siteUrl?: string | null
+  path: string
+  name: string
+  description?: string
+}) {
+  const url = canonicalUrl(opts.siteUrl, opts.path)
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: opts.name,
+    description: opts.description || undefined,
+    url,
+    isPartOf: {
+      '@type': 'WebSite',
+      name: SITE_NAME,
+      url: canonicalUrl(opts.siteUrl, '/')
+    },
+    about: personJsonLd(opts.siteUrl)
   }
 }
 

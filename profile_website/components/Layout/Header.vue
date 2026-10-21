@@ -1,63 +1,82 @@
 <template>
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+  <header class="sticky top-0 z-50 bg-white/95 border-b border-gray-200">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
-        <NuxtLink to="/" class="flex items-center space-x-2">
-          <span class="text-2xl font-bold text-primary flex justify-center items-center size-12 bg-primary rounded-full text-white">PF</span> <span class="text-2xl font-bold text-primary flex items-center">Prishan Fernando</span>
+        <NuxtLink to="/" class="flex items-center space-x-2 min-w-0">
+          <span class="text-2xl font-bold text-primary flex justify-center items-center size-12 bg-primary rounded-full text-white shrink-0">PF</span>
+          <span class="text-xl lg:text-2xl font-bold text-primary flex items-center truncate">Prishan Fernando</span>
         </NuxtLink>
         
-        <div class="hidden md:flex items-center space-x-8">
+        <div class="hidden lg:flex items-center space-x-6">
           <template v-for="item in navigation" :key="item.name">
-            <!-- Item with submenu -->
+            <!-- Item with submenu: button toggle (crawlable links live in the menu) -->
             <div v-if="item.children?.length" class="relative group">
-              <NuxtLink
-                :to="item.href"
-                class="flex items-center text-gray-700 hover:text-primary transition-colors duration-200 font-medium"
-                :class="{ 'text-primary': isToolsActive(item) }"
+              <button
+                type="button"
+                class="flex items-center whitespace-nowrap text-gray-700 hover:text-primary transition-colors duration-200 font-medium text-sm bg-transparent p-0 cursor-pointer"
+                :class="{ 'text-primary': isGroupActive(item) }"
+                :aria-expanded="openMenu === item.name"
+                aria-haspopup="true"
+                :aria-controls="`nav-menu-${item.name}`"
+                @click="openMenu = openMenu === item.name ? null : item.name"
               >
                 {{ item.name }}
-                <ChevronDownIcon class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" />
-              </NuxtLink>
-              <div class="absolute left-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <ChevronDownIcon class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+              </button>
+              <div
+                :id="`nav-menu-${item.name}`"
+                class="absolute left-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200"
+                :class="{ '!opacity-100 !visible': openMenu === item.name }"
+              >
                 <div class="py-2 rounded-lg bg-white border border-gray-100 shadow-lg min-w-[220px]">
-                  <NuxtLink
-                    v-for="child in item.children"
-                    :key="child.href"
-                    :to="child.href"
-                    class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md mx-1"
-                    active-class="!bg-primary/10 !text-primary font-medium"
-                  >
-                    {{ child.name }}
-                  </NuxtLink>
+                  <template v-for="child in item.children" :key="child.name">
+                    <a
+                      v-if="child.download"
+                      :href="hrefPath(child.href)"
+                      download
+                      class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md mx-1"
+                    >
+                      <ArrowDownTrayIcon class="w-4 h-4 mr-1.5" />
+                      {{ child.name }}
+                    </a>
+                    <NuxtLink
+                      v-else
+                      :to="child.href"
+                      class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md mx-1"
+                      active-class="!bg-primary/10 !text-primary font-medium"
+                    >
+                      {{ child.name }}
+                    </NuxtLink>
+                  </template>
                 </div>
               </div>
             </div>
             <!-- Regular link -->
             <NuxtLink
-              v-else-if="!item.download"
+              v-else
               :to="item.href"
-              class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium"
+              class="whitespace-nowrap text-gray-700 hover:text-primary transition-colors duration-200 font-medium text-sm"
               active-class="text-primary"
             >
               {{ item.name }}
             </NuxtLink>
-            <!-- Download link -->
-            <a
-              v-else
-              :href="item.href"
-              download
-              class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium flex items-center"
-            >
-              <ArrowDownTrayIcon class="w-4 h-4 mr-1.5" />
-              {{ item.name }}
-            </a>
           </template>
+          <a
+            :href="linkedinUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center px-4 py-2 bg-primary text-white font-bold uppercase tracking-widest text-xs rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300"
+          >
+            Contact
+          </a>
         </div>
         
         <button
+          type="button"
           @click="mobileMenuOpen = !mobileMenuOpen"
-          class="md:hidden p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none"
+          class="lg:hidden p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none"
           aria-label="Toggle menu"
+          :aria-expanded="mobileMenuOpen"
         >
           <Bars3Icon v-if="!mobileMenuOpen" class="w-6 h-6" />
           <XMarkIcon v-else class="w-6 h-6" />
@@ -67,7 +86,7 @@
       <!-- Mobile menu -->
       <div
         v-if="mobileMenuOpen"
-        class="md:hidden pb-4 space-y-1"
+        class="lg:hidden pb-4 space-y-1"
       >
         <template v-for="item in navigation" :key="item.name">
           <!-- Item with submenu (mobile) -->
@@ -80,38 +99,47 @@
               {{ item.name }}
             </NuxtLink>
             <div class="pl-4 space-y-1 border-l-2 border-gray-100 ml-3">
-              <NuxtLink
-                v-for="child in item.children"
-                :key="child.href"
-                :to="child.href"
-                class="block px-3 py-2 rounded-md text-gray-600 hover:bg-secondary transition-colors text-sm"
-                @click="mobileMenuOpen = false"
-              >
-                {{ child.name }}
-              </NuxtLink>
+              <template v-for="child in item.children" :key="child.name">
+                <a
+                  v-if="child.download"
+                  :href="hrefPath(child.href)"
+                  download
+                  class="flex items-center px-3 py-2 rounded-md text-gray-600 hover:bg-secondary transition-colors text-sm"
+                  @click="mobileMenuOpen = false"
+                >
+                  <ArrowDownTrayIcon class="w-4 h-4 mr-2" />
+                  {{ child.name }}
+                </a>
+                <NuxtLink
+                  v-else-if="child.href !== item.href"
+                  :to="child.href"
+                  class="block px-3 py-2 rounded-md text-gray-600 hover:bg-secondary transition-colors text-sm"
+                  @click="mobileMenuOpen = false"
+                >
+                  {{ child.name }}
+                </NuxtLink>
+              </template>
             </div>
           </div>
           <!-- Regular link -->
           <NuxtLink
-            v-else-if="!item.download"
+            v-else
             :to="item.href"
             class="block px-3 py-2 rounded-md text-gray-700 hover:bg-secondary transition-colors"
             @click="mobileMenuOpen = false"
           >
             {{ item.name }}
           </NuxtLink>
-          <!-- Download link -->
-          <a
-            v-else
-            :href="item.href"
-            download
-            class="block px-3 py-2 rounded-md text-gray-700 hover:bg-secondary transition-colors font-medium flex items-center"
-            @click="mobileMenuOpen = false"
-          >
-            <ArrowDownTrayIcon class="w-4 h-4 mr-2" />
-            {{ item.name }}
-          </a>
         </template>
+        <a
+          :href="linkedinUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block mx-3 mt-2 px-4 py-3 bg-primary text-white font-bold uppercase tracking-widest text-xs rounded-xl text-center"
+          @click="mobileMenuOpen = false"
+        >
+          Contact
+        </a>
       </div>
     </nav>
   </header>
@@ -119,20 +147,22 @@
 
 <script setup>
 import { Bars3Icon, XMarkIcon, ArrowDownTrayIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { LINKEDIN_PROFILE_URL } from '~/utils/seo'
 
 const route = useRoute()
 const mobileMenuOpen = ref(false)
+const openMenu = ref(null)
+const linkedinUrl = LINKEDIN_PROFILE_URL
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about/' },
-  { name: 'Experience', href: '/experience/' },
-  { name: 'Education', href: '/education/' },
-  { name: 'Certifications', href: '/certifications/' },
+  { name: 'Expertise', href: '/expertise/' },
+  { name: 'Insights', href: '/posts/' },
   {
     name: 'Tools',
     href: '/tools/',
     children: [
+      { name: 'All tools', href: '/tools/' },
       { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator/' },
       { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator/' },
       { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator/' },
@@ -140,22 +170,45 @@ const navigation = [
       { name: 'Todo Board', href: '/tools/todo-board/' }
     ]
   },
+  { name: 'Speaking & Media', href: '/speaking/' },
   {
-    name: 'Blog',
-    href: '',
+    name: 'About',
+    href: '/about/',
     children: [
-      { name: 'Posts', href: '/posts/' },
-      { name: 'Podcasts', href: '/podcasts/' },
+      { name: 'About', href: '/about/' },
+      { name: 'Experience', href: '/experience/' },
+      { name: 'Education', href: '/education/' },
+      { name: 'Certifications', href: '/certifications/' },
+      { name: 'Endorsements', href: '/endorsements/' },
+      { name: 'Evidence', href: { path: '/experience/', hash: '#evidence' } },
       { name: 'Book Summaries', href: '/book-summaries/' },
-      { name: 'YouTube Videos', href: '/youtube-videos/' },
       { name: 'Activity Summary', href: '/activity-summary/' },
+      { name: 'Resume (PDF)', href: '/resume.pdf', download: true }
     ]
-  },
+  }
 ]
 
-function isToolsActive (item) {
-  if (!item.href || item.href === '/') return false
-  const base = item.href.replace(/\/+$/, '')
-  return route.path === base || route.path.startsWith(`${base}/`)
+watch(() => route.fullPath, () => {
+  openMenu.value = null
+  mobileMenuOpen.value = false
+})
+
+function hrefPath(href) {
+  if (!href) return ''
+  if (typeof href === 'string') return href
+  return `${href.path || ''}${href.hash || ''}`
+}
+
+function pathMatches(href) {
+  const raw = hrefPath(href)
+  if (!raw || raw.startsWith('http') || raw.endsWith('.pdf')) return false
+  const base = raw.split('#')[0].replace(/\/+$/, '')
+  if (!base) return route.path === '/'
+  return route.path === base || route.path === `${base}/` || route.path.startsWith(`${base}/`)
+}
+
+function isGroupActive (item) {
+  if (pathMatches(item.href)) return true
+  return (item.children || []).some((child) => pathMatches(child.href))
 }
 </script>

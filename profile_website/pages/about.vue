@@ -112,7 +112,7 @@ const siteUrl = seoConfig.public.siteUrl
 
 usePageSeo({
   title: () => about.value?.title || 'About Prishan Fernando',
-  description: () => about.value?.description || 'AI leader, hands-on architect, and mentor with 20+ years building enterprise solutions — and 2+ years focused on AI adoption and governance.',
+  description: () => about.value?.description || 'AI Solutions Architect & Builder in Vancouver, BC. I solve real business problems with AI — agents, automation, testing, and governance.',
   jsonLd: () => personJsonLd(siteUrl)
 })
 </script>

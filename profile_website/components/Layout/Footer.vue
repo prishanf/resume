@@ -5,7 +5,7 @@
         <div>
           <h3 class="text-white font-bold text-lg mb-4">Prishan Fernando</h3>
           <p class="text-sm">
-            Technology leader and hands-on architect transforming complex business challenges into elegant solutions.
+            AI Solutions Architect &amp; Builder in Vancouver, BC. I solve real business problems with AI.
           </p>
         </div>
         
@@ -19,19 +19,19 @@
               <NuxtLink to="/experience/" class="hover:text-accent transition-colors">Experience</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/education/" class="hover:text-accent transition-colors">Education</NuxtLink>
+              <NuxtLink to="/book-summaries/" class="hover:text-accent transition-colors">Book summaries</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/certifications/" class="hover:text-accent transition-colors">Certifications</NuxtLink>
+              <NuxtLink to="/activity-summary/" class="hover:text-accent transition-colors">Activity log</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/posts/" class="hover:text-accent transition-colors">Posts</NuxtLink>
+              <NuxtLink to="/posts/" class="hover:text-accent transition-colors">Insights</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/podcasts/" class="hover:text-accent transition-colors">Podcasts</NuxtLink>
+              <NuxtLink to="/tools/" class="hover:text-accent transition-colors">Tools</NuxtLink>
             </li>
             <li>
-              <a href="/resume.pdf" download class="hover:text-accent transition-colors">Resume (PDF)</a>
+              <NuxtLink to="/expertise/" class="hover:text-accent transition-colors">Expertise</NuxtLink>
             </li>
           </ul>
         </div>

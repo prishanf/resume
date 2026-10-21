@@ -1,10 +1,10 @@
 ---
 title: About Prishan Fernando
-description: AI Leader and Enterprise Architect driving organizational AI adoption, safe implementation, and hands-on experimentation across cloud ecosystems
-badge: AI Leader & Enterprise Architect
+description: AI Solutions Architect & Builder in Vancouver, BC. I solve real business problems with AI — agents, automation, testing, and governance.
+badge: AI Solutions Architect & Builder
 heroTitlePart1: The Person
 heroTitlePart2: Behind the Work.
-heroDescription: AI leader, hands-on architect, and mentor with 20+ years building enterprise solutions — and 2+ years going all-in on AI adoption, governance, and agentic systems.
+heroDescription: AI Solutions Architect & Builder. I solve real business problems with AI — not the other way around. Hands-on with AI-assisted development, automation, and testing.
 stats:
   - label: Years Experience
     value: 20+
