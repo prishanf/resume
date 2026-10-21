@@ -264,7 +264,7 @@ const filteredVideos = computed(() => {
 
 const config = useRuntimeConfig()
 const siteUrl = (config.public?.siteUrl || 'https://prishanfernando.com').replace(/\/$/, '')
-const pageUrl = `${siteUrl}/youtube-videos`
+const pageUrl = `${siteUrl}/youtube-videos/`
 const pageTitle = 'YouTube Videos I Watched | Video Summaries - Prishan Fernando'
 const pageDescription = 'A curated list of YouTube videos I’ve watched with short summaries and tags. Productivity, learning, and tech recommendations.'
 
@@ -317,7 +317,6 @@ useHead(() => ({
     { name: 'robots', content: 'index, follow' },
     { name: 'keywords', content: 'YouTube videos, video summaries, productivity videos, learning, recommendations' },
   ],
-  link: [{ rel: 'canonical', href: pageUrl }],
   script: [
     {
       type: 'application/ld+json',

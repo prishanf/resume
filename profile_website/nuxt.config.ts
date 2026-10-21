@@ -43,6 +43,12 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  nitro: {
+    prerender: {
+      routes: ['/sitemap.xml']
+    }
+  },
+
   app: {
     head: {
       htmlAttrs: {
@@ -58,7 +64,6 @@ export default defineNuxtConfig({
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [
-        { rel: 'canonical', href: 'https://prishanfernando.com' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicons/apple-touch-icon.png' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicons/favicon-32x32.png' },
