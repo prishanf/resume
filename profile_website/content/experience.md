@@ -20,7 +20,7 @@ description: Director of Global Salesforce at Slalom. Career history spanning en
 - **Avigilon (Motorola Solutions) Fusion X**: Served as **Program Architect** for a multi-brand CRM consolidation. Led cross-cloud governance, integration strategy, and data migration for a massive org merger.
   - *Stakeholder Feedback*: "Without Prishan... there would be no Avigilon."
 - **Rockwell Automation & Fraser Health**: Led technical architecture streams for high-stakes discoveries. Designed data models and delivered "confidence-inspiring" demos that translated complex tech into business value for non-technical stakeholders.
-- **Investors Group (IG) Secure File Exchange**: Delivered a high-impact secure file upload solution, bridging gap between complex security requirements and user experience.
+- **IG Wealth Management Secure File Exchange**: Delivered a high-impact secure file upload solution, bridging gap between complex security requirements and user experience.
 
 **Innovation & AI Acceleration**
 - **AI-Driven Delivery (2025)**: Spearheaded an internal AI Task Team to modernize delivery:
