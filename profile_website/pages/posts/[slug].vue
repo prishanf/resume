@@ -13,7 +13,7 @@
         
         <div class="w-full">
           <div class="flex flex-wrap gap-4 mb-8">
-            <span v-for="tag in post.tags" :key="tag" class="inline-flex items-center px-3 py-1 rounded-full bg-white border border-gray-100 text-[10px] font-bold text-primary uppercase tracking-widest">
+            <span v-for="tag in post.tags" :key="tag" class="inline-flex items-center px-3 py-1 rounded-full bg-white border border-gray-100 text-xs font-bold text-primary uppercase tracking-widest">
               {{ tag }}
             </span>
           </div>
@@ -53,7 +53,9 @@
           <div class="lg:col-span-8">
             <div v-if="post.image" class="mb-16 -mx-4 sm:-mx-0">
               <img
-                :src="post.image"
+                :src="heroImage.src"
+                :srcset="heroImage.srcset"
+                :sizes="heroImage.sizes"
                 :alt="post.title"
                 width="1200"
                 height="675"
@@ -67,6 +69,8 @@
               <ContentRenderer :value="post" />
             </div>
 
+            <BlogPostFooterCta :related="relatedPosts" />
+
             <div class="mt-24 pt-12 border-t border-gray-100">
               <SocialShare :title="post.title" :url="post._path" />
             </div>
@@ -76,7 +80,7 @@
           <div class="lg:col-span-3">
             <div class="sticky top-32 space-y-12 border-l border-primary-200 pl-8">
               <div>
-                <h4 class="text-[10px] font-bold text-accent uppercase tracking-[0.3em] mb-4">Summary</h4>
+                <p class="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-4">Summary</p>
                 <p class="text-sm text-gray-500 leading-relaxed">{{ post.description }}</p>
               </div>
               
@@ -102,8 +106,11 @@
 </template>
 
 <script setup>
-import { ArrowLeftIcon, CalendarIcon, UserIcon, TagIcon } from '@heroicons/vue/24/outline'
+import { ArrowLeftIcon, CalendarIcon, UserIcon } from '@heroicons/vue/24/outline'
 import SocialShare from '~/components/Blog/SocialShare.vue'
+import { blogPostingJsonLd } from '~/utils/seo'
+import { formatDisplayDate } from '~/utils/formatDate'
+import { responsiveImageAttrs } from '~/utils/responsiveImage'
 
 const route = useRoute()
 const slug = route.params.slug
@@ -127,7 +134,35 @@ if (error.value) {
   console.error('Error fetching post:', error.value)
 }
 
-import { blogPostingJsonLd } from '~/utils/seo'
+const normalizeTags = (tags) => {
+  if (!tags) return []
+  return (Array.isArray(tags) ? tags : [tags]).map((tag) => String(tag).trim().toLowerCase()).filter(Boolean)
+}
+
+const { data: relatedPostsData } = await useAsyncData(`related-posts-${slug}`, async () => {
+  const current = post.value
+  if (!current) return []
+  const currentTags = new Set(normalizeTags(current.tags))
+  if (!currentTags.size) return []
+  const others = await queryContent('/posts')
+    .where({ published: { $ne: false } })
+    .only(['title', '_path', 'tags'])
+    .find()
+  return others
+    .filter((item) => item._path && item._path !== current._path)
+    .map((item) => {
+      const tags = normalizeTags(item.tags)
+      const overlap = tags.filter((tag) => currentTags.has(tag)).length
+      return { title: item.title, _path: item._path, overlap }
+    })
+    .filter((item) => item.overlap > 0)
+    .sort((a, b) => b.overlap - a.overlap)
+    .slice(0, 3)
+    .map(({ title, _path }) => ({ title, _path }))
+})
+
+const relatedPosts = computed(() => relatedPostsData.value || [])
+const heroImage = computed(() => responsiveImageAttrs(post.value?.image, '(max-width: 768px) 100vw, 768px'))
 
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl
@@ -153,11 +188,7 @@ usePageSeo({
     : undefined
 })
 
-const formatDate = (dateString) => {
-  if (!dateString) return ''
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-}
+const formatDate = formatDisplayDate
 </script>
 
 <style scoped>

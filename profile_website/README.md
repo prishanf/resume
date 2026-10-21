@@ -115,13 +115,17 @@ The **Activity Summary** page (`/activity-summary`) shows a build-time changelog
 
 3. **Optional**: To change the GitHub profile link on the Activity Summary page, set **`NUXT_PUBLIC_GITHUB_PROFILE_URL`** in `.env` (e.g. `https://github.com/yourusername`).
 
+### Adding a tool
+
+The `/tools/` hub is a card index driven by `data/toolsCatalog.ts` so a new weekly tool is one page plus one catalog row. Full steps: `docs/adding-a-tool.md`.
+
 ## Branding
 
 The site uses a custom color palette:
 
-- **Primary**: `#738E6B` (Muted Olive Green)
+- **Primary**: `#627A5B` (Muted Olive Green; darkened slightly for WCAG AA on buttons and small labels)
 - **Secondary**: `#EAE3CB` (Pale Beige)
-- **Accent**: `#E8C16D` (Metallic Gold)
+- **Accent**: `#E8C16D` (Metallic Gold); **Accent ink**: `#7A5F14` for small text
 - **Inverse**: `#F0F0F0` (Off-White)
 
 Colors can be customized in `tailwind.config.js`.

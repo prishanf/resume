@@ -15,9 +15,17 @@
         <p class="text-lg text-gray-600 max-w-2xl">
           Federal &amp; provincial estimate by tax year. Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. CPP/EI and investment gross-ups.
         </p>
-        <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center mt-4 text-sm font-semibold text-accent hover:text-primary transition-colors">
-          Read: Canadian income, RRSP, and tax strategies →
-        </NuxtLink>
+        <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
+          <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Read: Canadian income, RRSP, and tax strategies →
+          </NuxtLink>
+          <NuxtLink to="/posts/canadian-20k-investment-tax-guide-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Investment playbook →
+          </NuxtLink>
+          <NuxtLink to="/posts/debt-vs-invest-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Pay down debt or invest →
+          </NuxtLink>
+        </div>
       </div>
     </section>
 
@@ -234,13 +242,21 @@
         </div>
       </div>
     </section>
+
+    <ToolsToolSeoContent seo-key="canadian-tax-calculator" />
   </div>
 </template>
 
 <script setup>
+import { getToolSeo } from '~/data/toolSeo'
+import { faqPageJsonLd } from '~/utils/seo'
+
+const taxSeo = getToolSeo('canadian-tax-calculator')
+
 usePageSeo({
-  title: 'Canadian Tax Calculator | Prishan Fernando',
-  description: 'Estimate Canadian federal and provincial income tax by year. Salary, interest, dividends, capital gains, rental income, RRSP deductions, and scenario comparison.'
+  title: taxSeo.title,
+  description: taxSeo.description,
+  jsonLd: faqPageJsonLd(taxSeo.faqs)
 })
 
 import { ref, computed } from 'vue'

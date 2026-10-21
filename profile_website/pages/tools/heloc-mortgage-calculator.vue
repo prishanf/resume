@@ -14,10 +14,18 @@
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
           Compare converting your HELOC to a fixed mortgage vs making extra principal payments. Uses the same methodology as the
-          <NuxtLink to="/posts/heloc-vs-mortgage-conversion-analysis" class="font-semibold text-primary hover:text-accent underline">
+          <NuxtLink to="/posts/heloc-vs-mortgage-conversion-analysis" class="font-semibold text-primary hover:underline">
             HELOC vs Fixed Mortgage analysis
           </NuxtLink>.
         </p>
+        <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
+          <NuxtLink to="/posts/mortgage-strategies-save-money-investing-vs-extra-payments" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Mortgage strategies →
+          </NuxtLink>
+          <NuxtLink to="/posts/debt-vs-invest-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Pay down debt or invest →
+          </NuxtLink>
+        </div>
       </div>
     </section>
 
@@ -450,15 +458,22 @@
         </div>
       </div>
     </section>
+
+    <ToolsToolSeoContent seo-key="heloc-mortgage-calculator" />
   </div>
 </template>
 
 <script setup>
 import { ArrowLeftIcon, ArrowRightIcon, TrophyIcon, CalendarIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
+import { getToolSeo } from '~/data/toolSeo'
+import { faqPageJsonLd } from '~/utils/seo'
+
+const helocSeo = getToolSeo('heloc-mortgage-calculator')
 
 usePageSeo({
-  title: 'HELOC vs Mortgage Calculator | Prishan Fernando',
-  description: 'Compare converting a HELOC to a fixed mortgage versus extra principal payments. Interactive calculator with monthly payments and 5-year outcomes.'
+  title: helocSeo.title,
+  description: helocSeo.description,
+  jsonLd: faqPageJsonLd(helocSeo.faqs)
 })
 
 const inputs = reactive({

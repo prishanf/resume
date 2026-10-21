@@ -13,8 +13,19 @@
           Mortgage Strategist
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Compare scenarios, optimize extra payments, and see the real return on your home equity.
+          Compare scenarios, extra principal, and term summaries. Enter your own amount and rate.
         </p>
+        <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
+          <NuxtLink to="/posts/mortgage-strategies-save-money-investing-vs-extra-payments" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Mortgage strategies →
+          </NuxtLink>
+          <NuxtLink to="/posts/debt-vs-invest-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Pay down debt or invest →
+          </NuxtLink>
+          <NuxtLink to="/posts/heloc-vs-mortgage-conversion-analysis" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            HELOC vs fixed mortgage →
+          </NuxtLink>
+        </div>
       </div>
     </section>
 
@@ -161,7 +172,7 @@
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
               <p class="text-xs font-bold  text-gray-400 uppercase tracking-widest mb-1">Years Saved</p>
               <h3 class="text-3xl font-black text-accent">{{ activeSummary.yearsReduction?.toFixed(1) ?? '0' }} yr</h3>
-              <p class="text-[10px] text-gray-400 mt-1">Payoff date: {{ payoffDate }}</p>
+              <p class="text-[10px] text-gray-600 mt-1">Payoff date: <ClientOnly>{{ payoffDate }}</ClientOnly></p>
             </div>
           </div>
 
@@ -361,13 +372,21 @@
         </div>
       </div>
     </main>
+
+    <ToolsToolSeoContent seo-key="mortgage-calculator" />
   </div>
 </template>
 
 <script setup>
+import { getToolSeo } from '~/data/toolSeo'
+import { faqPageJsonLd } from '~/utils/seo'
+
+const mortgageSeo = getToolSeo('mortgage-calculator')
+
 usePageSeo({
-  title: 'Mortgage Calculator | Prishan Fernando',
-  description: 'Compare mortgage scenarios, extra principal payments, and amortization. Charts and term summaries for Canadian home-finance planning.'
+  title: mortgageSeo.title,
+  description: mortgageSeo.description,
+  jsonLd: faqPageJsonLd(mortgageSeo.faqs)
 })
 
 import { ref, computed, defineComponent, h } from 'vue'

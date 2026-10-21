@@ -8,101 +8,35 @@
           Tools
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Calculators and utilities to explore ideas from the blog and everyday decisions.
+          Canada-focused calculators and small utilities for ideas from the blog and everyday decisions.
+          Each card opens one tool. New calculators are added from a single catalog list — see
+          <code class="text-sm bg-white border border-gray-200 rounded px-1.5 py-0.5">docs/adding-a-tool.md</code>.
+          Figures are estimates, not financial advice.
         </p>
       </div>
     </section>
 
     <section class="py-16">
       <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Cards are rendered from data/toolsCatalog.ts. Add a weekly tool there. -->
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <NuxtLink
-            to="/tools/mortgage-calculator"
+            v-for="tool in TOOLS"
+            :key="tool.slug"
+            :to="tool.path"
             class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
           >
             <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-              <CalculatorIcon class="w-6 h-6 text-primary" />
+              <component :is="iconFor(tool.icon)" class="w-6 h-6 text-primary" />
             </div>
-            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-              Mortgage Calculator
+            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-primary/80 transition-colors">
+              {{ tool.title }}
             </h2>
             <p class="text-gray-600 text-sm leading-relaxed mb-4">
-              Amortization, extra principal with annual limit, term summary, and compare up to 3 scenarios with charts.
+              {{ tool.description }}
             </p>
-            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
-              Open calculator →
-            </span>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/tools/canadian-tax-calculator"
-            class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
-          >
-            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-              <CalculatorIcon class="w-6 h-6 text-primary" />
-            </div>
-            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-              Canadian Tax Calculator
-            </h2>
-            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-              Federal and provincial tax estimate. Salary, interest, dividends, capital gains, rental income. RRSP and rental expense deductions. Compare up to 3 scenarios.
-            </p>
-            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
-              Open calculator →
-            </span>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/tools/heloc-mortgage-calculator"
-            class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
-          >
-            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-              <CalculatorIcon class="w-6 h-6 text-primary" />
-            </div>
-            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-              HELOC vs Mortgage Calculator
-            </h2>
-            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-              Compare converting your HELOC to a fixed mortgage vs making extra principal payments. See monthly payments and 5-year outcomes with your own numbers.
-            </p>
-            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
-              Open calculator →
-            </span>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/tools/rental-application"
-            class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
-          >
-            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-              <DocumentTextIcon class="w-6 h-6 text-primary" />
-            </div>
-            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-              Rental Application
-            </h2>
-            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-              Multi-step residential rental application. Progress is saved in your browser; generate a PDF when complete.
-            </p>
-            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
-              Open form →
-            </span>
-          </NuxtLink>
-
-          <NuxtLink
-            to="/tools/todo-board"
-            class="group block p-8 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
-          >
-            <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-              <ClipboardDocumentListIcon class="w-6 h-6 text-primary" />
-            </div>
-            <h2 class="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors">
-              Todo Board
-            </h2>
-            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-              Organize todos by project with New, Working, and Done columns. Stored in your browser — similar to Trello.
-            </p>
-            <span class="text-sm font-bold text-accent uppercase tracking-widest group-hover:underline">
-              Open board →
+            <span class="text-sm font-bold text-primary uppercase tracking-widest group-hover:underline">
+              {{ tool.cta }}
             </span>
           </NuxtLink>
         </div>
@@ -113,9 +47,18 @@
 
 <script setup>
 import { CalculatorIcon, DocumentTextIcon, ClipboardDocumentListIcon } from '@heroicons/vue/24/outline'
+import { TOOLS } from '~/data/toolsCatalog'
+
+const icons = {
+  calculator: CalculatorIcon,
+  document: DocumentTextIcon,
+  clipboard: ClipboardDocumentListIcon
+}
+
+const iconFor = (name) => icons[name] || CalculatorIcon
 
 usePageSeo({
-  title: 'Tools | Prishan Fernando',
-  description: 'Interactive calculators and utilities: mortgage amortization, Canadian income tax, HELOC vs mortgage comparison, a rental application, and a browser-based todo board.'
+  title: 'Canada Finance Calculators & Tools | Prishan Fernando',
+  description: 'Canada calculators for income tax, mortgages, and HELOC vs fixed-rate decisions, plus a rental form and todo board. Estimates only — not financial advice.'
 })
 </script>

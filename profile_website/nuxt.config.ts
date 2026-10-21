@@ -74,9 +74,9 @@ export default defineNuxtConfig({
         { name: 'description', content: 'AI leader and enterprise architect with 20+ years building software and 12+ years in Salesforce. Driving organizational AI adoption, safe implementation, and hands-on experimentation.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Prishan Fernando' },
-        { property: 'og:image', content: 'https://prishanfernando.com/images/posts/profile-website-hero.png' },
+        { property: 'og:image', content: 'https://prishanfernando.com/images/og-default.jpg' },
         { name: 'twitter:card', content: 'summary_large_image' },
-        { name: 'twitter:image', content: 'https://prishanfernando.com/images/posts/profile-website-hero.png' }
+        { name: 'twitter:image', content: 'https://prishanfernando.com/images/og-default.jpg' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
