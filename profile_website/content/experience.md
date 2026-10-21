@@ -1,6 +1,6 @@
 ---
-title: Experience
-description: Employment history and professional experience spanning 20+ years
+title: Experience | Prishan Fernando
+description: Director of Global Salesforce at Slalom. Career history spanning enterprise Salesforce architecture, practice leadership, and delivery across manufacturing, healthcare, and financial services.
 ---
 
 # Experience
@@ -13,14 +13,14 @@ description: Employment history and professional experience spanning 20+ years
 
 **Strategic Leadership & Practice Growth**
 - **Scaled the Practice**: Grew the Salesforce technical team from the ground up to **11+ members** in the first year, conducting **33+ technical interviews** to maintain a high talent bar.
-- **"People First" Mentorship**: Recognized as a leader who sees "unrealized potential," fostering a culture where interns evolve into architects. Initiated internal projects (e.g., Real Estate Management app) to keep bench resources engaged and upskilled.
+- **"People First" Mentorship**: Recognized as a leader who sees "unrealized potential," fostering a culture where interns evolve into architects. Initiated internal projects (e.g., Real Estate Management app) so colleagues between client engagements stayed engaged and upskilled.
 - **Sales Enablement**: Partnered with sales teams to secure major wins, including leading the discovery for a **$4M+ Quote-to-Cash engagement** at MSI.
 
 **Enterprise Architecture & Complex Delivery**
 - **Avigilon (Motorola Solutions) Fusion X**: Served as **Program Architect** for a multi-brand CRM consolidation. Led cross-cloud governance, integration strategy, and data migration for a massive org merger.
   - *Stakeholder Feedback*: "Without Prishan... there would be no Avigilon."
 - **Rockwell Automation & Fraser Health**: Led technical architecture streams for high-stakes discoveries. Designed data models and delivered "confidence-inspiring" demos that translated complex tech into business value for non-technical stakeholders.
-- **Investors Group (IG) Secure File Exchange**: Delivered a high-impact secure file upload solution, bridging gap between complex security requirements and user experience.
+- **IG Wealth Management Secure File Exchange**: Delivered a high-impact secure file upload solution, bridging gap between complex security requirements and user experience.
 
 **Innovation & AI Acceleration**
 - **AI-Driven Delivery (2025)**: Spearheaded an internal AI Task Team to modernize delivery:
@@ -39,7 +39,7 @@ description: Employment history and professional experience spanning 20+ years
 
 - **Strategic Leadership**: Led and provided vision for a department of **35+ team members**, growing a highly skilled development team from the ground up.
 - **Talent Development**: Ran Salesforce training cohorts to provide hands-on experience; championed a culture of growth where interns evolved into respected leaders.
-- **Project Oversight**: Managed delivery across all development projects, overseeing utilization targets, employee engagement, and technical quality.
+- **Project Oversight**: Managed delivery across all development projects, overseeing employee engagement and technical quality.
 - **Scale & Complexity**: Successfully delivered large-volume implementations with **200K+ users**, handling complex data strategies and high-traffic environments.
 - **Hiring & Mentorship**: Conducted technical interviews to identify unrealized potential; recognized for fostering a supportive environment ("Live and Learn") that lifted individuals to greater heights.
 

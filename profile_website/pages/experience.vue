@@ -31,7 +31,7 @@
           <!-- Left Column: Content -->
           <div class="lg:col-span-8">
             <div class="prose prose-lg prose-primary max-w-none mb-12">
-              <ContentDoc />
+              <ContentDoc :head="false" />
             </div>
             
             <!-- Performance Evidence Section -->
@@ -150,11 +150,9 @@ const skills = [
   'APIs & Microservices'
 ]
 
-useHead({
-  title: 'Experience - Prishan Fernando',
-  meta: [
-    { name: 'description', content: 'Professional experience and employment history spanning 20+ years' }
-  ]
+usePageSeo({
+  title: 'Experience | Prishan Fernando',
+  description: 'Director of Global Salesforce at Slalom. Career history spanning enterprise Salesforce architecture, practice leadership, and delivery across manufacturing, healthcare, and financial services.'
 })
 </script>
 

@@ -89,6 +89,11 @@ const lastSyncFormatted = computed(() => {
   const d = new Date(lastSync.value)
   return d.toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })
 })
+
+usePageSeo({
+  title: 'Activity Summary | Prishan Fernando',
+  description: 'A build log of public GitHub work — commits, features, and experiments — grouped by month.'
+})
 </script>
 
 <style scoped>

@@ -57,10 +57,8 @@ const recommendations = computed(() => {
   return recommendationsContent.value?.recommendations || []
 })
 
-useHead({
-  title: 'Endorsements - Prishan Fernando',
-  meta: [
-    { name: 'description', content: 'Reviews and endorsements from colleagues, peers, and team members' }
-  ]
+usePageSeo({
+  title: 'Endorsements | Prishan Fernando',
+  description: 'Colleague and client endorsements of Prishan Fernando’s Salesforce architecture, people-first leadership, and delivery work.'
 })
 </script>

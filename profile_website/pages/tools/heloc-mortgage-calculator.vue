@@ -456,9 +456,9 @@
 <script setup>
 import { ArrowLeftIcon, ArrowRightIcon, TrophyIcon, CalendarIcon, ChartBarIcon } from '@heroicons/vue/24/outline'
 
-useSeoMeta({
-  title: 'HELOC vs Mortgage Calculator - Prishan Fernando',
-  description: 'Compare converting your HELOC to a fixed mortgage vs extra principal payments. Interactive calculator with payment and 5-year outcome tables.'
+usePageSeo({
+  title: 'HELOC vs Mortgage Calculator | Prishan Fernando',
+  description: 'Compare converting a HELOC to a fixed mortgage versus extra principal payments. Interactive calculator with monthly payments and 5-year outcomes.'
 })
 
 const inputs = reactive({

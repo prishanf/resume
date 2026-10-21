@@ -26,9 +26,20 @@ export default defineNuxtConfig({
       Inter: [400, 500, 600, 700]
     },
     display: 'swap',
-    prefetch: true,
-    preconnect: true,
+    subsets: ['latin'],
+    prefetch: false,
+    preconnect: false,
     preload: true,
+    download: true,
+    inject: true
+  },
+
+  experimental: {
+    defaults: {
+      nuxtLink: {
+        trailingSlash: 'append'
+      }
+    }
   },
 
   content: {
@@ -45,7 +56,9 @@ export default defineNuxtConfig({
 
   nitro: {
     prerender: {
-      routes: ['/sitemap.xml']
+      routes: ['/sitemap.xml'],
+      // Directory placeholder from summaries with no PDF file; not a real page.
+      ignore: ['/pdfs', '/pdfs/']
     }
   },
 
@@ -56,12 +69,14 @@ export default defineNuxtConfig({
       },
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
-      title: 'Prishan Fernando - Technology Leader & Salesforce Architect',
+      title: 'Prishan Fernando — AI Leader & Salesforce Architect',
       meta: [
-        { name: 'description', content: 'Technology leader and hands-on architect with 20+ years in software development and 12+ years specializing in Salesforce architecture' },
+        { name: 'description', content: 'AI leader and enterprise architect with 20+ years building software and 12+ years in Salesforce. Driving organizational AI adoption, safe implementation, and hands-on experimentation.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Prishan Fernando' },
-        { name: 'twitter:card', content: 'summary_large_image' }
+        { property: 'og:image', content: 'https://prishanfernando.com/images/posts/profile-website-hero.png' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:image', content: 'https://prishanfernando.com/images/posts/profile-website-hero.png' }
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicons/favicon.ico' },
@@ -75,11 +90,16 @@ export default defineNuxtConfig({
       ],
       script: [
         {
+          key: 'gtag-src',
+          src: 'https://www.googletagmanager.com/gtag/js?id=G-YL972QXHJ1',
           async: true,
-          src: 'https://www.googletagmanager.com/gtag/js?id=G-YL972QXHJ1'
+          defer: true,
+          tagPosition: 'bodyClose'
         },
         {
-          innerHTML: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YL972QXHJ1');"
+          key: 'gtag-init',
+          innerHTML: "window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-YL972QXHJ1');",
+          tagPosition: 'bodyClose'
         }
       ]
     }

@@ -372,9 +372,9 @@ A: With only 5 years, debt payoff is likely safer. Unless your TFSA/RRSP is alre
 ## Tools and Resources
 
 **Free Calculators:**
-- [Morgate Calculator] (https://prishanfernando.com/tools/mortgage-calculator)
+- [Mortgage Calculator](https://prishanfernando.com/tools/mortgage-calculator/)
 - [Bank of Canada Inflation indicators](https://www.bankofcanada.ca/rates/indicators/key-variables/key-inflation-indicators-and-the-target-range/) - Real returns
-- [Personal Tax Calculator](http://prishanfernando.com/tools/canadian-tax-calculator) - Provincial dividend tax rates
+- [Personal Tax Calculator](https://prishanfernando.com/tools/canadian-tax-calculator/) - Provincial dividend tax rates
 
 **Fee-Only Financial Planners:**
 - Advice-Only Planners ($150-400 for one session)

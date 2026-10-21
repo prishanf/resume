@@ -18,7 +18,6 @@ Technology leader and hands-on architect with **20+ years** in software developm
 
 ### 2025 (Delivery + AI Acceleration)
 
-- **Utilization**: 93% avg (115% peak) vs 50% target
 - **AI-assisted data migration**: reduced manual effort by **~70%** and produced reusable toolkits (estimated **200–300 hours saved** per mid-size migration).
 - **Enterprise architect leadership**: governance, roadmap alignment, and risk management for strategic accounts; expanded into AI enablement and agentic workflows.
 

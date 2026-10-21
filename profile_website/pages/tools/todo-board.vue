@@ -494,9 +494,9 @@ async function handleDrop (todoId: string, newStatus: TodoStatus) {
   }
 }
 
-useSeoMeta({
-  title: 'Todo Board - Prishan Fernando',
-  description: 'Organize todos by project with New, Working, and Done columns. Data stored in your browser.'
+usePageSeo({
+  title: 'Todo Board | Prishan Fernando',
+  description: 'Organize todos by project with New, Working, and Done columns. Data stays in your browser — similar to a lightweight Trello board.'
 })
 </script>
 

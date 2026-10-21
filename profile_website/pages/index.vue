@@ -25,11 +25,11 @@
           </p>
           
           <div class="flex flex-col sm:flex-row gap-6 items-start">
-            <NuxtLink to="/experience" class="group flex items-center px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300">
+            <NuxtLink to="/experience/" class="group flex items-center px-8 py-4 bg-primary text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all duration-300">
               View Professional Journey 
               <ArrowRightIcon class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
             </NuxtLink>
-            <NuxtLink to="/about" class="group flex items-center px-8 py-4 bg-white text-primary border border-gray-100 font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-inverse transition-all duration-300">
+            <NuxtLink to="/about/" class="group flex items-center px-8 py-4 bg-white text-primary border border-gray-100 font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-inverse transition-all duration-300">
               Learn More
             </NuxtLink>
           </div>
@@ -190,6 +190,7 @@ import {
 import SummaryCard from '~/components/Sections/SummaryCard.vue'
 import Recommendations from '~/components/Sections/Recommendations.vue'
 import CareerTimeline from '~/components/Sections/CareerTimeline.vue'
+import { personJsonLd, websiteJsonLd } from '~/utils/seo'
 
 const { data: summary } = await useAsyncData('summary', () => queryContent('/summary').findOne())
 
@@ -272,54 +273,6 @@ function extractTextFromElement(element) {
   return ''
 }
 
-// The data for the cards is now stored in profile_website/content/summary-cards.md:
-// ---
-// cards:
-//   - title: "Experience"
-//     description: "20+ years in software development, 12+ years in Salesforce architecture"
-//     icon: "BriefcaseIcon"
-//     metrics:
-//       - value: "20+"
-//         label: "Years Experience"
-//       - value: "12+"
-//         label: "Years Salesforce"
-//     link: "/experience"
-//   - title: "Leadership"
-//     description: "Built high-performing teams and conducted 100+ interviews"
-//     icon: "UserGroupIcon"
-//     metrics:
-//       - value: "100+"
-//         label: "Interviews Conducted"
-//     link: "/about"
-//   - title: "AI Innovation"
-//     description: "Pioneered AI-assisted frameworks reducing effort by 70%"
-//     icon: "SparklesIcon"
-//     metrics:
-//       - value: "70%"
-//         label: "Effort Reduction"
-//     link: "/about"
-//   - title: "Certifications"
-//     description: "12+ Salesforce certifications including AI Associate and Experience Cloud"
-//     icon: "TrophyIcon"
-//     metrics:
-//       - value: "12+"
-//         label: "Certifications"
-//     link: "/certifications"
-//   - title: "Utilization"
-//     description: "Consistently exceeding targets with 93% average utilization"
-//     icon: "ChartBarIcon"
-//     metrics:
-//       - value: "93%"
-//         label: "Average Utilization"
-//       - value: "115%"
-//         label: "Peak Utilization"
-//     link: "/experience"
-//   - title: "Education"
-//     description: "BSc in Computer Science from Minnesota State University"
-//     icon: "AcademicCapIcon"
-//     link: "/education"
-// ---
-
 // Load recommendations from content/recommendations.md so they can be managed via content
 const { data: recommendationsContent } = await useAsyncData('recommendations', () =>
   queryContent('/recommendations').findOne()
@@ -336,11 +289,13 @@ const featuredRecommendations = computed(() => {
   return featured.length > 0 ? featured : all.slice(0, 4)
 })
 
-useHead({
-  title: 'Prishan Fernando - Technology Leader & Salesforce Architect',
-  meta: [
-    { name: 'description', content: 'Technology leader and hands-on architect with 20+ years in software development and 12+ years specializing in Salesforce architecture' }
-  ]
+const seoConfig = useRuntimeConfig()
+const siteUrl = seoConfig.public.siteUrl
+
+usePageSeo({
+  title: 'Prishan Fernando — AI Leader & Salesforce Architect',
+  description: 'AI leader and enterprise architect with 20+ years building software and 12+ years in Salesforce. Driving organizational AI adoption, safe implementation, and hands-on experimentation.',
+  jsonLd: () => [personJsonLd(siteUrl), websiteJsonLd(siteUrl)]
 })
 </script>
 

@@ -125,36 +125,37 @@ const mobileMenuOpen = ref(false)
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Experience', href: '/experience' },
-  { name: 'Education', href: '/education' },
-  { name: 'Certifications', href: '/certifications' },
+  { name: 'About', href: '/about/' },
+  { name: 'Experience', href: '/experience/' },
+  { name: 'Education', href: '/education/' },
+  { name: 'Certifications', href: '/certifications/' },
   {
     name: 'Tools',
-    href: '/tools',
+    href: '/tools/',
     children: [
-      { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator' },
-      { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator' },
-      { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator' },
-      { name: 'Rental Application', href: '/tools/rental-application' },
-      { name: 'Todo Board', href: '/tools/todo-board' }
+      { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator/' },
+      { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator/' },
+      { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator/' },
+      { name: 'Rental Application', href: '/tools/rental-application/' },
+      { name: 'Todo Board', href: '/tools/todo-board/' }
     ]
   },
   {
     name: 'Blog',
     href: '',
     children: [
-      { name: 'Posts', href: '/posts' },
-      { name: 'Podcasts', href: '/podcasts' },
-      { name: 'Book Summaries', href: '/book-summaries' },
-      { name: 'YouTube Videos', href: '/youtube-videos' },
-      { name: 'Activity Summary', href: '/activity-summary' },
+      { name: 'Posts', href: '/posts/' },
+      { name: 'Podcasts', href: '/podcasts/' },
+      { name: 'Book Summaries', href: '/book-summaries/' },
+      { name: 'YouTube Videos', href: '/youtube-videos/' },
+      { name: 'Activity Summary', href: '/activity-summary/' },
     ]
   },
 ]
 
 function isToolsActive (item) {
   if (!item.href || item.href === '/') return false
-  return route.path.startsWith(item.href)
+  const base = item.href.replace(/\/+$/, '')
+  return route.path === base || route.path.startsWith(`${base}/`)
 }
 </script>

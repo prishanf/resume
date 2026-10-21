@@ -1,6 +1,6 @@
 ---
-title: Certifications
-description: Professional certifications and credentials
+title: Salesforce Certifications | Prishan Fernando
+description: Salesforce certifications including AI Associate (Agentforce), Experience Cloud Consultant, and 12+ credentials across the Salesforce and cloud ecosystem.
 badge: Professional Credentials
 heroTitlePart1: Licenses &
 heroTitlePart2: Certifications.

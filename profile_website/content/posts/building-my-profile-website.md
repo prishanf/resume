@@ -359,7 +359,7 @@ Upload static files (.output/public)
     ↓
 Deploy to GitHub Pages
     ↓
-Site live at https://prishanf.github.io/resume/
+Site live at https://prishanfernando.com/
 ```
 
 **Result**: Every push to `main` automatically rebuilds and deploys the site—zero manual steps required.
@@ -537,7 +537,7 @@ The future of web development is **simpler, faster, and more accessible**—and 
 
 ---
 
-**Want to see the site in action?** Visit [https://prishanf.github.io/resume/](https://prishanf.github.io/resume/)
+**Want to see the site in action?** Visit [https://prishanfernando.com/](https://prishanfernando.com/)
 
 **Interested in the code?** Check out the repository: [https://github.com/prishanf/resume](https://github.com/prishanf/resume)
 

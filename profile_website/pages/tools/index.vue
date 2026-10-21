@@ -114,8 +114,8 @@
 <script setup>
 import { CalculatorIcon, DocumentTextIcon, ClipboardDocumentListIcon } from '@heroicons/vue/24/outline'
 
-useSeoMeta({
-  title: 'Tools - Prishan Fernando',
-  description: 'Interactive calculators and tools: Mortgage calculator, Canadian tax calculator, HELOC vs Mortgage calculator, Rental application, Todo board and more.'
+usePageSeo({
+  title: 'Tools | Prishan Fernando',
+  description: 'Interactive calculators and utilities: mortgage amortization, Canadian income tax, HELOC vs mortgage comparison, a rental application, and a browser-based todo board.'
 })
 </script>

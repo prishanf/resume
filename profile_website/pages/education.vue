@@ -27,7 +27,7 @@
     <section class="py-12 bg-white relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="prose prose-lg max-w-none">
-          <ContentDoc />
+          <ContentDoc :head="false" />
         </div>
       </div>
     </section>
@@ -39,11 +39,9 @@ import { AcademicCapIcon } from '@heroicons/vue/24/outline'
 
 const { data: education } = await useAsyncData('education', () => queryContent('/education').findOne())
 
-useHead({
-  title: education.value?.pageTitle || 'Education - Prishan Fernando',
-  meta: [
-    { name: 'description', content: education.value?.description || 'Educational background' }
-  ]
+usePageSeo({
+  title: () => education.value?.pageTitle || 'Education | Prishan Fernando',
+  description: 'BSc in Computer Science from Minnesota State University, Mankato (2003–2006) and a diploma in Computer Science from the Institute of Technological Studies.'
 })
 </script>
 

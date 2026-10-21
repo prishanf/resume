@@ -134,6 +134,7 @@
                             Channel
                           </a>
                           <a
+                            v-if="hasPdf(summary.pdfUrl)"
                             :href="summary.pdfUrl"
                             target="_blank"
                             rel="noopener noreferrer"
@@ -143,6 +144,7 @@
                             View PDF
                           </a>
                           <a
+                            v-if="hasPdf(summary.pdfUrl)"
                             :href="summary.pdfUrl"
                             :download="summary.title + '.pdf'"
                             class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-accent transition-colors"
@@ -243,6 +245,7 @@
                           <td class="py-3 px-4 align-top">
                             <div class="flex flex-wrap gap-2 items-center">
                               <a
+                                v-if="hasPdf(summary.pdfUrl)"
                                 :href="summary.pdfUrl"
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -252,6 +255,7 @@
                                 View
                               </a>
                               <a
+                                v-if="hasPdf(summary.pdfUrl)"
                                 :href="summary.pdfUrl"
                                 :download="summary.title + '.pdf'"
                                 class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-accent transition-colors"
@@ -488,18 +492,9 @@ const pageUrl = `${siteUrl}/book-summaries/`
 const pageTitle = 'Book Summaries | Productivity Game PDFs - Prishan Fernando'
 const pageDescription = 'Free PDF book summaries from Productivity Game by Nathan Lozeron. Browse and download summaries of best-selling books on productivity, leadership, and growth. Listen each morning and keep PDFs for reference.'
 
-useSeoMeta({
-  title: pageTitle,
-  description: pageDescription,
-  ogTitle: pageTitle,
-  ogDescription: pageDescription,
-  ogUrl: pageUrl,
-  ogType: 'website',
-  ogSiteName: 'Prishan Fernando',
-  twitterCard: 'summary_large_image',
-  twitterTitle: pageTitle,
-  twitterDescription: pageDescription,
-})
+function hasPdf(url) {
+  return typeof url === 'string' && /\.pdf($|\?)/i.test(url)
+}
 
 const structuredData = computed(() => {
   const list = summaries.value || []
@@ -527,7 +522,7 @@ const structuredData = computed(() => {
           name: s.title,
           description: s.description || `Book summary: ${s.title}`,
           author: { '@type': 'Person', name: s.author },
-          url: `${siteUrl}${s.pdfUrl}`,
+          url: hasPdf(s.pdfUrl) ? `${siteUrl}${s.pdfUrl}` : pageUrl,
         },
       })),
     }
@@ -535,17 +530,16 @@ const structuredData = computed(() => {
   return data
 })
 
-useHead(() => ({
+usePageSeo({
   title: pageTitle,
+  description: pageDescription,
+  jsonLd: structuredData
+})
+
+useHead(() => ({
   meta: [
-    { name: 'robots', content: 'index, follow,' },
-    { name: 'keywords', content: 'book summaries, PDF summaries, productivity books, leadership books, personal development, book notes, must read books, book recommendations,' },
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify(structuredData.value),
-    },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'keywords', content: 'book summaries, PDF summaries, productivity books, leadership books, personal development, book notes, must read books, book recommendations' },
   ],
 }))
 </script>

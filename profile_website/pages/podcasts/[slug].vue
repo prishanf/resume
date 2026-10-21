@@ -52,7 +52,15 @@
             <!-- Content -->
             <div class="lg:col-span-8">
               <div v-if="podcast.image" class="mb-16 -mx-4 sm:-mx-0">
-                <img :src="podcast.image" :alt="podcast.title" class="w-full h-auto rounded-3xl shadow-2xl object-cover aspect-video" />
+                <img
+                  :src="podcast.image"
+                  :alt="podcast.title"
+                  width="1200"
+                  height="675"
+                  fetchpriority="high"
+                  decoding="async"
+                  class="w-full h-auto rounded-3xl shadow-2xl object-cover aspect-video"
+                />
               </div>
   
               <div class="prose prose-lg prose-primary">
@@ -111,35 +119,14 @@
     console.error('Error fetching podcast:', error.value)
   }
   
-  const config = useRuntimeConfig()
-  const siteUrl = config.public.siteUrl?.replace(/\/$/, '') || 'https://prishanfernando.com'
-  
-  const absoluteImageUrl = computed(() => {
-    const img = podcast.value?.image
-    if (!img) return ''
-    if (img.startsWith('http://') || img.startsWith('https://')) return img
-    return img.startsWith('/') ? `${siteUrl}${img}` : `${siteUrl}/${img}`
-  })
-  
-  const absolutePageUrl = computed(() => {
-    const path = podcast.value?._path || route.path
-    return path.startsWith('http') ? path : `${siteUrl}${path.startsWith('/') ? path : `/${path}`}`
-  })
-  
-  useSeoMeta({
-    title: () => podcast.value?.title || 'Podcast - Prishan Fernando',
+  usePageSeo({
+    title: () => podcast.value?.title ? `${podcast.value.title} | Prishan Fernando` : 'Podcast | Prishan Fernando',
     description: () => podcast.value?.description || podcast.value?.excerpt || '',
-    ogTitle: () => podcast.value?.title || '',
-    ogDescription: () => podcast.value?.description || podcast.value?.excerpt || '',
-    ogImage: () => absoluteImageUrl.value,
-    ogUrl: () => absolutePageUrl.value,
-    ogType: 'article',
+    type: 'article',
+    image: () => podcast.value?.image,
     articleAuthor: 'Prishan Fernando',
-    articlePublishedTime: () => podcast.value?.date || '',
-    twitterCard: 'summary_large_image',
-    twitterTitle: () => podcast.value?.title || '',
-    twitterDescription: () => podcast.value?.description || podcast.value?.excerpt || '',
-    twitterImage: () => absoluteImageUrl.value
+    articlePublishedTime: () => podcast.value?.date,
+    articleModifiedTime: () => podcast.value?.updated || podcast.value?.date
   })
   
   const formatDate = (dateString) => {

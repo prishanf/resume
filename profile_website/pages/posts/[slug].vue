@@ -52,7 +52,15 @@
           <!-- Content -->
           <div class="lg:col-span-8">
             <div v-if="post.image" class="mb-16 -mx-4 sm:-mx-0">
-              <img :src="post.image" :alt="post.title" class="w-full h-auto rounded-3xl shadow-2xl object-cover aspect-video" />
+              <img
+                :src="post.image"
+                :alt="post.title"
+                width="1200"
+                height="675"
+                fetchpriority="high"
+                decoding="async"
+                class="w-full h-auto rounded-3xl shadow-2xl object-cover aspect-video"
+              />
             </div>
             
             <div class="prose prose-lg prose-primary">
@@ -119,36 +127,30 @@ if (error.value) {
   console.error('Error fetching post:', error.value)
 }
 
+import { blogPostingJsonLd } from '~/utils/seo'
+
 const config = useRuntimeConfig()
-const siteUrl = config.public.siteUrl?.replace(/\/$/, '') || 'https://prishanfernando.com'
+const siteUrl = config.public.siteUrl
 
-const absoluteImageUrl = computed(() => {
-  const img = post.value?.image
-  if (!img) return ''
-  if (img.startsWith('http://') || img.startsWith('https://')) return img
-  return img.startsWith('/') ? `${siteUrl}${img}` : `${siteUrl}/${img}`
-})
-
-const absolutePageUrl = computed(() => {
-  const path = post.value?._path || route.path
-  return path.startsWith('http') ? path : `${siteUrl}${path.startsWith('/') ? path : `/${path}`}`
-})
-
-// Use useSeoMeta for proper SSR support - social crawlers need server-rendered meta tags
-useSeoMeta({
-  title: () => post.value?.title || 'Post - Prishan Fernando',
+usePageSeo({
+  title: () => post.value?.title ? `${post.value.title} | Prishan Fernando` : 'Post | Prishan Fernando',
   description: () => post.value?.description || post.value?.excerpt || '',
-  ogTitle: () => post.value?.title || '',
-  ogDescription: () => post.value?.description || post.value?.excerpt || '',
-  ogImage: () => absoluteImageUrl.value,
-  ogUrl: () => absolutePageUrl.value,
-  ogType: 'article',
+  type: 'article',
+  image: () => post.value?.image,
   articleAuthor: 'Prishan Fernando',
-  articlePublishedTime: () => post.value?.date || '',
-  twitterCard: 'summary_large_image',
-  twitterTitle: () => post.value?.title || '',
-  twitterDescription: () => post.value?.description || post.value?.excerpt || '',
-  twitterImage: () => absoluteImageUrl.value
+  articlePublishedTime: () => post.value?.date,
+  articleModifiedTime: () => post.value?.updated || post.value?.date,
+  jsonLd: () => post.value
+    ? blogPostingJsonLd({
+        siteUrl,
+        headline: post.value.title,
+        description: post.value.description || post.value.excerpt,
+        datePublished: post.value.date,
+        dateModified: post.value.updated || post.value.date,
+        path: post.value._path || route.path,
+        image: post.value.image
+      })
+    : undefined
 })
 
 const formatDate = (dateString) => {

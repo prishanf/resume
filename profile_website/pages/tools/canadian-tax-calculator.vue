@@ -238,6 +238,11 @@
 </template>
 
 <script setup>
+usePageSeo({
+  title: 'Canadian Tax Calculator | Prishan Fernando',
+  description: 'Estimate Canadian federal and provincial income tax by year. Salary, interest, dividends, capital gains, rental income, RRSP deductions, and scenario comparison.'
+})
+
 import { ref, computed } from 'vue'
 import {
   ArrowLeftIcon,

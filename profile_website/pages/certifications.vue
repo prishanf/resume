@@ -83,7 +83,7 @@
         <div class="mt-32 pt-24 border-t border-gray-100">
           <div class="max-w-4xl">
             <div class="prose prose-lg prose-primary max-w-none">
-              <ContentDoc />
+              <ContentDoc :head="false" />
             </div>
           </div>
         </div>
@@ -105,11 +105,9 @@ const salesforceCount = computed(() => {
   return allCerts.value.filter(c => c.issuer?.toLowerCase().includes('salesforce')).length
 })
 
-useHead({
-  title: certifications.value?.title ? `${certifications.value.title} - Prishan Fernando` : 'Certifications - Prishan Fernando',
-  meta: [
-    { name: 'description', content: certifications.value?.description || 'Professional certifications and credentials' }
-  ]
+usePageSeo({
+  title: 'Salesforce Certifications | Prishan Fernando',
+  description: 'Salesforce certifications including AI Associate (Agentforce), Experience Cloud Consultant, and 12+ credentials across the Salesforce and cloud ecosystem.'
 })
 </script>
 

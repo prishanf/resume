@@ -10,9 +10,9 @@ published: true
 
 # Canadian Income, RRSP, and Tax Strategies
 
-How is income taxed in Canada? When does an RRSP help—and when should you skip it? How do employment income, capital gains, and preferred vs non-preferred dividends compare for the same dollar amount? This article walks through how Canadian income and tax work, then shows you how to use the **[Canadian Tax Calculator](/tools/canadian-tax-calculator)** to experiment with different income mixes and strategies.
+How is income taxed in Canada? When does an RRSP help—and when should you skip it? How do employment income, capital gains, and preferred vs non-preferred dividends compare for the same dollar amount? This article walks through how Canadian income and tax work, then shows you how to use the **[Canadian Tax Calculator](/tools/canadian-tax-calculator/)** to experiment with different income mixes and strategies.
 
-**→ Use the [Canadian Tax Calculator](/tools/canadian-tax-calculator) to run your own numbers, compare scenarios, and see how RRSP and income type change your take-home.**
+**→ Use the [Canadian Tax Calculator](/tools/canadian-tax-calculator/) to run your own numbers, compare scenarios, and see how RRSP and income type change your take-home.**
 
 ---
 
@@ -95,7 +95,7 @@ For the same **total dollar amount** of income, your after-tax take-home and eff
 
 ### Example comparison tables: same total income, different type
 
-The tables below show **take-home**, **total tax + CPP + EI**, and **effective rate** when the same total income is received entirely as one type. All figures are **Ontario, 2025** (as in the [Canadian Tax Calculator](/tools/canadian-tax-calculator)). Notice how employment income is hit hardest (full tax plus CPP/EI), while eligible dividends often have the lowest effective rate.
+The tables below show **take-home**, **total tax + CPP + EI**, and **effective rate** when the same total income is received entirely as one type. All figures are **Ontario, 2025** (as in the [Canadian Tax Calculator](/tools/canadian-tax-calculator/)). Notice how employment income is hit hardest (full tax plus CPP/EI), while eligible dividends often have the lowest effective rate.
 
 **$50,000 total income**
 
@@ -153,7 +153,7 @@ At **$50K**, eligible dividends can have almost no tax (dividend credits offset 
 
 ## Income Options Supported in the Calculator
 
-The [Canadian Tax Calculator](/tools/canadian-tax-calculator) lets you enter amounts for each of these sources. They are combined into total income; taxable income is computed using CRA-style rules (gross-ups and inclusion rates); then federal and provincial tax, plus CPP and EI where applicable, are estimated.
+The [Canadian Tax Calculator](/tools/canadian-tax-calculator/) lets you enter amounts for each of these sources. They are combined into total income; taxable income is computed using CRA-style rules (gross-ups and inclusion rates); then federal and provincial tax, plus CPP and EI where applicable, are estimated.
 
 | Income type | How it’s treated |
 |------------|-------------------|

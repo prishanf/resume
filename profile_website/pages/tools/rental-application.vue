@@ -630,9 +630,9 @@ import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { reactive, ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import ResidenceBlock from '~/components/tools/ResidenceBlock.vue'
 
-useSeoMeta({
-  title: 'Rental Application - Tools - Prishan Fernando',
-  description: 'Multi-step residential rental application form. Save progress in browser and generate a PDF when complete.'
+usePageSeo({
+  title: 'Rental Application | Prishan Fernando',
+  description: 'Multi-step residential rental application. Progress is saved in your browser; generate a PDF when the form is complete.'
 })
 
 const STORAGE_KEY = 'rentalApplicationProgress'

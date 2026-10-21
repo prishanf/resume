@@ -8,46 +8,35 @@ recommendations:
     title: "Senior Director"
 
   - quote: "My People Leader, Prishan, is a true 'people first' leader. He makes me feel empowered and cares about my growth. I can openly discuss any concerns I have. He has been a tremendous booster of my growth and career. Prishan provides us with a vision of what the future will look like and encourages us to explore."
-    author: "Brad Jackson"
-    title: "CEO Slalom"  
+    author: "Slalom colleague"
 
-  - quote: "Prishan is not only a Technical Guru but an exceptional leader and mentor. He guides,   encourages and provides the right platform for his team members to learn and grow. Additionally, he spends significant amount of time coaching and upskilling his team members. Prishan is a technology enthusiast and is always keen to talk about the latest trends and even goes a step further to build amazing solutions, for real life use cases, using latest tools/technologies.Working with Prishan is not just super fun but also learning & growing professionally and personally every single day! Thank you Prishan for all that you do."
+  - quote: "Prishan is not only a Technical Guru but an exceptional leader and mentor. He guides, encourages and provides the right platform for his team members to learn and grow. Additionally, he spends significant amount of time coaching and upskilling his team members. Prishan is a technology enthusiast and is always keen to talk about the latest trends and even goes a step further to build amazing solutions, for real life use cases, using latest tools/technologies. Working with Prishan is not just super fun but also learning & growing professionally and personally every single day! Thank you Prishan for all that you do."
     author: "Vsav Pathak"
     title: "Senior Manager"
 
-
-  
   - quote: "A wonderful leader and a true mentor… depth of technical knowledge is huge, and he manages to break complex solutions into easily understandable concepts."
-    author: "Team feedback"
-    title: "2024 review"
- 
-
+    author: "Colleague"
 
   - quote: "My People Leader, Prishan, has a team of around 10-13 people, including my team. Since 2023, we have aligned that we want to do something about our team culture and connect us together. I appreciate Prishan's efforts to hold recurring leadership meetings and create opportunities and events for our team members to gather and connect. It has made our team better, run smoother, and get to know each other. Thank you for encouraging our team members to adapt, grow, and reinvent themselves. You are paving the way for a brighter future"
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+    author: "Slalom colleague"
 
   - quote: "Prishan has consistently encouraged me to step outside of my technical comfort zone, motivating me to take on responsibilities beyond just technical tasks. He has inspired me to focus on improving my presentation and communication skills, knowing that real growth comes from applying them in real-world scenarios. As a leader, he demonstrates genuine care for both his team and the work we do, setting an example that inspires the entire team to be more invested and strive for greater results. Thank you for leading the way for others."
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+    author: "Slalom colleague"
 
   - quote: "Prishan brought me over to Slalom. He is very person-oriented and treats us as capable equals, not as employees. He pushes us to learn new things, at and out of work! I am truly inspired to learn of the impact you are making. Thank you for helping us dream bigger, move faster, and build better tomorrows for all."
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+    author: "Slalom colleague"
 
   - quote: "Prishan Fernando is an inspirational leader. Prishan Fernando is always ready to help, give all sorts of guidance we need, and share knowledge with the team to help us grow. Thank you for all you do to help our colleagues dream bigger, move faster, and build better tomorrows for all."
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+    author: "Slalom colleague"
 
   - quote: "Prishan Fernando is the perfect amount of nerd, and I mean that in the nicest way. He translated tech beautifully. Thank you for bringing more and driving outstanding outcomes for our clients."
     author: "Morgan Cartier"
     title: "Fraser Health Authority"
 
   - quote: "Prishan Fernando's mentorship and friendship has been great. Thank you to Prishan Fernando for all assistance and support provided to me since I started to work for Slalom. You have made a significant difference in my career. The advice and feedback provided by you have been invaluable in helping me to be a better Business Analyst. I am inspired by reading this thoughtful feedback about you. Thank you for all that you do to create better tomorrows for others."
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+    author: "Slalom colleague"
 
-  - quote: "Prishan - I wanted to take some time to acknowledge your hard work and efforts that were put towards the Investors Group Secure File Exchange project over the past few months. This was a short but impactful engagement where we delivered a piece of key functionality which we know will be helpful to both Investors Group’s clients and advisors. Your ability to explain to clients in laymens terms how our solution will look like in the future state has been key to obtaining buy in and sign off from our PO’s. Your ability to lead the team in terms of guiding the overall technical design of the file exchange has been instrumental in the dev team’s ability to quickly complete user stories assigned to them. I hope we get the chance to work together again in the future!"
+  - quote: "Prishan - I wanted to take some time to acknowledge your hard work and efforts that were put towards the IG Wealth Management Secure File Exchange project over the past few months. This was a short but impactful engagement where we delivered a piece of key functionality which we know will be helpful to both IG Wealth Management’s clients and advisors. Your ability to explain to clients in laymens terms how our solution will look like in the future state has been key to obtaining buy in and sign off from our PO’s. Your ability to lead the team in terms of guiding the overall technical design of the file exchange has been instrumental in the dev team’s ability to quickly complete user stories assigned to them. I hope we get the chance to work together again in the future!"
     author: "Simran Saini"
 
   - quote: "Hi Prishan, It is almost end of year and I wanted to take a moment to express my gratitude for your support and encouragement. Your kindness and knowledge have been invaluable to me, and I appreciate how much you believe in me and my abilities. Your guidance has helped me grow both personally and professionally, and I am grateful for the opportunities you have given me at Slalom (specially as a BA in your project - REM). Thank you again for all that you do. Cheers!"
@@ -72,12 +61,10 @@ recommendations:
     author: "Vaishali Kaushik"
 
   - quote: "Prishan Fernando is always there for everyone. He provides all sorts of guidance for a career, like what path to take and what not. It helps a lot. My People Leader, Prishan Fernando, has been a huge influence in shaping who I am and I've learned a ton from him both personally and professionally. He has also been very supportive in all my career decisions and is the best leader I ever hoped for. Thank you for all you do to help our colleagues dream bigger, move faster, and build better tomorrows for all."
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+    author: "Slalom colleague"
 
   - quote: "I would like to recognize my People Leader, Prishan Fernando. He is a great mentor and humble person. He has always come forward for help and supported me whenever I needed it. Prishan Fernando is an amazing leader. I'd like to recognize both my People Leader Samy Saied as well as Prishan Fernando. Both have been instrumental in helping me grow as a leader - growing my expertise both in people management and technical delivery. Prishan Fernando has made the difference for me. He's the reason I came to Slalom, and he continues to impress me and show me I've made a fantastic decision every single day. I am truly inspired to learn of the impact you are making. Thank you for helping us dream bigger, move faster, and build better tomorrows for all."
-    author: "Brad Jackson"
-    title: "CEO Slalom"
+    author: "Slalom colleague"
 
   - quote: "Prishan, it was amazing to work with you on FusionX. This project would have literally been impossible without you. Whenever things fell apart, we would go to you to guide us through it because you always had an answer / solution for everything... Thank you for being so present and available and always willing to help even when you had 100 other things on your plate. I hope we will get to work together in the future :)"
     author: "Melika Javidpour"

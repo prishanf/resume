@@ -13,22 +13,22 @@
           <h4 class="text-white font-semibold mb-4">Quick Links</h4>
           <ul class="space-y-2 text-sm">
             <li>
-              <NuxtLink to="/about" class="hover:text-accent transition-colors">About</NuxtLink>
+              <NuxtLink to="/about/" class="hover:text-accent transition-colors">About</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/experience" class="hover:text-accent transition-colors">Experience</NuxtLink>
+              <NuxtLink to="/experience/" class="hover:text-accent transition-colors">Experience</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/education" class="hover:text-accent transition-colors">Education</NuxtLink>
+              <NuxtLink to="/education/" class="hover:text-accent transition-colors">Education</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/certifications" class="hover:text-accent transition-colors">Certifications</NuxtLink>
+              <NuxtLink to="/certifications/" class="hover:text-accent transition-colors">Certifications</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/posts" class="hover:text-accent transition-colors">Posts</NuxtLink>
+              <NuxtLink to="/posts/" class="hover:text-accent transition-colors">Posts</NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/podcasts" class="hover:text-accent transition-colors">Podcasts</NuxtLink>
+              <NuxtLink to="/podcasts/" class="hover:text-accent transition-colors">Podcasts</NuxtLink>
             </li>
             <li>
               <a href="/resume.pdf" download class="hover:text-accent transition-colors">Resume (PDF)</a>
@@ -37,8 +37,8 @@
         </div>
         
         <div>
-          <h4 class="text-white font-semibold mb-4">Connect</h4>
-          <div class="flex space-x-4">
+          <LayoutGetInTouch />
+          <div class="flex space-x-4 mt-6">
             <a
               href="https://www.linkedin.com/in/prishanf"
               target="_blank"
