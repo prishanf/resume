@@ -87,13 +87,13 @@
             <div class="w-12 h-12 bg-primary text-white rounded-xl flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
               <component :is="problem.icon" class="w-6 h-6" />
             </div>
-            <h4 class="text-lg font-bold text-primary mb-3">{{ problem.title }}</h4>
+            <h4 class="text-lg font-bold text-primary-ink mb-3">{{ problem.title }}</h4>
             <p class="text-sm text-gray-600 leading-relaxed mb-6 flex-1">{{ problem.description }}</p>
             <div class="flex flex-col gap-2 text-sm font-bold">
-              <NuxtLink :to="problem.expertiseHref" class="text-primary hover:text-accent transition-colors">
+              <NuxtLink :to="problem.expertiseHref" class="text-primary-ink hover:text-accent-ink transition-colors">
                 {{ problem.expertiseLabel }} →
               </NuxtLink>
-              <NuxtLink :to="problem.postHref" class="text-gray-500 hover:text-primary transition-colors">
+              <NuxtLink :to="problem.postHref" class="text-gray-600 hover:text-primary-ink transition-colors">
                 {{ problem.postLabel }} →
               </NuxtLink>
             </div>
@@ -110,7 +110,7 @@
             <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Featured insights</h2>
             <h3 class="text-4xl md:text-5xl font-bold text-primary">Writing on AI, automation, and experiments.</h3>
           </div>
-          <NuxtLink to="/posts/" class="text-sm font-bold uppercase tracking-widest text-primary hover:text-accent">
+          <NuxtLink to="/posts/" class="text-sm font-bold uppercase tracking-widest text-primary-ink hover:text-accent-ink">
             All insights →
           </NuxtLink>
         </div>
@@ -155,11 +155,11 @@
           <span
             v-for="cert in featuredCertifications"
             :key="cert.name"
-            class="px-3 py-1.5 bg-inverse text-sm font-medium text-primary rounded-full border border-gray-100"
+            class="px-3 py-1.5 bg-inverse text-sm font-medium text-primary-ink rounded-full border border-gray-100"
           >
             {{ cert.name }}
           </span>
-          <NuxtLink to="/certifications/" class="px-3 py-1.5 text-sm font-bold text-accent hover:text-primary">
+          <NuxtLink to="/certifications/" class="px-3 py-1.5 text-sm font-bold text-accent-ink hover:text-primary-ink">
             All credentials →
           </NuxtLink>
         </div>
@@ -172,8 +172,8 @@
           >
             <p class="text-gray-700 italic leading-relaxed mb-6">“{{ rec.quote }}”</p>
             <footer>
-              <p class="font-bold text-primary">{{ rec.author }}</p>
-              <p v-if="rec.title" class="text-sm text-gray-500 mt-1">{{ rec.title }}</p>
+              <p class="font-bold text-primary-ink">{{ rec.author }}</p>
+              <p v-if="rec.title" class="text-sm text-gray-600 mt-1">{{ rec.title }}</p>
             </footer>
           </blockquote>
         </div>
@@ -200,7 +200,7 @@
             <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Tools</h2>
             <h3 class="text-4xl md:text-5xl font-bold text-primary">Free Canadian finance calculators</h3>
           </div>
-          <NuxtLink to="/tools/" class="text-sm font-bold uppercase tracking-widest text-primary hover:text-accent">
+          <NuxtLink to="/tools/" class="text-sm font-bold uppercase tracking-widest text-primary-ink hover:text-accent-ink">
             All tools →
           </NuxtLink>
         </div>
