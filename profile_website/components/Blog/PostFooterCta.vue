@@ -2,7 +2,7 @@
   <section class="mt-16 pt-12 border-t border-gray-100 space-y-10">
     <div class="rounded-2xl border border-primary/15 bg-white p-6 sm:p-8">
       <p class="text-lg text-gray-800 leading-relaxed">
-        Have an Agentforce, integration or AI challenge?
+        Have a business problem AI could solve?
         <a
           :href="LINKEDIN_PROFILE_URL"
           target="_blank"

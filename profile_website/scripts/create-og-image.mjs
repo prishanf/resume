@@ -37,7 +37,7 @@ const svg = Buffer.from(`
   <rect x="72" y="86" width="1056" height="458" rx="28" fill="#EAE3CB"/>
   <text x="470" y="250" font-family="Inter, DejaVu Sans, sans-serif" font-size="56" font-weight="700" fill="#627A5B">Prishan Fernando</text>
   <rect x="470" y="278" width="120" height="6" rx="3" fill="#E8C16D"/>
-  <text x="470" y="348" font-family="Inter, DejaVu Sans, sans-serif" font-size="22" font-weight="500" fill="#4F6848">Salesforce &amp; Agentforce Architect · Vancouver, BC</text>
+  <text x="470" y="348" font-family="Inter, DejaVu Sans, sans-serif" font-size="22" font-weight="500" fill="#4F6848">AI Solutions Architect &amp; Builder · Vancouver, BC</text>
 </svg>
 `)
 
