@@ -457,6 +457,7 @@
 <script setup>
 import { h, defineComponent } from 'vue'
 import { ArrowLeftIcon, CalendarIcon, BanknotesIcon, ChartBarIcon, ClockIcon } from '@heroicons/vue/24/outline'
+import { canonicalUrl } from '~/utils/canonical'
 import { Bar, Line } from 'vue-chartjs'
 import {
   Chart as ChartJS,
@@ -815,5 +816,19 @@ const MortgageBalanceChart = defineComponent({
 usePageSeo({
   title: 'Mortgage Calculator (draft) | Prishan Fernando',
   description: 'Calculate mortgage payments, amortization, and savings with extra principal. Compare up to three scenarios with charts and term summary.'
+})
+
+const copySeoConfig = useRuntimeConfig()
+useSeoMeta({
+  robots: 'noindex'
+})
+useHead({
+  link: [
+    {
+      key: 'canonical',
+      rel: 'canonical',
+      href: canonicalUrl(copySeoConfig.public.siteUrl, '/tools/mortgage-calculator')
+    }
+  ]
 })
 </script>

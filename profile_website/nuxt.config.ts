@@ -21,6 +21,12 @@ export default defineNuxtConfig({
     '@nuxtjs/google-fonts'
   ],
 
+  // main.css already includes @tailwind; the module default also injects
+  // tailwind.css, which inlined ~50KB of CSS twice and inflated mobile LCP.
+  tailwindcss: {
+    cssPath: '~/assets/css/main.css'
+  },
+
   googleFonts: {
     families: {
       Inter: [400, 500, 600, 700]

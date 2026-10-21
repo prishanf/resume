@@ -3,17 +3,17 @@
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-br from-white via-inverse to-secondary/10 py-12 overflow-hidden">
       <div class="absolute inset-0 bg-grid-pattern opacity-[0.03]"></div>
-      <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-      <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+      <div class="hidden lg:block absolute -top-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+      <div class="hidden lg:block absolute -bottom-24 -left-24 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
       
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div class="lg:col-span-7">
             <p class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-6">Vancouver, BC</p>
-            <h1 class="text-5xl md:text-7xl font-black text-primary mb-6 tracking-tighter leading-[0.95]">
+            <h1 class="text-5xl md:text-7xl font-bold text-primary mb-6 tracking-tighter leading-[0.95]">
               Prishan Fernando
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl font-medium leading-relaxed">
+            <p class="text-lg md:text-2xl text-gray-600 mb-10 max-w-2xl font-medium leading-relaxed">
               Salesforce &amp; Agentforce architect helping teams ship AI and integrations that work.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 items-start">
@@ -35,15 +35,34 @@
             </div>
           </div>
           <div class="lg:col-span-5">
-            <img
-              src="/images/posts/me.jpg"
-              alt="Prishan Fernando"
-              width="480"
-              height="538"
-              fetchpriority="high"
-              decoding="async"
-              class="w-full max-w-sm mx-auto lg:ml-auto rounded-3xl object-cover shadow-2xl shadow-primary/10 border border-white"
-            />
+            <picture>
+              <source
+                media="(min-width: 1024px)"
+                type="image/avif"
+                srcset="/images/posts/me-640.avif"
+              />
+              <source
+                media="(min-width: 1024px)"
+                type="image/webp"
+                srcset="/images/posts/me-640.webp"
+              />
+              <source
+                media="(min-width: 1024px)"
+                type="image/jpeg"
+                srcset="/images/posts/me-640.jpg"
+              />
+              <source type="image/avif" srcset="/images/posts/me-384.avif" />
+              <source type="image/webp" srcset="/images/posts/me-384.webp" />
+              <img
+                src="/images/posts/me-384.jpg"
+                width="384"
+                height="430"
+                alt="Prishan Fernando"
+                fetchpriority="high"
+                decoding="async"
+                class="w-36 h-36 mx-auto rounded-full object-cover shadow-md lg:w-full lg:h-auto lg:max-w-sm lg:ml-auto lg:rounded-3xl lg:shadow-2xl shadow-primary/10 border border-white"
+              />
+            </picture>
           </div>
         </div>
       </div>
@@ -365,12 +384,6 @@ function postWithoutRemoteImage (post) {
 
 const seoConfig = useRuntimeConfig()
 const siteUrl = seoConfig.public.siteUrl
-
-useHead({
-  link: [
-    { rel: 'preload', as: 'image', href: '/images/posts/me.jpg', fetchpriority: 'high' }
-  ]
-})
 
 usePageSeo({
   title: 'Prishan Fernando — Salesforce & Agentforce Architect',

@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+  <header class="sticky top-0 z-50 bg-white/95 border-b border-gray-200">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-16">
         <NuxtLink to="/" class="flex items-center space-x-2 min-w-0">
@@ -9,22 +9,30 @@
         
         <div class="hidden lg:flex items-center space-x-6">
           <template v-for="item in navigation" :key="item.name">
-            <!-- Item with submenu -->
+            <!-- Item with submenu: button toggle (crawlable links live in the menu) -->
             <div v-if="item.children?.length" class="relative group">
-              <NuxtLink
-                :to="item.href"
-                class="flex items-center whitespace-nowrap text-gray-700 hover:text-primary transition-colors duration-200 font-medium text-sm"
+              <button
+                type="button"
+                class="flex items-center whitespace-nowrap text-gray-700 hover:text-primary transition-colors duration-200 font-medium text-sm bg-transparent p-0 cursor-pointer"
                 :class="{ 'text-primary': isGroupActive(item) }"
+                :aria-expanded="openMenu === item.name"
+                aria-haspopup="true"
+                :aria-controls="`nav-menu-${item.name}`"
+                @click="openMenu = openMenu === item.name ? null : item.name"
               >
                 {{ item.name }}
-                <ChevronDownIcon class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180" />
-              </NuxtLink>
-              <div class="absolute left-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                <ChevronDownIcon class="w-4 h-4 ml-1 transition-transform group-hover:rotate-180 group-focus-within:rotate-180" />
+              </button>
+              <div
+                :id="`nav-menu-${item.name}`"
+                class="absolute left-0 top-full pt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200"
+                :class="{ '!opacity-100 !visible': openMenu === item.name }"
+              >
                 <div class="py-2 rounded-lg bg-white border border-gray-100 shadow-lg min-w-[220px]">
                   <template v-for="child in item.children" :key="child.name">
                     <a
                       v-if="child.download"
-                      :href="child.href"
+                      :href="hrefPath(child.href)"
                       download
                       class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary rounded-md mx-1"
                     >
@@ -64,6 +72,7 @@
         </div>
         
         <button
+          type="button"
           @click="mobileMenuOpen = !mobileMenuOpen"
           class="lg:hidden p-2 rounded-md text-gray-700 hover:text-primary focus:outline-none"
           aria-label="Toggle menu"
@@ -93,7 +102,7 @@
               <template v-for="child in item.children" :key="child.name">
                 <a
                   v-if="child.download"
-                  :href="child.href"
+                  :href="hrefPath(child.href)"
                   download
                   class="flex items-center px-3 py-2 rounded-md text-gray-600 hover:bg-secondary transition-colors text-sm"
                   @click="mobileMenuOpen = false"
@@ -102,7 +111,7 @@
                   {{ child.name }}
                 </a>
                 <NuxtLink
-                  v-else
+                  v-else-if="child.href !== item.href"
                   :to="child.href"
                   class="block px-3 py-2 rounded-md text-gray-600 hover:bg-secondary transition-colors text-sm"
                   @click="mobileMenuOpen = false"
@@ -142,6 +151,7 @@ import { LINKEDIN_PROFILE_URL } from '~/utils/seo'
 
 const route = useRoute()
 const mobileMenuOpen = ref(false)
+const openMenu = ref(null)
 const linkedinUrl = LINKEDIN_PROFILE_URL
 
 const navigation = [
@@ -152,6 +162,7 @@ const navigation = [
     name: 'Tools',
     href: '/tools/',
     children: [
+      { name: 'All tools', href: '/tools/' },
       { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator/' },
       { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator/' },
       { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator/' },
@@ -164,6 +175,7 @@ const navigation = [
     name: 'About',
     href: '/about/',
     children: [
+      { name: 'About', href: '/about/' },
       { name: 'Experience', href: '/experience/' },
       { name: 'Education', href: '/education/' },
       { name: 'Certifications', href: '/certifications/' },
@@ -175,6 +187,11 @@ const navigation = [
     ]
   }
 ]
+
+watch(() => route.fullPath, () => {
+  openMenu.value = null
+  mobileMenuOpen.value = false
+})
 
 function hrefPath(href) {
   if (!href) return ''
