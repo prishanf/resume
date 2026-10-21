@@ -13,7 +13,7 @@ description: Director of Global Salesforce at Slalom. Career history spanning en
 
 **Strategic Leadership & Practice Growth**
 - **Scaled the Practice**: Grew the Salesforce technical team from the ground up to **11+ members** in the first year, conducting **33+ technical interviews** to maintain a high talent bar.
-- **"People First" Mentorship**: Recognized as a leader who sees "unrealized potential," fostering a culture where interns evolve into architects. Initiated internal projects (e.g., Real Estate Management app) to keep bench resources engaged and upskilled.
+- **"People First" Mentorship**: Recognized as a leader who sees "unrealized potential," fostering a culture where interns evolve into architects. Initiated internal projects (e.g., Real Estate Management app) so colleagues between client engagements stayed engaged and upskilled.
 - **Sales Enablement**: Partnered with sales teams to secure major wins, including leading the discovery for a **$4M+ Quote-to-Cash engagement** at MSI.
 
 **Enterprise Architecture & Complex Delivery**
@@ -39,7 +39,7 @@ description: Director of Global Salesforce at Slalom. Career history spanning en
 
 - **Strategic Leadership**: Led and provided vision for a department of **35+ team members**, growing a highly skilled development team from the ground up.
 - **Talent Development**: Ran Salesforce training cohorts to provide hands-on experience; championed a culture of growth where interns evolved into respected leaders.
-- **Project Oversight**: Managed delivery across all development projects, overseeing utilization targets, employee engagement, and technical quality.
+- **Project Oversight**: Managed delivery across all development projects, overseeing employee engagement and technical quality.
 - **Scale & Complexity**: Successfully delivered large-volume implementations with **200K+ users**, handling complex data strategies and high-traffic environments.
 - **Hiring & Mentorship**: Conducted technical interviews to identify unrealized potential; recognized for fostering a supportive environment ("Live and Learn") that lifted individuals to greater heights.
 

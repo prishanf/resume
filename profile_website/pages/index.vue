@@ -273,54 +273,6 @@ function extractTextFromElement(element) {
   return ''
 }
 
-// The data for the cards is now stored in profile_website/content/summary-cards.md:
-// ---
-// cards:
-//   - title: "Experience"
-//     description: "20+ years in software development, 12+ years in Salesforce architecture"
-//     icon: "BriefcaseIcon"
-//     metrics:
-//       - value: "20+"
-//         label: "Years Experience"
-//       - value: "12+"
-//         label: "Years Salesforce"
-//     link: "/experience"
-//   - title: "Leadership"
-//     description: "Built high-performing teams and conducted 100+ interviews"
-//     icon: "UserGroupIcon"
-//     metrics:
-//       - value: "100+"
-//         label: "Interviews Conducted"
-//     link: "/about"
-//   - title: "AI Innovation"
-//     description: "Pioneered AI-assisted frameworks reducing effort by 70%"
-//     icon: "SparklesIcon"
-//     metrics:
-//       - value: "70%"
-//         label: "Effort Reduction"
-//     link: "/about"
-//   - title: "Certifications"
-//     description: "12+ Salesforce certifications including AI Associate and Experience Cloud"
-//     icon: "TrophyIcon"
-//     metrics:
-//       - value: "12+"
-//         label: "Certifications"
-//     link: "/certifications"
-//   - title: "Utilization"
-//     description: "Consistently exceeding targets with 93% average utilization"
-//     icon: "ChartBarIcon"
-//     metrics:
-//       - value: "93%"
-//         label: "Average Utilization"
-//       - value: "115%"
-//         label: "Peak Utilization"
-//     link: "/experience"
-//   - title: "Education"
-//     description: "BSc in Computer Science from Minnesota State University"
-//     icon: "AcademicCapIcon"
-//     link: "/education"
-// ---
-
 // Load recommendations from content/recommendations.md so they can be managed via content
 const { data: recommendationsContent } = await useAsyncData('recommendations', () =>
   queryContent('/recommendations').findOne()
