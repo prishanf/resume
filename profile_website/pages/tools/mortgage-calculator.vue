@@ -76,28 +76,28 @@
             <div class="p-6 space-y-5">
               <div class="space-y-4">
                 <div>
-                  <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Mortgage Amount</label>
+                  <label for="mortgage-amount" class="block text-xs font-bold text-gray-500 uppercase mb-1">Mortgage Amount</label>
                   <div class="relative">
                     <span class="absolute left-3 top-2.5 text-gray-400">$</span>
-                    <input v-model.number="activeScenario.amount" type="number" class="w-full pl-7 pr-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
+                    <input id="mortgage-amount" v-model.number="activeScenario.amount" type="number" class="w-full pl-7 pr-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
                   </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Rate (%)</label>
-                    <input v-model.number="activeScenario.ratePct" type="number" step="0.1" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
+                    <label for="mortgage-rate" class="block text-xs font-bold text-gray-500 uppercase mb-1">Rate (%)</label>
+                    <input id="mortgage-rate" v-model.number="activeScenario.ratePct" type="number" step="0.1" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
                   </div>
                   <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Amortization (yr)</label>
-                    <input v-model.number="activeScenario.amortYears" type="number" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
+                    <label for="mortgage-amort" class="block text-xs font-bold text-gray-500 uppercase mb-1">Amortization (yr)</label>
+                    <input id="mortgage-amort" v-model.number="activeScenario.amortYears" type="number" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold" />
                   </div>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Term (yr)</label>
-                    <select v-model.number="activeScenario.termYears" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold">
+                    <label for="mortgage-term" class="block text-xs font-bold text-gray-500 uppercase mb-1">Term (yr)</label>
+                    <select id="mortgage-term" v-model.number="activeScenario.termYears" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold">
                       <option :value="3">3</option>
                       <option :value="4">4</option>
                       <option :value="5">5</option>
@@ -106,8 +106,8 @@
                     </select>
                   </div>
                   <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Frequency</label>
-                  <select v-model="activeScenario.paymentFreq" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold">
+                    <label for="mortgage-freq" class="block text-xs font-bold text-gray-500 uppercase mb-1">Frequency</label>
+                  <select id="mortgage-freq" v-model="activeScenario.paymentFreq" class="w-full px-4 py-2.5 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-semibold">
                     <option value="monthly">Monthly</option>
                     <option value="biweekly">Bi-weekly</option>
                     <option value="weekly">Weekly</option>
@@ -121,12 +121,12 @@
                 </button>
                 <div v-if="showTaxes" class="mt-4 grid grid-cols-2 gap-4">
                   <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Annual Tax</label>
-                    <input v-model.number="activeScenario.annualTax" type="number" class="w-full px-3 py-2 bg-gray-50 border-none rounded-lg text-sm" />
+                    <label for="mortgage-annual-tax" class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Annual Tax</label>
+                    <input id="mortgage-annual-tax" v-model.number="activeScenario.annualTax" type="number" class="w-full px-3 py-2 bg-gray-50 border-none rounded-lg text-sm" />
                   </div>
                   <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Annual Ins.</label>
-                    <input v-model.number="activeScenario.annualIns" type="number" class="w-full px-3 py-2 bg-gray-50 border-none rounded-lg text-sm" />
+                    <label for="mortgage-annual-ins" class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Annual Ins.</label>
+                    <input id="mortgage-annual-ins" v-model.number="activeScenario.annualIns" type="number" class="w-full px-3 py-2 bg-gray-50 border-none rounded-lg text-sm" />
                   </div>
                 </div>
               </div>
@@ -135,10 +135,10 @@
                 <h3 class="text-sm font-bold text-accent mb-4 pt-4">Acceleration Strategy</h3>
                 <div class="space-y-4">
                   <div class="flex items-center justify-between">
-                    <label class="text-xs font-semibold text-gray-600">Extra Amount</label>
-                    <input v-model.number="activeScenario.extraAmount" type="number" class="w-24 px-2 py-1 bg-white border border-accent/20 rounded text-right font-bold text-accent" />
+                    <label for="mortgage-extra-amount" class="text-xs font-semibold text-gray-600">Extra Amount</label>
+                    <input id="mortgage-extra-amount" v-model.number="activeScenario.extraAmount" type="number" class="w-24 px-2 py-1 bg-white border border-accent/20 rounded text-right font-bold text-accent" />
                   </div>
-                  <input type="range" v-model.number="activeScenario.extraAmount" min="0" max="5000" step="50" class="w-full accent-accent" />
+                  <input type="range" v-model.number="activeScenario.extraAmount" min="0" max="5000" step="50" class="w-full accent-accent" aria-label="Extra Amount" />
                   
                   <div class="flex justify-between items-center text-xs text-gray-500">
                     <span>Freq: {{ activeScenario.extraFreq }}</span>
@@ -294,8 +294,8 @@
              <div class="p-6 pt-0">
                 <div class="flex items-center gap-4 mb-6">
                   <div class="flex-1">
-                    <label class="text-[10px] font-bold text-gray-400 uppercase">Est. Market Return (%)</label>
-                    <input v-model.number="alternativeReturnPct" type="range" min="0" max="15" class="w-full accent-primary" />
+                    <label for="mortgage-market-return" class="text-[10px] font-bold text-gray-400 uppercase">Est. Market Return (%)</label>
+                    <input id="mortgage-market-return" v-model.number="alternativeReturnPct" type="range" min="0" max="15" class="w-full accent-primary" />
                   </div>
                   <span class="text-2xl font-black text-primary">{{ alternativeReturnPct }}%</span>
                 </div>
@@ -494,7 +494,7 @@ const scenarios = ref([defaultScenario()])
 
 // Helpers
 const activeScenario = computed(() => scenarios.value[activeScenarioIndex.value])
-const formatCurrency = (val) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(val || 0)
+const formatCurrency = (val) => new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(val || 0)
 const getPaymentsPerYear = (freq) => PAYMENT_FREQ_MAP[freq] || 12
 
 const payoffDate = computed(() => {

@@ -35,8 +35,9 @@
         <h2 class="text-xl font-bold text-primary mb-6">Your scenario</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">HELOC balance ($)</label>
+            <label for="heloc-balance" class="block text-sm font-medium text-gray-700 mb-2">HELOC balance ($)</label>
             <input
+              id="heloc-balance"
               v-model.number="inputs.balance"
               type="number"
               min="10000"
@@ -45,8 +46,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">HELOC rate (%)</label>
+            <label for="heloc-rate" class="block text-sm font-medium text-gray-700 mb-2">HELOC rate (%)</label>
             <input
+              id="heloc-rate"
               v-model.number="inputs.helocRatePct"
               type="number"
               min="0"
@@ -55,8 +57,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Fixed rate (%)</label>
+            <label for="heloc-fixed-rate" class="block text-sm font-medium text-gray-700 mb-2">Fixed rate (%)</label>
             <input
+              id="heloc-fixed-rate"
               v-model.number="inputs.fixedRatePct"
               type="number"
               min="0"
@@ -65,8 +68,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Amortization (years)</label>
+            <label for="heloc-amort" class="block text-sm font-medium text-gray-700 mb-2">Amortization (years)</label>
             <input
+              id="heloc-amort"
               v-model.number="inputs.amortYears"
               type="number"
               min="1"
@@ -75,8 +79,9 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Analysis period (years)</label>
+            <label for="heloc-analysis-years" class="block text-sm font-medium text-gray-700 mb-2">Analysis period (years)</label>
             <input
+              id="heloc-analysis-years"
               v-model.number="inputs.analysisYears"
               type="number"
               min="1"
@@ -90,11 +95,12 @@
         <div class="mt-6 pt-6 border-t border-gray-100">
           <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <div class="flex-1">
-              <label class="block text-sm font-medium text-gray-700 mb-2">
+              <label for="heloc-conversion-amount" class="block text-sm font-medium text-gray-700 mb-2">
                 Conversion amount to compare ($)
                 <span class="text-xs text-gray-500 font-normal ml-2">(for comparison table)</span>
               </label>
               <input
+                id="heloc-conversion-amount"
                 v-model.number="inputs.conversionAmount"
                 type="number"
                 :min="0"
@@ -327,8 +333,9 @@
           <p class="text-gray-600 mb-6">Keep balance in HELOC and add a fixed extra principal payment each month.</p>
           <div class="mb-6 flex flex-wrap gap-4 items-end">
             <div class="w-48">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Extra payment ($/month)</label>
+              <label for="heloc-extra-payment" class="block text-sm font-medium text-gray-700 mb-2">Extra payment ($/month)</label>
               <input
+                id="heloc-extra-payment"
                 v-model.number="inputs.extraPayment"
                 type="number"
                 min="0"
