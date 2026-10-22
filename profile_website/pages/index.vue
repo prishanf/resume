@@ -256,6 +256,7 @@ import {
 } from '@heroicons/vue/24/outline'
 import PostCard from '~/components/Blog/PostCard.vue'
 import {
+  DEFAULT_SITE_DESCRIPTION,
   LINKEDIN_PROFILE_URL,
   personJsonLd,
   websiteJsonLd
@@ -400,7 +401,7 @@ const siteUrl = seoConfig.public.siteUrl
 
 usePageSeo({
   title: 'Prishan Fernando — AI Solutions Architect & Builder',
-  description: 'AI Solutions Architect & Builder in Vancouver, BC. I solve real business problems with AI — not the other way around. Insights and experiments from Slalom.',
+  description: DEFAULT_SITE_DESCRIPTION,
   jsonLd: () => [personJsonLd(siteUrl), websiteJsonLd(siteUrl)]
 })
 </script>

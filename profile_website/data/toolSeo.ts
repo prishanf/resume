@@ -16,16 +16,16 @@ export type ToolSeoEntry = {
 
 export const TOOL_SEO: Record<string, ToolSeoEntry> = {
   'canadian-tax-calculator': {
-    title: 'Canada Tax Calculator (BC, ON, AB, QC) | Prishan Fernando',
-    description: 'Estimate 2024–2025 federal and provincial tax in Canada. Salary, dividends, capital gains, RRSP, and rental. Compare up to three scenarios. Not tax advice.',
+    title: 'Canada Tax Calculator 2026 (BC, ON, AB, QC) | Prishan Fernando',
+    description: 'Estimate 2024–2026 federal and provincial tax in Canada. Salary, dividends, capital gains, RRSP, and rental. Compare up to three scenarios. Not tax advice.',
     heading: 'How this Canadian tax calculator works',
     paragraphs: [
-      'This page estimates Canadian federal and provincial income tax plus payroll deductions for numbers you type in. It supports the 2024 and 2025 tax years and four provinces: Ontario, British Columbia, Alberta, and Quebec. It is a planning sketch, not a filing product and not tax advice.',
+      'This page estimates Canadian federal and provincial income tax plus payroll deductions for numbers you type in. It supports the 2024, 2025, and 2026 tax years (2026 is the default) and four provinces: Ontario, British Columbia, Alberta, and Quebec. It is a planning sketch, not a filing product and not tax advice.',
       'You can enter employment income, interest, eligible dividends, non-eligible dividends, capital gains, and rental income. Optional deductions are an RRSP contribution and rental expenses. The summary shows after-tax take-home, an effective rate, an approximate marginal rate, and a breakdown of federal tax, provincial tax, CPP (including CPP2), and EI.',
       'Total income is the sum of the amounts you enter. Taxable income is different. The calculator includes capital gains at 50%. Eligible dividends are grossed up by 1.38 and non-eligible dividends by 1.15; federal and provincial dividend tax credits are then applied using the rates stored for that year and province. Net rental income is rental income minus rental expenses, and is not taken below zero. An RRSP amount reduces taxable income. A basic personal amount is applied federally and provincially from the same year-specific table.',
       'CPP, CPP2, and EI are calculated from employment income only, using the ceilings and rates coded for the selected year. Quebec uses a different EI rate and maximum premium than the other provinces in this model. Interest, dividends, capital gains, and rental income do not attract CPP or EI here.',
       'To use it, pick a tax year and province, fill in the boxes that apply, and leave the rest at zero. Use “Add scenario” to keep up to three mixes — for example the same total as salary versus dividends, or the same income with and without an RRSP. Switch tabs to see each result, then scroll to the comparison table for total income, rates, after-tax income, and tax plus payroll side by side.',
-      'The model does not include every credit or deduction. It does not apply GST/HST credits, medical expenses, tuition, northern residents amounts, alternative minimum tax, or corporate tax. Only ON, BC, AB, and QC are available. Figures use the 2024 and 2025 values in the calculator code; they are not a forecast for later years. Confirm anything that matters with the CRA and a qualified professional. This is not financial or tax advice.'
+      'The model does not include every credit or deduction. It does not apply GST/HST credits, medical expenses, tuition, northern residents amounts, alternative minimum tax, or corporate tax. Only ON, BC, AB, and QC are available. Figures use the 2024, 2025, and 2026 values in the calculator code. Confirm anything that matters with the CRA and a qualified professional. This is not financial or tax advice.'
     ],
     relatedPosts: [
       { path: '/posts/canadian-income-rrsp-tax-strategies', title: 'Canadian income, RRSP, and tax strategies' },
@@ -35,7 +35,7 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
     faqs: [
       {
         question: 'Which tax years and provinces does this calculator cover?',
-        answer: 'It estimates 2024 and 2025 only, for Ontario, British Columbia, Alberta, and Quebec. Other years and provinces are not in the tool.'
+        answer: 'It estimates 2024, 2025, and 2026, for Ontario, British Columbia, Alberta, and Quebec. 2026 is the default. Other years and provinces are not in the tool.'
       },
       {
         question: 'How are capital gains and dividends treated?',

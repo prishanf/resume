@@ -10,10 +10,10 @@
           Back to Tools
         </NuxtLink>
         <h1 class="text-4xl md:text-6xl font-black text-primary mb-4 tracking-tighter">
-          Canadian Tax Calculator
+          Canada Tax Calculator 2026
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Estimate federal and provincial income tax for Canada. Salary, interest, dividends, capital gains, rental income. RRSP and rental expense deductions. Compare scenarios.
+          Estimate 2024–2026 federal and provincial income tax for Canada. Salary, interest, dividends, capital gains, rental income. RRSP and rental expense deductions. Compare scenarios.
         </p>
       </div>
     </section>
@@ -51,7 +51,16 @@
 
         <div v-for="(scenario, idx) in scenarios" :key="idx" class="mb-10">
           <div v-show="activeScenarioIndex === idx" class="space-y-6">
-            <div class="mb-4 flex items-center gap-6">
+            <div class="mb-4 flex items-center gap-6 flex-wrap">
+              <div class="w-56">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Tax year</label>
+                <select
+                  v-model="taxYear"
+                  class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
+                >
+                  <option v-for="y in TAX_YEAR_OPTIONS" :key="y" :value="y">{{ y }}</option>
+                </select>
+              </div>
               <div class="w-56">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Province / Territory</label>
                 <select
@@ -172,7 +181,7 @@
     <section class="py-12 bg-gradient-to-br from-inverse/50 via-white to-secondary/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-2xl font-bold text-primary mb-2">Summary — {{ scenarioLabel(activeScenarioIndex) }}</h2>
-        <p class="text-gray-600 mb-6">{{ activeScenario.province ? getProvinceName(activeScenario.province) : '' }} · Tax year 2024</p>
+        <p class="text-gray-600 mb-6">{{ activeScenario.province ? getProvinceName(activeScenario.province) : '' }} · Tax year {{ taxYear }}</p>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm">
             <span class="text-xs font-bold text-accent uppercase tracking-widest">Total income</span>
@@ -279,7 +288,7 @@
         <div class="rounded-xl bg-amber-50 border border-amber-200 p-6">
           <h3 class="text-sm font-bold text-amber-900 mb-2">Disclaimer</h3>
           <p class="text-sm text-amber-800">
-            This calculator is for estimation only. It uses 2024 federal and provincial tax brackets, basic personal amount, and dividend tax credits. It does not include CPP/EI, provincial surtaxes (e.g. Ontario health premium), or other credits. Quebec tax is approximated using provincial rates; Quebec has a separate return. Always verify with CRA and a tax professional.
+            This calculator is for estimation only. It uses 2024–2026 federal brackets (default 2026) and ON/BC/AB/QC provincial rates for the selected year. Other provinces keep 2024 provincial figures. It does not include CPP/EI, provincial surtaxes (e.g. Ontario health premium), or other credits. Quebec tax is approximated using provincial rates; Quebec has a separate return. Always verify with CRA and a tax professional.
           </p>
         </div>
       </div>
@@ -290,24 +299,12 @@
 <script setup>
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { canonicalUrl } from '~/utils/canonical'
+import { DEFAULT_TAX_YEAR, TAX_YEAR_OPTIONS, getTaxYearData } from '~/utils/canadianTax'
 
-// 2024 Federal brackets: [ threshold, rate ] — tax on amount up to threshold at rate
-const FEDERAL_2024 = {
-  brackets: [
-    [55867, 0.15],
-    [111733, 0.205],
-    [173205, 0.26],
-    [246752, 0.2932],
-    [1e9, 0.33]
-  ],
-  basicPersonalAmount: 14156,
-  basicPersonalAmountMax: 15705,
-  dividendEligibleCreditRate: 0.150198,
-  dividendNonEligibleCreditRate: 0.090301,
-  grossUpEligible: 1.38,
-  grossUpNonEligible: 1.15
-}
+const taxYear = ref(DEFAULT_TAX_YEAR)
 
+// Extra provinces/territories not in the shared 2025–2026 tables (ON/BC/AB/QC).
+// 2024 provincial figures only; federal tax still follows the selected year.
 const PROVINCES_2024 = {
   ON: {
     name: 'Ontario',
@@ -418,8 +415,35 @@ const provinces = [
   { code: 'NU', name: 'Nunavut' }
 ]
 
+function federalForYear (year) {
+  const data = getTaxYearData(year).federal
+  return {
+    brackets: data.brackets,
+    basicPersonalAmount: data.basicPersonalAmount,
+    basicPersonalAmountRate: data.basicPersonalAmountRate ?? 0.15,
+    dividendEligibleCreditRate: data.dividendEligibleCreditRate,
+    dividendNonEligibleCreditRate: data.dividendNonEligibleCreditRate,
+    grossUpEligible: data.grossUpEligible,
+    grossUpNonEligible: data.grossUpNonEligible
+  }
+}
+
+function provinceForYear (year, code) {
+  const shared = getTaxYearData(year).provinces[code]
+  if (shared) {
+    return {
+      name: shared.name,
+      brackets: shared.brackets,
+      basicPersonalAmount: shared.bpa,
+      dividendEligibleCreditRate: shared.divElig,
+      dividendNonEligibleCreditRate: shared.divNon
+    }
+  }
+  return PROVINCES_2024[code] || PROVINCES_2024.ON
+}
+
 function getProvinceName (code) {
-  return PROVINCES_2024[code]?.name || code
+  return provinceForYear(taxYear.value, code)?.name || PROVINCES_2024[code]?.name || code
 }
 
 function taxFromBrackets (taxable, brackets) {
@@ -434,7 +458,8 @@ function taxFromBrackets (taxable, brackets) {
   return tax
 }
 
-function calculateTax (scenario) {
+function calculateTax (scenario, year = taxYear.value) {
+  const federal = federalForYear(year)
   const salary = Math.max(0, Number(scenario.salary) || 0)
   const interest = Math.max(0, Number(scenario.interest) || 0)
   const eligibleDiv = Math.max(0, Number(scenario.eligibleDividend) || 0)
@@ -445,8 +470,8 @@ function calculateTax (scenario) {
   const rrsp = Math.max(0, Number(scenario.rrsp) || 0)
 
   const netRental = Math.max(0, rentalIncome - rentalExpenses)
-  const eligibleDivTaxable = eligibleDiv * FEDERAL_2024.grossUpEligible
-  const nonEligibleDivTaxable = nonEligibleDiv * FEDERAL_2024.grossUpNonEligible
+  const eligibleDivTaxable = eligibleDiv * federal.grossUpEligible
+  const nonEligibleDivTaxable = nonEligibleDiv * federal.grossUpNonEligible
   const capGainsTaxable = capGains * 0.5
   const employmentInterestTaxable = salary + interest
 
@@ -454,16 +479,16 @@ function calculateTax (scenario) {
   let taxableIncome = employmentInterestTaxable + eligibleDivTaxable + nonEligibleDivTaxable + capGainsTaxable + netRental - rrsp
   taxableIncome = Math.max(0, taxableIncome)
 
-  const prov = PROVINCES_2024[scenario.province] || PROVINCES_2024.ON
-  const fedBrackets = FEDERAL_2024.brackets
+  const prov = provinceForYear(year, scenario.province)
+  const fedBrackets = federal.brackets
   const provBrackets = prov.brackets
 
   let federalTaxBeforeCredits = taxFromBrackets(taxableIncome, fedBrackets)
   let provincialTaxBeforeCredits = taxFromBrackets(taxableIncome, provBrackets)
 
-  const federalBpaCredit = FEDERAL_2024.basicPersonalAmount * 0.15
+  const federalBpaCredit = federal.basicPersonalAmount * (federal.basicPersonalAmountRate ?? 0.15)
   const provincialBpaCredit = (prov.basicPersonalAmount || 0) * (provBrackets[0]?.[1] || 0.05)
-  const federalDivCredit = eligibleDivTaxable * FEDERAL_2024.dividendEligibleCreditRate + nonEligibleDivTaxable * FEDERAL_2024.dividendNonEligibleCreditRate
+  const federalDivCredit = eligibleDivTaxable * federal.dividendEligibleCreditRate + nonEligibleDivTaxable * federal.dividendNonEligibleCreditRate
   const provincialDivCredit = (eligibleDivTaxable * (prov.dividendEligibleCreditRate || 0) + nonEligibleDivTaxable * (prov.dividendNonEligibleCreditRate || 0))
 
   let federalTax = Math.max(0, federalTaxBeforeCredits - federalBpaCredit - federalDivCredit)
@@ -525,8 +550,8 @@ function removeScenario (idx) {
 }
 
 const activeScenario = computed(() => scenarios.value[activeScenarioIndex.value] || defaultScenario())
-const activeResult = computed(() => calculateTax(activeScenario.value))
-const allResults = computed(() => scenarios.value.map(s => calculateTax(s)))
+const activeResult = computed(() => calculateTax(activeScenario.value, taxYear.value))
+const allResults = computed(() => scenarios.value.map(s => calculateTax(s, taxYear.value)))
 
 function formatCurrency (n) {
   if (n == null || Number.isNaN(n)) return '—'
@@ -534,8 +559,8 @@ function formatCurrency (n) {
 }
 
 usePageSeo({
-  title: 'Canadian Tax Calculator (draft) | Prishan Fernando',
-  description: 'Estimate Canadian federal and provincial income tax. Salary, interest, dividends, capital gains, rental income, RRSP deductions, and scenario comparison.'
+  title: 'Canada Tax Calculator 2026 (draft) | Prishan Fernando',
+  description: 'Estimate 2024–2026 Canadian federal and provincial income tax (default 2026). Salary, interest, dividends, capital gains, rental income, RRSP deductions, and scenario comparison.'
 })
 
 const copySeoConfig = useRuntimeConfig()
