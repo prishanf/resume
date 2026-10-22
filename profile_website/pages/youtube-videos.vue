@@ -178,19 +178,7 @@
               I keep a list of YouTube videos I’ve watched and found worth remembering — with a short summary and tags so I can find them again.
             </p>
             <p>
-              The list is maintained in a <strong class="text-primary">Google Sheet</strong>. The sheet must be shared so <strong>“Anyone with the link can view”</strong>. The site is static (e.g. GitHub Pages): the sheet is fetched at build time and saved as data/youtube-videos.json. Run npm run sync-youtube-videos before generate (or rely on the build script). Share the sheet so anyone with the link can view, and set NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS in your env (e.g. GitHub Actions secrets).
-            </p>
-            <p class="font-medium text-primary">Sheet columns:</p>
-            <ul class="list-none space-y-1 pl-0">
-              <li><strong>Title</strong> — video title</li>
-              <li><strong>Video URL</strong> — full YouTube link</li>
-              <li><strong>Channel</strong> — channel name</li>
-              <li><strong>Summary</strong> — short summary (Markdown supported: **bold**, lists, links, etc.)</li>
-              <li><strong>Tags</strong> — comma-separated (e.g. productivity, coding)</li>
-              <li><strong>Watched Date</strong> — when you watched it (any date format)</li>
-            </ul>
-            <p>
-              Sheet ID is in the URL: <code class="bg-gray-100 px-1 rounded text-[11px] break-all">.../d/<strong>SHEET_ID</strong>/edit</code>. See <code class="bg-gray-100 px-1 rounded text-[11px]">docs/youtube-videos-google-sheet-setup.md</code> for full setup.
+              Each note has a title, channel, watched date, and a short summary. Use search or tags to filter the list.
             </p>
           </div>
         </aside>

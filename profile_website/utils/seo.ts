@@ -85,10 +85,6 @@ export function personJsonLd(siteUrl?: string | null, extras?: {
     jobTitle: extras?.jobTitle || PERSON_JOB_TITLE,
     url: canonicalUrl(siteUrl, '/'),
     sameAs: SAME_AS,
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Slalom'
-    },
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Vancouver',

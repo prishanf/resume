@@ -1,11 +1,12 @@
 ---
 title: "Rethinking Integration: Why MuleSoft Agent Fabric Challenges the Status Quo"
+seoTitle: "MuleSoft Agent Fabric & Integration | Prishan Fernando"
 description: "Why rigid, rule-based integration can't keep up with modern business — and how MuleSoft Agent Fabric points toward a more adaptable architecture."
 image: "https://images.unsplash.com/photo-1545987796-200677ee1011?q=80&w=2070&auto=format&fit=crop"
 date: "2026-07-12"
 excerpt: "For twenty years, enterprise integration meant hard-coded logic and predictable pipelines. Agentic AI breaks that model — from dynamic agent routing to smart LLM cost control to interfaces generated on the fly."
 tags: ["AI", "MuleSoft", "Enterprise Architecture", "Agentic AI", "Integration", "Generative UI"]
-published: false
+published: true
 ---
 
 # Rethinking Integration: Why MuleSoft Agent Fabric Challenges the Status Quo

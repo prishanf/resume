@@ -7,11 +7,7 @@ export default defineNuxtConfig({
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://prishanfernando.com',
       /** GitHub profile URL (e.g. for Activity Summary footer link). */
-      githubProfileUrl: process.env.NUXT_PUBLIC_GITHUB_PROFILE_URL || 'https://github.com/prishanf',
-      /** Google Sheet ID for YouTube videos (from the sheet URL: .../d/SHEET_ID/edit). Sheet must be shared "Anyone with the link can view". */
-      googleSheetIdVideos: process.env.NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS || '1Etit50X5tAj4Zh4d9WH23QHoCgSbdo4Qm6c4_XWM01A',
-      /** Optional: sheet tab GID (default 0 = first tab). */
-      googleSheetGidVideos: process.env.NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS || '0'
+      githubProfileUrl: process.env.NUXT_PUBLIC_GITHUB_PROFILE_URL || 'https://github.com/prishanf'
     }
   },
 
@@ -60,17 +56,6 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  hooks: {
-    'pages:extend'(pages) {
-      // Draft calculator copies live in pages/ for local work; they are not public routes.
-      for (let i = pages.length - 1; i >= 0; i--) {
-        if (pages[i]?.path?.includes('-copy')) {
-          pages.splice(i, 1)
-        }
-      }
-    }
-  },
-
   nitro: {
     prerender: {
       routes: ['/sitemap.xml', '/expertise/', '/speaking/'],
@@ -79,16 +64,12 @@ export default defineNuxtConfig({
       ignore: [
         '/pdfs',
         '/pdfs/',
-        '/tools/canadian-tax-calculator-copy',
-        '/tools/canadian-tax-calculator-copy/',
-        '/tools/mortgage-calculator-copy',
-        '/tools/mortgage-calculator-copy/',
         '/posts/welcome',
         '/posts/welcome/',
         '/posts/experience-cloud-mastery',
         '/posts/experience-cloud-mastery/',
-        '/posts/mulesoft-agent-fabric-rethinking-integration',
-        '/posts/mulesoft-agent-fabric-rethinking-integration/'
+        '/posts/linkedin-embed',
+        '/posts/linkedin-embed/'
       ]
     }
   },

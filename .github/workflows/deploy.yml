@@ -37,10 +37,12 @@ jobs:
         env:
           # Repository variables (Settings → Secrets and variables → Actions → Variables)
           NUXT_PUBLIC_GTAG_ID: ${{ vars.NUXT_PUBLIC_GTAG_ID }}
-          NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS: ${{ vars.NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS }}
-          NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS: ${{ vars.NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS }}
           ACTIVITY_REPO: ${{ vars.ACTIVITY_REPO }}
           ACTIVITY_BRANCH: ${{ vars.ACTIVITY_BRANCH }}
+          # Build-time only (not NUXT_PUBLIC_* — that prefix is inlined into the browser bundle).
+          # Prefer Actions secrets. vars.NUXT_PUBLIC_GOOGLE_SHEET_* is a temporary fallback for the old name.
+          GOOGLE_SHEET_ID_VIDEOS: ${{ secrets.GOOGLE_SHEET_ID_VIDEOS || vars.GOOGLE_SHEET_ID_VIDEOS || vars.NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS }}
+          GOOGLE_SHEET_GID_VIDEOS: ${{ secrets.GOOGLE_SHEET_GID_VIDEOS || vars.GOOGLE_SHEET_GID_VIDEOS || vars.NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS }}
           # Repository secret (Settings → Secrets and variables → Actions → Secrets)
           ACTIVITY_TOKEN: ${{ secrets.ACTIVITY_TOKEN }}
 

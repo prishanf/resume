@@ -16,7 +16,7 @@
   <line x1="600" y1="98" x2="600" y2="648" stroke="#DDE3E8" stroke-width="2"/>
 
   <!-- LEFT: Traditional -->
-  <text x="300" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#334155">TRADITIONAL INTEGRATION</text>
+  <text x="300" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#334155">TRADITIONAL MULESOFT</text>
 
   <g font-size="15" font-weight="600" fill="#0F172A">
     <rect x="185" y="140" width="230" height="58" rx="6" fill="#FFFFFF" stroke="#334155" stroke-width="1.75"/>
@@ -41,7 +41,7 @@
   <text x="300" y="602" text-anchor="middle" font-size="13" fill="#64748B">Edge case → error handler.</text>
 
   <!-- RIGHT: Agent Fabric -->
-  <text x="900" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#0E8574">AGENT FABRIC</text>
+  <text x="900" y="112" text-anchor="middle" font-size="13" font-weight="700" letter-spacing="1.5" fill="#0E8574">MULESOFT AGENT FABRIC</text>
 
   <!-- hub -->
   <circle cx="900" cy="320" r="58" fill="#0E8574"/>
@@ -75,5 +75,5 @@
   <text x="900" y="582" text-anchor="middle" font-size="13" fill="#64748B">Decided at runtime, from context.</text>
   <text x="900" y="602" text-anchor="middle" font-size="13" fill="#64748B">Edge case → next best agent.</text>
 
-  <text x="600" y="655" text-anchor="middle" font-size="12" fill="#94A3B8">Same underlying APIs power both — what changes is who decides the next step.</text>
+  <text x="600" y="655" text-anchor="middle" font-size="12" fill="#94A3B8">Same underlying MuleSoft APIs power both — what changes is who decides the next step.</text>
 </svg>
