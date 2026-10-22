@@ -4,6 +4,8 @@ export const SITE_NAME = 'Prishan Fernando'
 export const PERSON_NAME = 'Prishan Fernando'
 export const PERSON_JOB_TITLE = 'AI Solutions Architect & Builder'
 export const PERSON_LOCATION = 'Vancouver, BC'
+/** Site-wide default meta / OG / Twitter description. Keep at or under 160 characters. */
+export const DEFAULT_SITE_DESCRIPTION = 'AI Solutions Architect & Builder. I solve real business problems with AI — not the other way around. Insights, tools and experiments from Vancouver, BC.'
 export const DEFAULT_OG_IMAGE_PATH = '/images/og-default.jpg'
 export const PROFILE_IMAGE_PATH = '/images/posts/me.jpg'
 export const LINKEDIN_PROFILE_URL = 'https://www.linkedin.com/in/prishanf'

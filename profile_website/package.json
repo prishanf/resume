@@ -11,7 +11,8 @@
     "compress": "node scripts/compress_images.mjs",
     "sync-summaries": "node scripts/sync-pdf-summaries.mjs",
     "sync-youtube-videos": "node scripts/sync-youtube-videos.mjs",
-    "sync-activity-summary": "node scripts/sync-activity-summary.mjs"
+    "sync-activity-summary": "node scripts/sync-activity-summary.mjs",
+    "test": "vitest run"
   },
   "dependencies": {
     "@heroicons/vue": "^2.1.0",
@@ -32,6 +33,7 @@
     "@types/dompurify": "^3.0.5",
     "glob": "^13.0.1",
     "sharp": "^0.34.5",
-    "tailwindcss": "^3.4.0"
+    "tailwindcss": "^3.4.0",
+    "vitest": "^3.2.4"
   }
 }

@@ -77,7 +77,9 @@ export default defineNuxtConfig({
       viewport: 'width=device-width, initial-scale=1',
       title: 'Prishan Fernando — AI Solutions Architect & Builder',
       meta: [
-        { name: 'description', content: 'AI Solutions Architect & Builder in Vancouver, BC. I solve real business problems with AI — not the other way around. Insights and experiments from Slalom.' },
+        { name: 'description', content: 'AI Solutions Architect & Builder. I solve real business problems with AI — not the other way around. Insights, tools and experiments from Vancouver, BC.' },
+        { property: 'og:description', content: 'AI Solutions Architect & Builder. I solve real business problems with AI — not the other way around. Insights, tools and experiments from Vancouver, BC.' },
+        { name: 'twitter:description', content: 'AI Solutions Architect & Builder. I solve real business problems with AI — not the other way around. Insights, tools and experiments from Vancouver, BC.' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Prishan Fernando' },
         { property: 'og:image', content: 'https://prishanfernando.com/images/og-default.jpg' },

@@ -10,10 +10,10 @@
           Back to Tools
         </NuxtLink>
         <h1 class="text-4xl md:text-6xl font-black text-primary mb-4 tracking-tighter">
-          Canadian Tax Calculator
+          Canada Tax Calculator 2026
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Federal &amp; provincial estimate by tax year. Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. CPP/EI and investment gross-ups.
+          Federal &amp; provincial estimate for 2024–2026 (BC, ON, AB, QC). Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. Standard employee credits, CPP/QPP, EI, and QPIP.
         </p>
         <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
           <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
@@ -171,16 +171,20 @@
                     <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.provincialTax) }}</span>
                   </div>
                   <div class="flex justify-between items-center py-1">
-                    <span class="text-sm font-medium text-gray-600">CPP + CPP2</span>
+                    <span class="text-sm font-medium text-gray-600">{{ activeScenario.province === 'QC' ? 'QPP + QPP2' : 'CPP + CPP2' }}</span>
                     <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.cpp) }}</span>
                   </div>
                   <div class="flex justify-between items-center py-1">
                     <span class="text-sm font-medium text-gray-600">EI premium</span>
                     <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.ei) }}</span>
                   </div>
+                  <div class="flex justify-between items-center py-1">
+                    <span class="text-sm font-medium text-gray-600">QPIP</span>
+                    <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.qpip) }}</span>
+                  </div>
                   <div class="pt-4 mt-2 border-t border-gray-100 flex justify-between items-center">
                     <span class="text-sm font-bold text-gray-900">Total tax &amp; payroll</span>
-                    <span class="text-lg font-bold text-primary tabular-nums">{{ formatCurrency(activeResult.totalTax + activeResult.cpp + activeResult.ei) }}</span>
+                    <span class="text-lg font-bold text-primary tabular-nums">{{ formatCurrency(activeResult.totalDeductions) }}</span>
                   </div>
                 </div>
               </div>
@@ -228,7 +232,7 @@
                 <tr>
                   <td class="py-4 px-6 text-sm font-medium text-gray-800">Total tax &amp; payroll</td>
                   <td v-for="(res, idx) in allResults" :key="idx" class="py-4 px-6 text-right font-semibold text-gray-800 tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5' : ''">
-                    {{ formatCurrency(res.totalTax + res.cpp + res.ei) }}
+                    {{ formatCurrency(res.totalDeductions) }}
                   </td>
                 </tr>
               </tbody>
@@ -269,7 +273,7 @@ import {
   BanknotesIcon,
   ReceiptRefundIcon
 } from '@heroicons/vue/24/outline'
-import { TAX_YEAR_OPTIONS, calculateTax, getProvincesList } from '~/utils/canadianTax'
+import { DEFAULT_TAX_YEAR, TAX_YEAR_OPTIONS, calculateTax, getProvincesList } from '~/utils/canadianTax'
 
 const incomeFields = [
   { label: 'Salary / Employment', key: 'salary' },
@@ -294,7 +298,7 @@ const defaultScenario = () => ({
   rrsp: 0
 })
 
-const taxYear = ref(2025)
+const taxYear = ref(DEFAULT_TAX_YEAR)
 const scenarios = ref([defaultScenario()])
 const activeScenarioIndex = ref(0)
 
