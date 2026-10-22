@@ -53,8 +53,9 @@
           <div v-show="activeScenarioIndex === idx" class="space-y-6">
             <div class="mb-4 flex items-center gap-6 flex-wrap">
               <div class="w-56">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Tax year</label>
+                <label for="copy-tax-year" class="block text-sm font-medium text-gray-700 mb-2">Tax year</label>
                 <select
+                  id="copy-tax-year"
                   v-model="taxYear"
                   class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
                 >
@@ -62,8 +63,9 @@
                 </select>
               </div>
               <div class="w-56">
-                <label class="block text-sm font-medium text-gray-700 mb-2">Province / Territory</label>
+                <label :for="'copy-tax-province-' + idx" class="block text-sm font-medium text-gray-700 mb-2">Province / Territory</label>
                 <select
+                  :id="'copy-tax-province-' + idx"
                   v-model="scenario.province"
                   class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
                 >
@@ -202,11 +204,16 @@
         </div>
         <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="bg-white rounded-xl p-6 border border-gray-100">
-            <h3 class="text-sm font-bold text-primary mb-3">Tax breakdown</h3>
+            <h3 class="text-sm font-bold text-primary mb-3">Tax &amp; payroll breakdown</h3>
             <dl class="space-y-2 text-sm">
               <div class="flex justify-between"><dt class="text-gray-600">Federal tax</dt><dd class="tabular-nums font-medium">{{ formatCurrency(activeResult.federalTax) }}</dd></div>
               <div class="flex justify-between"><dt class="text-gray-600">Provincial tax</dt><dd class="tabular-nums font-medium">{{ formatCurrency(activeResult.provincialTax) }}</dd></div>
-              <div class="flex justify-between pt-2 border-t"><dt class="text-gray-800 font-medium">Effective rate</dt><dd class="tabular-nums font-medium">{{ activeResult.effectiveRate != null ? activeResult.effectiveRate.toFixed(1) + '%' : '—' }}</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-600">{{ activeScenario.province === 'QC' ? 'QPP + QPP2' : 'CPP + CPP2' }}</dt><dd class="tabular-nums font-medium">{{ formatCurrency(activeResult.cpp) }}</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-600">EI premium</dt><dd class="tabular-nums font-medium">{{ formatCurrency(activeResult.ei) }}</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-600">QPIP</dt><dd class="tabular-nums font-medium">{{ formatCurrency(activeResult.qpip) }}</dd></div>
+              <div class="flex justify-between pt-2 border-t"><dt class="text-gray-800 font-medium">Total tax &amp; payroll</dt><dd class="tabular-nums font-medium">{{ formatCurrency(activeResult.totalDeductions) }}</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-800 font-medium">Effective rate</dt><dd class="tabular-nums font-medium">{{ activeResult.effectiveRate != null ? activeResult.effectiveRate.toFixed(1) + '%' : '—' }}</dd></div>
+              <div class="flex justify-between"><dt class="text-gray-800 font-medium">Marginal rate</dt><dd class="tabular-nums font-medium">~{{ activeResult.marginalRate }}%</dd></div>
             </dl>
           </div>
           <div class="bg-white rounded-xl p-6 border border-gray-100">
@@ -288,7 +295,7 @@
         <div class="rounded-xl bg-amber-50 border border-amber-200 p-6">
           <h3 class="text-sm font-bold text-amber-900 mb-2">Disclaimer</h3>
           <p class="text-sm text-amber-800">
-            This calculator is for estimation only. It uses 2024–2026 federal brackets (default 2026) and ON/BC/AB/QC provincial rates for the selected year. Other provinces keep 2024 provincial figures. It does not include CPP/EI, provincial surtaxes (e.g. Ontario health premium), or other credits. Quebec tax is approximated using provincial rates; Quebec has a separate return. Always verify with CRA and a tax professional.
+            This calculator is for estimation only. For ON, BC, AB, and QC it uses the same 2024–2026 employee model as the main calculator (default 2026), including standard credits, CPP/QPP, EI, and QPIP. Other provinces keep 2024 provincial figures with the shared federal engine. Always verify with CRA and a tax professional.
           </p>
         </div>
       </div>
@@ -299,7 +306,7 @@
 <script setup>
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline'
 import { canonicalUrl } from '~/utils/canonical'
-import { DEFAULT_TAX_YEAR, TAX_YEAR_OPTIONS, getTaxYearData } from '~/utils/canadianTax'
+import { DEFAULT_TAX_YEAR, TAX_YEAR_OPTIONS, calculateTax as calculateTaxEngine, getTaxYearData } from '~/utils/canadianTax'
 
 const taxYear = ref(DEFAULT_TAX_YEAR)
 
@@ -446,18 +453,6 @@ function getProvinceName (code) {
   return provinceForYear(taxYear.value, code)?.name || PROVINCES_2024[code]?.name || code
 }
 
-function taxFromBrackets (taxable, brackets) {
-  let tax = 0
-  let prev = 0
-  for (const [to, rate] of brackets) {
-    const inBracket = Math.max(0, Math.min(taxable, to) - prev)
-    tax += inBracket * rate
-    if (taxable <= to) break
-    prev = to
-  }
-  return tax
-}
-
 function calculateTax (scenario, year = taxYear.value) {
   const federal = federalForYear(year)
   const salary = Math.max(0, Number(scenario.salary) || 0)
@@ -474,44 +469,16 @@ function calculateTax (scenario, year = taxYear.value) {
   const nonEligibleDivTaxable = nonEligibleDiv * federal.grossUpNonEligible
   const capGainsTaxable = capGains * 0.5
   const employmentInterestTaxable = salary + interest
-
-  const totalIncome = salary + interest + eligibleDiv + nonEligibleDiv + capGains + rentalIncome
-  let taxableIncome = employmentInterestTaxable + eligibleDivTaxable + nonEligibleDivTaxable + capGainsTaxable + netRental - rrsp
-  taxableIncome = Math.max(0, taxableIncome)
-
-  const prov = provinceForYear(year, scenario.province)
-  const fedBrackets = federal.brackets
-  const provBrackets = prov.brackets
-
-  let federalTaxBeforeCredits = taxFromBrackets(taxableIncome, fedBrackets)
-  let provincialTaxBeforeCredits = taxFromBrackets(taxableIncome, provBrackets)
-
-  const federalBpaCredit = federal.basicPersonalAmount * (federal.basicPersonalAmountRate ?? 0.15)
-  const provincialBpaCredit = (prov.basicPersonalAmount || 0) * (provBrackets[0]?.[1] || 0.05)
-  const federalDivCredit = eligibleDivTaxable * federal.dividendEligibleCreditRate + nonEligibleDivTaxable * federal.dividendNonEligibleCreditRate
-  const provincialDivCredit = (eligibleDivTaxable * (prov.dividendEligibleCreditRate || 0) + nonEligibleDivTaxable * (prov.dividendNonEligibleCreditRate || 0))
-
-  let federalTax = Math.max(0, federalTaxBeforeCredits - federalBpaCredit - federalDivCredit)
-  let provincialTax = Math.max(0, provincialTaxBeforeCredits - provincialBpaCredit - provincialDivCredit)
-
-  const totalTax = federalTax + provincialTax
-  const afterTaxIncome = totalIncome - totalTax
-  const effectiveRate = totalIncome > 0 ? (totalTax / totalIncome) * 100 : null
+  const engine = calculateTaxEngine(scenario, year)
 
   return {
-    totalIncome,
-    taxableIncome,
+    ...engine,
     employmentInterestTaxable,
     eligibleDivTaxable,
     nonEligibleDivTaxable,
     capGainsTaxable,
     netRentalTaxable: netRental,
-    rrspDeduction: rrsp,
-    federalTax,
-    provincialTax,
-    totalTax,
-    afterTaxIncome,
-    effectiveRate
+    rrspDeduction: rrsp
   }
 }
 

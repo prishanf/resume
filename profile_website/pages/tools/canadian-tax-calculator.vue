@@ -13,7 +13,7 @@
           Canada Tax Calculator 2026
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Federal &amp; provincial estimate for 2024–2026 (BC, ON, AB, QC). Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. CPP/EI and investment gross-ups.
+          Federal &amp; provincial estimate for 2024–2026 (BC, ON, AB, QC). Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. Standard employee credits, CPP/QPP, EI, and QPIP.
         </p>
         <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
           <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
@@ -171,16 +171,20 @@
                     <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.provincialTax) }}</span>
                   </div>
                   <div class="flex justify-between items-center py-1">
-                    <span class="text-sm font-medium text-gray-600">CPP + CPP2</span>
+                    <span class="text-sm font-medium text-gray-600">{{ activeScenario.province === 'QC' ? 'QPP + QPP2' : 'CPP + CPP2' }}</span>
                     <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.cpp) }}</span>
                   </div>
                   <div class="flex justify-between items-center py-1">
                     <span class="text-sm font-medium text-gray-600">EI premium</span>
                     <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.ei) }}</span>
                   </div>
+                  <div class="flex justify-between items-center py-1">
+                    <span class="text-sm font-medium text-gray-600">QPIP</span>
+                    <span class="text-sm font-semibold tabular-nums text-gray-800">{{ formatCurrency(activeResult.qpip) }}</span>
+                  </div>
                   <div class="pt-4 mt-2 border-t border-gray-100 flex justify-between items-center">
                     <span class="text-sm font-bold text-gray-900">Total tax &amp; payroll</span>
-                    <span class="text-lg font-bold text-primary tabular-nums">{{ formatCurrency(activeResult.totalTax + activeResult.cpp + activeResult.ei) }}</span>
+                    <span class="text-lg font-bold text-primary tabular-nums">{{ formatCurrency(activeResult.totalDeductions) }}</span>
                   </div>
                 </div>
               </div>
@@ -228,7 +232,7 @@
                 <tr>
                   <td class="py-4 px-6 text-sm font-medium text-gray-800">Total tax &amp; payroll</td>
                   <td v-for="(res, idx) in allResults" :key="idx" class="py-4 px-6 text-right font-semibold text-gray-800 tabular-nums" :class="activeScenarioIndex === idx ? 'bg-primary/5' : ''">
-                    {{ formatCurrency(res.totalTax + res.cpp + res.ei) }}
+                    {{ formatCurrency(res.totalDeductions) }}
                   </td>
                 </tr>
               </tbody>
