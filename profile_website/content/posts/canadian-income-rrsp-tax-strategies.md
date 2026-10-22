@@ -1,5 +1,6 @@
 ---
 title: "Canadian Income, RRSP, and Tax Strategies: How Income Is Taxed and When to Use the Tax Calculator"
+seoTitle: "Canadian Income, RRSP & Tax Strategies | Prishan Fernando"
 description: "How income works in Canada, benefits of RRSP and when to use (or skip) it, and how employment income, capital gains, and preferred vs non-preferred dividends compare on tax and take-home. Plus a guide to using the Canadian Tax Calculator to experiment with different income strategies."
 image: "https://images.unsplash.com/photo-1554224154-26032ffc0d07?q=80&w=2070&auto=format&fit=crop"
 date: "2026-02-12"

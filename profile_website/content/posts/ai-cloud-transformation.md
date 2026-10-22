@@ -1,5 +1,6 @@
 ---
 title: "The Future of AI-Enabled Cloud Transformation"
+seoTitle: "AI-Enabled Cloud Transformation | Prishan Fernando"
 description: "Exploring how generative AI and Agentforce are reshaping enterprise architecture and delivery models."
 image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop"
 date: "2026-01-28"

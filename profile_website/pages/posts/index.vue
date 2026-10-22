@@ -77,13 +77,6 @@ const { data: posts, pending, error } = await useAsyncData('posts', async () => 
         .find()
     }
     
-    // If still empty, try without the published filter
-    if (!result || result.length === 0) {
-      result = await queryContent('posts')
-        .sort({ date: -1 })
-        .find()
-    }
-    
     const list = result || []
     // Guarantee date desc (newest first) in case content driver order differs
     list.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0))
@@ -101,6 +94,6 @@ if (error.value) {
 
 usePageSeo({
   title: 'Insights & Articles | Prishan Fernando',
-  description: 'Writing on AI governance, Salesforce architecture, Canadian personal finance, and building software with modern AI tools.'
+  description: 'Writing on AI solutions, governance, Canadian personal finance, and building software with modern AI tools.'
 })
 </script>

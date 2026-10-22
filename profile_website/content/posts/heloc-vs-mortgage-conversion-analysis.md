@@ -1,5 +1,6 @@
 ---
 title: "HELOC vs Fixed Mortgage: Which Strategy Saves You More? A $300K Case Study"
+seoTitle: "HELOC vs Fixed Mortgage: $300K Study | Prishan Fernando"
 description: "Should you convert your HELOC to a fixed mortgage or make aggressive extra payments? I ran the numbers on $300K of debt and the results are surprising. Complete analysis with real calculations."
 image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2070&auto=format&fit=crop"
 date: "2026-02-05"

@@ -22,7 +22,7 @@
           v-if="months.length === 0"
           class="text-center text-gray-500 font-medium py-12"
         >
-          No activity data yet. Set <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">ACTIVITY_REPO</code> (e.g. <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">owner/repo</code>) in your env and run <code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm">npm run sync-activity-summary</code> before build.
+          No public activity to show yet. Check back after the next site update.
         </p>
         <ActivitySummaryMonth
           v-for="month in months"
@@ -35,7 +35,7 @@
       <footer class="bg-primary mt-4 py-8 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p class="text-white/50 text-xs font-medium">
-            Build log updated at build time via sync script · Last sync: {{ lastSyncFormatted }}
+            Updated from public GitHub activity · Last sync: {{ lastSyncFormatted }}
           </p>
           <div class="flex items-center gap-4">
             <a

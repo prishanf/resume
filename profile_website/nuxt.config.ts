@@ -60,11 +60,36 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  hooks: {
+    'pages:extend'(pages) {
+      // Draft calculator copies live in pages/ for local work; they are not public routes.
+      for (let i = pages.length - 1; i >= 0; i--) {
+        if (pages[i]?.path?.includes('-copy')) {
+          pages.splice(i, 1)
+        }
+      }
+    }
+  },
+
   nitro: {
     prerender: {
       routes: ['/sitemap.xml', '/expertise/', '/speaking/'],
       // Directory placeholder from summaries with no PDF file; not a real page.
-      ignore: ['/pdfs', '/pdfs/']
+      // Unpublished / draft content must not be generated as public HTML.
+      ignore: [
+        '/pdfs',
+        '/pdfs/',
+        '/tools/canadian-tax-calculator-copy',
+        '/tools/canadian-tax-calculator-copy/',
+        '/tools/mortgage-calculator-copy',
+        '/tools/mortgage-calculator-copy/',
+        '/posts/welcome',
+        '/posts/welcome/',
+        '/posts/experience-cloud-mastery',
+        '/posts/experience-cloud-mastery/',
+        '/posts/mulesoft-agent-fabric-rethinking-integration',
+        '/posts/mulesoft-agent-fabric-rethinking-integration/'
+      ]
     }
   },
 

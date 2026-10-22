@@ -97,7 +97,7 @@
 import { personJsonLd, webPageJsonLd, PROFILE_IMAGE_PATH } from '~/utils/seo'
 
 const pageTitle = 'AI Solutions Architect & Builder · Vancouver, BC'
-const pageDescription = 'AI Solutions Architect & Builder in Vancouver, BC. Real business problems with AI: agents, automation, testing, governance. Salesforce & Agentforce at Slalom.'
+const pageDescription = 'AI Solutions Architect & Builder in Vancouver, BC. Agents, automation, testing, and governance — Salesforce and Agentforce among the platforms I work on.'
 
 const sections = [
   {
@@ -154,7 +154,7 @@ const sections = [
       'Written a practical AI data and security governance checklist organized by organisation type, including healthcare, financial services, government, enterprise, and small business.',
       'Published a detailed breakdown of Claude, Anthropic, and cloud security — including when Amazon Bedrock is the more appropriate control plane — and recorded a podcast episode on the same question.',
       'Delivery work in regulated and high-trust environments, including Fraser Health, IG Wealth Management secure file exchange, and earlier HSBC Trade & Supply Chain platforms.',
-      'On the IA account, served as Enterprise Architect covering cross-cloud governance, roadmap alignment, and technical risk management.'
+      'Served as Enterprise Architect on a long-running enterprise account, covering cross-cloud governance, roadmap alignment, and technical risk management.'
     ],
     posts: [
       { href: '/posts/ai-governance-checklist-by-org-type/', label: 'AI Data & Security Governance Checklist' },
@@ -173,14 +173,14 @@ const sections = [
     approach: 'I am an AI enthusiast who tests tools by building with them. This site, the Canadian finance calculators, and live experiments — including an AI assistant that prepares weekday trading tickets — are how I learn what is useful, then bring the pattern back to business automation.',
     experience: [
       'Built and maintain this site as a living profile: Nuxt 3, markdown content, and GitHub Pages, with AI pair programming in the loop.',
-      'Shipped free Canadian finance tools — mortgage, tax, HELOC vs mortgage, rental application, and a todo board — as practical software, not slides.',
+      'Shipped free Canada-focused tools — mortgage, tax, and HELOC calculators, plus a rental application and todo board — as practical software, not slides.',
       'Ran a live micro-trading experiment with Malli, an AI assistant in the Muse app: weekday tickets, two Canadian stocks, real brokerage orders.',
       '70+ GitHub repositories and ongoing experiments with Claude, Cursor, custom agents, Next.js, Vue/Nuxt, Supabase, and related tools.'
     ],
     posts: [
       { href: '/posts/ai-micro-trading-experiment/', label: 'My AI assistant micro-trades while I work' },
       { href: '/posts/building-my-profile-website/', label: 'Building this profile website' },
-      { href: '/tools/', label: 'Canadian finance tools' }
+      { href: '/tools/', label: 'Calculators and utilities' }
     ]
   },
   {

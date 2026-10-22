@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 
+Disallow: /posts/welcome
+Disallow: /posts/welcome/
+Disallow: /posts/experience-cloud-mastery
+Disallow: /posts/experience-cloud-mastery/
+Disallow: /posts/mulesoft-agent-fabric-rethinking-integration
+Disallow: /posts/mulesoft-agent-fabric-rethinking-integration/
+Disallow: /tools/canadian-tax-calculator-copy
+Disallow: /tools/canadian-tax-calculator-copy/
+Disallow: /tools/mortgage-calculator-copy
+Disallow: /tools/mortgage-calculator-copy/
+
 Sitemap: https://prishanfernando.com/sitemap.xml

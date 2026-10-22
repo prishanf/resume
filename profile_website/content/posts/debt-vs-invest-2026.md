@@ -1,5 +1,6 @@
 ---
 title: "Should You Pay Down Debt or Invest Your Extra Cash? A Canadian Guide for 2026"
+seoTitle: "Pay Down Debt or Invest? Canada 2026 | Prishan Fernando"
 description: "Discover whether paying down your mortgage, line of credit, or investing in Canadian dividend stocks makes more financial sense. Complete analysis with real numbers, tax implications, and inflation adjustments."
 excerpt: "You've got $20,000 extra. Should you pay off debt or invest? We break down the math for Canadians with mortgages at 3.99%, HELOCs at 4.65%, and dividend portfolios returning 7-9%. Spoiler: inflation changes everything."
 date: 2026-02-16

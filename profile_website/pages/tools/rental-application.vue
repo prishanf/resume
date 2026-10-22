@@ -828,7 +828,7 @@ function clearCoSig() {
 
 const sampleData = {
   property_address: '10488 138A St, Surrey, BC V3T 4L3', move_in_date: '2026-02', lease_term: '2',
-  full_name: 'John Michael Smith', birthdate: '1985-06-15', marital_status: 'Married', phone: '778-233-0176', cell: '604-555-1234', email: 'john.smith@email.com', license: 'DL12345678', license_province: 'BC',
+  full_name: 'John Michael Smith', birthdate: '1985-06-15', marital_status: 'Married', phone: '778-555-0176', cell: '604-555-1234', email: 'john.smith@email.com', license: 'DL12345678', license_province: 'BC',
   current_address: '123 Main Street, Apt 4B', current_city: 'Vancouver', current_province: 'BC', current_postal: 'V6B 1A1', current_landlord: 'ABC Property Management', current_landlord_phone: '604-555-0100', current_rent: '1850', current_start: '2020-03-01', current_end: '2026-01-31', reason_leaving: 'Looking for larger space closer to work',
   prev_address_1: '456 Oak Avenue', prev_city_1: 'Burnaby', prev_province_1: 'BC', prev_postal_1: 'V5H 2K3', prev_landlord_1: 'Jane Doe', prev_landlord_phone_1: '604-555-0200', prev_rent_1: '1650', prev_start_1: '2017-05-01', prev_end_1: '2020-02-28',
   prev_address_2: '789 Pine Street, Unit 12', prev_city_2: 'Richmond', prev_province_2: 'BC', prev_postal_2: 'V7E 3M5', prev_landlord_2: 'XYZ Rentals Inc.', prev_landlord_phone_2: '604-555-0300', prev_rent_2: '1500', prev_start_2: '2014-08-01', prev_end_2: '2017-04-30',
@@ -836,7 +836,7 @@ const sampleData = {
   prev_employer: 'Digital Innovations Ltd.', prev_occupation: 'Junior Developer', prev_employer_phone: '604-555-0500', prev_employment_start: '2016-06', prev_employment_end: '2019-02',
   other_income_source: 'Investment dividends', other_income_amount: '500',
   vehicle_owned: 'yes', vehicle_make: 'Honda Civic', vehicle_year: '2020', vehicle_plate: 'ABC 123',
-  spouse_name: 'Jane Marie Smith', spouse_dob: '1987-09-22', spouse_phone: '778-233-0177', spouse_email: 'jane.smith@email.com', spouse_employer: 'Healthcare Services BC', spouse_occupation: 'Registered Nurse', spouse_employer_phone: '604-555-0600', spouse_income: '6200',
+  spouse_name: 'Jane Marie Smith', spouse_dob: '1987-09-22', spouse_phone: '778-555-0177', spouse_email: 'jane.smith@email.com', spouse_employer: 'Healthcare Services BC', spouse_occupation: 'Registered Nurse', spouse_employer_phone: '604-555-0600', spouse_income: '6200',
   num_adults: 0, num_children: 2, occupant1_name: 'Emily Smith', occupant1_relationship: 'Daughter', occupant1_age: '8', occupant2_name: 'Michael Smith', occupant2_relationship: 'Son', occupant2_age: '5', occupant3_name: '', occupant3_relationship: '', occupant3_age: '',
   pets: 'yes', pet_details: '1 dog - Golden Retriever, 3 years old, 65 lbs, well-trained and housebroken', smokers: 'no',
   emergency_name: 'Robert Anderson', emergency_relationship: 'Brother', emergency_phone: '604-555-0700', emergency_alt_phone: '778-555-0800',

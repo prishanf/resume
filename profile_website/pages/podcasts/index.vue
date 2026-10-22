@@ -75,10 +75,6 @@
           .find()
       }
   
-      if (!result || result.length === 0) {
-        result = await queryContent('podcasts').sort({ date: -1 }).find()
-      }
-  
       return result || []
     } catch (err) {
       console.error('Error fetching podcasts:', err)

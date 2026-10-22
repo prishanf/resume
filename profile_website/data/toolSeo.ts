@@ -16,7 +16,7 @@ export type ToolSeoEntry = {
 
 export const TOOL_SEO: Record<string, ToolSeoEntry> = {
   'canadian-tax-calculator': {
-    title: 'Canada Tax Calculator 2026 (BC, ON, AB, QC) | Prishan Fernando',
+    title: 'Canada Tax Calculator 2026 | Prishan Fernando',
     description: 'Estimate 2024–2026 federal and provincial tax in Canada. Salary, dividends, capital gains, RRSP, and rental. Compare up to three scenarios. Not tax advice.',
     heading: 'How this Canadian tax calculator works',
     paragraphs: [

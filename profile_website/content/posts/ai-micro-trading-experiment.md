@@ -1,5 +1,6 @@
 ---
 title: "My AI Assistant Micro-Trades While I Work: +$42.49 in 4 Weeks"
+seoTitle: "AI Assistant Micro-Trades While I Work | Prishan Fernando"
 description: "For 4 weeks, Malli in the Muse app sent a 6 AM ticket each weekday. Two Canadian stocks on margin — no new cash in — and I'm up $42.49 across 11 trades."
 image: "/images/posts/ai-micro-trading-tracker.png"
 date: "2026-10-21"

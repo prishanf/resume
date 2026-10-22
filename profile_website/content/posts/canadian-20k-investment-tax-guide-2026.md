@@ -1,5 +1,6 @@
 ---
 title: "The 2026 Canadian Investment Playbook: Investing $20,000 Across 5 Tax Tiers"
+seoTitle: "Canadian $20k Investment Playbook 2026 | Prishan Fernando"
 description: "How Canadians at every income level can maximize after-tax returns on $20k using discount bonds, dividend ETFs, and the right hybrid strategy for their bracket."
 image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop"
 date: "2026-02-19"

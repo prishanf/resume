@@ -1,5 +1,6 @@
 ---
 title: "AI Data & Security Governance Checklist: A Practical Guide by Organisation Type"
+seoTitle: "AI Governance Checklist by Org Type | Prishan Fernando"
 description: "A comprehensive, actionable governance checklist for deploying AI tools responsibly — tailored specifically for Enterprise, Small Business, Government, Healthcare, and Financial Services organisations."
 date: 2026-02-20
 excerpt: "Before your organisation sends a single prompt to an AI tool, there are questions your legal, security, and compliance teams need to answer. This checklist makes that process systematic — and specific to your industry."
