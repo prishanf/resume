@@ -32,20 +32,20 @@ Copy the part between `/d/` and `/edit` — that is your **Sheet ID**.
 
 ## 4. Configure the build
 
-Set this in your environment so the **sync script** can fetch the sheet at build time:
+Set this in your environment so the **sync script** can fetch the sheet at build time. Do **not** use a `NUXT_PUBLIC_` prefix — that would inline the ID into the browser bundle.
 
 ```bash
-NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS=your_sheet_id_here
+GOOGLE_SHEET_ID_VIDEOS=your_sheet_id_here
 ```
 
 Optional: if your data is on a different tab (not the first one), set the tab’s **gid** (from the URL when you open that tab: `#gid=123456`):
 
 ```bash
-NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS=123456
+GOOGLE_SHEET_GID_VIDEOS=123456
 ```
 
-- **Local:** put these in a `.env` file (and add `.env` to `.gitignore` if it contains secrets).
-- **GitHub Pages / GitHub Actions:** add `NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS` (and optionally `NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS`) as **repository secrets**, then use them in your build workflow when running `npm run generate` (or `npm run build`).
+- **Local:** put these in a `.env` file (gitignored). Never commit the sheet ID.
+- **GitHub Pages / GitHub Actions:** store `GOOGLE_SHEET_ID_VIDEOS` (and optionally `GOOGLE_SHEET_GID_VIDEOS`) as **repository secrets**, not `NUXT_PUBLIC_*` variables. The deploy workflow passes them into the sync step only.
 
 ## 5. Build and deploy
 

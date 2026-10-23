@@ -3,8 +3,9 @@
  * data/youtube-videos.json. Run before nuxt generate so the static site
  * (e.g. GitHub Pages) has the data at build time — no server at runtime.
  *
- * Requires: NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS (optional: NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS)
- * If not set, writes { videos: [] } so the build still succeeds.
+ * Requires: GOOGLE_SHEET_ID_VIDEOS (optional: GOOGLE_SHEET_GID_VIDEOS).
+ * Do not use NUXT_PUBLIC_* names — those are inlined into the browser bundle.
+ * If the ID is not set, keeps the existing JSON (or writes { videos: [] }).
  */
 import fs from 'fs/promises'
 import path from 'path'
@@ -14,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
 const OUTPUT_PATH = path.join(ROOT, 'data', 'youtube-videos.json')
 
-/** Load .env from project root so NUXT_PUBLIC_* vars are set when running via npm script */
+/** Load .env from project root so GOOGLE_SHEET_* vars are set when running via npm script. */
 async function loadEnv() {
   const envPath = path.join(ROOT, '.env')
   try {
@@ -119,14 +120,30 @@ function mapRowToVideo(row, index) {
   }
 }
 
+async function readExistingIfValid (outputPath) {
+  try {
+    const raw = await fs.readFile(outputPath, 'utf8')
+    const data = JSON.parse(raw)
+    if (data && Array.isArray(data.videos)) return data
+  } catch (_) {}
+  return null
+}
+
 async function run() {
   await loadEnv()
-  const sheetId = process.env.NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS?.trim()
-  const gid = process.env.NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS?.trim() || '0'
+  const sheetId = (process.env.GOOGLE_SHEET_ID_VIDEOS || '').trim()
+  const gid = (process.env.GOOGLE_SHEET_GID_VIDEOS || '0').trim() || '0'
 
   let videos = []
 
-  if (sheetId) {
+  if (!sheetId) {
+    const existing = await readExistingIfValid(OUTPUT_PATH)
+    if (existing) {
+      console.log('📺 GOOGLE_SHEET_ID_VIDEOS not set. Keeping existing youtube-videos.json.')
+      return
+    }
+    console.log('📺 GOOGLE_SHEET_ID_VIDEOS not set — writing empty youtube-videos list.')
+  } else {
     const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${gid}`
     try {
       const res = await fetch(url, { headers: { 'User-Agent': 'Nuxt-YouTube-Videos-Sync/1.0' } })
@@ -136,10 +153,13 @@ async function run() {
       videos = rows.map((row, i) => mapRowToVideo(row, i))
       console.log('📺 Synced', videos.length, 'YouTube video(s) from Google Sheet.')
     } catch (err) {
+      const existing = await readExistingIfValid(OUTPUT_PATH)
+      if (existing) {
+        console.warn('⚠️ Could not fetch Google Sheet (youtube-videos). Keeping existing list.', err.message)
+        return
+      }
       console.warn('⚠️ Could not fetch Google Sheet (youtube-videos). Writing empty list.', err.message)
     }
-  } else {
-    console.log('📺 NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS not set — writing empty youtube-videos list.')
   }
 
   await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true })

@@ -198,22 +198,41 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <div>
             <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-4">Tools</h2>
-            <h3 class="text-4xl md:text-5xl font-bold text-primary">Free Canadian finance calculators</h3>
+            <h3 class="text-4xl md:text-5xl font-bold text-primary">Canada-focused calculators and utilities</h3>
           </div>
           <NuxtLink to="/tools/" class="text-sm font-bold uppercase tracking-widest text-primary-ink hover:text-accent-ink">
             All tools →
           </NuxtLink>
         </div>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <NuxtLink
-            v-for="tool in tools"
-            :key="tool.href"
-            :to="tool.href"
-            class="group block p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
-          >
-            <h4 class="text-lg font-bold text-primary mb-2 group-hover:text-accent transition-colors">{{ tool.name }}</h4>
-            <p class="text-sm text-gray-600 leading-relaxed">{{ tool.description }}</p>
-          </NuxtLink>
+        <div class="space-y-12">
+          <div>
+            <h4 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-6">Finance calculators</h4>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <NuxtLink
+                v-for="tool in FINANCE_TOOLS"
+                :key="tool.slug"
+                :to="tool.path"
+                class="group block p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
+              >
+                <h5 class="text-lg font-bold text-primary mb-2 group-hover:text-accent transition-colors">{{ tool.title }}</h5>
+                <p class="text-sm text-gray-600 leading-relaxed">{{ tool.description }}</p>
+              </NuxtLink>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-6">Utilities</h4>
+            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              <NuxtLink
+                v-for="tool in UTILITY_TOOLS"
+                :key="tool.slug"
+                :to="tool.path"
+                class="group block p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:border-primary/20 transition-all duration-200"
+              >
+                <h5 class="text-lg font-bold text-primary mb-2 group-hover:text-accent transition-colors">{{ tool.title }}</h5>
+                <p class="text-sm text-gray-600 leading-relaxed">{{ tool.description }}</p>
+              </NuxtLink>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -255,6 +274,7 @@ import {
   BeakerIcon
 } from '@heroicons/vue/24/outline'
 import PostCard from '~/components/Blog/PostCard.vue'
+import { FINANCE_TOOLS, UTILITY_TOOLS } from '~/data/toolsCatalog'
 import {
   DEFAULT_SITE_DESCRIPTION,
   LINKEDIN_PROFILE_URL,
@@ -294,40 +314,12 @@ const problems = [
   },
   {
     title: 'Experiments with AI tools',
-    description: 'I try the latest AI tools and bring back business use cases — this site, Canadian finance tools, and live experiments like micro-trading with an AI assistant.',
+    description: 'I try the latest AI tools and bring back business use cases — this site, Canada-focused calculators, and live experiments like micro-trading with an AI assistant.',
     icon: BeakerIcon,
     expertiseHref: { path: '/expertise/', hash: '#ai-experiments' },
     expertiseLabel: 'Expertise',
     postHref: '/posts/ai-micro-trading-experiment/',
     postLabel: 'Related insight'
-  }
-]
-
-const tools = [
-  {
-    name: 'Mortgage Calculator',
-    href: '/tools/mortgage-calculator/',
-    description: 'Amortization, extra principal, term summary, and compare up to 3 scenarios.'
-  },
-  {
-    name: 'Canadian Tax Calculator',
-    href: '/tools/canadian-tax-calculator/',
-    description: 'Federal and provincial tax estimate for salary, investments, RRSP, and rental income.'
-  },
-  {
-    name: 'HELOC vs Mortgage Calculator',
-    href: '/tools/heloc-mortgage-calculator/',
-    description: 'Compare converting a HELOC to a fixed mortgage vs extra principal payments.'
-  },
-  {
-    name: 'Rental Application',
-    href: '/tools/rental-application/',
-    description: 'Multi-step residential rental application with a downloadable PDF.'
-  },
-  {
-    name: 'Todo Board',
-    href: '/tools/todo-board/',
-    description: 'Browser-based board with New, Working, and Done columns.'
   }
 ]
 

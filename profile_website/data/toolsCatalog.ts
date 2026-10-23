@@ -12,6 +12,7 @@
  * See docs/adding-a-tool.md.
  */
 export type ToolIcon = 'calculator' | 'document' | 'clipboard'
+export type ToolCategory = 'finance' | 'utility'
 
 export type ToolCard = {
   slug: string
@@ -20,6 +21,7 @@ export type ToolCard = {
   description: string
   cta: string
   icon: ToolIcon
+  category: ToolCategory
 }
 
 export const TOOLS: ToolCard[] = [
@@ -29,7 +31,8 @@ export const TOOLS: ToolCard[] = [
     title: 'Mortgage Calculator',
     description: 'Amortization, extra principal with an annual cap, term summary, and up to three scenarios with charts.',
     cta: 'Open calculator →',
-    icon: 'calculator'
+    icon: 'calculator',
+    category: 'finance'
   },
   {
     slug: 'canadian-tax-calculator',
@@ -37,7 +40,8 @@ export const TOOLS: ToolCard[] = [
     title: 'Canadian Tax Calculator',
     description: 'Federal and provincial estimate. Salary, interest, dividends, capital gains, rental income. RRSP and rental deductions. Compare up to three scenarios.',
     cta: 'Open calculator →',
-    icon: 'calculator'
+    icon: 'calculator',
+    category: 'finance'
   },
   {
     slug: 'heloc-mortgage-calculator',
@@ -45,7 +49,8 @@ export const TOOLS: ToolCard[] = [
     title: 'HELOC vs Mortgage Calculator',
     description: 'Compare converting a HELOC to a fixed mortgage versus extra principal payments. Monthly cost and multi-year outcomes from your numbers.',
     cta: 'Open calculator →',
-    icon: 'calculator'
+    icon: 'calculator',
+    category: 'finance'
   },
   {
     slug: 'rental-application',
@@ -53,7 +58,8 @@ export const TOOLS: ToolCard[] = [
     title: 'Rental Application',
     description: 'Multi-step residential rental application. Progress is saved in your browser; generate a PDF when complete.',
     cta: 'Open form →',
-    icon: 'document'
+    icon: 'document',
+    category: 'utility'
   },
   {
     slug: 'todo-board',
@@ -61,6 +67,10 @@ export const TOOLS: ToolCard[] = [
     title: 'Todo Board',
     description: 'Organize todos by project with New, Working, and Done columns. Stored in your browser.',
     cta: 'Open board →',
-    icon: 'clipboard'
+    icon: 'clipboard',
+    category: 'utility'
   }
 ]
+
+export const FINANCE_TOOLS = TOOLS.filter((tool) => tool.category === 'finance')
+export const UTILITY_TOOLS = TOOLS.filter((tool) => tool.category === 'utility')

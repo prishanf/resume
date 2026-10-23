@@ -110,7 +110,7 @@ My side projects range from personal finance tools to real estate management acc
 
 ## Tech Stack
 
-**AI/ML**: Claude, GPT-4, custom agents, Agentforce, Cursor, OpenRouter • **Salesforce**: Sales, Service, Experience Cloud, CPQ, Agentforce • **Modern Web**: Next.js, React, Vue/Nuxt, React Native, Expo, Supabase, Neon • **Integration**: MuleSoft, Workato, custom APIs • **Cloud**: AWS, Firebase, Vercel • 70+ active GitHub repos
+**AI/ML**: Claude, GPT-4, custom agents, Agentforce, Cursor, OpenRouter • **Salesforce**: Sales, Service, Experience Cloud, CPQ, Agentforce • **Modern Web**: Next.js, React, Vue/Nuxt, React Native, Expo, Supabase, Neon • **Integration**: Workato, custom APIs • **Cloud**: AWS, Firebase, Vercel • 70+ active GitHub repos
 
 ## Recognition
 

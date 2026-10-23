@@ -1,5 +1,6 @@
 ---
 title: "Building My Stunning Profile Website: A Journey with AI-Assisted Development"
+seoTitle: "Building My Profile Website with AI | Prishan Fernando"
 description: "How I built a beautiful, content-rich portfolio website using Nuxt 3, Nuxt Content, and Tailwind CSS, then deployed it for free on GitHub Pages—all with the help of AI pair programming."
 image: "/images/posts/profile-website-hero.png"
 date: "2026-01-28"

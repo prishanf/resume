@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
 
+Disallow: /posts/welcome
+Disallow: /posts/welcome/
+Disallow: /posts/experience-cloud-mastery
+Disallow: /posts/experience-cloud-mastery/
+Disallow: /posts/linkedin-embed
+Disallow: /posts/linkedin-embed/
+
 Sitemap: https://prishanfernando.com/sitemap.xml

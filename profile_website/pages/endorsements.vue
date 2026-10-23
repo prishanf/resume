@@ -59,6 +59,6 @@ const recommendations = computed(() => {
 
 usePageSeo({
   title: 'Endorsements | Prishan Fernando',
-  description: 'Colleague and client endorsements of Prishan Fernando’s Salesforce architecture, people-first leadership, and delivery work.'
+  description: 'Colleague and client endorsements of Prishan Fernando’s AI delivery, architecture, and people-first leadership.'
 })
 </script>

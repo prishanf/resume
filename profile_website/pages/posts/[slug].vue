@@ -134,6 +134,10 @@ if (error.value) {
   console.error('Error fetching post:', error.value)
 }
 
+if (!post.value || post.value.published === false) {
+  throw createError({ statusCode: 404, statusMessage: 'Page not found' })
+}
+
 const normalizeTags = (tags) => {
   if (!tags) return []
   return (Array.isArray(tags) ? tags : [tags]).map((tag) => String(tag).trim().toLowerCase()).filter(Boolean)
@@ -168,7 +172,11 @@ const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl
 
 usePageSeo({
-  title: () => post.value?.title ? `${post.value.title} | Prishan Fernando` : 'Post | Prishan Fernando',
+  title: () => {
+    if (!post.value) return 'Post | Prishan Fernando'
+    if (post.value.seoTitle) return post.value.seoTitle
+    return post.value.title ? `${post.value.title} | Prishan Fernando` : 'Post | Prishan Fernando'
+  },
   description: () => post.value?.description || post.value?.excerpt || '',
   type: 'article',
   image: () => post.value?.image,

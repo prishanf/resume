@@ -5,7 +5,7 @@ image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=2039
 date: "2026-01-28"
 excerpt: "Check out my latest LinkedIn post sharing insights on technology leadership and enterprise architecture."
 tags: ["LinkedIn", "Leadership", "Technology"]
-published: true
+published: false
 ---
 
 # Latest Insights on LinkedIn

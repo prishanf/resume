@@ -70,6 +70,14 @@ const props = defineProps({
 
 const is404 = computed(() => props.error?.statusCode === 404)
 
+useSeoMeta({
+  title: () => is404.value ? 'Page not found | Prishan Fernando' : 'Something went wrong | Prishan Fernando',
+  description: () => is404.value
+    ? "The page you're looking for doesn't exist or has been moved."
+    : 'An unexpected error occurred. Please try again.',
+  robots: 'noindex, nofollow'
+})
+
 function handleTryAgain() {
   clearError({ redirect: '/' })
 }

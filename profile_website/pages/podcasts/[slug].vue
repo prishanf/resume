@@ -118,9 +118,17 @@
   if (error.value) {
     console.error('Error fetching podcast:', error.value)
   }
+
+  if (!podcast.value || podcast.value.published === false) {
+    throw createError({ statusCode: 404, statusMessage: 'Page not found' })
+  }
   
   usePageSeo({
-    title: () => podcast.value?.title ? `${podcast.value.title} | Prishan Fernando` : 'Podcast | Prishan Fernando',
+    title: () => {
+      if (!podcast.value) return 'Podcast | Prishan Fernando'
+      if (podcast.value.seoTitle) return podcast.value.seoTitle
+      return podcast.value.title ? `${podcast.value.title} | Prishan Fernando` : 'Podcast | Prishan Fernando'
+    },
     description: () => podcast.value?.description || podcast.value?.excerpt || '',
     type: 'article',
     image: () => podcast.value?.image,

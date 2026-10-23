@@ -18,7 +18,7 @@
           </h1>
           
           <p class="text-xl text-gray-600 max-w-2xl font-medium leading-relaxed mb-12">
-            {{ certifications?.heroDescription || 'A comprehensive overview of my technical expertise and professional certifications in the Salesforce and Cloud ecosystem.' }}
+            {{ certifications?.heroDescription || 'Technical credentials across AI, Salesforce, and cloud — plus a habit of keeping them current.' }}
           </p>
 
           <!-- Quick Stats -->
@@ -106,8 +106,8 @@ const salesforceCount = computed(() => {
 })
 
 usePageSeo({
-  title: 'Salesforce Certifications | Prishan Fernando',
-  description: 'Salesforce certifications including AI Associate (Agentforce), Experience Cloud Consultant, and 12+ credentials across the Salesforce and cloud ecosystem.'
+  title: () => certifications.value?.title || 'Certifications | Prishan Fernando',
+  description: () => certifications.value?.description || 'Salesforce, AI, and cloud credentials — including AI Associate (Agentforce), Experience Cloud Consultant, and 12+ certifications.'
 })
 </script>
 

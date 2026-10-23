@@ -29,7 +29,13 @@
                 :class="{ '!opacity-100 !visible': openMenu === item.name }"
               >
                 <div class="py-2 rounded-lg bg-white border border-gray-100 shadow-lg min-w-[220px]">
-                  <template v-for="child in item.children" :key="child.name">
+                  <template v-for="(child, childIndex) in item.children" :key="child.name">
+                    <p
+                      v-if="child.section && child.section !== item.children[childIndex - 1]?.section"
+                      class="px-4 pt-3 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400"
+                    >
+                      {{ child.section }}
+                    </p>
                     <a
                       v-if="child.download"
                       :href="hrefPath(child.href)"
@@ -99,7 +105,13 @@
               {{ item.name }}
             </NuxtLink>
             <div class="pl-4 space-y-1 border-l-2 border-gray-100 ml-3">
-              <template v-for="child in item.children" :key="child.name">
+              <template v-for="(child, childIndex) in item.children" :key="child.name">
+                <p
+                  v-if="child.section && child.section !== item.children[childIndex - 1]?.section"
+                  class="px-3 pt-2 pb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400"
+                >
+                  {{ child.section }}
+                </p>
                 <a
                   v-if="child.download"
                   :href="hrefPath(child.href)"
@@ -163,11 +175,11 @@ const navigation = [
     href: '/tools/',
     children: [
       { name: 'All tools', href: '/tools/' },
-      { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator/' },
-      { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator/' },
-      { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator/' },
-      { name: 'Rental Application', href: '/tools/rental-application/' },
-      { name: 'Todo Board', href: '/tools/todo-board/' }
+      { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator/', section: 'Finance calculators' },
+      { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator/', section: 'Finance calculators' },
+      { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator/', section: 'Finance calculators' },
+      { name: 'Rental Application', href: '/tools/rental-application/', section: 'Utilities' },
+      { name: 'Todo Board', href: '/tools/todo-board/', section: 'Utilities' }
     ]
   },
   { name: 'Speaking & Media', href: '/speaking/' },

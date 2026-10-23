@@ -10,7 +10,7 @@
           Back to Tools
         </NuxtLink>
         <h1 class="text-4xl md:text-6xl font-black text-primary mb-4 tracking-tighter">
-          Mortgage Strategist
+          Mortgage Calculator
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
           Compare scenarios, extra principal, and term summaries. Enter your own amount and rate.

@@ -1,5 +1,6 @@
 ---
 title: "Mortgage Strategies: How to Save Money, When to Pay Extra, and How It Compares to Investing"
+seoTitle: "Mortgage: Extra Payments vs Investing | Prishan Fernando"
 description: "A practical guide to mortgage payoff strategies, extra principal payments, and how they stack up against investing in the market—with real examples and scenarios for risk-averse savers."
 image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2070&auto=format&fit=crop"
 date: "2026-02-12"

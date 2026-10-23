@@ -1,5 +1,6 @@
 ---
 title: "Is Your Data Safe with AI? The Truth About Claude, Anthropic, and Cloud Security"
+seoTitle: "Is Your Data Safe with AI? | Prishan Fernando"
 description: "A clear breakdown of AI data security: how Claude and Anthropic handle your data, when to use the direct API vs Amazon Bedrock, and how to think about AI risk like any other enterprise cloud vendor."
 date: 2026-02-20
 excerpt: "Most companies already send sensitive data to Salesforce, Microsoft, and Google without hesitation. So why is everyone so nervous about AI? We break down what's real, what's myth, and how to think about AI data security the right way."

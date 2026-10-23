@@ -489,7 +489,7 @@ const filteredSummaries = computed(() => {
 const config = useRuntimeConfig()
 const siteUrl = (config.public?.siteUrl || 'https://prishanfernando.com').replace(/\/$/, '')
 const pageUrl = `${siteUrl}/book-summaries/`
-const pageTitle = 'Book Summaries | Productivity Game PDFs - Prishan Fernando'
+const pageTitle = 'Book Summaries | Prishan Fernando'
 const pageDescription = 'Free PDF book summaries from Productivity Game by Nathan Lozeron. Browse and download summaries of best-selling books on productivity, leadership, and growth. Listen each morning and keep PDFs for reference.'
 
 function hasPdf(url) {

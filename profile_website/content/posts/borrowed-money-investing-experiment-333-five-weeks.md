@@ -1,5 +1,6 @@
 ---
 title: "The Great Money Quest: I Borrowed $8,500 And Made $333 In Just 5 Weeks!"
+seoTitle: "I Borrowed $8,500 and Made $333 | Prishan Fernando"
 description: "I borrowed $8,500, invested it with Wealthsimple, and turned month one into a real money quest with $333 in gains."
 image: "https://images.unsplash.com/photo-1553141836-ef5a03f71028?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000"
 date: "2026-06-04"

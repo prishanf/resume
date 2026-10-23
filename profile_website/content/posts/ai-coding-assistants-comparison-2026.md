@@ -1,5 +1,6 @@
 ---
 title: "Cline vs Copilot vs Claude Code vs Cursor: A Same-Model Comparison for 2026"
+seoTitle: "AI Coding Assistants Compared (2026) | Prishan Fernando"
 description: "When the underlying LLM is the same, which AI coding assistant wins? A practical comparison of interface, context, agentic power, and cost."
 image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop"
 date: "2026-02-25"

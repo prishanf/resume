@@ -1,5 +1,6 @@
 ---
 title: "Building High-Trust Teams in Technical Environments"
+seoTitle: "Building High-Trust Technical Teams | Prishan Fernando"
 description: "Strategies for technical architects to foster psychological safety and build high-performing engineering teams."
 image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
 date: "2026-01-20"

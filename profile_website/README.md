@@ -101,8 +101,8 @@ The **Activity Summary** page (`/activity-summary`) shows a build-time changelog
 1. **Set environment variables**:
    - **Local**: in `.env` in `profile_website/` use `ACTIVITY_REPO`, `ACTIVITY_BRANCH`, `ACTIVITY_TOKEN` (or the `GITHUB_*` names; GitHub disallows `GITHUB_*` in repo settings).
    - **GitHub Actions**: use **Repository** variables/secrets (Settings → Secrets and variables → Actions → **Variables** and **Secrets**), not Environment variables. The deploy workflow passes them explicitly:
-     - **Variables**: `ACTIVITY_REPO`, `ACTIVITY_BRANCH`, `NUXT_PUBLIC_GTAG_ID`, `NUXT_PUBLIC_GOOGLE_SHEET_ID_VIDEOS`, `NUXT_PUBLIC_GOOGLE_SHEET_GID_VIDEOS`
-     - **Secret**: `ACTIVITY_TOKEN` (GitHub PAT)
+     - **Variables**: `ACTIVITY_REPO`, `ACTIVITY_BRANCH`, `NUXT_PUBLIC_GTAG_ID`
+     - **Secrets**: `ACTIVITY_TOKEN` (GitHub PAT), `GOOGLE_SHEET_ID_VIDEOS` (and optionally `GOOGLE_SHEET_GID_VIDEOS`) — build-time only, never `NUXT_PUBLIC_*`
    - **`ACTIVITY_REPO`** (or `GITHUB_REPO` locally): repository as `owner/repo` or full URL e.g. `https://github.com/owner/repo`. Required for real data.
    - **`ACTIVITY_BRANCH`** (optional): branch to fetch commits from (default: `main`).
    - **`ACTIVITY_TOKEN`** (optional): GitHub PAT for higher rate limit and commit stats; store as a **secret** in Actions.

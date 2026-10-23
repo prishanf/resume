@@ -56,7 +56,21 @@ function parseCommitMessage(msg) {
   const firstLine = (msg || '').split(/\r?\n/)[0].trim()
   const rest = (msg || '').split(/\r?\n/).slice(1).join('\n').trim()
   const title = firstLine.replace(/^(feat|fix|docs|style|refactor|perf|test|chore)[(\s:]+\s*/i, '').trim()
-  return { title: title || 'Update', description: rest || '' }
+  return {
+    title: redactPublicText(title) || 'Update',
+    description: redactPublicText(rest) || ''
+  }
+}
+
+/** Strip names and terms that must not appear on the public activity log. */
+function redactPublicText(text) {
+  if (!text) return text
+  return text
+    .replace(/Brad Jackson/gi, 'a colleague')
+    .replace(/TeslanSoft/gi, '')
+    .replace(/MuleSoft/gi, 'integration')
+    .replace(/\bPCC\b/g, 'PointClickCare')
+    .replace(/\bIG\b(?!\s+Wealth)/g, 'IG Wealth Management')
 }
 
 function toDateKey(d) {

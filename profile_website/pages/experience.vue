@@ -17,7 +17,7 @@
           </h1>
           
           <p class="text-xl text-gray-600 max-w-2xl font-medium leading-relaxed">
-            Over two decades of expertise in software engineering and enterprise architecture, with a focus on Salesforce ecosystems and AI innovation.
+            Over two decades in software and enterprise architecture — solving business problems with AI, leading delivery teams, and working on the Salesforce platform.
           </p>
         </div>
       </div>
@@ -152,7 +152,7 @@ const skills = [
 
 usePageSeo({
   title: 'Experience | Prishan Fernando',
-  description: 'Director of Global Salesforce at Slalom. Career history spanning enterprise Salesforce architecture, practice leadership, and delivery across manufacturing, healthcare, and financial services.'
+  description: 'Career history: AI solutions, enterprise delivery, and practice leadership across healthcare, financial services, and manufacturing.'
 })
 </script>
 
