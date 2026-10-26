@@ -109,6 +109,31 @@ export function websiteJsonLd(siteUrl?: string | null) {
   }
 }
 
+export function softwareApplicationJsonLd(opts: {
+  siteUrl?: string | null
+  path: string
+  name: string
+  description?: string
+  applicationCategory?: string
+}) {
+  const url = canonicalUrl(opts.siteUrl, opts.path)
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['WebApplication', 'SoftwareApplication'],
+    name: opts.name,
+    description: opts.description || undefined,
+    url,
+    applicationCategory: opts.applicationCategory || 'FinanceApplication',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'CAD'
+    },
+    author: personJsonLd(opts.siteUrl)
+  }
+}
+
 export function webPageJsonLd(opts: {
   siteUrl?: string | null
   path: string

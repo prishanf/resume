@@ -53,6 +53,15 @@ export const TOOLS: ToolCard[] = [
     category: 'finance'
   },
   {
+    slug: 'rrsp-vs-tfsa-calculator',
+    path: '/tools/rrsp-vs-tfsa-calculator',
+    title: 'RRSP vs TFSA vs FHSA Calculator (BC, 2026)',
+    description: 'Compare the after-tax value of the same contribution in an RRSP, TFSA, FHSA, or non-registered account for a BC resident in 2026.',
+    cta: 'Open calculator →',
+    icon: 'calculator',
+    category: 'finance'
+  },
+  {
     slug: 'rental-application',
     path: '/tools/rental-application',
     title: 'Rental Application',
