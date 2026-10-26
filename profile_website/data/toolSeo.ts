@@ -148,6 +148,60 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
         answer: 'No. It is an educational comparison from the numbers you enter. Confirm conversion rules and payments with your lender and a qualified advisor. The matching article walks through the same methodology in more detail.'
       }
     ]
+  },
+  'rrsp-vs-tfsa-calculator': {
+    title: 'RRSP vs TFSA vs FHSA Calculator (Canada, 2026) | Prishan Fernando',
+    description: 'Compare after-tax value of an RRSP, TFSA, FHSA, or non-registered account for any Canadian province or territory in 2026. Uses 2026 federal and provincial brackets. Not financial advice.',
+    heading: 'How this RRSP vs TFSA vs FHSA calculator works',
+    paragraphs: [
+      'This page compares one contribution — the same dollars — in an RRSP, a TFSA, an FHSA, or a non-registered account. It is built for a Canadian resident in the 2026 tax year. Pick a province or territory (British Columbia is the default), then enter current employment income, the contribution, expected income or a combined tax rate at withdrawal, years invested, an expected annual return, and whether you are an eligible first-time home buyer. A toggle reinvests the RRSP or FHSA tax refund in a TFSA. The result is after-tax value at the end, plus which account wins in that scenario. It is a planning sketch, not financial, tax, or legal advice.',
+      'Federal and provincial income tax come from the same 2026 engine as the Canadian tax calculator on this site: brackets, the federal basic personal amount, the Canada Employment Amount, and province-specific items already in that engine (Ontario surtax and Health Premium, the BC low-income tax reduction, Quebec QPP/QPIP, the 16.5% federal abatement, and the Quebec worker deduction). The other provinces and territories use 2026 CRA brackets and basic personal amounts. The refund on an RRSP or FHSA contribution is the drop in federal plus provincial tax when that amount is deducted. Payroll (CPP and EI) does not change. Rates shown “now” and the tax on an RRSP withdrawal both use the province you selected.',
+      'A TFSA contribution grows tax-free and comes out tax-free, so after-tax value is compound growth. An RRSP deducts the contribution today, grows tax-deferred, then the whole balance is taxed as income at withdrawal. If the refund-reinvest toggle is on, that refund is grown in a TFSA at the same return. An FHSA, when you are an eligible first-time home buyer, combines the deduction with a tax-free qualifying home withdrawal. If you are not eligible, the FHSA is excluded. A non-registered account defaults to a capital gain realized at the end (50% inclusion); you can switch that to interest taxed each year at the current income-tax rate on extra investment income.',
+      '2026 contribution-limit assumptions, which you should confirm in CRA My Account: RRSP dollar limit $33,810 and the 18% of earned-income rule (this tool uses the income you type as a proxy for prior-year earned income); TFSA annual dollar limit $7,000; FHSA $8,000 a year and $40,000 lifetime. The calculator still runs if you enter more than those figures, and it warns you. Reinvesting a refund in a TFSA assumes you have room for that extra amount.',
+      'Pick your province, fill in income and contribution, set years and return, then choose expected income at withdrawal or a combined tax rate. Mark whether you can use an FHSA. Compare the four after-tax values and read the recommendation. Turn the refund toggle off if you would spend the refund. The standalone Canadian tax calculator still lists Ontario, British Columbia, Alberta, and Quebec only; this comparison tool is the one that covers all 13.',
+      'The model holds the return constant and ignores fees, inflation, OAS/GIS clawback, RRSP withholding on a cash withdrawal, Home Buyers’ Plan repayments, and non-qualifying FHSA withdrawals. Confirm room, deadlines, and eligibility with the CRA and a qualified professional before you contribute. This is not financial advice.'
+    ],
+    relatedPosts: [
+      { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
+      { path: '/posts/rrsp-vs-tfsa-vs-fhsa-calculator-canada-2026', title: 'RRSP vs TFSA vs FHSA Calculator (Canada 2026)' },
+      { path: '/posts/canadian-income-rrsp-tax-strategies', title: 'Canadian income, RRSP, and tax strategies' },
+      { path: '/posts/canadian-20k-investment-tax-guide-2026', title: 'The 2026 Canadian investment playbook' },
+      { path: '/posts/debt-vs-invest-2026', title: 'Pay down debt or invest extra cash' }
+    ],
+    faqs: [
+      {
+        question: 'Which provinces and territories does this calculator cover?',
+        answer: 'All 13: British Columbia, Alberta, Saskatchewan, Manitoba, Ontario, Quebec, New Brunswick, Nova Scotia, Prince Edward Island, Newfoundland and Labrador, Yukon, Northwest Territories, and Nunavut. British Columbia is the default. The province you pick is used for both the contribution-year refund and the withdrawal-year tax.'
+      },
+      {
+        question: 'Which account usually wins?',
+        answer: 'If you are an eligible first-time home buyer, the FHSA often wins because you get a deduction now and a tax-free qualifying withdrawal later. If you are not buying a first home, the RRSP tends to win when your tax rate now is higher than at withdrawal (especially if you reinvest the refund in a TFSA). The TFSA tends to win when those rates are similar or the withdrawal rate is higher. A non-registered account almost always trails because growth is taxed. Switching province changes the rates, so the ranking can move.'
+      },
+      {
+        question: 'How does the calculator get the tax refund and the withdrawal tax?',
+        answer: 'It reuses the 2026 federal and provincial logic from the Canadian tax calculator on this site, including Ontario surtax and Health Premium and the Quebec abatement where they apply. The refund is the drop in federal plus provincial tax when your contribution is deducted. Tax on an RRSP withdrawal is the extra income tax from adding that future value as fully taxable income at the income (or rate) you enter for withdrawal, in the same province. CPP and EI are not included in those deltas.'
+      },
+      {
+        question: 'What 2026 contribution limits does this use?',
+        answer: 'RRSP dollar limit $33,810 and the lesser of that and 18% of the income you enter (a proxy for prior-year earned income). TFSA annual limit $7,000. FHSA $8,000 per year and $40,000 lifetime. These are published CRA figures and do not include your unused room, pension adjustment, or over-contribution history. Check CRA My Account before you contribute.'
+      },
+      {
+        question: 'What if I am not a first-time home buyer?',
+        answer: 'Uncheck that box. The FHSA is dropped from the ranking because you generally need to be an eligible first-time home buyer to open one and make a qualifying tax-free withdrawal. The comparison then is RRSP vs TFSA vs non-registered.'
+      },
+      {
+        question: 'Does reinvesting the refund assume extra TFSA room?',
+        answer: 'Yes. If you contribute the 2026 TFSA annual limit already, the refund only fits if you have unused TFSA room from prior years (or you contribute less than the annual add). The tool warns you. You can turn the toggle off to count the refund as cash that is not invested.'
+      },
+      {
+        question: 'How is a non-registered account taxed here?',
+        answer: 'The default is a capital gain realized at withdrawal, with 50% inclusion in the same tax engine. You can switch to interest taxed each year at your current combined federal and provincial income-tax rate on extra investment income. Dividends, superficial-loss rules, and corporate class funds are not modelled.'
+      },
+      {
+        question: 'Is this official CRA software or financial advice?',
+        answer: 'No. It is an educational estimate for Canada in 2026 from the numbers you type. It does not file a return or look up your room. Confirm figures with the CRA and a qualified professional before you act.'
+      }
+    ]
   }
 }
 

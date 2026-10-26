@@ -1,9 +1,13 @@
 import { describe, expect, it } from 'vitest'
 import {
   calculateTax,
+  CANADA_PROVINCE_CODES,
   federalBpa,
+  getCanadaProvincesList,
+  getProvincesList,
   getTaxYearData,
   ontarioHealthPremium,
+  TAX_CALCULATOR_PROVINCE_CODES,
   TAX_YEAR_OPTIONS
 } from './canadianTax.js'
 
@@ -182,4 +186,38 @@ describe('cross-check vs published 2026 calculators (≤ $50 take-home)', () => 
     expect(delta).toBeLessThan(730)
     expectClose(r.federalTax, 11054.06)
   })
+})
+
+describe('2026 all-Canada provinces (RRSP/TFSA/FHSA coverage)', () => {
+  it('tax calculator list stays ON, BC, AB, QC', () => {
+    expect(getProvincesList(2026).map((p) => p.code)).toEqual(TAX_CALCULATOR_PROVINCE_CODES)
+  })
+
+  it('Canada list is all 13 jurisdictions for 2026', () => {
+    expect(getCanadaProvincesList(2026).map((p) => p.code)).toEqual(CANADA_PROVINCE_CODES)
+    expect(CANADA_PROVINCE_CODES).toHaveLength(13)
+  })
+
+  for (const province of CANADA_PROVINCE_CODES) {
+    it(`${province} $95k: combined income-tax rate and after-tax sanity`, () => {
+      const r = r2026(province, 95000)
+      expect(r.afterTaxIncome).toBeGreaterThan(65000)
+      expect(r.afterTaxIncome).toBeLessThan(82000)
+      expect(r.afterTaxIncome).toBeLessThan(95000 - r.totalTax)
+      expect(r.federalTax).toBeGreaterThan(0)
+      expect(r.provincialTax).toBeGreaterThan(0)
+      expect(r.totalTax + r.payrollTotal).toBeLessThan(95000)
+
+      const baseTax = calculateTax({
+        ...salaryScenario(province, 95000)
+      }, 2026).totalTax
+      const bumpedTax = calculateTax({
+        ...salaryScenario(province, 95000),
+        interest: 100
+      }, 2026).totalTax
+      const rate = (bumpedTax - baseTax) / 100
+      expect(rate).toBeGreaterThan(0.20)
+      expect(rate).toBeLessThan(0.45)
+    })
+  }
 })
