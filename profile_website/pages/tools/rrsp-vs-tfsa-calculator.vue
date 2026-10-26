@@ -9,14 +9,14 @@
           Back to Tools
         </NuxtLink>
         <h1 class="text-4xl md:text-6xl font-black text-primary mb-4 tracking-tighter">
-          RRSP vs TFSA vs FHSA Calculator (BC, 2026)
+          RRSP vs TFSA vs FHSA Calculator (Canada, 2026)
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Put the same dollars into an RRSP, TFSA, FHSA, or non-registered account and compare after-tax value for a British Columbia resident. Tax math reuses the 2026 federal and BC engine from the
+          Put the same dollars into an RRSP, TFSA, FHSA, or non-registered account and compare after-tax value for any province or territory. Tax math reuses the 2026 federal and provincial engine from the
           <NuxtLink to="/tools/canadian-tax-calculator" class="font-semibold text-primary hover:underline">Canadian Tax Calculator</NuxtLink>.
         </p>
         <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
-          <NuxtLink to="/posts/rrsp-vs-tfsa-vs-fhsa-calculator-bc-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+          <NuxtLink to="/posts/rrsp-vs-tfsa-vs-fhsa-calculator-canada-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
             How I use this calculator →
           </NuxtLink>
           <NuxtLink to="/posts/canadian-income-rrsp-tax-strategies" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
@@ -37,6 +37,17 @@
         <h2 class="text-xl font-bold text-primary mb-6">Your scenario</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           <div>
+            <label for="rrsp-province" class="block text-sm font-medium text-gray-700 mb-2">Province or territory</label>
+            <select
+              id="rrsp-province"
+              v-model="inputs.province"
+              class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary"
+            >
+              <option v-for="p in provinces" :key="p.code" :value="p.code">{{ p.name }}</option>
+            </select>
+            <p class="text-xs text-gray-500 mt-1">Residence on 31 December 2026. Used for tax now and at withdrawal. Defaults to British Columbia.</p>
+          </div>
+          <div>
             <label for="rrsp-income" class="block text-sm font-medium text-gray-700 mb-2">Current income ($)</label>
             <input
               id="rrsp-income"
@@ -46,7 +57,7 @@
               step="1000"
               class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary tabular-nums"
             />
-            <p class="text-xs text-gray-500 mt-1">Employment income, BC resident, 2026 tax year.</p>
+            <p class="text-xs text-gray-500 mt-1">Employment income, 2026 tax year.</p>
           </div>
           <div>
             <label for="rrsp-contribution" class="block text-sm font-medium text-gray-700 mb-2">Contribution ($)</label>
@@ -104,7 +115,7 @@
               step="1000"
               class="w-full rounded-lg border border-gray-200 px-4 py-2.5 text-gray-800 focus:ring-2 focus:ring-primary/30 focus:border-primary tabular-nums"
             />
-            <p class="text-xs text-gray-500 mt-1">Other income in the year you withdraw. Used to tax the RRSP (and non-registered capital gain).</p>
+            <p class="text-xs text-gray-500 mt-1">Other income in the year you withdraw. Taxed with the same province’s 2026 brackets as the contribution year.</p>
           </div>
           <div v-else>
             <label for="rrsp-withdrawal-rate" class="block text-sm font-medium text-gray-700 mb-2">Combined tax rate at withdrawal (%)</label>
@@ -276,7 +287,7 @@
           <div class="rounded-2xl border border-amber-200 bg-amber-50 p-6">
             <h2 class="text-xl font-bold text-primary mb-4">Assumptions and disclaimer</h2>
             <ul class="list-disc pl-5 space-y-2 text-sm text-amber-950">
-              <li>2026 federal + BC income tax only, from the same engine as the Canadian tax calculator. Not payroll, OAS, GIS, or AMT.</li>
+              <li>2026 federal + provincial income tax only, from the same engine as the Canadian tax calculator (all 13 provinces and territories). Not payroll, OAS, GIS, or AMT.</li>
               <li>Constant annual return, no fees, no inflation, one lump-sum contribution.</li>
               <li>FHSA path assumes a qualifying first-home withdrawal. Non-qualifying withdrawals are taxable.</li>
               <li>RRSP withholding on a cash withdrawal is not modelled; tax at filing is.</li>
@@ -303,7 +314,8 @@
 import { ArrowLeftIcon, BanknotesIcon, TrophyIcon } from '@heroicons/vue/24/outline'
 import { getToolSeo } from '~/data/toolSeo'
 import { faqPageJsonLd, softwareApplicationJsonLd } from '~/utils/seo'
-import { compareRegisteredAccounts } from '~/utils/registeredAccounts'
+import { compareRegisteredAccounts, REGISTERED_ACCOUNT_PROVINCE } from '~/utils/registeredAccounts'
+import { DEFAULT_TAX_YEAR, getCanadaProvincesList } from '~/utils/canadianTax'
 
 const toolSeo = getToolSeo('rrsp-vs-tfsa-calculator')
 const seoConfig = useRuntimeConfig()
@@ -316,14 +328,17 @@ usePageSeo({
     softwareApplicationJsonLd({
       siteUrl,
       path: '/tools/rrsp-vs-tfsa-calculator/',
-      name: 'RRSP vs TFSA vs FHSA Calculator (BC, 2026)',
+      name: 'RRSP vs TFSA vs FHSA Calculator (Canada, 2026)',
       description: toolSeo.description
     }),
     faqPageJsonLd(toolSeo.faqs)
   ]
 })
 
+const provinces = getCanadaProvincesList(DEFAULT_TAX_YEAR)
+
 const inputs = reactive({
+  province: REGISTERED_ACCOUNT_PROVINCE,
   income: 95000,
   contribution: 7000,
   years: 20,
@@ -337,6 +352,7 @@ const inputs = reactive({
 })
 
 const result = computed(() => compareRegisteredAccounts({
+  province: inputs.province,
   income: inputs.income,
   contribution: inputs.contribution,
   years: inputs.years,

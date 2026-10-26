@@ -1,34 +1,35 @@
 ---
-title: "RRSP vs TFSA vs FHSA in BC: I Ran $7,000 Through a 2026 Calculator"
-seoTitle: "RRSP vs TFSA vs FHSA in BC (2026) | Prishan Fernando"
-description: "I built a BC 2026 calculator to compare RRSP, TFSA, FHSA, and a taxable account. Here is how to use it, a $95k / $7,000 example, and the CRA rules I actually check."
+title: "RRSP vs TFSA vs FHSA Calculator (Canada 2026)"
+seoTitle: "RRSP vs TFSA vs FHSA (Canada 2026) | Prishan Fernando"
+description: "I built a Canada-wide 2026 calculator to compare RRSP, TFSA, FHSA, and a taxable account. Here is how to use it, a $95k / $7,000 BC example, and how Ontario and Alberta shift the numbers."
 image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?q=80&w=2070&auto=format&fit=crop"
 date: "2026-10-26"
-excerpt: "Same $7,000, four wrappers, one BC tax year. I built the calculator I kept wishing I had — then ran a $95k Vancouver scenario to see whether the FHSA, RRSP, or TFSA actually wins."
-tags: ["Finance", "Canada", "BC", "RRSP", "TFSA", "FHSA", "Tax", "Personal Finance", "2026"]
+excerpt: "Same $7,000, four wrappers, every province. I built the calculator I kept wishing I had — then ran a $95k Vancouver scenario and flipped Ontario and Alberta to see what actually moves."
+tags: ["Finance", "Canada", "RRSP", "TFSA", "FHSA", "Tax", "Personal Finance", "2026"]
 published: true
 ---
 
-# RRSP vs TFSA vs FHSA in BC: I Ran $7,000 Through a 2026 Calculator
+# RRSP vs TFSA vs FHSA Calculator (Canada 2026)
 
 I live in Vancouver and I build software for a living — AI solutions, architecture, the unglamorous glue that makes a system actually ship. I also build little calculators for myself when a money question will not leave me alone.
 
 This one would not leave me alone.
 
-Every winter I stare at the same pile of cash and ask the same question: does this $7,000 go into an RRSP, a TFSA, or — if I am still allowed — an FHSA? The internet answer is always “it depends on your tax rate now versus later,” which is true and also not a number. I wanted a number. So I wired this year’s federal and BC tax engine from my [Canadian tax calculator](/tools/canadian-tax-calculator/) into a side-by-side comparison.
+Every winter I stare at the same pile of cash and ask the same question: does this $7,000 go into an RRSP, a TFSA, or — if I am still allowed — an FHSA? The internet answer is always “it depends on your tax rate now versus later,” which is true and also not a number. I wanted a number. So I wired this year’s federal and provincial tax engine from my [Canadian tax calculator](/tools/canadian-tax-calculator/) into a side-by-side comparison, then let you pick any of the 13 provinces and territories. British Columbia is the default because that is where I actually live.
 
-**→ [Open the RRSP vs TFSA vs FHSA Calculator (BC, 2026)](/tools/rrsp-vs-tfsa-calculator/) and run your own income.**
+**→ [Open the RRSP vs TFSA vs FHSA Calculator (Canada, 2026)](/tools/rrsp-vs-tfsa-calculator/) and run your own income.**
 
 ## How I use it
 
 The page is deliberately boring. You type:
 
-1. Current employment income (it assumes you are a BC resident in 2026).
-2. The contribution — the same dollars, one account at a time.
-3. Expected income at withdrawal, *or* a combined tax rate if you already know the bracket you are aiming at.
-4. Years invested and an expected annual return.
-5. Whether you are an eligible first-time home buyer (that is the on/off switch for the FHSA).
-6. Whether the RRSP or FHSA tax refund gets reinvested in a TFSA.
+1. Province or territory (residence on 31 December 2026 — this rate is used both for the deduction now and for tax at withdrawal).
+2. Current employment income.
+3. The contribution — the same dollars, one account at a time.
+4. Expected income at withdrawal, *or* a combined tax rate if you already know the bracket you are aiming at.
+5. Years invested and an expected annual return.
+6. Whether you are an eligible first-time home buyer (that is the on/off switch for the FHSA).
+7. Whether the RRSP or FHSA tax refund gets reinvested in a TFSA.
 
 It then shows after-tax value in four wrappers: RRSP (refund included), TFSA, FHSA if you qualify, and a non-registered account. The recommendation is just “which pile is biggest, and why.” Limits are 2026 CRA figures with a note to check your real room in [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html).
 
@@ -38,7 +39,8 @@ I do not treat the winner as a command. I treat it as a sanity check before I mo
 
 Here is the scenario I actually ran, which is also the default on the tool:
 
-- Employment income: **$95,000** (BC, 2026)
+- Province: **British Columbia**
+- Employment income: **$95,000** (2026)
 - Contribution: **$7,000**
 - Time: **20 years** at **6%** per year
 - Other income in the withdrawal year: **$55,000**
@@ -63,9 +65,23 @@ If I uncheck “first-time home buyer,” the FHSA drops out. Then the RRSP bare
 
 None of this is a forecast of 6% markets. It is a wrapper comparison. Same return, different tax.
 
+## Same $7,000 in Ontario and Alberta
+
+I kept the BC numbers as the worked example because they are mine. Flipping the province dropdown — same income, same contribution, same $55k withdrawal year — moves the refund and the RRSP tax, not the TFSA pile.
+
+| Province | Tax saved now | FHSA after-tax | RRSP after-tax |
+| --- | ---: | ---: | ---: |
+| British Columbia | $1,974 (28.2%) | **$28,781** | $22,712 |
+| Ontario | $2,076 (29.6%) | **$29,106** | $22,562 |
+| Alberta | $2,135 (30.5%) | **$29,297** | $22,847 |
+
+Ontario and Alberta save a bit more on the deduction, so the FHSA (and the refund-grown-in-a-TFSA story) gets a slightly bigger pile. Ontario’s RRSP result is actually a hair *worse* than BC’s because the withdrawal at $55k plus the grown RRSP gets hit with Ontario’s Health Premium and surtax. Alberta’s RRSP edges BC because you save more now than you pay later. The TFSA stays $22,450 everywhere: no deduction, no tax later, province does not matter.
+
+That is the whole point of the dropdown. If you are not in BC, pick your province and ignore my Vancouver row.
+
 ## The CRA rules I actually keep open in another tab
 
-I am not a tax advisor. I am a person in BC who reads the CRA pages before moving money. These are the ones this calculator is built around.
+I am not a tax advisor. I am a person in Canada who reads the CRA pages before moving money. These are the ones this calculator is built around.
 
 ### RRSP deadline for the 2026 tax year
 
@@ -93,8 +109,8 @@ The [Home Buyers’ Plan](https://www.canada.ca/en/revenue-agency/services/tax/i
 
 It is not a forecast, a filing product, or advice. Returns are a slider. Your room is in My Account, not in my JavaScript. OAS clawback, GIS, unused FHSA-to-RRSP transfers, and “I might need this cash in three years” are all real life and none of them are in the table.
 
-If you want the underlying tax math, use the [Canadian tax calculator](/tools/canadian-tax-calculator/). For the broader “how is this income even taxed” walkthrough, I still point people at [Canadian income, RRSP, and tax strategies](/posts/canadian-income-rrsp-tax-strategies/), the [$20k investment playbook](/posts/canadian-20k-investment-tax-guide-2026/), and [pay down debt or invest](/posts/debt-vs-invest-2026/).
+If you want the underlying tax math, use the [Canadian tax calculator](/tools/canadian-tax-calculator/) — that page still lists Ontario, BC, Alberta, and Quebec. This comparison tool is the one that covers all 13. For the broader “how is this income even taxed” walkthrough, I still point people at [Canadian income, RRSP, and tax strategies](/posts/canadian-income-rrsp-tax-strategies/), the [$20k investment playbook](/posts/canadian-20k-investment-tax-guide-2026/), and [pay down debt or invest](/posts/debt-vs-invest-2026/).
 
-I built the comparison because I was tired of doing it in a scratch file. If you are in BC and staring at the same $7,000, borrow the tool.
+I built the comparison because I was tired of doing it in a scratch file. If you are staring at the same $7,000, pick your province and borrow the tool.
 
 **→ [Run the RRSP vs TFSA vs FHSA Calculator](/tools/rrsp-vs-tfsa-calculator/).**

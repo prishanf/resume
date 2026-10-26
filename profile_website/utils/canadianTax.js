@@ -8,14 +8,20 @@
  * Ontario surtax + Health Premium + tax reduction, BC low-income tax reduction,
  * Quebec QPP/QPIP, 16.5% federal abatement, and the Quebec worker deduction.
  *
- * Sources (accessed 2026-10-22):
- * - T4127 122nd ed. (Jan 2026 payroll formulas):
- *   https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4127-payroll-deductions-formulas/t4127-jan/t4127-jan-payroll-deductions-formulas-computer-programs.html
+ * Sources (accessed 2026-10-22; additional provinces 2026-10-26):
+ * - T4127 122nd ed. (Jan 2026) and 123rd ed. (Jul 2026) payroll formulas
  * - T4032-ON / T4032-AB / T4032-BC January 2026
+ * - CRA current-year T1 brackets (2026 tax return):
+ *   https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html
+ * - T4032-SK/MB/NB/NS/PE/NL/YT/NT/NU January 2026 (and T4032-NL / T4032-PE July 2026)
  * - CRA CPP, CPP2, EI tables
  * - gov.bc.ca personal tax rates and basic credits (2026 rate 5.60%, tax reduction $690)
  * - alberta.ca personal income tax
  * - Revenu Québec 2026 rates, QPP, QPIP, deduction for workers
+ *
+ * 2026 coverage: all 13 provinces and territories. The Canadian Tax Calculator UI
+ * still lists only ON, BC, AB, QC (see TAX_CALCULATOR_PROVINCE_CODES). The RRSP vs
+ * TFSA vs FHSA tool uses getCanadaProvincesList().
  */
 
 export const DEFAULT_TAX_YEAR = 2026
@@ -170,6 +176,82 @@ const TAX_DATA = {
         brackets: [[54345, 0.14], [108680, 0.19], [132245, 0.24], [1e9, 0.2575]],
         bpa: 18952, divElig: 0.117, divNon: 0.0342,
         workerDeductionMax: 1450, workerDeductionRate: 0.06
+      },
+      // --- Added 2026-10-26 for the all-Canada RRSP/TFSA/FHSA tool. Brackets from
+      // CRA current-year T1 rates; BPA from T4032 / T4127 Jul 2026 Table 8.2. ---
+      SK: {
+        name: 'Saskatchewan',
+        // CRA T1 2026 / T4032-SK Jan 2026 Chart 2. BPA $20,381 includes the
+        // Saskatchewan Affordability Act +$500 (T4032-SK).
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032sk-jan/t4032sk-january-general-information.html
+        brackets: [[54532, 0.105], [155805, 0.125], [1e9, 0.145]],
+        bpa: 20381
+      },
+      MB: {
+        name: 'Manitoba',
+        // T4032-MB Jan 2026 Chart 2 and the 20 Mar 2025 announcement that 2026
+        // brackets and BPA are not indexed: $47,000 / $100,000, BPA $15,780.
+        // CRA's current-year T1 page lists $47,564 / $101,200; this engine follows
+        // T4032 Chart 2. https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032mb-jan/t4032mb-january-general-information.html
+        brackets: [[47000, 0.108], [100000, 0.1275], [1e9, 0.174]],
+        bpa: 15780
+      },
+      NB: {
+        name: 'New Brunswick',
+        // CRA T1 2026 / T4032-NB Jan 2026 Chart 2. BPA $13,664.
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032nb-jan/t4032nb-january-general-information.html
+        brackets: [[52333, 0.094], [104666, 0.14], [193861, 0.16], [1e9, 0.195]],
+        bpa: 13664
+      },
+      NS: {
+        name: 'Nova Scotia',
+        // CRA T1 2026 / T4032-NS Jan 2026 Chart 2. BPA $11,932 (low-income
+        // enhancement is fully phased out well below the $95k scenarios here).
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032ns-jan/t4032ns-january-general-information.html
+        brackets: [[30995, 0.0879], [61991, 0.1495], [97417, 0.1667], [157124, 0.175], [1e9, 0.21]],
+        bpa: 11932
+      },
+      PE: {
+        name: 'Prince Edward Island',
+        // CRA T1 2026: top rate 20% above $200,000 (full-year). T4032-PE Jul 2026
+        // withholds a 21% prorate for Jul–Dec after the 14 Apr 2026 new bracket.
+        // BPA $15,000 (T4032-PE). Same T1-vs-payroll split as BC's 5.60%.
+        // https://www.canada.ca/en/revenue-agency/services/tax/individuals/tax-rates-brackets/current-year.html
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032pe-july/t4032pe-july-general-information.html
+        brackets: [[33928, 0.095], [65820, 0.1347], [106890, 0.166], [142520, 0.1762], [200000, 0.19], [1e9, 0.20]],
+        bpa: 15000
+      },
+      NL: {
+        name: 'Newfoundland and Labrador',
+        // CRA T1 2026 brackets. BPA $13,094 full-year (T4127 123rd ed. Jul 2026):
+        // 29 Apr 2026 announcement raised BPA from $11,188 to $13,094 effective
+        // 1 Jan 2026. Payroll uses a $15,000 Jul–Dec prorate; Option 2 / T1 is $13,094.
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4127-payroll-deductions-formulas/t4127-jul/t4127-jul-payroll-deductions-formulas.html
+        brackets: [[44678, 0.087], [89354, 0.145], [159528, 0.158], [223340, 0.178], [285319, 0.198], [570638, 0.208], [1141275, 0.213], [1e9, 0.218]],
+        bpa: 13094
+      },
+      YT: {
+        name: 'Yukon',
+        // CRA T1 2026 / T4032-YT Jan 2026 Chart 2. Territorial BPA matches federal
+        // (max $16,452, min $14,829, same 29%/33% phase-out). Territorial CEA $1,501.
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032yt-jan/t4032yt-january-general-information.html
+        brackets: [[58523, 0.064], [117045, 0.09], [181440, 0.109], [500000, 0.128], [1e9, 0.15]],
+        bpa: 16452, bpaMin: 14829, bpaPhaseStart: 181440, bpaPhaseEnd: 258482,
+        cea: 1501
+      },
+      NT: {
+        name: 'Northwest Territories',
+        // CRA T1 2026 / T4032-NT Jan 2026. BPA $18,198.
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032nt-jan/t4032nt-january-general-information.html
+        brackets: [[53003, 0.059], [106009, 0.086], [172346, 0.122], [1e9, 0.1405]],
+        bpa: 18198
+      },
+      NU: {
+        name: 'Nunavut',
+        // CRA T1 2026 / T4032-NU Jan 2026. BPA $19,659.
+        // https://www.canada.ca/en/revenue-agency/services/forms-publications/payroll/t4032-payroll-deductions-tables/t4032nu-jan/t4032nu-january-general-information.html
+        brackets: [[55801, 0.04], [111602, 0.07], [181439, 0.09], [1e9, 0.115]],
+        bpa: 19659
       }
     }
   }
@@ -185,9 +267,29 @@ function getTaxData (year) {
   return getTaxYearData(year)
 }
 
+/** Provinces shown in the Canadian Tax Calculator UI. Do not expand without a dedicated follow-up. */
+export const TAX_CALCULATOR_PROVINCE_CODES = ['ON', 'BC', 'AB', 'QC']
+
+/** All 13 provinces and territories, west-to-east, matching the RRSP/TFSA/FHSA selector. */
+export const CANADA_PROVINCE_CODES = ['BC', 'AB', 'SK', 'MB', 'ON', 'QC', 'NB', 'NS', 'PE', 'NL', 'YT', 'NT', 'NU']
+
 export function getProvincesList (year) {
   const data = getTaxData(year)
-  return Object.entries(data.provinces).map(([code, p]) => ({ code, name: p.name }))
+  return TAX_CALCULATOR_PROVINCE_CODES
+    .filter((code) => data.provinces[code])
+    .map((code) => ({ code, name: data.provinces[code].name }))
+}
+
+export function getCanadaProvincesList (year) {
+  const data = getTaxData(year)
+  return CANADA_PROVINCE_CODES
+    .filter((code) => data.provinces[code])
+    .map((code) => ({ code, name: data.provinces[code].name }))
+}
+
+export function normalizeCanadaProvince (code, fallback = 'BC') {
+  const c = String(code || '').toUpperCase()
+  return CANADA_PROVINCE_CODES.includes(c) ? c : fallback
 }
 
 export function getProvinceName (year, provinceCode) {
@@ -262,6 +364,19 @@ function bcTaxReduction (netIncome, taxBefore, reduction) {
   return Math.min(taxBefore, credit)
 }
 
+/** Yukon (and any province with bpaMin) uses the federal-style BPA phase-out. */
+function provincialBpa (netIncome, prov) {
+  if (prov.bpaMin != null && prov.bpaPhaseStart != null && prov.bpaPhaseEnd != null) {
+    return federalBpa(netIncome, {
+      bpaMax: prov.bpa,
+      bpaMin: prov.bpaMin,
+      bpaPhaseStart: prov.bpaPhaseStart,
+      bpaPhaseEnd: prov.bpaPhaseEnd
+    })
+  }
+  return prov.bpa || 0
+}
+
 function calculateCore (scenario, year) {
   const data = getTaxData(year)
   const federal = data.federal
@@ -323,7 +438,8 @@ function calculateCore (scenario, year) {
   if (isQc) fedTax = Math.max(0, fedTax - federal.quebecAbatement * fedTax)
 
   let provTax = taxFromBrackets(provincialTaxable, prov.brackets)
-  provTax -= (prov.bpa || 0) * lowestProv
+  provTax -= provincialBpa(netIncomeForBpa, prov) * lowestProv
+  if (prov.cea) provTax -= Math.min(salary, prov.cea) * lowestProv
   provTax -= pension.base * lowestProv
   provTax -= ei * lowestProv
   // Revenu Québec TP-1.D: base QPP, EI, and QPIP are provincial non-refundable credits

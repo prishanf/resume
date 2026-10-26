@@ -1,9 +1,10 @@
 /**
  * After-tax comparison of a single contribution in an RRSP, TFSA, FHSA,
- * or non-registered account for a BC resident in 2026.
+ * or non-registered account for a Canadian resident in 2026.
  *
  * Tax, credits, and brackets come from calculateTax() in canadianTax.js
- * (2026 federal + BC). This file does not duplicate rate tables.
+ * (2026 federal + the chosen province or territory). This file does not
+ * duplicate rate tables. Default province is BC.
  *
  * Contribution limit assumptions (CRA, accessed 2026-10-26):
  * - RRSP dollar limit $33,810; room is the lesser of 18% of prior-year
@@ -15,7 +16,7 @@
  *   https://www.canada.ca/en/revenue-agency/services/tax/individuals/topics/first-home-savings-account/contributing-your-fhsa.html
  */
 
-import { calculateTax, DEFAULT_TAX_YEAR } from './canadianTax.js'
+import { calculateTax, DEFAULT_TAX_YEAR, normalizeCanadaProvince } from './canadianTax.js'
 
 export const REGISTERED_ACCOUNT_TAX_YEAR = DEFAULT_TAX_YEAR
 export const REGISTERED_ACCOUNT_PROVINCE = 'BC'
@@ -51,56 +52,56 @@ function clamp (value, min, max) {
   return Math.min(max, Math.max(min, value))
 }
 
-function salaryScenario (salary, extras = {}) {
+function salaryScenario (salary, extras = {}, province = REGISTERED_ACCOUNT_PROVINCE) {
   return {
-    province: REGISTERED_ACCOUNT_PROVINCE,
+    province: normalizeCanadaProvince(province, REGISTERED_ACCOUNT_PROVINCE),
     salary: Math.max(0, asNumber(salary)),
     ...EMPTY_INCOME,
     ...extras
   }
 }
 
-/** Federal + BC income tax only (no CPP/EI). */
+/** Federal + provincial income tax only (no CPP/EI). */
 export function incomeTax (scenario, year = REGISTERED_ACCOUNT_TAX_YEAR) {
   return calculateTax(scenario, year).totalTax
 }
 
 /**
- * Combined federal + BC income-tax rate on an extra dollar of fully taxable
+ * Combined federal + provincial income-tax rate on an extra dollar of fully taxable
  * non-employment income (interest / RRSP withdrawal), at the given salary.
  * Uses a $100 increment to match calculateTax()'s marginal step size.
  */
-export function combinedIncomeTaxRate (salary, year = REGISTERED_ACCOUNT_TAX_YEAR) {
-  const base = incomeTax(salaryScenario(salary), year)
-  const bumped = incomeTax(salaryScenario(salary, { interest: 100 }), year)
+export function combinedIncomeTaxRate (salary, year = REGISTERED_ACCOUNT_TAX_YEAR, province = REGISTERED_ACCOUNT_PROVINCE) {
+  const base = incomeTax(salaryScenario(salary, {}, province), year)
+  const bumped = incomeTax(salaryScenario(salary, { interest: 100 }, province), year)
   const delta = bumped - base
   return delta > 0 ? delta / 100 : 0
 }
 
 /** Tax refund from deducting `contribution` against current salary (RRSP or FHSA). */
-export function contributionRefund (salary, contribution, year = REGISTERED_ACCOUNT_TAX_YEAR) {
+export function contributionRefund (salary, contribution, year = REGISTERED_ACCOUNT_TAX_YEAR, province = REGISTERED_ACCOUNT_PROVINCE) {
   const c = Math.max(0, asNumber(contribution))
   if (c <= 0) return 0
-  const without = incomeTax(salaryScenario(salary), year)
-  const withDeduction = incomeTax(salaryScenario(salary, { rrsp: c }), year)
+  const without = incomeTax(salaryScenario(salary, {}, province), year)
+  const withDeduction = incomeTax(salaryScenario(salary, { rrsp: c }, province), year)
   return round2(Math.max(0, without - withDeduction))
 }
 
 /** Extra income tax from adding fully taxable income (RRSP withdrawal) at `salary`. */
-export function taxOnFullyTaxableAmount (salary, amount, year = REGISTERED_ACCOUNT_TAX_YEAR) {
+export function taxOnFullyTaxableAmount (salary, amount, year = REGISTERED_ACCOUNT_TAX_YEAR, province = REGISTERED_ACCOUNT_PROVINCE) {
   const extra = Math.max(0, asNumber(amount))
   if (extra <= 0) return 0
-  const base = incomeTax(salaryScenario(salary), year)
-  const withExtra = incomeTax(salaryScenario(salary, { interest: extra }), year)
+  const base = incomeTax(salaryScenario(salary, {}, province), year)
+  const withExtra = incomeTax(salaryScenario(salary, { interest: extra }, province), year)
   return round2(Math.max(0, withExtra - base))
 }
 
 /** Extra income tax from a capital gain (50% inclusion via calculateTax). */
-export function taxOnCapitalGain (salary, gain, year = REGISTERED_ACCOUNT_TAX_YEAR) {
+export function taxOnCapitalGain (salary, gain, year = REGISTERED_ACCOUNT_TAX_YEAR, province = REGISTERED_ACCOUNT_PROVINCE) {
   const g = Math.max(0, asNumber(gain))
   if (g <= 0) return 0
-  const base = incomeTax(salaryScenario(salary), year)
-  const withGain = incomeTax(salaryScenario(salary, { capitalGains: g }), year)
+  const base = incomeTax(salaryScenario(salary, {}, province), year)
+  const withGain = incomeTax(salaryScenario(salary, { capitalGains: g }, province), year)
   return round2(Math.max(0, withGain - base))
 }
 
@@ -196,7 +197,8 @@ function recommend (accounts, ctx) {
 
 /**
  * @param {object} input
- * @param {number} input.income Current employment income (BC, 2026).
+ * @param {number} input.income Current employment income (2026).
+ * @param {string} [input.province] Province or territory code; defaults to BC.
  * @param {number} input.contribution Amount to place in one account.
  * @param {number} input.years Years invested.
  * @param {number} input.annualReturn Expected annual return as a decimal (0.06 = 6%).
@@ -209,6 +211,7 @@ function recommend (accounts, ctx) {
  */
 export function compareRegisteredAccounts (input = {}) {
   const income = Math.max(0, asNumber(input.income))
+  const province = normalizeCanadaProvince(input.province, REGISTERED_ACCOUNT_PROVINCE)
   const contribution = Math.max(0, asNumber(input.contribution))
   const years = clamp(asNumber(input.years), 0, 60)
   const annualReturn = clamp(asNumber(input.annualReturn), -0.5, 0.5)
@@ -219,8 +222,8 @@ export function compareRegisteredAccounts (input = {}) {
   const reinvestRefundInTfsa = Boolean(input.reinvestRefundInTfsa)
   const nonRegisteredTreatment = input.nonRegisteredTreatment === 'interest' ? 'interest' : 'capital-gains'
 
-  const currentRate = combinedIncomeTaxRate(income)
-  const refund = contributionRefund(income, contribution)
+  const currentRate = combinedIncomeTaxRate(income, REGISTERED_ACCOUNT_TAX_YEAR, province)
+  const refund = contributionRefund(income, contribution, REGISTERED_ACCOUNT_TAX_YEAR, province)
   const contributionRefundRate = contribution > 0 ? refund / contribution : 0
   const grownContribution = futureValue(contribution, annualReturn, years)
   const refundFutureValue = reinvestRefundInTfsa
@@ -233,7 +236,7 @@ export function compareRegisteredAccounts (input = {}) {
     rrspTaxOnWithdrawal = round2(grownContribution * withdrawalRateInput)
     withdrawalRate = withdrawalRateInput
   } else {
-    rrspTaxOnWithdrawal = taxOnFullyTaxableAmount(withdrawalIncome, grownContribution)
+    rrspTaxOnWithdrawal = taxOnFullyTaxableAmount(withdrawalIncome, grownContribution, REGISTERED_ACCOUNT_TAX_YEAR, province)
     withdrawalRate = withdrawalTaxRate(rrspTaxOnWithdrawal, grownContribution)
   }
 
@@ -301,16 +304,16 @@ export function compareRegisteredAccounts (input = {}) {
     const rAfter = annualReturn * (1 - currentRate)
     nonRegFuture = futureValue(contribution, rAfter, years)
     nonRegTax = round2(Math.max(0, grownContribution - nonRegFuture))
-    nonRegNote = 'Interest taxed each year at your current combined federal + BC income-tax rate on extra investment income.'
+    nonRegNote = 'Interest taxed each year at your current combined federal + provincial income-tax rate on extra investment income.'
   } else {
     nonRegFuture = grownContribution
     const gain = Math.max(0, grownContribution - contribution)
     if (withdrawalMode === 'rate') {
       nonRegTax = round2(0.5 * gain * withdrawalRateInput)
     } else {
-      nonRegTax = taxOnCapitalGain(withdrawalIncome, gain)
+      nonRegTax = taxOnCapitalGain(withdrawalIncome, gain, REGISTERED_ACCOUNT_TAX_YEAR, province)
     }
-    nonRegNote = 'Capital gain realized at withdrawal; 50% inclusion using the same 2026 federal + BC engine as the tax calculator.'
+    nonRegNote = 'Capital gain realized at withdrawal; 50% inclusion using the same 2026 federal + provincial engine as the tax calculator.'
   }
 
   const nonRegistered = {
@@ -346,6 +349,7 @@ export function compareRegisteredAccounts (input = {}) {
 
   return {
     income,
+    province,
     contribution,
     years,
     annualReturn,

@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { calculateTax } from './canadianTax.js'
+import { calculateTax, CANADA_PROVINCE_CODES } from './canadianTax.js'
 import {
   CONTRIBUTION_LIMITS_2026,
+  REGISTERED_ACCOUNT_PROVINCE,
   compareRegisteredAccounts,
   contributionRefund,
   futureValue,
@@ -196,6 +197,7 @@ describe('compareRegisteredAccounts math', () => {
 describe('worked example snapshot: BC $95k, $7,000, 20 years, 6%, withdrawal income $55k', () => {
   it('locks the after-tax values used in the companion post', () => {
     const r = compareRegisteredAccounts(exampleInput)
+    expect(r.province).toBe('BC')
     expect(r.refund).toBe(1974)
     expect(r.grownContribution).toBe(22449.95)
     expect(r.refundFutureValue).toBe(6330.89)
@@ -206,4 +208,53 @@ describe('worked example snapshot: BC $95k, $7,000, 20 years, 6%, withdrawal inc
     expect(r.accounts.tfsa.afterTaxValue).toBe(22449.95)
     expect(r.accounts.nonRegistered.afterTaxValue).toBe(20533.98)
   })
+})
+
+describe('province selection applies to contribution-year and withdrawal-year tax', () => {
+  it('defaults to BC', () => {
+    expect(REGISTERED_ACCOUNT_PROVINCE).toBe('BC')
+    expect(compareRegisteredAccounts(exampleInput).province).toBe('BC')
+    expect(compareRegisteredAccounts({ ...exampleInput, province: 'xx' }).province).toBe('BC')
+  })
+
+  it('ON and AB change the $7,000 refund and the RRSP withdrawal tax versus BC', () => {
+    const bc = compareRegisteredAccounts({ ...exampleInput, province: 'BC' })
+    const on = compareRegisteredAccounts({ ...exampleInput, province: 'ON' })
+    const ab = compareRegisteredAccounts({ ...exampleInput, province: 'AB' })
+    expect(on.refund).not.toBe(bc.refund)
+    expect(ab.refund).not.toBe(bc.refund)
+    expect(on.accounts.rrsp.taxOnWithdrawal).not.toBe(bc.accounts.rrsp.taxOnWithdrawal)
+    expect(ab.accounts.rrsp.taxOnWithdrawal).not.toBe(bc.accounts.rrsp.taxOnWithdrawal)
+    expect(on.accounts.fhsa.afterTaxValue).not.toBe(bc.accounts.fhsa.afterTaxValue)
+    expect(ab.accounts.fhsa.afterTaxValue).not.toBe(bc.accounts.fhsa.afterTaxValue)
+  })
+
+  it('locks Ontario and Alberta after-tax values used in the companion post', () => {
+    const on = compareRegisteredAccounts({ ...exampleInput, province: 'ON' })
+    const ab = compareRegisteredAccounts({ ...exampleInput, province: 'AB' })
+    expect(on.refund).toBe(2075.5)
+    expect((on.currentRate * 100).toFixed(1)).toBe('29.6')
+    expect(on.accounts.fhsa.afterTaxValue).toBe(29106.36)
+    expect(on.accounts.rrsp.afterTaxValue).toBe(22562.42)
+    expect(ab.refund).toBe(2135)
+    expect((ab.currentRate * 100).toFixed(1)).toBe('30.5')
+    expect(ab.accounts.fhsa.afterTaxValue).toBe(29297.18)
+    expect(ab.accounts.rrsp.afterTaxValue).toBe(22846.72)
+  })
+
+  for (const province of CANADA_PROVINCE_CODES) {
+    it(`${province} $95k example: rate now, withdrawal tax, and after-tax sanity`, () => {
+      const r = compareRegisteredAccounts({ ...exampleInput, province })
+      expect(r.province).toBe(province)
+      expect(r.currentRate).toBeGreaterThan(0.20)
+      expect(r.currentRate).toBeLessThan(0.45)
+      expect(r.refund).toBeGreaterThan(1000)
+      expect(r.accounts.rrsp.taxOnWithdrawal).toBeGreaterThan(0)
+      expect(r.accounts.tfsa.afterTaxValue).toBeCloseTo(7000 * 1.06 ** 20, 2)
+      expect(r.accounts.fhsa.afterTaxValue).toBeGreaterThan(r.accounts.tfsa.afterTaxValue)
+      expect(r.accounts.tfsa.afterTaxValue).toBeGreaterThan(r.accounts.nonRegistered.afterTaxValue)
+      expect(r.winner.key).toBeTruthy()
+      expect(r.winner.afterTaxValue).toBe(r.accounts[r.winner.key].afterTaxValue)
+    })
+  }
 })
