@@ -15,6 +15,8 @@ If you have a mortgage, you’ve probably wondered: *Should I pay extra toward t
 
 **→ Use the [Mortgage Strategist](/tools/mortgage-calculator/) to run your own numbers, compare scenarios, and see mortgage vs. market side by side.**
 
+If the question is a **2026 renewal** rather than extra payments on a current term, use the [Mortgage Renewal Calculator (Canada, 2026)](/tools/mortgage-renewal-calculator/) for payment shock, offer comparisons, and the stress-test check.
+
 ---
 
 ## What This Article Covers

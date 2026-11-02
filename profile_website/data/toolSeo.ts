@@ -202,6 +202,57 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
         answer: 'No. It is an educational estimate for Canada in 2026 from the numbers you type. It does not file a return or look up your room. Confirm figures with the CRA and a qualified professional before you act.'
       }
     ]
+  },
+  'mortgage-renewal-calculator': {
+    title: 'Mortgage Renewal Calculator (Canada, 2026) | Prishan Fernando',
+    description: 'Compare Canadian mortgage renewal offers, payment shock, extra payments, and the OSFI stress test for any province or territory. Not financial advice.',
+    heading: 'How this mortgage renewal calculator works',
+    paragraphs: [
+      'This page is a planning workspace for a Canadian mortgage that is coming up for renewal. You enter the remaining balance, remaining amortization, current rate and payment frequency, then up to three renewal offers (for example a 5-year fixed, a 3-year fixed, and a variable). Optional boxes cover a lump-sum paydown, an extra amount on each payment, and the income and housing-cost figures used for a Gross Debt Service / Total Debt Service check. The math is the same in every province and territory: Canadian mortgages compound semi-annually, not in advance. British Columbia is the default only because that is where I live. It is a sketch from the numbers you type, not a lender quote and not financial, tax, or legal advice.',
+      'Each offer shows the new principal-and-interest payment, payment shock versus your current payment (in dollars and percent), total interest over that offer’s term, and the balance left at the end of the term. If the new payment is higher, the tool also solves for a longer amortization that would keep today’s payment, and shows the extra interest that stretch would cost. Extra per-period amounts do not change the contractual payment; they cut interest and the balance left at renewal’s end. A lump sum is applied first, then the new payment is calculated on what remains.',
+      'The stress-test block uses the prescribed minimum qualifying rate from OSFI: the greater of the contract rate plus 2% or 5.25%. Gross Debt Service is that qualifying payment plus property tax, heating, and 50% of condo fees, as a share of gross household income. Total Debt Service adds your other monthly debts. Typical limits in the tool are 39% GDS and 44% TDS, matching CMHC’s published ratios. Qualification is calculated at the remaining amortization you entered, not at an extended one.',
+      'Since 21 November 2024, OSFI no longer prescribes that minimum qualifying rate for an uninsured “straight switch” at renewal between federally regulated lenders — same remaining amortization, no increase in the loan amount (up to $3,000 may be added only for penalties and transaction costs). Insured holders switching at renewal were separately exempted under the Canadian Mortgage Charter. The prescribed test is still the relevant check when you borrow more, extend amortization, or deal with a lender that applies its own qualifying rate. OSFI still expects Guideline B-20 underwriting, so a new lender can stress-test even when the prescribed rate is not required. Provincially regulated credit unions are not OSFI-regulated and set their own policy.',
+      'Pick your province or territory, paste the remaining balance and amortization from your renewal statement, type the offers you actually have, and compare payment shock before you sign. Use the situation menu so the stress-test note matches what you are doing (stay, straight switch, or extra borrowing). Confirm anything that matters with your lender and a qualified advisor. This is not financial advice.'
+    ],
+    relatedPosts: [
+      { path: '/tools/mortgage-calculator', title: 'Mortgage Calculator' },
+      { path: '/tools/heloc-mortgage-calculator', title: 'HELOC vs Mortgage Calculator' },
+      { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
+      { path: '/posts/mortgage-renewal-calculator-canada-2026', title: 'Mortgage Renewal Calculator (Canada 2026)' },
+      { path: '/posts/mortgage-strategies-save-money-investing-vs-extra-payments', title: 'Mortgage strategies: extra payments vs investing' },
+      { path: '/posts/heloc-vs-mortgage-conversion-analysis', title: 'HELOC vs fixed mortgage analysis' },
+      { path: '/posts/debt-vs-invest-2026', title: 'Pay down debt or invest extra cash' }
+    ],
+    faqs: [
+      {
+        question: 'Does this calculator work outside British Columbia?',
+        answer: 'Yes. It is built for all 13 provinces and territories. Payment math follows the federal Interest Act (semi-annual compounding) and OSFI / CMHC qualification figures, which do not change by province. The province dropdown is for context; it does not change the payment or GDS/TDS arithmetic.'
+      },
+      {
+        question: 'What is payment shock at renewal?',
+        answer: 'Payment shock is the difference between your new principal-and-interest payment and your current one, shown in dollars and as a percent. A 2021 five-year fixed near 2% renewing in 2026 at a mid-4% offer is the usual example: the rate has more than doubled, but the payment does not, because you are amortizing a smaller remaining balance over fewer years.'
+      },
+      {
+        question: 'When does the OSFI stress test apply at renewal?',
+        answer: 'The tool uses the prescribed minimum qualifying rate — the greater of contract rate + 2% or 5.25% — for GDS and TDS. OSFI no longer requires that prescribed rate for an uninsured straight switch at renewal between federally regulated lenders as of 21 November 2024. Insured switches at renewal were exempted under the Canadian Mortgage Charter. Borrowing more, extending amortization, or a lender that still applies its own test are the cases where the stress-test block is the relevant check. Lenders may still underwrite under Guideline B-20 even when the prescribed rate is not required.'
+      },
+      {
+        question: 'What are GDS and TDS in this tool?',
+        answer: 'Gross Debt Service is qualifying housing costs divided by gross household income. Housing costs here are the principal-and-interest payment at the qualifying rate, plus property tax, heating, and 50% of condo fees. Total Debt Service adds other monthly debts. Typical limits used are 39% and 44%, matching CMHC. Your lender can apply tighter limits or limited exceptions.'
+      },
+      {
+        question: 'What does “keep the payment the same” actually cost?',
+        answer: 'If the new payment is higher, the tool solves for a longer amortization that would hold today’s payment at the new rate. That usually means more years of interest and a higher balance at the end of the term. Extending amortization is not a straight switch; it typically requires re-qualification. Lenders may also cap how far they will extend. FCAC warns that stretching amortization to lower the payment can cost thousands more in interest.'
+      },
+      {
+        question: 'How are lump sums and extra payments treated?',
+        answer: 'A lump sum reduces the balance before the new payment is calculated. An extra amount on each payment leaves the contractual principal-and-interest payment unchanged and is applied to principal, which lowers interest over the term and the balance at the end of the term. Prepayment privileges and annual caps vary by lender and are not modelled.'
+      },
+      {
+        question: 'Is this a quote, an approval, or financial advice?',
+        answer: 'No. It is an educational estimate from the numbers you type. It does not fetch live offers, apply lender fees, or file anything. Confirm payments, privileges, and qualification with your lender and a qualified advisor before you renew or switch.'
+      }
+    ]
   }
 }
 

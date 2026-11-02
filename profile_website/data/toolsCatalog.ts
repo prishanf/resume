@@ -35,6 +35,15 @@ export const TOOLS: ToolCard[] = [
     category: 'finance'
   },
   {
+    slug: 'mortgage-renewal-calculator',
+    path: '/tools/mortgage-renewal-calculator',
+    title: 'Mortgage Renewal Calculator (Canada, 2026)',
+    description: 'Compare renewal offers, payment shock, extra payments, and the OSFI stress test (GDS/TDS) for any province or territory.',
+    cta: 'Open calculator →',
+    icon: 'calculator',
+    category: 'finance'
+  },
+  {
     slug: 'canadian-tax-calculator',
     path: '/tools/canadian-tax-calculator',
     title: 'Canadian Tax Calculator',
