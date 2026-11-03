@@ -16,6 +16,9 @@
           Compare scenarios, extra principal, and term summaries. Enter your own amount and rate.
         </p>
         <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
+          <NuxtLink to="/tools/mortgage-renewal-calculator" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
+            Mortgage renewal calculator →
+          </NuxtLink>
           <NuxtLink to="/posts/mortgage-strategies-save-money-investing-vs-extra-payments" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
             Mortgage strategies →
           </NuxtLink>

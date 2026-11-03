@@ -17,6 +17,7 @@ const STATIC_PATHS = [
   '/speaking',
   '/tools',
   '/tools/mortgage-calculator',
+  '/tools/mortgage-renewal-calculator',
   '/tools/canadian-tax-calculator',
   '/tools/heloc-mortgage-calculator',
   '/tools/rrsp-vs-tfsa-calculator',
