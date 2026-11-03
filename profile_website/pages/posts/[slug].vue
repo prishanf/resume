@@ -65,7 +65,7 @@
               />
             </div>
             
-            <div class="prose prose-lg prose-primary">
+            <div ref="proseEl" class="prose prose-lg prose-primary">
               <ContentRenderer :value="post" />
             </div>
 
@@ -167,6 +167,8 @@ const { data: relatedPostsData } = await useAsyncData(`related-posts-${slug}`, a
 
 const relatedPosts = computed(() => relatedPostsData.value || [])
 const heroImage = computed(() => responsiveImageAttrs(post.value?.image, '(max-width: 768px) 100vw, 768px'))
+const proseEl = ref(null)
+useProseTableLabels(proseEl, () => post.value?._path)
 
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl
@@ -314,30 +316,20 @@ const formatDate = formatDisplayDate
   }
 
   :deep(.prose table:has(tbody td:nth-child(5)) tbody td) {
-    @apply block py-2 px-0 border-0 text-sm;
+    @apply block py-2 px-0 border-0 text-sm text-left;
+    text-align: left;
   }
 
   :deep(.prose table:has(tbody td:nth-child(5)) tbody td:first-child) {
     @apply font-bold text-primary text-base pb-2 mb-2 border-b border-gray-100;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(2)::before) {
-    content: "Cline: ";
-    @apply font-semibold text-gray-700;
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td::before) {
+    content: none;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(3)::before) {
-    content: "Copilot: ";
-    @apply font-semibold text-gray-700;
-  }
-
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(4)::before) {
-    content: "Claude Code: ";
-    @apply font-semibold text-gray-700;
-  }
-
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:nth-child(5)::before) {
-    content: "Cursor: ";
+  :deep(.prose table:has(tbody td:nth-child(5)) tbody td[data-label]:not([data-label=""])::before) {
+    content: attr(data-label) ": ";
     @apply font-semibold text-gray-700;
   }
 }
