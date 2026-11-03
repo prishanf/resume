@@ -12,7 +12,7 @@
           Mortgage Renewal Calculator (Canada, 2026)
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl">
-          Compare renewal offers, payment shock, extra payments, and the OSFI stress test for any province or territory. Defaults are a 2021 5-year fixed near 2% coming due in 2026 — swap in your own numbers.
+          Compare renewal offers, payment shock, extra payments, and the OSFI stress test for any province or territory. Defaults are a 2021 5-year fixed near 2% coming due in 2026, with example late-2026 rates — swap in your own numbers.
         </p>
         <div class="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-x-6 gap-y-2">
           <NuxtLink to="/posts/mortgage-renewal-calculator-canada-2026" class="inline-flex items-center text-sm font-semibold text-primary hover:underline">
@@ -206,7 +206,7 @@
     <section class="py-12 border-b border-gray-100 bg-gray-50/40">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-xl font-bold text-primary mb-2">Renewal offers</h2>
-        <p class="text-sm text-gray-600 mb-6">Example rates only — replace them with quotes you actually have. Variable is the rate you type, held constant for the term.</p>
+        <p class="text-sm text-gray-600 mb-6">Example rates for late 2026 — not a quote from any lender. Replace them with numbers from your renewal letter or broker. Variable is the rate you type, held constant for the term.</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div
             v-for="(offer, index) in inputs.offers"
@@ -405,7 +405,7 @@
           :class="result.prescribedMqrRequired ? 'bg-amber-50 border-amber-200' : 'bg-white border-gray-100'"
         >
           <p class="text-xs font-bold uppercase tracking-widest mb-1" :class="result.prescribedMqrRequired ? 'text-amber-800' : 'text-accent'">
-            {{ result.prescribedMqrRequired ? 'Prescribed MQR is the relevant check' : 'Prescribed MQR is not required for this situation' }}
+            {{ result.prescribedMqrRequired ? 'The prescribed qualifying rate is the relevant check' : 'The prescribed qualifying rate is not required for this situation' }}
           </p>
           <p class="text-sm text-gray-700">
             Qualifying rate = greater of 5.25% or contract rate + 2%. Typical limits: GDS 39%, TDS 44%.
@@ -450,12 +450,12 @@
             <ul class="space-y-3 text-sm text-gray-700">
               <li>Canadian compounding: nominal rate compounded semi-annually, not in advance. Same formula in every province and territory.</li>
               <li>Minimum qualifying rate = greater of contract rate + 2% or 5.25% (
-                <a class="font-semibold text-primary hover:underline" href="https://www.osfi-bsif.gc.ca/en/supervision/financial-institutions/banks/minimum-qualifying-rate-uninsured-mortgages" target="_blank" rel="noopener noreferrer">OSFI MQR</a>).
+                <a class="font-semibold text-primary hover:underline" href="https://www.osfi-bsif.gc.ca/en/supervision/financial-institutions/banks/minimum-qualifying-rate-uninsured-mortgages" target="_blank" rel="noopener noreferrer">OSFI</a>).
               </li>
               <li>GDS 39% / TDS 44%; GDS housing costs = qualifying P&amp;I + property tax + heating + 50% of condo fees (
                 <a class="font-semibold text-primary hover:underline" href="https://www.cmhc-schl.gc.ca/professionals/project-funding-and-mortgage-financing/mortgage-loan-insurance/calculating-gds-tds" target="_blank" rel="noopener noreferrer">CMHC GDS/TDS</a>).
               </li>
-              <li>Uninsured straight-switch MQR exemption effective 21 November 2024 for federally regulated lenders; insured switches at renewal were exempted under the Canadian Mortgage Charter.</li>
+              <li>Uninsured straight-switch qualifying-rate exemption effective 21 November 2024 for federally regulated lenders; insured switches at renewal were exempted under the Canadian Mortgage Charter.</li>
               <li>No lender fees, penalties, insurance premiums, or live rate feed. Variable offers are held at the rate you type.</li>
             </ul>
           </div>

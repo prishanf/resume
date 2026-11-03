@@ -63,10 +63,11 @@ export const RENEWAL_SITUATIONS = {
   }
 }
 
+/** Example late-2026 rates only — not a quote from any lender. */
 export const DEFAULT_RENEWAL_OFFERS = [
-  { id: 'a', label: '5-year fixed', ratePct: 4.39, termYears: 5, type: 'fixed' },
-  { id: 'b', label: '3-year fixed', ratePct: 4.19, termYears: 3, type: 'fixed' },
-  { id: 'c', label: '5-year variable', ratePct: 4.09, termYears: 5, type: 'variable' }
+  { id: 'a', label: '5-year fixed', ratePct: 4.49, termYears: 5, type: 'fixed' },
+  { id: 'b', label: '3-year fixed', ratePct: 4.29, termYears: 3, type: 'fixed' },
+  { id: 'c', label: '5-year variable', ratePct: 3.99, termYears: 5, type: 'variable' }
 ]
 
 /** Worked example: 2021 5-year fixed at 1.99% on $500,000 / 25 years, renewing after 5 years. */
@@ -396,11 +397,11 @@ function situationNotes (situation, { lumpSum, extraBorrowing, amortExtended }) 
   const prescribedRequired = RENEWAL_SITUATIONS[key].prescribedMqrRequired || extraBorrowing || amortExtended
   let reason
   if (key === 'requalify' || extraBorrowing || amortExtended) {
-    reason = 'The prescribed minimum qualifying rate is the relevant check when you borrow more, extend amortization, or move to a lender that still applies a stress test. OSFI still expects sound B-20 underwriting even when the prescribed MQR is not required.'
+    reason = 'The prescribed minimum qualifying rate is the relevant check when you borrow more, extend amortization, or move to a lender that still applies a stress test. OSFI still expects sound B-20 underwriting even when the prescribed rate is not required.'
   } else if (key === 'straight-switch') {
-    reason = 'As of 21 November 2024, OSFI no longer prescribes the MQR for an uninsured straight switch at renewal between federally regulated lenders (no increase in remaining amortization or loan amount, other than up to $3,000 for penalties and transaction costs). Insured switches at renewal were separately exempted under the Canadian Mortgage Charter. A new lender can still apply its own qualifying policy.'
+    reason = 'As of 21 November 2024, OSFI no longer prescribes the minimum qualifying rate for an uninsured straight switch at renewal between federally regulated lenders (no increase in remaining amortization or loan amount, other than up to $3,000 for penalties and transaction costs). Insured switches at renewal were separately exempted under the Canadian Mortgage Charter. A new lender can still apply its own qualifying policy.'
   } else {
-    reason = 'Staying with the same lender on the remaining balance and remaining amortization is typically a renewal, not a new origination. The prescribed MQR is still the relevant check if you borrow more, extend amortization, or the lender chooses to re-qualify you.'
+    reason = 'Staying with the same lender on the remaining balance and remaining amortization is typically a renewal, not a new origination. The prescribed minimum qualifying rate is still the relevant check if you borrow more, extend amortization, or the lender chooses to re-qualify you.'
   }
   if (lumpSum > 0 && !extraBorrowing) {
     reason += ' A lump-sum paydown reduces the loan amount; that is not extra borrowing.'

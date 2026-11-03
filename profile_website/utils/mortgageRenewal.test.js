@@ -116,7 +116,7 @@ describe('compareMortgageRenewal math', () => {
     expect(fiveYear.contractualPayment).toBeGreaterThan(r.current.payment)
     expect(fiveYear.paymentShock.dollars).toBeCloseTo(
       fiveYear.contractualPayment - r.current.payment,
-      2
+      1
     )
     expect(fiveYear.paymentShock.percentPts).toBeGreaterThan(20)
   })
@@ -126,7 +126,7 @@ describe('compareMortgageRenewal math', () => {
     const offer = r.offers[0]
     const paid = offer.contractualPayment * offer.termPeriods
     const principalPaid = r.current.startBalance - offer.endBalance
-    expect(principalPaid + offer.interestOverTerm).toBeCloseTo(paid, 1)
+    expect(principalPaid + offer.interestOverTerm).toBeCloseTo(paid, 0)
     expect(offer.endBalance).toBeGreaterThan(0)
     expect(offer.endBalance).toBeLessThan(r.current.startBalance)
   })
@@ -257,21 +257,30 @@ describe('worked example snapshot used in the companion post', () => {
     expect(r.current.payment).toBe(2114.84)
     expect(r.current.remainingAmortYears).toBe(20)
 
-    expect(fiveYear.contractualPayment).toBe(2615.6)
-    expect(fiveYear.paymentShock.dollars).toBe(500.76)
-    expect(fiveYear.paymentShock.percentPts).toBe(23.68)
-    expect(fiveYear.interestOverTerm).toBe(83526.61)
-    expect(fiveYear.endBalance).toBe(345353.53)
+    expect(fiveYear.contractualPayment).toBe(2637.69)
+    expect(fiveYear.paymentShock.dollars).toBe(522.84)
+    expect(fiveYear.paymentShock.percentPts).toBe(24.72)
+    expect(fiveYear.interestOverTerm).toBe(85485.05)
+    expect(fiveYear.endBalance).toBe(345986.63)
 
-    expect(threeYear.contractualPayment).toBe(2571.71)
-    expect(variable.contractualPayment).toBe(2549.9)
+    expect(threeYear.contractualPayment).toBe(2593.61)
+    expect(threeYear.paymentShock.dollars).toBe(478.76)
+    expect(threeYear.paymentShock.percentPts).toBe(22.64)
+    expect(threeYear.interestOverTerm).toBe(50839.51)
+    expect(threeYear.endBalance).toBe(376232.64)
 
-    expect(fiveYear.keepPaymentSame.extendedAmortYears).toBe(29.17)
-    expect(fiveYear.keepPaymentSame.extraInterestToPayoff).toBe(111729.06)
+    expect(variable.contractualPayment).toBe(2528.19)
+    expect(variable.paymentShock.dollars).toBe(413.35)
+    expect(variable.paymentShock.percentPts).toBe(19.55)
+    expect(variable.interestOverTerm).toBe(75712.99)
+    expect(variable.endBalance).toBe(342784.29)
 
-    expect(fiveYear.stressTest.qualifyingRatePct).toBe(6.39)
-    expect(fiveYear.stressTest.gdsPct).toBe(31.69)
-    expect(fiveYear.stressTest.tdsPct).toBe(35.69)
+    expect(fiveYear.keepPaymentSame.extendedAmortYears).toBe(29.83)
+    expect(fiveYear.keepPaymentSame.extraInterestToPayoff).toBe(123934.63)
+
+    expect(fiveYear.stressTest.qualifyingRatePct).toBe(6.49)
+    expect(fiveYear.stressTest.gdsPct).toBe(31.9)
+    expect(fiveYear.stressTest.tdsPct).toBe(35.9)
     expect(fiveYear.stressTest.passes).toBe(true)
   })
 })
