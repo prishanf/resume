@@ -301,42 +301,42 @@ const formatDate = formatDisplayDate
   @apply py-4 px-3 text-sm text-gray-600;
 }
 
-/* Mobile-first: turn wide comparison tables (5 cols) into stacked cards */
+/* Mobile-first: turn wide comparison tables (3+ cols) into stacked cards with thead data-labels */
 @media (max-width: 768px) {
-  :deep(.prose table:has(tbody td:nth-child(5))) {
+  :deep(.prose table:has(tbody td:nth-child(3))) {
     @apply block max-w-none overflow-visible shadow-none border-0 my-8;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) thead) {
+  :deep(.prose table:has(tbody td:nth-child(3)) thead) {
     @apply hidden;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody tr) {
+  :deep(.prose table:has(tbody td:nth-child(3)) tbody tr) {
     @apply block border border-gray-200 rounded-xl mb-4 p-4 bg-white shadow-sm last:border last:mb-0;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td) {
+  :deep(.prose table:has(tbody td:nth-child(3)) tbody td) {
     @apply block py-2 px-0 border-0 text-sm text-left;
     text-align: left;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td:first-child) {
+  :deep(.prose table:has(tbody td:nth-child(3)) tbody td:first-child) {
     @apply font-bold text-primary text-base pb-2 mb-2 border-b border-gray-100;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td::before) {
+  :deep(.prose table:has(tbody td:nth-child(3)) tbody td::before) {
     content: none;
   }
 
-  :deep(.prose table:has(tbody td:nth-child(5)) tbody td[data-label]:not([data-label=""])::before) {
+  :deep(.prose table:has(tbody td:nth-child(3)) tbody td[data-label]:not([data-label=""])::before) {
     content: attr(data-label) ": ";
     @apply font-semibold text-gray-700;
   }
 }
 
-/* Other tables on mobile: horizontal scroll */
+/* Narrow tables on mobile: horizontal scroll */
 @media (max-width: 768px) {
-  :deep(.prose table:not(:has(tbody td:nth-child(5)))) {
+  :deep(.prose table:not(:has(tbody td:nth-child(3)))) {
     @apply block max-w-none overflow-x-auto -mx-2 text-sm;
   }
 }
