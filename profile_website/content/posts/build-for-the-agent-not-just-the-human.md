@@ -13,6 +13,8 @@ published: true
 
 *How to design software that survives the AI era, and why the chat bubble in the corner of your website already feels like a relic.*
 
+> **What prompted this:** I was working through a Salesforce Agentforce Studio hands-on challenge on Trailhead. Looking at the outcome it was trying to achieve, and how much setup it took to get there, I started wondering what AI architecture will look like a few years from now. Based on some of the more advanced AI capabilities I've been working with, I went back to first principles. This article is where that thinking landed.
+
 ---
 
 Every technology era has its horseless carriage: the clumsy first attempt to bolt a new engine onto an old way of doing things. The earliest automobiles looked like wagons with the horse removed. Early websites looked like brochures. Early smartphone apps looked like shrunken desktop software.
