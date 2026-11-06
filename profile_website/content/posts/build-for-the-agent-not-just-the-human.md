@@ -1,10 +1,10 @@
 ---
 title: "Build for the Agent, Not Just the Human"
-seoTitle: "Build for the Agent, Not Just the Human | Prishan Fernando"
-description: "Why chat bubbles are a transitional AI pattern—and how to design API-first, permissioned software that agents can use without abandoning usable human interfaces."
+seoTitle: "Your Chatbot Isn't Your AI Strategy. Build This Instead. | Prishan Fernando"
+description: "What happens when customers send AI agents instead of visiting your website? Four design principles to help your software stay useful beyond the chat bubble."
 image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070&auto=format&fit=crop"
 date: "2026-11-06"
-excerpt: "The chat bubble is a horseless carriage. Design for agents that call your systems: clean APIs, MCP for tool discovery, OpenAPI for contracts, and deterministic guardrails humans can still trust."
+excerpt: "You built a chatbot. Your next customer might send an agent that never opens it. Here's what to build underneath the chat bubble—and why it matters more than the model you choose."
 tags: ["AI", "agents", "API design"]
 published: true
 ---
