@@ -110,4 +110,3 @@ Additional considerations: licensing is not uniform. DeepSeek V4.1-Flash and GLM
 
 Open-weight models have reached genuine enterprise readiness. The optimal path depends on your volume, data sensitivity, customization needs, and operational capacity. For most organizations the right answer is a hybrid: serverless or managed APIs for variable or lower-volume work, and carefully sized self-hosted capacity only where the economics and control requirements clearly justify it.
 
-If you are weighing open-weight vs managed APIs for a real workload, [get in touch on LinkedIn](https://www.linkedin.com/in/prishanf)—happy to compare options against your volume and constraints.
