@@ -42,6 +42,7 @@ This detailed analysis examines whether to convert a $300,000 HELOC balance (at 
 ### Tools Provided:
 - **[HELOC vs Mortgage Calculator](/tools/heloc-mortgage-calculator/)** — Run your own numbers with the interactive calculator
 - **[Mortgage Renewal Calculator (Canada, 2026)](/tools/mortgage-renewal-calculator/)** — Compare renewal offers, payment shock, and the OSFI stress test
+- **[Smith Manoeuvre Calculator (Canada, 2026)](/tools/smith-manoeuvre-calculator/)** — Deductible HELOC interest, the tax refund, and net worth versus a plain mortgage
 - Monthly payment comparison tables across 7 conversion scenarios
 - 5-year outcome projections with interest and principal breakdowns
 - Head-to-head matchups at similar payment levels

@@ -167,6 +167,8 @@ This was only **month one**.
 
 I am continuing the exact same plan for three more months to see what happens. Want to follow the adventure? Let me know, and I will keep sharing updates.
 
+If the bigger version of this question is a readvanceable mortgage — re-borrowing principal into a dividend-paying account and asking whether the HELOC interest is deductible — I later built a Canada-wide calculator for that: **[Smith Manoeuvre & Investment Loan Interest Calculator (Canada, 2026)](/tools/smith-manoeuvre-calculator/)**. The $8,500 experiment is still the small, tracked version. The calculator is the “what if this were the mortgage” version, with 2026 tax math and a lot more caveats.
+
 And yes, the next article might finally reveal the five stocks I picked and why.
 
 Thanks for coming on this money quest with me. Stay curious, stay smart, and remember: **the real win is building good habits, not just making money fast.**

@@ -302,6 +302,8 @@ For homeowners comfortable with leverage, the **Smith Manoeuvre** converts non-d
 
 **Caution:** This amplifies both gains AND losses. Only for financially sophisticated, risk-tolerant investors with stable income. Market crashes hurt more with leverage.
 
+I later wired this into a dedicated calculator — deductible HELOC interest, the 2026 tax refund, and net worth versus a plain mortgage, for every province and territory: **[Smith Manoeuvre & Investment Loan Interest Calculator (Canada, 2026)](/tools/smith-manoeuvre-calculator/)**. Walkthrough: [how I use it](/posts/smith-manoeuvre-calculator-canada-2026/).
+
 ## Your Action Plan: A Decision Flowchart
 
 ![A Decision Flowchart](/images/posts/debt-vs-invest.png)
@@ -376,6 +378,7 @@ A: With only 5 years, debt payoff is likely safer. Unless your TFSA/RRSP is alre
 - [Mortgage Calculator](https://prishanfernando.com/tools/mortgage-calculator/)
 - [Mortgage Renewal Calculator](https://prishanfernando.com/tools/mortgage-renewal-calculator/)
 - [HELOC vs Mortgage Calculator](https://prishanfernando.com/tools/heloc-mortgage-calculator/)
+- [Smith Manoeuvre Calculator (Canada, 2026)](https://prishanfernando.com/tools/smith-manoeuvre-calculator/)
 - [Bank of Canada Inflation indicators](https://www.bankofcanada.ca/rates/indicators/key-variables/key-inflation-indicators-and-the-target-range/) - Real returns
 - [Personal Tax Calculator](https://prishanfernando.com/tools/canadian-tax-calculator/) - Provincial dividend tax rates
 
