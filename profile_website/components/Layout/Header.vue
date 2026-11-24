@@ -177,6 +177,7 @@ const navigation = [
       { name: 'All tools', href: '/tools/' },
       { name: 'Mortgage Calculator', href: '/tools/mortgage-calculator/', section: 'Finance calculators' },
       { name: 'Canadian Tax Calculator', href: '/tools/canadian-tax-calculator/', section: 'Finance calculators' },
+      { name: 'Capital Gains Tax Calculator', href: '/tools/capital-gains-tax-calculator/', section: 'Finance calculators' },
       { name: 'HELOC vs Mortgage Calculator', href: '/tools/heloc-mortgage-calculator/', section: 'Finance calculators' },
       { name: 'Rental Application', href: '/tools/rental-application/', section: 'Utilities' },
       { name: 'Todo Board', href: '/tools/todo-board/', section: 'Utilities' }

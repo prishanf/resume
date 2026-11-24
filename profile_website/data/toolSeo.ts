@@ -28,6 +28,8 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
       'The model does not include every credit or deduction. It does not apply GST/HST credits, medical expenses, tuition, northern residents amounts, alternative minimum tax, or corporate tax. Only ON, BC, AB, and QC are available. Confirm anything that matters with the CRA and a qualified professional. This is not financial or tax advice.'
     ],
     relatedPosts: [
+      { path: '/tools/capital-gains-tax-calculator', title: 'Capital Gains Tax Calculator (Canada, 2026)' },
+      { path: '/tools/smith-manoeuvre-calculator', title: 'Smith Manoeuvre Calculator (Canada, 2026)' },
       { path: '/posts/canadian-income-rrsp-tax-strategies', title: 'Canadian income, RRSP, and tax strategies' },
       { path: '/posts/canadian-20k-investment-tax-guide-2026', title: 'The 2026 Canadian investment playbook' },
       { path: '/posts/debt-vs-invest-2026', title: 'Pay down debt or invest extra cash' }
@@ -163,6 +165,8 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
     ],
     relatedPosts: [
       { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
+      { path: '/tools/capital-gains-tax-calculator', title: 'Capital Gains Tax Calculator (Canada, 2026)' },
+      { path: '/tools/smith-manoeuvre-calculator', title: 'Smith Manoeuvre Calculator (Canada, 2026)' },
       { path: '/posts/rrsp-vs-tfsa-vs-fhsa-calculator-canada-2026', title: 'RRSP vs TFSA vs FHSA Calculator (Canada 2026)' },
       { path: '/posts/canadian-income-rrsp-tax-strategies', title: 'Canadian income, RRSP, and tax strategies' },
       { path: '/posts/canadian-20k-investment-tax-guide-2026', title: 'The 2026 Canadian investment playbook' },
@@ -270,6 +274,7 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
       { path: '/tools/heloc-mortgage-calculator', title: 'HELOC vs Mortgage Calculator' },
       { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
       { path: '/tools/rrsp-vs-tfsa-calculator', title: 'RRSP vs TFSA vs FHSA Calculator' },
+      { path: '/tools/capital-gains-tax-calculator', title: 'Capital Gains Tax Calculator (Canada, 2026)' },
       { path: '/posts/smith-manoeuvre-calculator-canada-2026', title: 'Smith Manoeuvre calculator (Canada 2026)' },
       { path: '/posts/borrowed-money-investing-experiment-333-five-weeks', title: 'I borrowed $8,500 and invested it' },
       { path: '/posts/heloc-vs-mortgage-conversion-analysis', title: 'HELOC vs fixed mortgage analysis' },
@@ -303,6 +308,56 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
       {
         question: 'Is this official CRA software or financial advice?',
         answer: 'No. It is an educational estimate for Canada in 2026 from the numbers you type. Rates on the page are examples, not a quote. Lender rules for readvanceable mortgages, variable prime, and your real tax return are not in the JavaScript. Confirm with the CRA, your lender, and a qualified professional before you act.'
+      }
+    ]
+  },
+  'capital-gains-tax-calculator': {
+    title: 'Capital Gains Tax Calculator (Canada, 2026) | Prishan Fernando',
+    description: 'Estimate 2026 Canadian capital-gains tax and year-end tax-loss harvesting for any province or territory. 50% inclusion; not tax advice.',
+    heading: 'How this capital gains tax calculator works',
+    paragraphs: [
+      'This page estimates the 2026 Canadian income tax on a capital gain, then shows what selling unrealized losers before year-end would save. Pick a province or territory (British Columbia is the default), enter other taxable income, one or more sold positions (proceeds of disposition, adjusted cost base, and outlays such as commissions), optional harvest candidates (current value and ACB), and any net capital losses carried forward. The result is the capital gain or loss, the taxable capital gain at the 50% inclusion rate, the extra federal plus provincial tax on that amount, after-tax proceeds, and — if you include harvest sales — tax saved now. It is a planning sketch, not financial, tax, or legal advice.',
+      'Federal and provincial income tax come from the same 2026 engine as the Canadian tax calculator on this site. The tool does not duplicate bracket tables. Tax on the gain is the difference between tax on other income plus the taxable (already included) capital gain, and tax on other income alone, so bracket, credit, and surtax effects are in the delta. Other taxable income is modelled as employment income. Payroll (CPP and EI) does not change when you add a capital gain. All 13 provinces and territories are available.',
+      'A capital gain or loss on each disposition is proceeds minus ACB minus outlays, matching Schedule 3. Positions are netted, then half of a net gain is included in taxable income. That 50% inclusion is the enacted rate in Income Tax Act section 38. The proposed increase to two-thirds was cancelled on 21 March 2025 and never became law. Net capital losses of other years (the allowable amount on your notice of assessment) offset taxable capital gains only. A leftover net capital loss can be carried back up to three years on Form T1A or forward indefinitely.',
+      'Tax-loss harvesting here means selling a position that is currently below its ACB so the realized loss offsets a gain you already have. The last regular TSX trade that still settles in 2026 is Wednesday 30 December 2026: Canadian equities have settled T+1 since 27 May 2024, and TMX’s 2026 holiday settlement schedule puts a 31 December trade on Monday 4 January 2027. The superficial-loss rule denies the loss if you, your spouse or common-law partner, or another affiliated person buys the same or identical property — including in a TFSA or RRSP — in the 30 calendar days before or after the sale and still owns it 30 days later.',
+      'Enter the ACB you actually have. Identical properties (shares of the same class, units of the same ETF) must be averaged; this page does not rebuild that average. The principal residence exemption and the lifetime capital gains exemption on qualified small-business, farm, or fishing property are out of scope. Confirm ACB, settlement, and filing with the CRA and a qualified professional. This is not financial or tax advice.'
+    ],
+    relatedPosts: [
+      { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
+      { path: '/tools/rrsp-vs-tfsa-calculator', title: 'RRSP vs TFSA vs FHSA Calculator' },
+      { path: '/tools/smith-manoeuvre-calculator', title: 'Smith Manoeuvre Calculator (Canada, 2026)' },
+      { path: '/posts/capital-gains-tax-calculator-canada-2026', title: 'Capital Gains Tax Calculator (Canada 2026)' },
+      { path: '/posts/canadian-20k-investment-tax-guide-2026', title: 'The 2026 Canadian investment playbook' },
+      { path: '/posts/debt-vs-invest-2026', title: 'Pay down debt or invest extra cash' }
+    ],
+    faqs: [
+      {
+        question: 'Is the capital gains inclusion rate still 50% in 2026?',
+        answer: 'Yes. Half of a net capital gain is included in taxable income. The proposed increase to two-thirds was cancelled on 21 March 2025 and never became law. Income Tax Act section 38 still says one-half, and this calculator uses that enacted rate.'
+      },
+      {
+        question: 'How is the tax on the gain calculated?',
+        answer: 'The tool reuses the 2026 federal and provincial logic from the Canadian tax calculator on this site. Tax on the gain is tax(other income + taxable capital gain) minus tax(other income), so bracket and credit effects are included. CPP and EI do not change. Other taxable income is modelled as employment income.'
+      },
+      {
+        question: 'What is the last day to sell for a 2026 tax loss?',
+        answer: 'For regular TSX stocks and ETFs, Wednesday 30 December 2026. Trades settle T+1. Thursday 31 December 2026 is a trading day, but TMX’s holiday settlement schedule puts that trade on Monday 4 January 2027, so it counts for 2027. Mutual funds can settle later; confirm with your dealer.'
+      },
+      {
+        question: 'What is the superficial-loss rule?',
+        answer: 'If you dispose of property at a loss and you, your spouse or common-law partner, or another affiliated person buys the same or identical property during the 30 calendar days before or after the sale and still owns it 30 days later, the loss is denied. Buying the identical property in a TFSA or RRSP in that window is a common way to lose the deduction.'
+      },
+      {
+        question: 'How do net capital losses carried forward work here?',
+        answer: 'Enter the allowable amount from your notice of assessment (line 25300). It reduces this year’s taxable capital gain and cannot create a deduction against salary. If harvesting produces a net capital loss this year, you can carry it back up to three years on Form T1A or forward indefinitely against taxable capital gains.'
+      },
+      {
+        question: 'Does this include the principal residence exemption or the lifetime capital gains exemption?',
+        answer: 'No. Those are out of scope. The page links the CRA guides for the principal residence exemption and the lifetime capital gains exemption on qualified small-business, farm, or fishing property. Enter an ACB you have already averaged for identical properties; the tool does not rebuild ACB from purchase lots.'
+      },
+      {
+        question: 'Is this official CRA software or tax advice?',
+        answer: 'No. It is an educational estimate for Canada in 2026 from the numbers you type. It does not file a return or look up your ACB. Confirm figures with the CRA and a qualified professional before you sell.'
       }
     ]
   }

@@ -71,6 +71,15 @@ export const TOOLS: ToolCard[] = [
     category: 'finance'
   },
   {
+    slug: 'capital-gains-tax-calculator',
+    path: '/tools/capital-gains-tax-calculator',
+    title: 'Capital Gains Tax Calculator (Canada, 2026)',
+    description: 'Estimate 2026 tax on a capital gain, then see what year-end tax-loss harvesting would save, for any province or territory.',
+    cta: 'Open calculator →',
+    icon: 'calculator',
+    category: 'finance'
+  },
+  {
     slug: 'smith-manoeuvre-calculator',
     path: '/tools/smith-manoeuvre-calculator',
     title: 'Smith Manoeuvre Calculator (Canada, 2026)',

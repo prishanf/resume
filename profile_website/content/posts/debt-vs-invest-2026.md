@@ -381,6 +381,7 @@ A: With only 5 years, debt payoff is likely safer. Unless your TFSA/RRSP is alre
 - [Smith Manoeuvre Calculator (Canada, 2026)](https://prishanfernando.com/tools/smith-manoeuvre-calculator/)
 - [Bank of Canada Inflation indicators](https://www.bankofcanada.ca/rates/indicators/key-variables/key-inflation-indicators-and-the-target-range/) - Real returns
 - [Personal Tax Calculator](https://prishanfernando.com/tools/canadian-tax-calculator/) - Provincial dividend tax rates
+- [Capital Gains Tax Calculator](https://prishanfernando.com/tools/capital-gains-tax-calculator/) - 2026 tax on a sale and year-end harvesting
 
 **Fee-Only Financial Planners:**
 - Advice-Only Planners ($150-400 for one session)
