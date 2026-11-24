@@ -19,7 +19,7 @@
         <div>
           <h2 class="text-xs font-bold text-accent uppercase tracking-[0.3em] mb-3">Finance calculators</h2>
           <p class="text-gray-600 mb-8 max-w-2xl">
-            Mortgage, mortgage renewal, Canadian income tax, capital gains, HELOC vs fixed-rate, and RRSP vs TFSA vs FHSA comparisons. Built for Canadian numbers.
+            Mortgage, mortgage renewal, Canadian income tax, capital gains, HELOC vs fixed-rate, RRSP vs TFSA vs FHSA, and Smith Manoeuvre calculators. Built for Canadian numbers.
           </p>
           <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <NuxtLink
@@ -90,7 +90,7 @@ const icons = {
 const iconFor = (name) => icons[name] || CalculatorIcon
 
 const pageTitle = 'Canada Calculators & Utilities | Prishan Fernando'
-const pageDescription = 'Canada-focused mortgage, mortgage renewal, tax, capital gains, HELOC, and RRSP vs TFSA vs FHSA calculators, plus a rental application and todo board. Estimates only — not financial advice.'
+const pageDescription = 'Canada-focused mortgage, mortgage renewal, tax, capital gains, HELOC, RRSP vs TFSA vs FHSA, and Smith Manoeuvre calculators, plus a rental application and todo board. Estimates only — not financial advice.'
 
 const seoConfig = useRuntimeConfig()
 const siteUrl = seoConfig.public.siteUrl

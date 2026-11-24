@@ -80,6 +80,15 @@ export const TOOLS: ToolCard[] = [
     category: 'finance'
   },
   {
+    slug: 'smith-manoeuvre-calculator',
+    path: '/tools/smith-manoeuvre-calculator',
+    title: 'Smith Manoeuvre Calculator (Canada, 2026)',
+    description: 'Estimate deductible HELOC interest, the tax refund, and net worth versus a plain mortgage for any province or territory.',
+    cta: 'Open calculator →',
+    icon: 'calculator',
+    category: 'finance'
+  },
+  {
     slug: 'rental-application',
     path: '/tools/rental-application',
     title: 'Rental Application',

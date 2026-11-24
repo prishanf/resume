@@ -29,6 +29,7 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
     ],
     relatedPosts: [
       { path: '/tools/capital-gains-tax-calculator', title: 'Capital Gains Tax Calculator (Canada, 2026)' },
+      { path: '/tools/smith-manoeuvre-calculator', title: 'Smith Manoeuvre Calculator (Canada, 2026)' },
       { path: '/posts/canadian-income-rrsp-tax-strategies', title: 'Canadian income, RRSP, and tax strategies' },
       { path: '/posts/canadian-20k-investment-tax-guide-2026', title: 'The 2026 Canadian investment playbook' },
       { path: '/posts/debt-vs-invest-2026', title: 'Pay down debt or invest extra cash' }
@@ -165,6 +166,7 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
     relatedPosts: [
       { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
       { path: '/tools/capital-gains-tax-calculator', title: 'Capital Gains Tax Calculator (Canada, 2026)' },
+      { path: '/tools/smith-manoeuvre-calculator', title: 'Smith Manoeuvre Calculator (Canada, 2026)' },
       { path: '/posts/rrsp-vs-tfsa-vs-fhsa-calculator-canada-2026', title: 'RRSP vs TFSA vs FHSA Calculator (Canada 2026)' },
       { path: '/posts/canadian-income-rrsp-tax-strategies', title: 'Canadian income, RRSP, and tax strategies' },
       { path: '/posts/canadian-20k-investment-tax-guide-2026', title: 'The 2026 Canadian investment playbook' },
@@ -256,6 +258,59 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
       }
     ]
   },
+  'smith-manoeuvre-calculator': {
+    title: 'Smith Manoeuvre Calculator (Canada, 2026) | Prishan Fernando',
+    description: 'Estimate deductible HELOC interest, the 2026 tax refund, and net worth vs a plain mortgage for any Canadian province or territory. Not tax advice.',
+    heading: 'How this Smith Manoeuvre calculator works',
+    paragraphs: [
+      'This page estimates the Canadian Smith Manoeuvre — converting non-deductible mortgage principal into deductible investment debt — and a simpler lump-sum investment loan. Pick any of the 13 provinces and territories. Ontario is the default because that is the worked example on the companion post; the mortgage formula is the same everywhere. Tax refunds reuse the 2026 federal and provincial engine from the Canadian tax calculator on this site. It is a planning sketch, not financial, tax, or legal advice.',
+      'You enter province, employment income, mortgage balance, rate and amortization, the readvanceable HELOC limit and rate, how you borrow (re-borrow principal as it is paid down, which is the default, or a lump sum), the expected portfolio return split into dividend yield and capital growth, years to project, and whether the tax refund is reinvested or used as an extra mortgage prepayment. Default rates are examples for late 2026, not a quote from any lender.',
+      'Each year the tool records deductible HELOC interest and the tax refund that interest creates: tax(income) minus tax(income minus that interest), using the same 2026 brackets, credits, and provincial items already in the tax engine. It does not duplicate rate tables. The refund is federal plus provincial income tax only; CPP and EI do not change. Claim the real deduction on line 22100.',
+      'The mortgage uses Canadian semi-annual compounding. The HELOC is treated as interest-only at the rate you type, held constant. In principal mode, monthly principal (and any extra prepayment) is re-borrowed up to remaining HELOC room. The portfolio is a non-registered account: eligible dividends are taxed each year, after-tax dividends stay invested, and leftover growth is taxed as a capital gain if the account is sold at the end. After-tax portfolio value is market value minus that terminal capital-gains tax.',
+      'The summary compares that after-tax portfolio minus the HELOC (and any extra mortgage paydown) with a plain mortgage on the same starting balance. Break-even return is the after-tax cost of borrowing: HELOC rate times one minus the combined marginal rate on the interest deduction. A year-by-year table lists interest, refund, re-borrowed amounts, and balances; on a phone the table stacks into cards.',
+      'Interest is only deductible when borrowed money is used to earn income from a business or property, tracing matters, growth-only investments can fail the income test, and TFSA or RRSP contributions with borrowed money are not deductible. Market drops while the debt stays. Confirm anything that matters with the CRA, your lender, and a qualified professional. This is not financial advice.'
+    ],
+    relatedPosts: [
+      { path: '/tools/heloc-mortgage-calculator', title: 'HELOC vs Mortgage Calculator' },
+      { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
+      { path: '/tools/rrsp-vs-tfsa-calculator', title: 'RRSP vs TFSA vs FHSA Calculator' },
+      { path: '/tools/capital-gains-tax-calculator', title: 'Capital Gains Tax Calculator (Canada, 2026)' },
+      { path: '/posts/smith-manoeuvre-calculator-canada-2026', title: 'Smith Manoeuvre calculator (Canada 2026)' },
+      { path: '/posts/borrowed-money-investing-experiment-333-five-weeks', title: 'I borrowed $8,500 and invested it' },
+      { path: '/posts/heloc-vs-mortgage-conversion-analysis', title: 'HELOC vs fixed mortgage analysis' },
+      { path: '/posts/debt-vs-invest-2026', title: 'Pay down debt or invest extra cash' }
+    ],
+    faqs: [
+      {
+        question: 'Which provinces and territories does this calculator cover?',
+        answer: 'All 13: British Columbia, Alberta, Saskatchewan, Manitoba, Ontario, Quebec, New Brunswick, Nova Scotia, Prince Edward Island, Newfoundland and Labrador, Yukon, Northwest Territories, and Nunavut. Ontario is the default for the worked example. The province you pick changes the tax refund, not the mortgage payment formula.'
+      },
+      {
+        question: 'Is HELOC interest tax deductible in Canada?',
+        answer: 'Only when the borrowed money is used to earn income from a business or property (Income Tax Act s. 20(1)(c) and CRA Folio S3-F6-C1). Tracing the current use of the funds matters, so the investment HELOC has to stay separate from personal spending. Claim eligible interest on line 22100. Mortgage interest on a principal residence is not deductible.'
+      },
+      {
+        question: 'Can I use borrowed money for a TFSA or RRSP and deduct the interest?',
+        answer: 'No. CRA’s line 22100 instructions say you cannot deduct interest on money borrowed to contribute to an RRSP, TFSA, FHSA, RESP, or similar registered plan. The Smith Manoeuvre only works in a non-registered account that can produce income such as dividends or interest.'
+      },
+      {
+        question: 'What if the investment only grows and pays no dividends?',
+        answer: 'Line 22100 says that if the only earnings an investment can produce are capital gains, you cannot claim the interest. This tool lets you split return into dividend yield and growth for that reason. A 0% yield triggers a warning. Talk to a tax professional about your actual holdings.'
+      },
+      {
+        question: 'How is the tax refund calculated?',
+        answer: 'It reuses the 2026 federal and provincial engine from the Canadian tax calculator on this site. The refund is tax on your employment income minus tax on that income after deducting the year’s HELOC interest. Payroll (CPP and EI) does not change. Switching province changes the refund because brackets and credits differ.'
+      },
+      {
+        question: 'Does using the tax refund as a prepayment pay the mortgage off faster?',
+        answer: 'Yes. That extra principal reduces the non-deductible mortgage. In principal-reborrow mode the extra also opens HELOC room, which the tool re-borrows and invests (the accelerated Smith Manoeuvre). If you reinvest the refund in the portfolio instead, the mortgage stays on the original amortization.'
+      },
+      {
+        question: 'Is this official CRA software or financial advice?',
+        answer: 'No. It is an educational estimate for Canada in 2026 from the numbers you type. Rates on the page are examples, not a quote. Lender rules for readvanceable mortgages, variable prime, and your real tax return are not in the JavaScript. Confirm with the CRA, your lender, and a qualified professional before you act.'
+      }
+    ]
+  },
   'capital-gains-tax-calculator': {
     title: 'Capital Gains Tax Calculator (Canada, 2026) | Prishan Fernando',
     description: 'Estimate 2026 Canadian capital-gains tax and year-end tax-loss harvesting for any province or territory. 50% inclusion; not tax advice.',
@@ -270,6 +325,7 @@ export const TOOL_SEO: Record<string, ToolSeoEntry> = {
     relatedPosts: [
       { path: '/tools/canadian-tax-calculator', title: 'Canadian Tax Calculator' },
       { path: '/tools/rrsp-vs-tfsa-calculator', title: 'RRSP vs TFSA vs FHSA Calculator' },
+      { path: '/tools/smith-manoeuvre-calculator', title: 'Smith Manoeuvre Calculator (Canada, 2026)' },
       { path: '/posts/capital-gains-tax-calculator-canada-2026', title: 'Capital Gains Tax Calculator (Canada 2026)' },
       { path: '/posts/canadian-20k-investment-tax-guide-2026', title: 'The 2026 Canadian investment playbook' },
       { path: '/posts/debt-vs-invest-2026', title: 'Pay down debt or invest extra cash' }

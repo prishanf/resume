@@ -22,6 +22,7 @@ const STATIC_PATHS = [
   '/tools/heloc-mortgage-calculator',
   '/tools/rrsp-vs-tfsa-calculator',
   '/tools/capital-gains-tax-calculator',
+  '/tools/smith-manoeuvre-calculator',
   '/tools/rental-application',
   '/tools/todo-board',
   '/posts',
