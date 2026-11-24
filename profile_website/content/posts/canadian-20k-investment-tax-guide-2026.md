@@ -13,6 +13,8 @@ published: true
 
 **→ Estimate after-tax take-home for interest, eligible dividends, and capital gains in the [Canadian Tax Calculator](/tools/canadian-tax-calculator/).**
 
+**→ Estimate 2026 tax on a specific sale, and whether harvesting a loser is worth it, in the [Capital Gains Tax Calculator](/tools/capital-gains-tax-calculator/).**
+
 If you are a high earner in Canada, the "headline yield" on your investments is a lie. When you are in the top tax bracket (~54%), the government takes more than half of your interest income before it ever hits your account. But this problem is not limited to the wealthy — even middle earners in the $85k–$150k range face a significant tax drag that quietly destroys returns. To maximize profit, you have to stop looking at yield and start looking at **after-tax cash flow**. Whether you are just starting out or at your peak earning years, the way the CRA taxes your $20,000 varies wildly. Here is exactly how to make it work at every income level.
 
 ## The Core Problem: The "Tax Trap"
@@ -233,7 +235,7 @@ The three rules that apply regardless of your income tier:
 
 3. **The Hybrid is the sweet spot for most people.** For anyone in the Middle tier or above investing in a taxable account, the ZDB + VDY + XEI combination consistently outperforms both bonds and pure dividend strategies on a risk-adjusted, after-tax basis over a 3–5 year horizon.
 
-**One final pro tip**: Before you buy, set up a system to track your **Adjusted Cost Base (ACB)** for each ETF. This is the number you need at tax time to calculate capital gains accurately, and it changes every time you reinvest dividends or add new units. Tools like adjustedcostbase.ca make this straightforward — but it is far easier to track from day one than to reconstruct later.
+**One final pro tip**: Before you buy, set up a system to track your **Adjusted Cost Base (ACB)** for each ETF. This is the number you need at tax time to calculate capital gains accurately, and it changes every time you reinvest dividends or add new units. Tools like adjustedcostbase.ca make this straightforward — but it is far easier to track from day one than to reconstruct later. When you do have a sale (and maybe a loser to harvest before year-end), run the numbers in the [Capital Gains Tax Calculator (Canada, 2026)](/tools/capital-gains-tax-calculator/).
 
 ---
 
